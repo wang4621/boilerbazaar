@@ -1,6 +1,6 @@
 {
-  "homepage": "https://wang4621.github.io/cs307-project",
-  "name": "cs307-project",
+  "homepage": "https://wang4621.github.io/boilerbazaar",
+  "name": "boilerbazaar",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
