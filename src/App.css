@@ -1,4 +1,8 @@
 .App {
   text-align: center;
-  background-color: beige;
+}
+
+body {
+  min-height: 100vh;
+  background-color: white;
 }
