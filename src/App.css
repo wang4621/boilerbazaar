@@ -1,4 +1,18 @@
 body {
   min-height: 100vh;
+  background-color: rgb(233, 233, 233);
+}
+
+.navBar {
+  overflow: hidden;
   background-color: white;
+}
+
+.navBar a {
+  color: black;
+  float: left;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
 }
