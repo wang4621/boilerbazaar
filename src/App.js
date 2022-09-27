@@ -30,6 +30,10 @@ function App() {
             </svg>
           </a>
         </div>
+        <div id="home">
+          <input type="text" placeholder="Search"></input>
+          <button>Submit</button>
+        </div>
       </div>
     </div>
   );
