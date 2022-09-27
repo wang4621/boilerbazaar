@@ -30,9 +30,24 @@ function App() {
             </svg>
           </a>
         </div>
-        <div id="home">
+        <div id="home" style={{display:"none"}}>
           <input type="text" placeholder="Search"></input>
           <button>Submit</button>
+        </div>
+        <div id="buy" style={{display:"none"}}>
+
+        </div>
+        <div id="sell" style={{display:"none"}}>
+          
+        </div>
+        <div id="about" style={{display:"none"}}>
+          
+        </div>
+        <div id="map" style={{display:"none"}}>
+          
+        </div>
+        <div id="profile" style={{display:"none"}}>
+          
         </div>
       </div>
     </div>
