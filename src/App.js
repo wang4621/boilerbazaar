@@ -1,6 +1,14 @@
 import './App.css';
 import Img from './logo.png'
 
+var curr = "home"
+function showHome() {
+
+}
+
+function showBuy() {
+}
+
 function App() {
   return (
     <div className="App">
@@ -8,7 +16,7 @@ function App() {
         <div className="navBar">
           <img src={Img} height={50} alt="logo" style={{float:"left"}}></img>
           <a href="#home">Home</a>
-          <a href="#buy">Buy</a>
+          <a href="#buy" onClick={showBuy}>Buy</a>
           <a href="#sell">Sell</a>
           <a href="#about">About</a>
           <a href="#map">
