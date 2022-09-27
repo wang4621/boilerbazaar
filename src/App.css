@@ -1,6 +1,10 @@
 body {
-  min-height: 100vh;
   background-color: rgb(233, 233, 233);
+}
+
+.container {
+  position: relative;
+  min-height: 100vh;
 }
 
 .navBar {
@@ -14,5 +18,12 @@ body {
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
-  font-size: 17px;
+  font-size: 20px;
+}
+
+.navCenter a {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
