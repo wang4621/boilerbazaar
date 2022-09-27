@@ -1,29 +1,32 @@
 body {
+  min-height: 100vh;
   background-color: rgb(233, 233, 233);
 }
 
-.container {
-  position: relative;
-  min-height: 100vh;
-}
-
 .navBar {
+  position: relative;
+  background-color: rgb(255, 255, 255);
   overflow: hidden;
-  background-color: white;
 }
 
 .navBar a {
-  color: black;
   float: left;
+  color: black;
   text-align: center;
-  padding: 14px 16px;
+  padding: 14px 25px;
   text-decoration: none;
   font-size: 20px;
 }
 
-.navCenter a {
+ul {
+  width: 100%;
+  display: table;
+  text-align: center;
   position: absolute;
-  top: 50%;
-  left: 50%;
+}
+
+ul li{
+  display: inline-block;
+  float: none;
   transform: translate(-50%, -50%);
 }
