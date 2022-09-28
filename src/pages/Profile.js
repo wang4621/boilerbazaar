@@ -1,6 +1,6 @@
-function About () {
+function Profile () {
     return (
-        <h1>About</h1>
+        <h1>Profile</h1>
     )
 }
-export default About;
+export default Profile;
