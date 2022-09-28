@@ -1,3 +1,5 @@
+import './Profile.css'
+
 function Profile () {
     return (
         <form>
@@ -15,8 +17,8 @@ function Profile () {
             <br/>
             <label>Preferred Meeting Location:</label>
             <select>
-                <option value="grapefruit">Public</option>
-                <option value="lime">In front of house</option>
+                <option value="public">Public</option>
+                <option value="front">In front of house</option>
                 <option selected value="coconut">Coconut</option>
                 <option value="mango">Mango</option>
             </select>
