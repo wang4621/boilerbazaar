@@ -11,6 +11,25 @@ import About from './pages/About'
 import Map from './pages/Map'
 
 function App() {
+  // return (
+  //   <div className="App">
+  //     <div className="navbar">
+  //       <img src={Img} height={70} alt="logo" style={{"float":"left"}}></img>
+  //       <ul className="centerNav" style={{"margin-right":"10%"}}>
+  //         <a href="#home">Home</a>
+  //         <a href="#buy">Buy</a>
+  //         <a href="#sell">Sell</a>
+  //         <a href="#about">About</a>
+  //         <a href="#map" style={{"margin-top":"5px"}}>
+  //           <TbMap2 size={30}></TbMap2>
+  //         </a>
+  //       </ul>
+  //       <a href="#profile" style={{"margin-top":"5px"}}>
+  //         <CgProfile size={30}></CgProfile>
+  //       </a>
+  //     </div>
+  //   </div>
+  // );
   return (
     <Router>
         <div className="App">
@@ -35,6 +54,13 @@ function App() {
                 <Route exact path='/sell' element={< Sell />}></Route>
                 <Route exact path='/about' element={< About />}></Route>
                 <Route exact path='/map' element={< Map />}></Route>
+              <Link to="/profile" style={{"margin-top":"5px"}}>
+                <CgProfile size={30}></CgProfile>
+              </Link>
+            </ul>  
+          </div>
+          <Routes>
+                <Route exact path='/' element={< Home />}></Route>
                 <Route exact path='/profile' element={< Profile />}></Route>
           </Routes>
        </div>
