@@ -39,10 +39,10 @@ function App() {
               <Link to="/map" style={{"margin-top":"5px"}}>
                 <TbMap2 size={30}></TbMap2>
               </Link>
+            </ul>
               <Link to="/profile" style={{"margin-top":"5px"}}>
                 <CgProfile size={30}></CgProfile>
-              </Link>
-            </ul>  
+              </Link>  
           </div>
           <Routes>
                 <Route exact path='/' element={< Home />}></Route>
