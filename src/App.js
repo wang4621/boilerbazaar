@@ -1,14 +1,6 @@
 import './App.css';
 import Img from './logo.png'
 
-var curr = "home"
-function showHome() {
-
-}
-
-function showBuy() {
-}
-
 function App() {
   return (
     <div className="App">
@@ -16,7 +8,7 @@ function App() {
         <div className="navBar">
           <img src={Img} height={50} alt="logo" style={{float:"left"}}></img>
           <a href="#home">Home</a>
-          <a href="#buy" onClick={showBuy}>Buy</a>
+          <a href="#buy">Buy</a>
           <a href="#sell">Sell</a>
           <a href="#about">About</a>
           <a href="#map">
@@ -37,25 +29,6 @@ function App() {
               <path d="M6.168 18.849a4 4 0 0 1 3.832 -2.849h4a4 4 0 0 1 3.834 2.855"></path>
             </svg>
           </a>
-        </div>
-        <div id="home" style={{display:"none"}}>
-          <input type="text" placeholder="Search"></input>
-          <button>Submit</button>
-        </div>
-        <div id="buy" style={{display:"none"}}>
-
-        </div>
-        <div id="sell" style={{display:"none"}}>
-          
-        </div>
-        <div id="about" style={{display:"none"}}>
-          
-        </div>
-        <div id="map" style={{display:"none"}}>
-          
-        </div>
-        <div id="profile" style={{display:"none"}}>
-          
         </div>
       </div>
     </div>
