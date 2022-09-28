@@ -1,4 +1,5 @@
 import './Profile.css'
+import Box from '@mui/material/Box';
 
 function Profile () {
     return (
