@@ -1,35 +1,25 @@
 function Profile () {
     return (
         <form>
-            <label>
-                First Name:
-                <input type="text" disabled/>
-            </label>
+            <label>First Name:</label>
+            <input type="text" disabled/>
             <br/>
-            <label>
-                Preferred Name:
-                <input type="text"/>
-            </label>
+            <label>Preferred Name:</label>
+            <input type="text"/>
             <br/>
-            <label>
-                Last Name:
-                <input type="text" disabled/>
-            </label>
+            <label>Last Name:</label>
+            <input type="text" disabled/>
             <br/>
-            <label>
-                Major:
-                <input type="text"/>
-            </label>
+            <label>Major:</label>
+            <input type="text"/>
             <br/>
-            <label>
-                Preferred Meeting Location:
-                <select>
-                    <option value="grapefruit">Grapefruit</option>
-                    <option value="lime">Lime</option>
-                    <option selected value="coconut">Coconut</option>
-                    <option value="mango">Mango</option>
-                </select>
-            </label>
+            <label>Preferred Meeting Location:</label>
+            <select>
+                <option value="grapefruit">Public</option>
+                <option value="lime">In front of house</option>
+                <option selected value="coconut">Coconut</option>
+                <option value="mango">Mango</option>
+            </select>
             <br/>
             <input type="submit" value="Edit" />
         </form>

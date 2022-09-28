@@ -16,7 +16,7 @@ function App() {
         <div className="App">
           <div className="navbar">
             <img src={Img} height={70} alt="logo" style={{"float":"left"}}></img>
-            <ul className="centerNav" style={{"margin-right":"10%"}}>
+            <ul className="centerNav" style={{"margin-right":"15%"}}>
               <Link to="/">Home</Link>
               <Link to="/buy">Buy</Link>
               <Link to="/sell">Sell</Link>
@@ -30,12 +30,12 @@ function App() {
               </Link>  
           </div>
           <Routes>
-                <Route exact path='/' element={< Home />}></Route>
-                <Route exact path='/buy' element={< Buy />}></Route>
-                <Route exact path='/sell' element={< Sell />}></Route>
-                <Route exact path='/about' element={< About />}></Route>
-                <Route exact path='/map' element={< Map />}></Route>
-                <Route exact path='/profile' element={< Profile />}></Route>
+            <Route exact path='/' element={< Home />}></Route>
+            <Route exact path='/buy' element={< Buy />}></Route>
+            <Route exact path='/sell' element={< Sell />}></Route>
+            <Route exact path='/about' element={< About />}></Route>
+            <Route exact path='/map' element={< Map />}></Route>
+            <Route exact path='/profile' element={< Profile />}></Route>
           </Routes>
        </div>
     </Router>

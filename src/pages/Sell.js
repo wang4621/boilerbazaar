@@ -1,36 +1,36 @@
+import './Sell.css'
+
 function Sell () {
     return (
         <form>
-            <label>
-                Title:
-                <input type="text" required/>
-            </label>
+            <label>Title:</label>
+            <input type="text" required/>
             <br/>
-            <label>
-                ISBN:
-                <input type="text" required/>
-            </label>
+            <label>ISBN:</label>
+            <input type="text" required/>
             <br/>
-            <label>
-                Author:
-                <input type="text" required/>
-            </label>
+            <label>Author:</label>
+            <input type="text" required/>
             <br/>
-            <label>
-                Edition:
-                <input type="text" required/>
-            </label>
+            <label>Edition:</label>
+            <input type="text" required/>
             <br/>
-            <label>
-                Price:
-                <input type="text" required/>
-            </label>
+            <label>Condition:</label>
+            <select required> 
+                <option value="new">New</option>
+                <option value="likeNew">Used - Like New</option>
+                <option selected value="good">Used - Good</option>
+                <option value="fair">Used - Fair</option>
+            </select>
             <br/>
-            <label>
-                Description:
-                <br/>
-                <textarea maxlength="250"/>
-            </label>
+            <label>Price:</label>
+            <div className="price">
+                <input type="number" min="0" max="200" required/>
+            </div>
+            <br/>
+            <label>Description:</label>
+            <br/>
+            <textarea maxlength="250"/>
             <br/>
             <input type="submit" value="Submit" />
         </form>
