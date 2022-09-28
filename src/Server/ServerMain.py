@@ -17,6 +17,4 @@ databaseClient = connectToDatabase()
 mydb = databaseClient["BoilerBazaar"]
 myCollection = mydb["User"]
 
-query = myCollection.find({ "Major" : "Computer Science"})
-for x in query:
-    print(x)
+#TODO: listen to requests and process said requests
