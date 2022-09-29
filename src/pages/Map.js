@@ -1,9 +1,12 @@
-function Buy (){
+function Map (){
     return (
-        <div class="square">
-            <h1>Map</h1>
+        <div class="mapContainer">
+            <h1 class = "mapTitle">Purdue Bookstore Locations</h1>
+            <h2 class = "bookstoreNames">University Bookstore</h2>
+            <h2 class = "bookstoreNames">Stadium University Bookstore</h2>
+            <h2 class = "bookstoreNames">Follett's Purdue West Bookstore</h2>
         </div>
     )
 }
   
-export default Buy;
+export default Map;
