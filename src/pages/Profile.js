@@ -3,15 +3,7 @@ import Box from '@mui/material/Box';
 
 function Profile () {
     return (
-        <Box 
-            sx={{
-                width: 600,
-                height: 600,
-                backgroundColor: 'gray',
-            }}>
-            <div className="header">
-                <h1>Profile</h1>
-            </div>
+        <Box sx={{width: '30%', height: '100%', backgroundColor: 'gray',}}>
             <form>
                 <label>First Name:</label>
                 <input type="text" disabled/>

@@ -1,3 +1,20 @@
 .price::before {
     content: '$';
 }
+
+select:invalid { 
+    color: gray; 
+}
+
+input {
+    border-radius: 5px;
+}
+
+textarea {
+    border-radius: 5px;
+    resize: none;
+}
+
+select {
+    border-radius: 5px;
+}

@@ -1,39 +1,41 @@
 import './Sell.css'
+import Box from '@mui/material/Box';
+import Card from '@mui/material/Card'
 
 function Sell () {
     return (
-        <form>
-            <label>Title:</label>
-            <input type="text" required/>
-            <br/>
-            <label>ISBN:</label>
-            <input type="text" required/>
-            <br/>
-            <label>Author:</label>
-            <input type="text" required/>
-            <br/>
-            <label>Edition:</label>
-            <input type="text" required/>
-            <br/>
-            <label>Condition:</label>
-            <select required> 
-                <option value="new">New</option>
-                <option value="likeNew">Used - Like New</option>
-                <option selected value="good">Used - Good</option>
-                <option value="fair">Used - Fair</option>
-            </select>
-            <br/>
-            <label>Price:</label>
-            <div className="price">
-                <input type="number" min="0" max="200" required/>
+        <div>
+            <div>
+            <Box sx={{width: '30%', height: 600, backgroundColor: 'gray'}}>
+                <form>
+                    <input type="text" placeholder="Title" required/>
+                    <br/>
+                    <input type="text" placeholder="ISBN" required/>
+                    <br/>
+                    <input type="text" placeholder="Author" required/>
+                    <br/>
+                    <input type="text" placeholder="Edition" required/>
+                    <br/>
+                    <select required> 
+                        <option value="" disabled selected hidden>Condition</option>
+                        <option value="new">New</option>
+                        <option value="likeNew">Used - Like New</option>
+                        <option value="good">Used - Good</option>
+                        <option value="fair">Used - Fair</option>
+                    </select>
+                    <br/>
+                    <div className="price">
+                        <input type="number" min="0" max="200" placeHolder="Price" required/>
+                    </div>
+                    <br/>
+                    <textarea maxlength="250" placeholder="Description" rows="4" cols="50"/>
+                    <br/>
+                    <input type="submit" value="Submit" />
+                </form>
+            </Box>
             </div>
-            <br/>
-            <label>Description:</label>
-            <br/>
-            <textarea maxlength="250"/>
-            <br/>
-            <input type="submit" value="Submit" />
-        </form>
+            <Card variant="outlined"  sx={{ maxWidth: 345 }}>Hello</Card>
+        </div>
     )
 }
   
