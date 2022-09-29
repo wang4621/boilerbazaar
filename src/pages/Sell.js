@@ -5,10 +5,9 @@ import Card from '@mui/material/Card'
 function Sell () {
     return (
         <div>
-            <div>
-            <Box sx={{width: '30%', height: 600, backgroundColor: 'gray'}}>
+            <Box sx={{width: '30%', height: '50 %', backgroundColor: 'gray'}}>
                 <form>
-                    <input type="text" placeholder="Title" required/>
+                    <input type="text" placeholder="Title" font-size="50" required/>
                     <br/>
                     <input type="text" placeholder="ISBN" required/>
                     <br/>
@@ -30,10 +29,9 @@ function Sell () {
                     <br/>
                     <textarea maxlength="250" placeholder="Description" rows="4" cols="50"/>
                     <br/>
-                    <input type="submit" value="Submit" />
+                    <input type="submit" value="List" />
                 </form>
             </Box>
-            </div>
             <Card variant="outlined"  sx={{ maxWidth: 345 }}>Hello</Card>
         </div>
     )

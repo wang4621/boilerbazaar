@@ -8,13 +8,16 @@ select:invalid {
 
 input {
     border-radius: 5px;
+    font-size: 20px;
 }
 
 textarea {
     border-radius: 5px;
     resize: none;
+    font-size: 20px;
 }
 
 select {
     border-radius: 5px;
+    font-size: 20px;
 }
