@@ -33,22 +33,11 @@ body {
 }
 
 .mapContainer {
-  /*
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%,-50%);
-  width: 90%;
-  height: 70%;
-  overflow: scroll; 
-  */
-
   display:flex;
   background-color: white;
   height: 750px;
   margin: 5%;
   flex-flow: row wrap;
-  /*overflow-x: scroll;*/
 }
 
 .mapTitle {
