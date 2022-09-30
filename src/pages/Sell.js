@@ -13,12 +13,6 @@ function sendToServer() {
     client.send(json);
 }
 
-function send(client, output) {
-    
-}
-
-
-
 function Sell () {
     return (
         <form onSubmit={sendToServer}>
