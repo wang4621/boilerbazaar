@@ -1,23 +1,61 @@
-.price::before {
-    content: '$';
-}
-
 select:invalid { 
     color: gray; 
-}
-
-input {
+  }
+  
+  input {
     border-radius: 5px;
     font-size: 20px;
-}
-
-textarea {
+    height: 40px;
+    border: 2px solid rgb(202, 199, 199);
+    width: 350px;
+  }
+  
+  input:hover, select:hover, textarea:hover {
+    border: 2px solid black;
+  }
+  
+  input:focus, select:focus, textarea:focus {
+    outline: 2px solid rgb(0, 119, 255);
+  }
+  
+  textarea {
     border-radius: 5px;
     resize: none;
     font-size: 20px;
-}
-
-select {
+    border: 2px solid transparent;
+  }
+  
+  select {
     border-radius: 5px;
     font-size: 20px;
-}
+    height: 50px;
+    width: 357px;
+    border: 2px solid transparent;
+  }
+  
+  #list {
+    width:355px;
+  }
+  
+  .sellDisplay {
+    display: flex;
+    flex-direction: row;
+    height: calc(100vh - var(--header-height));
+  }
+  
+  .formDisplay {
+    display:flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .previewDisplay {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1
+  }
+  
+  .innerCard {
+    margin: auto;
+  }

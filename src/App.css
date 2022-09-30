@@ -1,5 +1,9 @@
+:root {
+  --header-height: 70px;
+}
+
 body {
-  min-height: 100vh;
+  max-height: 100vh;
   background-color: rgb(233, 233, 233);
   margin: 0;
 }
@@ -9,7 +13,7 @@ body {
   overflow: hidden;
   display: flex;
   justify-content: space-between;
-  height: 70px;
+  height: var(--header-height)
 }
 
 .navbar a {
@@ -31,54 +35,4 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-select:invalid { 
-  color: gray; 
-}
-
-input {
-  border-radius: 5px;
-  font-size: 20px;
-  height: 40px;
-  border: 2px solid rgb(202, 199, 199);
-  width: 350px;
-}
-
-input:hover, select:hover, textarea:hover {
-  border: 2px solid black;
-}
-
-input:focus, select:focus, textarea:focus {
-  border: 2px solid white; 
-  outline: 2px solid rgb(0, 119, 255);
-}
-
-textarea {
-  border-radius: 5px;
-  resize: none;
-  font-size: 20px;
-  border: 2px solid transparent;
-}
-
-select {
-  border-radius: 5px;
-  font-size: 20px;
-  height: 50px;
-  width: 357px;
-  border: 2px solid transparent;
-}
-
-.sellDisplay {
-  display: flex;
-}
-
-.formDisplay {
-  display:flex;
-  align-items: center;
-  justify-content: center;
-}
-
-#list {
-  width:355px;
 }

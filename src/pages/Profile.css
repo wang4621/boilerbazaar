@@ -1,0 +1,38 @@
+select:invalid { 
+    color: gray; 
+}
+  
+input {
+    border-radius: 5px;
+    font-size: 20px;
+    height: 40px;
+    border: 2px solid rgb(202, 199, 199);
+    width: 350px;
+}
+  
+input:hover, select:hover, textarea:hover {
+    border: 2px solid blue;
+}
+  
+input:focus, select:focus, textarea:focus {
+    outline: 2px solid rgb(0, 119, 255);
+}
+
+select {
+    border-radius: 5px;
+    font-size: 20px;
+    height: 50px;
+    width: 357px;
+    border: 2px solid transparent;
+}
+
+label {
+    font-size: 20px;
+}
+
+.profileDisplay {
+    display: flex;
+    height: calc(100vh - var(--header-height));
+    align-items: center;
+    justify-content: center;
+  }
