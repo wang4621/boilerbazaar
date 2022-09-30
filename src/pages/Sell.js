@@ -1,23 +1,25 @@
-function sendToDatabase() {
-    var title = document.getElementById("title");
-    var isbn = document.getElementById("isbn");
-    var author = document.getElementById("author");
-    var edition = document.getElementById("edition");
-    var price = document.getElementById("price");
-    var description = document.getElementById("description");
-
+function sendToServer() {
+    var title = document.getElementById("title").value;
+    var isbn = document.getElementById("isbn").value;
+    var author = document.getElementById("author").value;
+    var edition = document.getElementById("edition").value;
+    var price = document.getElementById("price").value;
+    var description = document.getElementById("description").value;
+    
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", "");
+    xhr.open("POST", "localhost:8080");
     xhr.setRequestHeader("Request-type", "New Listing");
-
+    console.log(xhr.readyState);
     xhr.send(String.format("{'title': '%s', 'isbn': '%s', 'author': '%s',\
     'edition': '%s', 'price': '%s', 'description': '%s',}", title, isbn,
     author, edition, price, description));
+    xhr.close();
+    return false;
 }
 
 function Sell () {
     return (
-        <form>
+        <form onSubmit={sendToServer}>
             <label>
                 Title:
                 <input id="title" type="text" required/>
@@ -49,7 +51,7 @@ function Sell () {
                 <textarea id="description" maxlength="250"/>
             </label>
             <br/>
-            <input type="submit" onClick="sendToDatabase()" value="Submit" />
+            <input type="submit" value="Submit" />
         </form>
     )
 }

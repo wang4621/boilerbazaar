@@ -3,6 +3,16 @@
     path of the server
 """
 import pymongo
+import http.server
+
+class Handler(http.server.BaseHTTPRequestHandler):
+    def do_POST(self):
+        content_len = int(self.headers.get('Content-Length'))
+        post_body = self.rfile.read(content_len)
+        print(post_body)
+
+    def do_GET(self):
+        print("TODO")
 
 #connects server to database
 def connectToDatabase():
@@ -11,10 +21,12 @@ def connectToDatabase():
     
 #TODO: initializes server
 def serverInit():    
-    print("initializing server")
+    server = http.server.HTTPServer(('', 8080), Handler)
+    server.serve_forever()
 
 databaseClient = connectToDatabase()
 mydb = databaseClient["BoilerBazaar"]
 myCollection = mydb["User"]
 
-#TODO: listen to requests and process said requests
+#TODO implement concurrency to accept multiple connections
+serverInit()
