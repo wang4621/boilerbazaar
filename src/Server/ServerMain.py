@@ -7,12 +7,13 @@ import http.server
 
 class Handler(http.server.BaseHTTPRequestHandler):
     def do_POST(self):
+        print("POST")
         content_len = int(self.headers.get('Content-Length'))
         post_body = self.rfile.read(content_len)
         print(post_body)
 
     def do_GET(self):
-        print("TODO")
+        print("GET")
 
 #connects server to database
 def connectToDatabase():

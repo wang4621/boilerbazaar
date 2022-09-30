@@ -1,5 +1,3 @@
-import socket
+import requests
 
-s = socket.socket()
-s.connect(("localhost", 8080))
-s.send(bytes("hello", "utf-8"))
+requests.post("http://localhost:8080", "hello")

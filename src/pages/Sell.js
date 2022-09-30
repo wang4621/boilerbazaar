@@ -5,17 +5,19 @@ function sendToServer() {
     var edition = document.getElementById("edition").value;
     var price = document.getElementById("price").value;
     var description = document.getElementById("description").value;
-    
-    var xhr = new XMLHttpRequest();
-    xhr.open("POST", "localhost:8080");
-    xhr.setRequestHeader("Request-type", "New Listing");
-    console.log(xhr.readyState);
-    xhr.send(String.format("{'title': '%s', 'isbn': '%s', 'author': '%s',\
-    'edition': '%s', 'price': '%s', 'description': '%s',}", title, isbn,
-    author, edition, price, description));
-    xhr.close();
-    return false;
+    var client = new XMLHttpRequest();
+    client.open("POST", "http://localhost:8080", true);
+    client.setRequestHeader("Content-Type", "text/plain;charset=UTF-8");
+    var json = `{'title': '${title}', 'isbn': '${isbn}', 'author': '${author}', 'edition': '${edition}', 'price': '${price}', 'description': '${description}'}`; 
+    //console.log(json);
+    client.send(json);
 }
+
+function send(client, output) {
+    
+}
+
+
 
 function Sell () {
     return (
