@@ -24,7 +24,7 @@ function Sell () {
     return (
         <div className="sellDisplay">
             <Box sx={{width: '25%', height: '100%', backgroundColor: 'rgb(223, 223, 223)'}} className="formDisplay">
-                {/* <span style={{"font-size": "25px", "font-weight": "bold"}}>Textbook For Sale</span> */}
+                <CardHeader title="Textbooks for sale"/>
                 <form>
                     <br/><br/>
                     <input type="text" placeholder="Title" required/>
@@ -54,11 +54,14 @@ function Sell () {
                 <Card sx={{ width: "90%", borderRadius: 5, height: '90%'}} elevation={12}>
                         <CardHeader title="Preview"/>
                         <div className="innerCard">
-                            <Card sx={{ width: '60%', borderRadius: '5 0 0 5', height: '88%', backgroundColor: 'gray'}}>
-                                <CardContent>
+                            <Box sx={{ width: '60%', height: '88%', backgroundColor: 'gray'}} className="innerLeftBox">
+                                <CardContent sx={{alignItems: 'center', display: 'flex', justifyContent: 'center', height: '100%'}}>
+                                    <Typography variant="h4" color="white">
+                                        Listing Preview
+                                    </Typography>
                                 </CardContent>
-                            </Card>
-                            <Card sx={{ width: '35%', borderRadius: '0 5 5 0', height: '88%', backgroundColor: 'rgb(223, 223, 223)'}}>
+                            </Box>
+                            <Box sx={{ width: '35%', height: '88%', backgroundColor: 'rgb(223, 223, 223)'}} className="innerRightBox">
                                 <CardContent>
                                     <Typography variant="h5" color="black">
                                         Title
@@ -70,9 +73,17 @@ function Sell () {
                                         <br/>
                                         Description
                                     </Typography>
-                                    <Divider variant='middle'/>
                                 </CardContent>
-                            </Card>
+                                <Divider variant='fullWidth'/>
+                                <CardContent>
+                                    <Typography variant="h6" color="black">
+                                        Seller Information
+                                    </Typography>
+                                </CardContent>
+                                <Box>
+
+                                </Box>
+                            </Box>
                         </div>
                 </Card>
             </div>
