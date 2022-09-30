@@ -4,6 +4,7 @@ import Card from '@mui/material/Card'
 import CardHeader from '@mui/material/CardHeader';
 import CardContent from '@mui/material/CardContent';
 import Divider from '@mui/material/Divider';
+import Typography from '@mui/material/Typography';
 
 // adds dollar sign in front of price
 function handleDollar() {
@@ -51,8 +52,28 @@ function Sell () {
             </Box>
             <div className="previewDisplay">
                 <Card sx={{ width: "90%", borderRadius: 5, height: '90%'}} elevation={12}>
-                    <CardHeader title="Preview" sx={{ }}/>
-                        <Card className="innerCard" sx={{ width: '95%', borderRadius: 5, height: '88%', backgroundColor: 'rgb(223, 223, 223)'}}/>
+                        <CardHeader title="Preview"/>
+                        <div className="innerCard">
+                            <Card sx={{ width: '60%', borderRadius: '5 0 0 5', height: '88%', backgroundColor: 'gray'}}>
+                                <CardContent>
+                                </CardContent>
+                            </Card>
+                            <Card sx={{ width: '35%', borderRadius: '0 5 5 0', height: '88%', backgroundColor: 'rgb(223, 223, 223)'}}>
+                                <CardContent>
+                                    <Typography variant="h5" color="black">
+                                        Title
+                                    </Typography>
+                                    <Typography variant="body1" color="black">
+                                        Price
+                                        <br/>
+                                        Details
+                                        <br/>
+                                        Description
+                                    </Typography>
+                                    <Divider variant='middle'/>
+                                </CardContent>
+                            </Card>
+                        </div>
                 </Card>
             </div>
         </div>

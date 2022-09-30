@@ -1,8 +1,4 @@
-select:invalid { 
-    color: gray; 
-}
-  
-input {
+.profileDisplay input {
     border-radius: 5px;
     font-size: 20px;
     height: 40px;
@@ -10,15 +6,15 @@ input {
     width: 350px;
 }
   
-input:hover, select:hover, textarea:hover {
+.profileDisplay input:hover, select:hover, textarea:hover {
     border: 2px solid blue;
 }
   
-input:focus, select:focus, textarea:focus {
-    outline: 2px solid rgb(0, 119, 255);
+.profileDisplay input:focus, select:focus, textarea:focus {
+    border: 2px solid rgb(0, 119, 255);
 }
 
-select {
+.profileDisplay select {
     border-radius: 5px;
     font-size: 20px;
     height: 50px;
@@ -26,8 +22,8 @@ select {
     border: 2px solid transparent;
 }
 
-label {
-    font-size: 20px;
+.profileDisplay label {
+    font-size:20px
 }
 
 .profileDisplay {

@@ -1,16 +1,16 @@
 import './Profile.css'
 import Card from '@mui/material/Card'
 import CardHeader from '@mui/material/CardHeader';
-import Rating from '@mui/material/Rating';
-import Divider from '@mui/material/Divider';
+// import Rating from '@mui/material/Rating';
+// import Divider from '@mui/material/Divider';
 
 function editProfile() {
 
 }
 
-function saveProfile() {
+// function saveProfile() {
 
-}
+// }
 
 function Profile () {
     return (

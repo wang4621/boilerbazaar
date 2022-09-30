@@ -1,61 +1,64 @@
-select:invalid { 
+.sellDisplay select:invalid { 
     color: gray; 
-  }
+}
   
-  input {
+.sellDisplay input {
     border-radius: 5px;
     font-size: 20px;
     height: 40px;
     border: 2px solid rgb(202, 199, 199);
     width: 350px;
-  }
+}
+
+.sellDisplay input:hover, .sellDisplay select:hover, .sellDisplay textarea:hover {
+    border: 2px solid rgb(111, 96, 248);
+}
   
-  input:hover, select:hover, textarea:hover {
-    border: 2px solid black;
-  }
-  
-  input:focus, select:focus, textarea:focus {
+.sellDisplay input:focus, .sellDisplay select:focus, .sellDisplay textarea:focus {
     outline: 2px solid rgb(0, 119, 255);
-  }
-  
-  textarea {
+}
+
+.sellDisplay textarea {
     border-radius: 5px;
     resize: none;
     font-size: 20px;
     border: 2px solid transparent;
-  }
-  
-  select {
+}
+
+.sellDisplay select {
     border-radius: 5px;
     font-size: 20px;
     height: 50px;
     width: 357px;
     border: 2px solid transparent;
-  }
-  
-  #list {
+}
+
+.sellDisplay #list {
     width:355px;
-  }
-  
-  .sellDisplay {
+}
+
+.sellDisplay {
     display: flex;
     flex-direction: row;
     height: calc(100vh - var(--header-height));
-  }
-  
-  .formDisplay {
+}
+
+.formDisplay {
     display:flex;
     align-items: center;
     justify-content: center;
-  }
-  
-  .previewDisplay {
+}
+
+.previewDisplay {
     display: flex;
     justify-content: center;
     align-items: center;
     flex: 1
-  }
-  
-  .innerCard {
-    margin: auto;
-  }
+}
+
+.innerCard {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    height: 100%
+}
