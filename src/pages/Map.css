@@ -1,7 +1,6 @@
 .mapContainer {
     display:flex;
     background-color: white;
-    height: 750px;
     margin: 5%;
     flex-flow: row wrap;
     align-content: flex-start;
@@ -21,6 +20,16 @@
   
   .bookstoreNames {
     padding-left: 50px;
-    padding-bottom: 100px;
+    padding-bottom: 5px;
     flex-basis: 100%;
+  }
+
+  .hoursHeader {
+    flex-basis: 100%;
+    padding-left: 50px;
+  }
+
+  .hoursText {
+    padding-left: 50px;
+    padding-bottom: 100px;
   }
