@@ -104,12 +104,13 @@ function Sell () {
                                 <CardContent>
                                     <Typography variant="body1" color="black" sx={{fontWeight:'bold', fontSize:18}}>
                                         Seller Information
-                                        <br/><br/>
+                                        <Button variant="outlined" size="small" disabled sx={{float: 'right'}}>Seller Details</Button>
                                     </Typography>
+                                    <br/>
                                     <Avatar></Avatar>
                                 </CardContent>
-                                <Box sx={{ width: '100%', height: '10%', backgroundColor: 'whitesmoke'}} className="innerBottomBox">
-                                    <Button variant="contained" disabled sx={{width: '95%', margin:'0'}}>Message</Button>
+                                <Box sx={{ width: '100%', height: '10%', backgroundColor: 'whitesmoke', marginTop: '15%'}} className="innerBottomBox">
+                                    <Button variant="contained" disabled sx={{width: '95%'}}>Message</Button>
                                 </Box>
                             </Box>
                         </div>
