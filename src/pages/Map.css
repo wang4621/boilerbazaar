@@ -32,4 +32,13 @@
   .hoursText {
     padding-left: 50px;
     padding-bottom: 100px;
+    padding-right: 50px;
+    flex-basis: 58%;
+  }
+
+  .googleMap {
+    padding-left: 50px;
+    padding-bottom: 100px;
+    padding-right: 50px;
+    flex-basis: 30%;
   }
