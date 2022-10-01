@@ -1,5 +1,13 @@
-.sellDisplay select:invalid { 
-    color: gray; 
+.sellDisplay select:valid { 
+    color: black; 
+}
+
+.sellDisplay select{
+    color:gray;
+}
+
+.sellDisplay option{
+    color:black;
 }
   
 .sellDisplay input {

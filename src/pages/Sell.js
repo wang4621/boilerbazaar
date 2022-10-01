@@ -22,6 +22,26 @@ function handleDollar() {
     }
 }
 
+function changeText(event) {
+    console.log(event.target.value)
+    console.log(event.target.id)
+    if (event.target.id === 'title') {
+
+    } else if (event.target.id === 'price') {
+
+    } else if (event.target.id === 'author') {
+
+    } else if (event.target.id === 'isbn') {
+
+    } else if (event.target.id === 'edition') {
+
+    } else if (event.target.id === 'condition') {
+
+    } else if (event.target.id === 'description') {
+
+    }
+}
+
 function Sell () {
     return (
         <div className="sellDisplay">
@@ -30,17 +50,17 @@ function Sell () {
                 <div className="formDisplay">
                     <form>
                         <br/><br/>
-                        <input type="text" placeholder="Title" required/>
+                        <input type="text" placeholder="Title" id="title" onChange={event => changeText(event)} required/>
                         <br/><br/>
                         <input type="text" id="price" placeholder="Price" onChange={handleDollar} maxLength="4" required/>
                         <br/><br/>
-                        <input type="text" placeholder="Author" required/>
+                        <input type="text" placeholder="Author" id="author" required/>
                         <br/><br/>
-                        <input type="text" placeholder="ISBN" required/>
+                        <input type="text" placeholder="ISBN" id="isbn" required/>
                         <br/><br/>
-                        <input type="text" placeholder="Edition" required/>
+                        <input type="text" placeholder="Edition" id="edition" required/>
                         <br/><br/>
-                        <select required> 
+                        <select id="condition" required> 
                             <option value="" disabled selected hidden>Condition</option>
                             <option value="new">New</option>
                             <option value="likeNew">Used - Like New</option>
@@ -48,7 +68,7 @@ function Sell () {
                             <option value="fair">Used - Fair</option>
                         </select>
                         <br/><br/>
-                        <textarea maxlength="250" placeholder="Description" rows="5" cols="30"/>
+                        <textarea maxlength="250" placeholder="Description" id="description" rows="5" cols="30"/>
                         <br/><br/>
                         <input type="submit" value="List" id="list"/>
                     </form>
@@ -72,8 +92,9 @@ function Sell () {
                                     </Typography>
                                     <Typography variant="h6" color="black" sx={{fontWeight:'bold'}}>
                                         Price
+                                        <br/>
                                     </Typography>
-                                    <br/><br/>
+                                    <br/>
                                     <Typography variant="h6" color="black" sx={{fontWeight:'bold'}}>
                                         Details
                                     </Typography>
@@ -109,7 +130,7 @@ function Sell () {
                                     <br/>
                                     <Avatar></Avatar>
                                 </CardContent>
-                                <Box sx={{ width: '100%', height: '10%', backgroundColor: 'whitesmoke', marginTop: '15%'}} className="innerBottomBox">
+                                <Box sx={{ width: '100%', height: '10%', backgroundColor: 'whitesmoke'}} className="innerBottomBox">
                                     <Button variant="contained" disabled sx={{width: '95%'}}>Message</Button>
                                 </Box>
                             </Box>
