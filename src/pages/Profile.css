@@ -31,4 +31,16 @@
     height: calc(100vh - var(--header-height));
     align-items: center;
     justify-content: center;
-  }
+}
+
+.profileFormDisplay {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.profileBoxDisplay {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+}

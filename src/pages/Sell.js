@@ -9,36 +9,38 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 
 // adds dollar sign in front of price
-function handleDollar() {
-    var value = document.getElementById('price').value
+function handleDollar(event) {
+    var value = event.target.value
     if (value.includes('$')) {
         value = value.split('$')[1]
     }
     if (isNaN(value) || value === '') {
-        document.getElementById('price').value = ''
+        event.target.value = ''
+        document.getElementById('previewPrice').innerText = 'Price'
     } else {
         value = "$" + value;
-        document.getElementById('price').value = value
+        event.target.value = value
+        document.getElementById('previewPrice').innerText = value
     }
 }
 
 function changeText(event) {
-    console.log(event.target.value)
-    console.log(event.target.id)
     if (event.target.id === 'title') {
-
-    } else if (event.target.id === 'price') {
-
+        if (event.target.value === '') {
+            document.getElementById('previewTitle').innerText = 'Title'
+        } else {
+            document.getElementById('previewTitle').innerText = event.target.value
+        }
     } else if (event.target.id === 'author') {
-
+        document.getElementById('previewAuthor').innerText = event.target.value
     } else if (event.target.id === 'isbn') {
-
+        document.getElementById('previewISBN').innerText = event.target.value
     } else if (event.target.id === 'edition') {
-
+        document.getElementById('previewEdition').innerText = event.target.value
     } else if (event.target.id === 'condition') {
-
+        document.getElementById('previewCondition').innerText = event.target.value
     } else if (event.target.id === 'description') {
-
+        document.getElementById('previewDescription').innerText = event.target.value
     }
 }
 
@@ -52,23 +54,23 @@ function Sell () {
                         <br/><br/>
                         <input type="text" placeholder="Title" id="title" onChange={event => changeText(event)} required/>
                         <br/><br/>
-                        <input type="text" id="price" placeholder="Price" onChange={handleDollar} maxLength="4" required/>
+                        <input type="text" id="price" placeholder="Price" onChange={event => handleDollar(event)} maxLength="4" required/>
                         <br/><br/>
-                        <input type="text" placeholder="Author" id="author" required/>
+                        <input type="text" placeholder="Author" id="author" onChange={event => changeText(event)} required/>
                         <br/><br/>
-                        <input type="text" placeholder="ISBN" id="isbn" required/>
+                        <input type="text" placeholder="ISBN" id="isbn" onChange={event => changeText(event)} required/>
                         <br/><br/>
-                        <input type="text" placeholder="Edition" id="edition" required/>
+                        <input type="text" placeholder="Edition" id="edition" onChange={event => changeText(event)} required/>
                         <br/><br/>
-                        <select id="condition" required> 
+                        <select id="condition" onChange={event => changeText(event)} required> 
                             <option value="" disabled selected hidden>Condition</option>
-                            <option value="new">New</option>
-                            <option value="likeNew">Used - Like New</option>
-                            <option value="good">Used - Good</option>
-                            <option value="fair">Used - Fair</option>
+                            <option value="New">New</option>
+                            <option value="Used - Like New">Used - Like New</option>
+                            <option value="Used - Good">Used - Good</option>
+                            <option value="Used - Fair">Used - Fair</option>
                         </select>
                         <br/><br/>
-                        <textarea maxlength="250" placeholder="Description" id="description" rows="5" cols="30"/>
+                        <textarea maxlength="250" placeholder="Description" id="description" rows="5" onChange={event => changeText(event)}/>
                         <br/><br/>
                         <input type="submit" value="List" id="list"/>
                     </form>
@@ -86,43 +88,43 @@ function Sell () {
                                 </CardContent>
                             </Box>
                             <Box sx={{ width: '37%', height: '88%', backgroundColor: 'whitesmoke'}} className="innerRightBox">
-                                <CardContent>
-                                    <Typography variant="h4" color="black" sx={{fontWeight:'bold'}}>
+                                <CardContent sx={{wordBreak: 'break-word', overflowY: 'scroll', height:'70%'}} className="scrollBar">
+                                    <Typography variant="h5" color="black" sx={{fontWeight:'bold'}} id="previewTitle">
                                         Title
                                     </Typography>
-                                    <Typography variant="h6" color="black" sx={{fontWeight:'bold'}}>
+                                    <Typography variant="h6" color="black" sx={{fontWeight:'bold'}} id="previewPrice">
                                         Price
-                                        <br/>
                                     </Typography>
                                     <br/>
-                                    <Typography variant="h6" color="black" sx={{fontWeight:'bold'}}>
+                                    <Typography variant="h6" color="black" sx={{fontWeight:'bold'}} id="previewPrice">
                                         Details
                                     </Typography>
                                     <br/>
                                     <Typography variant="h6" color="black" sx={{fontWeight:'bold'}}>
                                         Author
-                                        <br/>
+                                        <Typography variant="body1" color="black" id="previewAuthor"></Typography>
                                     </Typography>
                                     <Typography variant="h6" color="black" sx={{fontWeight:'bold'}}>
                                         ISBN
-                                        <br/>
+                                        <Typography variant="body1" color="black" id="previewISBN"></Typography>
                                     </Typography>
                                     <Typography variant="h6" color="black" sx={{fontWeight:'bold'}}>
                                         Edition
-                                        <br/>
+                                        <Typography variant="body1" color="black" id="previewEdition"></Typography>
                                     </Typography>               
                                     <Typography variant="h6" color="black" sx={{fontWeight:'bold'}}>
                                         Condition
-                                        <br/>
+                                        <Typography variant="body1" color="black" id="previewCondition"></Typography>
                                     </Typography>
                                     <br/>
                                     <Typography variant="h6" color="black" sx={{fontWeight:'bold'}}>
                                         Description
+                                        <Typography variant="body1" color="black" id="previewDescription"></Typography>
                                     </Typography>
                                     <br/><br/>
                                 </CardContent>
                                 <Divider variant='middle' sx={{borderBottomColor: 'black'}}/>
-                                <CardContent>
+                                <CardContent sx={{height: '30%'}}>
                                     <Typography variant="body1" color="black" sx={{fontWeight:'bold', fontSize:18}}>
                                         Seller Information
                                         <Button variant="outlined" size="small" disabled sx={{float: 'right'}}>Seller Details</Button>

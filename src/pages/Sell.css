@@ -31,6 +31,8 @@
     resize: none;
     font-size: 20px;
     border: 2px solid transparent;
+    font-family: inherit;
+    width: 350px;
 }
 
 .sellDisplay select {
@@ -42,7 +44,7 @@
 }
 
 .sellDisplay #list {
-    width:355px;
+    width:360px;
 }
 
 .sellDisplay {
@@ -77,6 +79,8 @@
 }
 
 .innerRightBox {
+    display: flex;
+    flex-direction: column;
     border-radius: 0px 10px 10px 0px;
     border:1px solid rgb(202, 199, 199);
 }
@@ -87,4 +91,13 @@
     border-radius: 0px 0px 10px 0px;;
     justify-content: center;
     align-items: center;
+}
+
+.scrollBar::-webkit-scrollbar {
+    width: 10px;
+}
+
+.scrollBar::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: #c2c9d2;
 }
