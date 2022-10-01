@@ -44,10 +44,9 @@
 }
 
 .formDisplay {
-    display:flex;
+    display: flex;
     align-items: center;
     justify-content: center;
-    flex-direction: column;
 }
 
 .previewDisplay {
@@ -66,8 +65,17 @@
 
 .innerLeftBox {
     border-radius: 10px 0px 0px 10px;
+    border:1px solid rgb(202, 199, 199)
 }
 
 .innerRightBox {
     border-radius: 0px 10px 10px 0px;
+    border:1px solid rgb(202, 199, 199);
+}
+
+.innerBottomBox {
+    box-shadow: 0 -1px 0 rgb(202, 199, 199);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
