@@ -1,9 +1,20 @@
 .mapContainer {
-    display:flex;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: 200px, 100px, 100px, 100px, 100px;
+    grid-template-areas: 
+    "mapHeader mapHeader"
+    "universityBookstoreTitle universityBookstoreTitle"
+    "universityBookstoreInfo universityGoogleMap"
+    "stadiumBookstoreInfo stadiumBookstoreInfo"
+    "follettsBookstoreInfo follettsBookstoreInfo";
     background-color: white;
     margin: 5%;
-    flex-flow: row wrap;
-    align-content: flex-start;
+  }
+
+  .mapHeader {
+    grid-area: mapHeader;
+
   }
   
   .mapTitle {
@@ -17,8 +28,36 @@
     margin: 0 auto;
     margin-bottom: 50px;
   }
+
+  .universityBookstoreInfo {
+    grid-area: universityBookstoreInfo;
+
+  }
+
+  .stadiumBookstoreInfo {
+    grid-area: stadiumBookstoreInfo;
+
+  }
+
+  .follettsBookstoreInfo {
+    grid-area: follettsBookstoreInfo;
+
+  }
   
-  .bookstoreNames {
+  .universityBookstoreTitle {
+    grid-area: universityBookstoreTitle;
+    padding-left: 50px;
+    padding-bottom: 5px;
+    flex-basis: 100%;
+  }
+
+  .stadiumBookstoreTitle {
+    padding-left: 50px;
+    padding-bottom: 5px;
+    flex-basis: 100%;
+  }
+
+  .follettsBookstoreTitle {
     padding-left: 50px;
     padding-bottom: 5px;
     flex-basis: 100%;
@@ -36,7 +75,8 @@
     flex-basis: 58%;
   }
 
-  .googleMap {
+  .universityGoogleMap {
+    grid-area: universityGoogleMap;
     padding-left: 50px;
     padding-bottom: 100px;
     padding-right: 50px;
