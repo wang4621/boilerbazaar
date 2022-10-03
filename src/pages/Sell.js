@@ -47,7 +47,7 @@ function changeText(event) {
 function Sell () {
     return (
         <div className="sellDisplay">
-            <Box sx={{width: '25%', height: '100%', backgroundColor: 'rgb(223, 223, 223)'}}>
+            <Box sx={{width: '30%', height: '100%', backgroundColor: 'rgb(223, 223, 223)'}}>
                 <CardHeader title="Textbooks for sale" sx={{textAlign: 'center'}}/>
                 <CardContent sx={{wordBreak: 'break-word', overflowY: 'scroll', height:'85%'}} className="scrollBar">
                     <div className="formDisplay">
