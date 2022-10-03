@@ -49,32 +49,34 @@ function Sell () {
         <div className="sellDisplay">
             <Box sx={{width: '25%', height: '100%', backgroundColor: 'rgb(223, 223, 223)'}}>
                 <CardHeader title="Textbooks for sale" sx={{textAlign: 'center'}}/>
-                <div className="formDisplay">
-                    <form>
-                        <br/><br/>
-                        <input type="text" placeholder="Title" id="title" onChange={event => changeText(event)} required/>
-                        <br/><br/>
-                        <input type="text" id="price" placeholder="Price" onChange={event => handleDollar(event)} maxLength="4" required/>
-                        <br/><br/>
-                        <input type="text" placeholder="Author" id="author" onChange={event => changeText(event)} required/>
-                        <br/><br/>
-                        <input type="text" placeholder="ISBN" id="isbn" onChange={event => changeText(event)} required/>
-                        <br/><br/>
-                        <input type="text" placeholder="Edition" id="edition" onChange={event => changeText(event)} required/>
-                        <br/><br/>
-                        <select id="condition" onChange={event => changeText(event)} required> 
-                            <option value="" disabled selected hidden>Condition</option>
-                            <option value="New">New</option>
-                            <option value="Used - Like New">Used - Like New</option>
-                            <option value="Used - Good">Used - Good</option>
-                            <option value="Used - Fair">Used - Fair</option>
-                        </select>
-                        <br/><br/>
-                        <textarea maxlength="250" placeholder="Description" id="description" rows="5" onChange={event => changeText(event)}/>
-                        <br/><br/>
-                        <input type="submit" value="List" id="list"/>
-                    </form>
-                </div>
+                <CardContent sx={{wordBreak: 'break-word', overflowY: 'scroll', height:'85%'}} className="scrollBar">
+                    <div className="formDisplay">
+                        <form>
+                            <br/><br/>
+                            <input type="text" placeholder="Title" id="title" onChange={event => changeText(event)} required/>
+                            <br/><br/>
+                            <input type="text" id="price" placeholder="Price" onChange={event => handleDollar(event)} maxLength="4" required/>
+                            <br/><br/>
+                            <input type="text" placeholder="Author" id="author" onChange={event => changeText(event)} required/>
+                            <br/><br/>
+                            <input type="text" placeholder="ISBN" id="isbn" onChange={event => changeText(event)} required/>
+                            <br/><br/>
+                            <input type="text" placeholder="Edition" id="edition" onChange={event => changeText(event)} required/>
+                            <br/><br/>
+                            <select id="condition" onChange={event => changeText(event)} required> 
+                                <option value="" disabled selected hidden>Condition</option>
+                                <option value="New">New</option>
+                                <option value="Used - Like New">Used - Like New</option>
+                                <option value="Used - Good">Used - Good</option>
+                                <option value="Used - Fair">Used - Fair</option>
+                            </select>
+                            <br/><br/>
+                            <textarea maxlength="250" placeholder="Description" id="description" rows="5" onChange={event => changeText(event)}/>
+                            <br/><br/>
+                            <input type="submit" value="List" id="list"/>
+                        </form>
+                    </div>
+                </CardContent>
             </Box>
             <div className="previewDisplay">
                 <Card sx={{ width: "90%", borderRadius: 5, height: '90%'}} elevation={12}>
