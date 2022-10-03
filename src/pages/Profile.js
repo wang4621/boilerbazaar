@@ -23,19 +23,19 @@ function Profile () {
                 <div className="profileBoxDisplay">
                     <Box sx={{width: '50%', height: '100%', backgroundColor: 'rgb(223, 223, 223)'}} className="profileFormDisplay">
                             <form onSubmit={editProfile}>
-                                <Typography  variant="body1" color="black">First Name</Typography>
+                                <Typography variant="body1" color="black">First Name</Typography>
                                 <input type="text" disabled/>
                                 <br/><br/>
-                                <Typography  variant="body1" color="black">Preferred Name</Typography>
+                                <Typography variant="body1" color="black">Preferred Name</Typography>
                                 <input type="text" disabled/>
                                 <br/><br/>
-                                <Typography  variant="body1" color="black">Last Name</Typography>
+                                <Typography variant="body1" color="black">Last Name</Typography>
                                 <input type="text" disabled/>
                                 <br/><br/>
-                                <Typography  variant="body1" color="black">Major</Typography>
+                                <Typography variant="body1" color="black">Major</Typography>
                                 <input type="text" disabled/>
                                 <br/><br/>
-                                <Typography  variant="body1" color="black">Preferred Meeting Location</Typography>
+                                <Typography variant="body1" color="black">Preferred Meeting Location</Typography>
                                 <select disabled>
                                     <option value="none" selected>No preference</option>
                                     <option value="public">Public</option>
@@ -45,8 +45,11 @@ function Profile () {
                                 <input type="submit" value="Edit" id="edit"/>
                             </form>
                     </Box>
-                    <Box sx={{width: '50%', height: '92%', backgroundColor: 'grey'}}>
+                    <Box sx={{width: '50%', height: '100%', backgroundColor: 'gray'}}>
+                        <Typography variant="h6" color="black">Rating</Typography>
                         <Rating name="read-only" readOnly size="large"/>
+                        <Typography variant="h6" color="black">Completed Purchases:</Typography>
+                        <Typography variant="h6" color="black">Completed Sales:</Typography>
                     </Box>
                 </div>
             </Card>
