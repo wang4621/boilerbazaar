@@ -102,24 +102,24 @@ function Sell () {
                                     <br/>
                                     <Typography variant="h6" color="black" sx={{fontWeight:'bold'}}>
                                         Author
-                                        <Typography variant="body1" color="black" id="previewAuthor"></Typography>
+                                        <Typography variant="body1" color="black" id="previewAuthor"/>
                                     </Typography>
                                     <Typography variant="h6" color="black" sx={{fontWeight:'bold'}}>
                                         ISBN
-                                        <Typography variant="body1" color="black" id="previewISBN"></Typography>
+                                        <Typography variant="body1" color="black" id="previewISBN"/>
                                     </Typography>
                                     <Typography variant="h6" color="black" sx={{fontWeight:'bold'}}>
                                         Edition
-                                        <Typography variant="body1" color="black" id="previewEdition"></Typography>
+                                        <Typography variant="body1" color="black" id="previewEdition"/>
                                     </Typography>               
                                     <Typography variant="h6" color="black" sx={{fontWeight:'bold'}}>
                                         Condition
-                                        <Typography variant="body1" color="black" id="previewCondition"></Typography>
+                                        <Typography variant="body1" color="black" id="previewCondition"/>
                                     </Typography>
                                     <br/>
                                     <Typography variant="h6" color="black" sx={{fontWeight:'bold'}}>
                                         Description
-                                        <Typography variant="body1" color="black" id="previewDescription"></Typography>
+                                        <Typography variant="body1" color="black" id="previewDescription"/>
                                     </Typography>
                                     <br/><br/>
                                 </CardContent>
