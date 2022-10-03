@@ -7,9 +7,10 @@ function sendToServer() {
     var description = document.getElementById("description").value;
     var client = new XMLHttpRequest();
     client.open("POST", "http://localhost:8080", true);
+    //client.setRequestHeader("Request_Type", 1);
     client.setRequestHeader("Content-Type", "text/plain;charset=UTF-8");
-    var json = `{'title': '${title}', 'isbn': '${isbn}', 'author': '${author}', 'edition': '${edition}', 'price': '${price}', 'description': '${description}'}`; 
-    //console.log(json);
+    var json = `{"title": "${title}", "isbn": "${isbn}", "author": "${author}", "edition": "${edition}", "price": "${price}", "description": "${description}"}`; 
+    console.log(json);
     client.send(json);
 }
 
