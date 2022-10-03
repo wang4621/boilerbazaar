@@ -1,6 +1,11 @@
+import BrowsingHistory from "../component/BrowsingHistory/BrowsingHistory";
+
 function Home (){
     return (
-        <h1>Home</h1>
+        <div>
+            <h1>Home</h1>
+            <BrowsingHistory></BrowsingHistory>
+        </div>
     )
 }
   
