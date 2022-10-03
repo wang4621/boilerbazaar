@@ -5,6 +5,7 @@ function sendToServer() {
     var edition = document.getElementById("edition").value;
     var price = document.getElementById("price").value;
     var description = document.getElementById("description").value;
+    var image = document.getElementById("images").value;
     var client = new XMLHttpRequest();
     client.open("POST", "http://localhost:8080", true);
     //client.setRequestHeader("Request_Type", 1);
@@ -48,6 +49,12 @@ function Sell () {
                 <textarea id="description" maxlength="250"/>
             </label>
             <br/>
+            <label>
+                Book images:
+                <br/> 
+                <input type="file" id="images" name="images" multiple></input>
+            </label>
+            <br/><br/>
             <input type="submit" value="Submit" />
         </form>
     )
