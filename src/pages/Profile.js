@@ -45,7 +45,7 @@ function Profile () {
                                 <input type="submit" value="Edit" id="edit"/>
                             </form>
                     </Box>
-                    <Box sx={{width: '50%', height: '92%', backgroundColor: 'grey'}}>
+                    <Box sx={{width: '50%', height: '100%', backgroundColor: 'grey'}}>
                         <Rating name="read-only" readOnly size="large"/>
                     </Box>
                 </div>
