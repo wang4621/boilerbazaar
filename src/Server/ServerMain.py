@@ -21,13 +21,18 @@ class Handler(http.server.BaseHTTPRequestHandler):
         post_body = self.rfile.read(content_len).decode("utf-8")
         listing = json.loads(post_body)
         Sell.newListing(Listings, listing)
+        self.send_header("Access-Control-Allow-Origin", self.client_address)
+        self.send_response(200)
+        self.end_headers()
 
     def do_GET(self):
         print("GET")
     
 def serverInit():    
     server = http.server.HTTPServer(('', 8080), Handler)
+    print("init complete")
     server.serve_forever()
+    print("serving")
 
 #TODO implement concurrency to accept multiple connections
 serverInit()

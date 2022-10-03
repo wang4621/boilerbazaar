@@ -5,7 +5,7 @@ import pymongo
 
 #TODO: implement
 def newListing(dbClient, listing):
-    dbClient.insert_one(listing).inserted_id
+    return dbClient.insert_one(listing).acknowledged
 
 #TODO: implement
 def updateListing():

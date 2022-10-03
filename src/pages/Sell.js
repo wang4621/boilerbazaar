@@ -7,6 +7,16 @@ function sendToServer() {
     var description = document.getElementById("description").value;
     var client = new XMLHttpRequest();
     client.open("POST", "http://localhost:8080", true);
+    client.onreadystatechange = function() {
+        if (client.readyState == XMLHttpRequest.DONE) {
+            console.log(client.status);
+            if (client.status == 200) {
+                alert("Success.");
+            } else {
+                alert("Something went wrong. Please try again");
+            }
+        }
+    }
     //client.setRequestHeader("Request_Type", 1);
     client.setRequestHeader("Content-Type", "text/plain;charset=UTF-8");
     var json = `{"title": "${title}", "isbn": "${isbn}", "author": "${author}", "edition": "${edition}", "price": "${price}", "description": "${description}"}`; 
