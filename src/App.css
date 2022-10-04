@@ -20,9 +20,10 @@ body {
   text-transform: uppercase;
   color: black;
   text-align: center;
-  padding: 14px 25px;
+  padding: 21px 25px;
   text-decoration: none;
   font-size: 20px;
+  border-bottom: 3px solid transparent;
 }
 
 .navbar ul {
@@ -35,4 +36,9 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.active {
+  border-bottom: 3px solid blue !important;
+  color: blue !important
 }

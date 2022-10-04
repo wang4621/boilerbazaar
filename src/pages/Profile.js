@@ -5,10 +5,10 @@ import './Profile.css'
 // import Divider from '@mui/material/Divider';
 // import Box from '@mui/material/Box';
 // import Typography from '@mui/material/Typography';
-import { Avatar, Card, CardHeader, Rating, Divider, Box, Typography } from '@mui/material';
+import { Avatar, Card, CardHeader, Rating, Divider, Box, Typography, CardContent } from '@mui/material';
 
-function editProfile() {
-
+function editProfile(e) {
+    e.preventDefault()
 }
 
 // function saveProfile() {
@@ -22,8 +22,9 @@ function Profile () {
                 <CardHeader title="Profile" sx={{textAlign: 'center'}}></CardHeader>
                 <Divider variant='fullWidth' sx={{borderBottomColor: 'black'}}/>
                 <div className="profileBoxDisplay">
-                    <Box sx={{width: '50%', height: '100%', backgroundColor: 'rgb(223, 223, 223)'}} className="profileFormDisplay">
-                            <form onSubmit={editProfile}>
+                    <Box sx={{width: '50%', height: '100%', backgroundColor: 'rgb(223, 223, 223)'}}>
+                        <CardContent sx={{height: '88%'}}className="profileFormDisplay">
+                            <form onSubmit={event => editProfile(event)}>
                                 <Typography variant="body1" color="black">First Name</Typography>
                                 <input type="text" disabled/>
                                 <br/><br/>
@@ -45,6 +46,7 @@ function Profile () {
                                 <br/><br/>
                                 <input type="submit" value="Edit" id="edit"/>
                             </form>
+                        </CardContent>
                     </Box>
                     <Box sx={{width: '50%', height: '100%', backgroundColor: 'whitesmoke'}} className="ratingBox">
                         <Avatar sx={{ width: 128, height: 128 }}/>
@@ -53,8 +55,20 @@ function Profile () {
                         <Typography variant="h6" color="black">Rating</Typography>
                         <Rating name="read-only" readOnly size="large"/>
                         <br/><br/>
-                        <Typography variant="h6" color="black">Completed Purchases:</Typography>
-                        <Typography variant="h6" color="black">Completed Sales:</Typography>
+                        <Typography variant="h6" color="black">
+                            Completed Purchases:
+                            <Typography display="inline">&nbsp;</Typography>
+                            <Typography variant="h6" color="black" display="inline" id="purchases">
+                                5
+                            </Typography>
+                        </Typography>
+                        <Typography variant="h6" color="black">
+                            Completed Sales:
+                            <Typography display="inline">&nbsp;</Typography>
+                            <Typography variant="h6" color="black" display="inline" id="sales">
+                                1
+                            </Typography>
+                        </Typography>
                     </Box>
                 </div>
             </Card>
