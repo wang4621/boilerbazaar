@@ -53,7 +53,7 @@ function Sell () {
         <div className="sellDisplay">
             <Box sx={{width: '30%', height: '100%', backgroundColor: 'rgb(223, 223, 223)'}}>
                 <CardHeader title="Textbooks for sale" sx={{textAlign: 'center'}}/>
-                <CardContent sx={{wordBreak: 'break-word', overflowY: 'scroll', height:'88%'}} className="scrollBar, formDisplay">
+                <CardContent sx={{wordBreak: 'break-word', overflowY: 'scroll', height:'88%'}} className="scrollBar formDisplay">
                     <form>
                         <br/><br/>
                         <input type="text" placeholder="Title" id="title" onChange={event => changeText(event)} required/>

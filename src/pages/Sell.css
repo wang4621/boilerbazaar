@@ -55,8 +55,8 @@
 
 .formDisplay {
     display: flex;
-    align-items: flex-start;
-    justify-content: center;
+    align-items: center;
+    justify-content: flex-start;
 }
 
 .previewDisplay {
