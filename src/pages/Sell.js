@@ -55,6 +55,9 @@ function Sell () {
                 <CardHeader title="Textbooks for sale" sx={{textAlign: 'center'}}/>
                 <CardContent sx={{wordBreak: 'break-word', overflowY: 'scroll', height:'88%'}} className="scrollBar formDisplay">
                     <form>
+                        <Typography variant="body1" color="black">
+                            This is where you add pictures for textbooks
+                        </Typography>
                         <br/><br/>
                         <input type="text" placeholder="Title" id="title" onChange={event => changeText(event)} required/>
                         <br/><br/>
@@ -84,14 +87,14 @@ function Sell () {
                 <Card sx={{ width: "90%", borderRadius: 5, height: '90%'}} elevation={12}>
                         <CardHeader title="Preview"/>
                         <div className="innerCard">
-                            <Box sx={{ width: '58%', height: '85%', backgroundColor: 'rgb(223, 223, 223)'}} className="innerLeftBox">
+                            <Box sx={{ width: '58%', height: '88%', backgroundColor: 'rgb(223, 223, 223)'}} className="innerLeftBox">
                                 <CardContent sx={{alignItems: 'center', display: 'flex', justifyContent: 'center', height: '100%'}}>
                                     <Typography variant="h4" color="black">
                                         Listing Preview
                                     </Typography>
                                 </CardContent>
                             </Box>
-                            <Box sx={{ width: '37%', height: '85%', backgroundColor: 'whitesmoke'}} className="innerRightBox">
+                            <Box sx={{ width: '37%', height: '88%', backgroundColor: 'whitesmoke'}} className="innerRightBox">
                                 <CardContent sx={{wordBreak: 'break-word', overflowY: 'scroll', height:'70%'}} className="scrollBar">
                                     <Typography variant="h5" color="black" sx={{fontWeight:'bold'}} id="previewTitle">
                                         Title
