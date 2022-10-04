@@ -24,6 +24,10 @@ function handleDollar(event) {
     }
 }
 
+function handleISBN(event) {
+
+}
+
 function changeText(event) {
     if (event.target.id === 'title') {
         if (event.target.value === '') {
@@ -49,33 +53,31 @@ function Sell () {
         <div className="sellDisplay">
             <Box sx={{width: '30%', height: '100%', backgroundColor: 'rgb(223, 223, 223)'}}>
                 <CardHeader title="Textbooks for sale" sx={{textAlign: 'center'}}/>
-                <CardContent sx={{wordBreak: 'break-word', overflowY: 'scroll', height:'85%'}} className="scrollBar">
-                    <div className="formDisplay">
-                        <form>
-                            <br/><br/>
-                            <input type="text" placeholder="Title" id="title" onChange={event => changeText(event)} required/>
-                            <br/><br/>
-                            <input type="text" id="price" placeholder="Price" onChange={event => handleDollar(event)} maxLength="4" required/>
-                            <br/><br/>
-                            <input type="text" placeholder="Author" id="author" onChange={event => changeText(event)} required/>
-                            <br/><br/>
-                            <input type="text" placeholder="ISBN" id="isbn" onChange={event => changeText(event)} required/>
-                            <br/><br/>
-                            <input type="text" placeholder="Edition" id="edition" onChange={event => changeText(event)} required/>
-                            <br/><br/>
-                            <select id="condition" onChange={event => changeText(event)} required> 
-                                <option value="" disabled selected hidden>Condition</option>
-                                <option value="New">New</option>
-                                <option value="Used - Like New">Used - Like New</option>
-                                <option value="Used - Good">Used - Good</option>
-                                <option value="Used - Fair">Used - Fair</option>
-                            </select>
-                            <br/><br/>
-                            <textarea maxlength="250" placeholder="Description" id="description" rows="5" onChange={event => changeText(event)}/>
-                            <br/><br/>
-                            <input type="submit" value="List" id="list"/>
-                        </form>
-                    </div>
+                <CardContent sx={{wordBreak: 'break-word', overflowY: 'scroll', height:'88%'}} className="scrollBar, formDisplay">
+                    <form>
+                        <br/><br/>
+                        <input type="text" placeholder="Title" id="title" onChange={event => changeText(event)} required/>
+                        <br/><br/>
+                        <input type="text" id="price" placeholder="Price" onChange={event => handleDollar(event)} maxLength="4" required/>
+                        <br/><br/>
+                        <input type="text" placeholder="Author" id="author" onChange={event => changeText(event)} required/>
+                        <br/><br/>
+                        <input type="text" placeholder="ISBN" id="isbn" onChange={event => changeText(event)} required/>
+                        <br/><br/>
+                        <input type="text" placeholder="Edition" id="edition" onChange={event => changeText(event)} required/>
+                        <br/><br/>
+                        <select id="condition" onChange={event => changeText(event)} required> 
+                            <option value="" disabled selected hidden>Condition</option>
+                            <option value="New">New</option>
+                            <option value="Used - Like New">Used - Like New</option>
+                            <option value="Used - Good">Used - Good</option>
+                            <option value="Used - Fair">Used - Fair</option>
+                        </select>
+                        <br/><br/>
+                        <textarea maxlength="250" placeholder="Description" id="description" rows="5" onChange={event => changeText(event)}/>
+                        <br/><br/>
+                        <input type="submit" value="List" id="list"/>
+                    </form>
                 </CardContent>
             </Box>
             <div className="previewDisplay">
@@ -132,7 +134,10 @@ function Sell () {
                                         <Button variant="outlined" size="small" disabled sx={{float: 'right'}}>Seller Details</Button>
                                     </Typography>
                                     <br/>
-                                    <Avatar></Avatar>
+                                    <Typography variant="body1" color="black" sx={{display: 'flex', justifyContent:'space-between', alignItems:'center'}} id="avatarName">
+                                        <Avatar sx={{ width: 40, height: 40 }} alt="" src="" id="avatarPic"/>
+                                        Jeff Wang
+                                    </Typography>
                                 </CardContent>
                                 <Box sx={{ width: '100%', height: '10%', backgroundColor: 'whitesmoke'}} className="innerBottomBox">
                                     <Button variant="contained" disabled sx={{width: '95%'}}>Message</Button>
