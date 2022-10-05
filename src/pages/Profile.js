@@ -54,7 +54,7 @@ function Profile () {
                             <TextField id="" label="Preferred Name" disabled/>
                             <TextField id="" label="Last Name" disabled/>
                             <TextField id="" label="Major" disabled/>
-                            <TextField id="" name="" label="Preferred Meeting Location" select sx={{width: "80%"}} defaultValue="None" disabled>
+                            <TextField id="" name="" label="Preferred Meeting Location" select defaultValue="None" disabled>
                                 <MenuItem value="None">None</MenuItem>
                                 <MenuItem value="Public">Public</MenuItem>
                                 <MenuItem value="Front">In front of house/apt</MenuItem>

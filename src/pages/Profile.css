@@ -1,4 +1,4 @@
-.profileDisplay input {
+/* .profileDisplay input {
     border-radius: 5px;
     font-size: 18px;
     height: 40px;
@@ -12,9 +12,9 @@
   
 .profileDisplay input:focus, select:focus, textarea:focus {
     border: 2px solid rgb(0, 119, 255);
-}
+} */
 
-.profileDisplay select {
+/* .profileDisplay select {
     border-radius: 5px;
     font-size: 18px;
     height: 50px;
@@ -24,6 +24,10 @@
 
 .profileDisplay #edit {
     width:360px;
+} */
+
+.profileDisplay .MuiTextField-root {
+    width: 85%
 }
 
 .profileDisplay {
