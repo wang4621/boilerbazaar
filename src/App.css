@@ -20,10 +20,14 @@ body {
   text-transform: uppercase;
   color: black;
   text-align: center;
-  padding: 21px 25px;
+  padding: 20px 25px;
   text-decoration: none;
   font-size: 20px;
   border-bottom: 3px solid transparent;
+}
+
+.navbar #map {
+  padding: 14px 25px;
 }
 
 .navbar ul {

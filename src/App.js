@@ -1,4 +1,3 @@
-import { CgProfile } from 'react-icons/cg';
 import { TbMap2 } from 'react-icons/tb';
 import './App.css';
 import Img from './logo.png'
@@ -9,8 +8,19 @@ import Sell from './pages/Sell'
 import Buy from './pages/Buy'
 import About from './pages/About'
 import Map from './pages/Map'
+import { Avatar, Menu, MenuItem, Divider, IconButton, ListItemIcon } from '@mui/material';
+import Logout from '@mui/icons-material/Logout';
+import * as React from 'react';
 
 function App() {
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
   return (
     <Router>
         <div className="App">
@@ -21,13 +31,53 @@ function App() {
               <NavLink activeClassName="active" to="/buy">Buy</NavLink>
               <NavLink activeClassName="active" to="/sell">Sell</NavLink>
               <NavLink activeClassName="active" to="/about">About</NavLink>
-              <NavLink activeClassName="active" to="/map" style={{"margin-top":"5px"}}>
+              <NavLink activeClassName="active" to="/map" style={{"margin-top":"5px"}} id="map">
                 <TbMap2 size={28}></TbMap2>
               </NavLink>
             </ul>
-              <NavLink activeClassName="active" to="/profile">
-                <CgProfile size={30}></CgProfile>
-              </NavLink>  
+            <IconButton onClick={handleClick} size="large" sx={{ ml: 2 }} aria-controls={open ? 'account-menu' : undefined} aria-haspopup="true" aria-expanded={open ? 'true' : undefined}>
+              <Avatar sx={{ width: 30, height: 30 }}/>
+            </IconButton>
+            <Menu anchorEl={anchorEl} id="account-menu" open={open} onClose={handleClose} onClick={handleClose}
+              PaperProps={{
+                elevation: 0,
+                sx: {
+                  overflow: 'visible',
+                  filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+                  mt: 1.5,
+                  '& .MuiAvatar-root': {
+                    width: 32,
+                    height: 32,
+                    ml: -0.5,
+                    mr: 1,
+                  },
+                  '&:before': {
+                    content: '""',
+                    display: 'block',
+                    position: 'absolute',
+                    top: 0,
+                    right: 14,
+                    width: 10,
+                    height: 10,
+                    bgcolor: 'background.paper',
+                    transform: 'translateY(-50%) rotate(45deg)',
+                    zIndex: 0,
+                  },
+                },
+              }}
+              transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+              anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}>
+              <MenuItem component={NavLink} to="/profile">
+                  <Avatar /> Profile
+              </MenuItem>
+              <Divider />
+              <MenuItem>
+                <ListItemIcon>
+                  <Logout fontSize="small" />
+                </ListItemIcon>
+                Logout
+              </MenuItem>
+            </Menu>
           </div>
           <Routes>
             <Route exact path='/boilerbazaar' element={< Home />}></Route>
