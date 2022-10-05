@@ -83,7 +83,7 @@ function Sell () {
             <div className="previewDisplay">
                 <Card sx={{ width: "90%", borderRadius: 5, height: '90%', display: 'flex', flexDirection: 'column'}} elevation={8}>
                         <CardHeader title="Preview" sx={{height: '5%'}}/>
-                        <div className="innerCard">
+                        <Box sx={{height: '90%', display: 'flex', flexDirection:'row'}}>
                             <Box sx={{ width: '58%', height: '96%', backgroundColor: 'rgb(223, 223, 223)'}} className="innerLeftBox">
                                 <CardContent sx={{alignItems: 'center', display: 'flex', justifyContent: 'center', height: '94%'}}>
                                     <Typography variant="h4" color="black">
@@ -143,7 +143,7 @@ function Sell () {
                                     <Button variant="contained" disabled sx={{width: '95%'}}>Message</Button>
                                 </Box>
                             </Box>
-                        </div>
+                        </Box>
                 </Card>
             </div>
         </div>
