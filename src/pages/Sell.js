@@ -58,9 +58,9 @@ function listTextbook(e) {
 function Sell () {
     return (
         <div className="sellDisplay">
-            <Box sx={{width: '28%', height: '100%', backgroundColor: 'whitesmoke'}}>
+            <Box sx={{width: '28%', height: '100%', backgroundColor: 'whitesmoke', display: 'flex', flexDirection: 'column'}}>
                 <CardHeader title="Textbooks for sale" sx={{textAlign: 'center', height: '5%'}}/>
-                <Box sx={{'& > :not(style)': { m: 1 }, height: "90%", overflowY: 'scroll'}} component="form" noValidate autoComplete="off" className="formDisplay scrollBar"
+                <Box sx={{'& > :not(style)': { m: 1 }, height: "95%", overflowY: 'scroll'}} component="form" noValidate autoComplete="off" className="formDisplay scrollBar"
                 onSubmit={event => listTextbook(event)}>
                     <Typography variant="body1" color="black">
                         This is where you add pictures for textbooks
@@ -76,23 +76,23 @@ function Sell () {
                             <MenuItem value="Used - Good">Used - Good</MenuItem>
                             <MenuItem value="Used - Fair">Used - Fair</MenuItem>
                     </TextField>
-                    <TextField id="description" label="Description" multiline rows={5} onChange={event => changeText(event)}/>
+                    <TextField id="description" label="Description" multiline rows={5} onChange={event => changeText(event)} inputProps={{ maxLength: 250 }}/>
                     <TextField id="list" type="submit" value="List"/>
                 </Box>
             </Box>
             <div className="previewDisplay">
-                <Card sx={{ width: "90%", borderRadius: 5, height: '90%'}} elevation={12}>
+                <Card sx={{ width: "90%", borderRadius: 5, height: '90%', display: 'flex', flexDirection: 'column'}} elevation={8}>
                         <CardHeader title="Preview" sx={{height: '5%'}}/>
                         <div className="innerCard">
-                            <Box sx={{ width: '58%', height: '93%', backgroundColor: 'rgb(223, 223, 223)'}} className="innerLeftBox">
+                            <Box sx={{ width: '58%', height: '96%', backgroundColor: 'rgb(223, 223, 223)'}} className="innerLeftBox">
                                 <CardContent sx={{alignItems: 'center', display: 'flex', justifyContent: 'center', height: '94%'}}>
                                     <Typography variant="h4" color="black">
                                         Listing Preview
                                     </Typography>
                                 </CardContent>
                             </Box>
-                            <Box sx={{ width: '37%', height: '93%', backgroundColor: 'whitesmoke'}} className="innerRightBox">
-                                <CardContent sx={{wordBreak: 'break-word', overflowY: 'scroll', height:'70%'}} className="scrollBar">
+                            <Box sx={{ width: '37%', height: '96%', backgroundColor: 'whitesmoke'}} className="innerRightBox">
+                                <CardContent sx={{wordBreak: 'break-word', overflowY: 'scroll', height:'70%', display:'flex', flexDirection:'column'}} className="scrollBar">
                                     <Typography variant="h5" color="black" sx={{fontWeight:'bold'}} id="previewTitle">
                                         Title
                                     </Typography>
@@ -128,7 +128,7 @@ function Sell () {
                                     <br/><br/>
                                 </CardContent>
                                 <Divider variant='middle' sx={{borderBottomColor: 'black'}}/>
-                                <CardContent sx={{height: '30%'}}>
+                                <CardContent sx={{height: '20%', display: 'flex', flexDirection:'column'}}>
                                     <Typography variant="body1" color="black" sx={{fontWeight:'bold', fontSize:18}}>
                                         Seller Information
                                         <Button variant="outlined" size="small" disabled sx={{float: 'right'}}>Seller Details</Button>
@@ -139,7 +139,7 @@ function Sell () {
                                         Jeff Wang
                                     </Typography>
                                 </CardContent>
-                                <Box sx={{ width: '100%', height: '10%', backgroundColor: 'whitesmoke'}} className="innerBottomBox">
+                                <Box sx={{height: '10%', backgroundColor: 'whitesmoke'}} className="innerBottomBox">
                                     <Button variant="contained" disabled sx={{width: '95%'}}>Message</Button>
                                 </Box>
                             </Box>

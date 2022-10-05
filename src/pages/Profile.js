@@ -16,7 +16,7 @@ function editOrSaveProfile(e) {
 function Profile () {
     return (
         <div className="profileDisplay">
-            <Card sx={{width: '85%', height: '90%', backgroundColor: 'white', borderRadius: 5}} elevation={24}>
+            <Card sx={{width: '85%', height: '90%', backgroundColor: 'white', borderRadius: 5, display: 'flex', flexDirection:'column'}} elevation={24}>
                 <CardHeader title="Settings" sx={{textAlign: 'center', height: "5%"}}/>
                 <Divider variant='fullWidth' sx={{borderBottomColor: 'black'}}/>
                 <div className="profileBoxDisplay">
@@ -25,7 +25,7 @@ function Profile () {
                             <Button sx={{width: '100%'}} size="large">Profile</Button>
                         </div>
                     </Box>
-                    <Box sx={{width: '35%', height: '100%', backgroundColor: 'whitesmoke'}}>
+                    <Box sx={{width: '35%', height: '100%', backgroundColor: 'whitesmoke', display:'flex', flexDirection:'column'}}>
                         <CardHeader sx={{textAlign:"center", height:'5%'}} title="General"/>
                         <Divider variant='middle' sx={{borderBottomColor: 'rgb(202, 199, 199)'}}/>
                         <Box sx={{'& > :not(style)': { m: 1 }, height: "95%", overflowY: 'scroll'}} component="form" autoComplete="off" className="profileFormDisplay" onSubmit={event => editOrSaveProfile(event)}>
