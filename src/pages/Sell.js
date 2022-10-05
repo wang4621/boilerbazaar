@@ -88,7 +88,7 @@ function Sell () {
                     <TextField id="author" label="Author" required onChange={event => changeText(event)}/>
                     <TextField id="isbn" label="ISBN" required onChange={event => changeText(event)}/>
                     <TextField id="edition" label="Edition" required onChange={event => changeText(event)}/>
-                    <TextField id="condition" name="condition" label="Condition" select sx={{width: "80%"}} required onChange={event => changeText(event)}>
+                    <TextField id="condition" name="condition" label="Condition" select required onChange={event => changeText(event)}>
                             <MenuItem value="New">New</MenuItem>
                             <MenuItem value="Used - Like New">Used - Like New</MenuItem>
                             <MenuItem value="Used - Good">Used - Good</MenuItem>

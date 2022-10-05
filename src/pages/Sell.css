@@ -18,6 +18,16 @@
     width: 350px;
 } */
 
+.sellDisplay input {
+    /* border-radius: 5px; */
+    font-size: 18px;
+    /* border: 2px solid rgb(202, 199, 199); */
+}
+
+.sellDisplay label {
+    font-size: 18px;
+}
+
 /* .sellDisplay input:hover, .sellDisplay select:hover, .sellDisplay textarea:hover {
     border: 2px solid rgb(111, 96, 248);
 } */
@@ -26,25 +36,28 @@
     outline: 2px solid rgb(0, 119, 255);
 } */
 
-.sellDisplay textarea {
+/* .sellDisplay textarea {
     border-radius: 5px;
     resize: none;
     font-size: 20px;
     border: 2px solid transparent;
     font-family: inherit;
     width: 350px;
-}
+} */
 
-.sellDisplay select {
+/* .sellDisplay select {
     border-radius: 5px;
     font-size: 20px;
     height: 50px;
     width: 357px;
     border: 2px solid transparent;
-}
+} */
 
-.sellDisplay #list {
+/* .sellDisplay #list {
     width:360px;
+} */
+.sellDisplay .MuiTextField-root {
+    width: 85%
 }
 
 .sellDisplay {
@@ -53,21 +66,21 @@
     height: calc(100vh - var(--header-height));
 }
 
-.formDisplay {
+.sellDisplay .formDisplay {
     display: flex;
     align-items: center;
     justify-content: flex-start;
     flex-direction: column;
 }
 
-.previewDisplay {
+.sellDisplay .previewDisplay {
     display: flex;
     justify-content: center;
     align-items: center;
     flex: 1
 }
 
-.innerCard {
+.sellDisplay .innerCard {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -75,19 +88,19 @@
     /* height: 89% */
 }
 
-.innerLeftBox {
+.sellDisplay .innerLeftBox {
     border-radius: 10px 0px 0px 10px;
     border:1px solid rgb(202, 199, 199)
 }
 
-.innerRightBox {
+.sellDisplay .innerRightBox {
     display: flex;
     flex-direction: column;
     border-radius: 0px 10px 10px 0px;
     border:1px solid rgb(202, 199, 199);
 }
 
-.innerBottomBox {
+.sellDisplay .innerBottomBox {
     box-shadow: 0 -1px 0 rgb(202, 199, 199);
     display: flex;
     border-radius: 0px 0px 10px 0px;;
@@ -95,11 +108,11 @@
     align-items: center;
 }
 
-.scrollBar::-webkit-scrollbar {
+.sellDisplay .scrollBar::-webkit-scrollbar {
     width: 10px;
 }
 
-.scrollBar::-webkit-scrollbar-thumb {
+.sellDisplay .scrollBar::-webkit-scrollbar-thumb {
     border-radius: 10px;
     background: #c2c9d2;
 }
