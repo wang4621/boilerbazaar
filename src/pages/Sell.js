@@ -46,7 +46,7 @@ function changeText(event) {
 function Sell () {
     return (
         <div className="sellDisplay">
-            <Box sx={{width: '28%', height: '100%', backgroundColor: 'rgb(223, 223, 223)'}}>
+            <Box sx={{width: '28%', height: '100%', backgroundColor: 'whitesmoke'}}>
                 <CardHeader title="Textbooks for sale" sx={{textAlign: 'center'}}/>
                 {/* <CardContent sx={{wordBreak: 'break-word', overflowY: 'scroll', height:'88%'}} className="scrollBar formDisplay">
                     <form>
@@ -79,7 +79,7 @@ function Sell () {
                         <input type="submit" value="List" id="list"/>
                     </form>
                 </CardContent> */}
-                <Box sx={{'& > :not(style)': { m: 1 }, height: "93%"}} component="form" autoComplete="off" className="formDisplay scrollBar">
+                <Box sx={{'& > :not(style)': { m: 1 }, height: "93%", overflowY: 'scroll'}} component="form" autoComplete="off" className="formDisplay scrollBar">
                     <TextField id="" label="Title" required/>
                     <TextField id="" label="Price" required/>
                     <TextField id="" label="Author" required/>
