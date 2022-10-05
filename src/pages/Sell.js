@@ -24,8 +24,8 @@ function handleISBN(event) {
 }
 
 function changeText(event) {
-    console.log(event.target.value)
-    console.log(event.target)
+    // console.log(event.target.value)
+    // console.log(event.target)
     if (event.target.id === 'title') {
         if (event.target.value === '') {
             document.getElementById('previewTitle').innerText = 'Title'
@@ -45,41 +45,23 @@ function changeText(event) {
     }
 }
 
+function listTextbook(e) {
+    console.log(e)
+    var items = e.target
+    for (var i = 0; i < items.length; i+=2) {
+        if (items[i].required && items[i].value == '') {
+        }
+    }
+    e.preventDefault()
+}
+
 function Sell () {
     return (
         <div className="sellDisplay">
             <Box sx={{width: '28%', height: '100%', backgroundColor: 'whitesmoke'}}>
-                <CardHeader title="Textbooks for sale" sx={{textAlign: 'center'}}/>
-                {/* <CardContent sx={{wordBreak: 'break-word', overflowY: 'scroll', height:'88%'}} className="scrollBar formDisplay">
-                    <form>
-                        <Typography variant="body1" color="black">
-                            This is where you add pictures for textbooks
-                        </Typography>
-                        <br/><br/>
-                        <input type="text" placeholder="Title" id="title" onChange={event => changeText(event)} required/>
-                        <br/><br/>
-                        <input type="text" id="price" placeholder="Price" onChange={event => handleDollar(event)} maxLength="4" required/>
-                        <br/><br/>
-                        <input type="text" placeholder="Author" id="author" onChange={event => changeText(event)} required/>
-                        <br/><br/>
-                        <input type="text" placeholder="ISBN" id="isbn" onChange={event => changeText(event)} required/>
-                        <br/><br/>
-                        <input type="text" placeholder="Edition" id="edition" onChange={event => changeText(event)} required/>
-                        <br/><br/>
-                        <select id="condition" onChange={event => changeText(event)} required> 
-                            <option value="" disabled selected hidden>Condition</option>
-                            <option value="New">New</option>
-                            <option value="Used - Like New">Used - Like New</option>
-                            <option value="Used - Good">Used - Good</option>
-                            <option value="Used - Fair">Used - Fair</option>
-                        </select>
-                        <br/><br/>
-                        <textarea maxlength="250" placeholder="Description" id="description" rows="5" onChange={event => changeText(event)}/>
-                        <br/><br/>
-                        <input type="submit" value="List" id="list"/>
-                    </form>
-                </CardContent> */}
-                <Box sx={{'& > :not(style)': { m: 1 }, height: "93%", overflowY: 'scroll'}} component="form" autoComplete="off" className="formDisplay scrollBar">
+                <CardHeader title="Textbooks for sale" sx={{textAlign: 'center', height: '5%'}}/>
+                <Box sx={{'& > :not(style)': { m: 1 }, height: "90%", overflowY: 'scroll'}} component="form" noValidate autoComplete="off" className="formDisplay scrollBar"
+                onSubmit={event => listTextbook(event)}>
                     <Typography variant="body1" color="black">
                         This is where you add pictures for textbooks
                     </Typography>
@@ -100,16 +82,16 @@ function Sell () {
             </Box>
             <div className="previewDisplay">
                 <Card sx={{ width: "90%", borderRadius: 5, height: '90%'}} elevation={12}>
-                        <CardHeader title="Preview"/>
+                        <CardHeader title="Preview" sx={{height: '5%'}}/>
                         <div className="innerCard">
-                            <Box sx={{ width: '58%', height: '96%', backgroundColor: 'rgb(223, 223, 223)'}} className="innerLeftBox">
+                            <Box sx={{ width: '58%', height: '93%', backgroundColor: 'rgb(223, 223, 223)'}} className="innerLeftBox">
                                 <CardContent sx={{alignItems: 'center', display: 'flex', justifyContent: 'center', height: '94%'}}>
                                     <Typography variant="h4" color="black">
                                         Listing Preview
                                     </Typography>
                                 </CardContent>
                             </Box>
-                            <Box sx={{ width: '37%', height: '96%', backgroundColor: 'whitesmoke'}} className="innerRightBox">
+                            <Box sx={{ width: '37%', height: '93%', backgroundColor: 'whitesmoke'}} className="innerRightBox">
                                 <CardContent sx={{wordBreak: 'break-word', overflowY: 'scroll', height:'70%'}} className="scrollBar">
                                     <Typography variant="h5" color="black" sx={{fontWeight:'bold'}} id="previewTitle">
                                         Title

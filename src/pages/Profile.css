@@ -47,7 +47,7 @@
 .profileBoxDisplay {
     display: flex;
     flex-direction: row;
-    height: 93%;
+    height: 90%;
 }
 
 .ratingBox {
