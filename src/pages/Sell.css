@@ -18,13 +18,13 @@
     width: 350px;
 }
 
-.sellDisplay input:hover, .sellDisplay select:hover, .sellDisplay textarea:hover {
+/* .sellDisplay input:hover, .sellDisplay select:hover, .sellDisplay textarea:hover {
     border: 2px solid rgb(111, 96, 248);
-}
+} */
   
-.sellDisplay input:focus, .sellDisplay select:focus, .sellDisplay textarea:focus {
+/* .sellDisplay input:focus, .sellDisplay select:focus, .sellDisplay textarea:focus {
     outline: 2px solid rgb(0, 119, 255);
-}
+} */
 
 .sellDisplay textarea {
     border-radius: 5px;
@@ -55,8 +55,9 @@
 
 .formDisplay {
     display: flex;
-    align-items: flex-start;
-    justify-content: center;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: column;
 }
 
 .previewDisplay {

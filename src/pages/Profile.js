@@ -1,10 +1,4 @@
 import './Profile.css'
-// import Card from '@mui/material/Card'
-// import CardHeader from '@mui/material/CardHeader';
-// import Rating from '@mui/material/Rating';
-// import Divider from '@mui/material/Divider';
-// import Box from '@mui/material/Box';
-// import Typography from '@mui/material/Typography';
 import { Avatar, Card, CardHeader, Rating, Divider, Box, Typography, CardContent, Button, TextField } from '@mui/material';
 
 function editProfile(e) {

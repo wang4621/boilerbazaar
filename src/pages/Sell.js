@@ -1,13 +1,6 @@
 import './Sell.css'
-// import Box from '@mui/material/Box';
-// import Card from '@mui/material/Card'
-// import CardHeader from '@mui/material/CardHeader';
-// import CardContent from '@mui/material/CardContent';
-// import Divider from '@mui/material/Divider';
-// import Typography from '@mui/material/Typography';
-// import Avatar from '@mui/material/Avatar';
-// import Button from '@mui/material/Button';
 import { Avatar, Card, CardHeader, CardContent, Divider, Box, Typography, Button, ImageList, ImageListItem } from '@mui/material';
+import { TextField, MenuItem } from '@mui/material';
 
 // adds dollar sign in front of price
 function handleDollar(event) {
@@ -55,17 +48,19 @@ function Sell () {
         <div className="sellDisplay">
             <Box sx={{width: '28%', height: '100%', backgroundColor: 'rgb(223, 223, 223)'}}>
                 <CardHeader title="Textbooks for sale" sx={{textAlign: 'center'}}/>
-                <CardContent sx={{wordBreak: 'break-word', overflowY: 'scroll', height:'88%'}} className="scrollBar formDisplay">
+                {/* <CardContent sx={{wordBreak: 'break-word', overflowY: 'scroll', height:'88%'}} className="scrollBar formDisplay">
                     <form>
                         <Typography variant="body1" color="black">
                             This is where you add pictures for textbooks
                         </Typography>
                         <br/><br/>
                         <input type="text" placeholder="Title" id="title" onChange={event => changeText(event)} required/>
+                        <TextField label="Title" variant="filled" sx={{backgroundColor:}}required></TextField>
                         <br/><br/>
                         <input type="text" id="price" placeholder="Price" onChange={event => handleDollar(event)} maxLength="4" required/>
                         <br/><br/>
                         <input type="text" placeholder="Author" id="author" onChange={event => changeText(event)} required/>
+                        <TextField label="Author" variant="filled" required></TextField>
                         <br/><br/>
                         <input type="text" placeholder="ISBN" id="isbn" onChange={event => changeText(event)} required/>
                         <br/><br/>
@@ -83,7 +78,21 @@ function Sell () {
                         <br/><br/>
                         <input type="submit" value="List" id="list"/>
                     </form>
-                </CardContent>
+                </CardContent> */}
+                <Box sx={{'& > :not(style)': { m: 1 }, height: "93%"}} component="form" autoComplete="off" className="formDisplay scrollBar">
+                    <TextField id="" label="Title" required/>
+                    <TextField id="" label="Price" required/>
+                    <TextField id="" label="Author" required/>
+                    <TextField id="" label="ISBN" required/>
+                    <TextField id="" label="Edition" required/>
+                    <TextField id="" label="Condition" select sx={{width: "50%"}} required>
+                            <MenuItem value={10}>Ten</MenuItem>
+                            <MenuItem value={20}>Twenty</MenuItem>
+                            <MenuItem value={30}>Thirty</MenuItem>
+                    </TextField>
+                    <TextField id="" label="Description" multiline rows={4}/>
+                    <TextField id="list" type="submit" value="List"/>
+                </Box>
             </Box>
             <div className="previewDisplay">
                 <Card sx={{ width: "90%", borderRadius: 5, height: '90%'}} elevation={12}>
