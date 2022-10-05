@@ -1,0 +1,20 @@
+.images + label {
+    background-color: lightgray;
+    display:inline-block;
+    border-style: outset;
+    border-radius: 25px;
+    padding: 10px;
+}
+
+.images:focus + label, .images + label:hover {
+    background-color: gray;
+}
+
+.images {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}

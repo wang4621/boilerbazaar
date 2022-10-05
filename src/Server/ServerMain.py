@@ -2,7 +2,6 @@
     This file contains functions to initialize, and the main execution 
     path of the server
 """
-#from PIL import Image
 import pymongo
 import http.server
 import Sell
@@ -15,16 +14,16 @@ Listings = db["Listings"]
 Users = db["User"]
 
 class Handler(http.server.BaseHTTPRequestHandler):
+    #new/update listing, send messages, etc
     def do_POST(self):
         print("POST")
         #TODO: switch cases to determine the required operation
         content_len = int(self.headers.get('Content-Length'))
         post_body = self.rfile.read(content_len)
-        print(content_len)
-        print(type(post_body))
-        #listing = json.loads(post_body)
-        #Sell.newListing(Listings, listing)
+        listing = post_body
+        print(listing)        
 
+    #searching, receive messages, etc
     def do_GET(self):
         print("GET")
     
