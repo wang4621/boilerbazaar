@@ -24,6 +24,8 @@ function handleISBN(event) {
 }
 
 function changeText(event) {
+    console.log(event.target.value)
+    console.log(event.target)
     if (event.target.id === 'title') {
         if (event.target.value === '') {
             document.getElementById('previewTitle').innerText = 'Title'
@@ -36,7 +38,7 @@ function changeText(event) {
         document.getElementById('previewISBN').innerText = event.target.value
     } else if (event.target.id === 'edition') {
         document.getElementById('previewEdition').innerText = event.target.value
-    } else if (event.target.id === 'condition') {
+    } else if (event.target.name === 'condition') {
         document.getElementById('previewCondition').innerText = event.target.value
     } else if (event.target.id === 'description') {
         document.getElementById('previewDescription').innerText = event.target.value
@@ -55,12 +57,10 @@ function Sell () {
                         </Typography>
                         <br/><br/>
                         <input type="text" placeholder="Title" id="title" onChange={event => changeText(event)} required/>
-                        <TextField label="Title" variant="filled" sx={{backgroundColor:}}required></TextField>
                         <br/><br/>
                         <input type="text" id="price" placeholder="Price" onChange={event => handleDollar(event)} maxLength="4" required/>
                         <br/><br/>
                         <input type="text" placeholder="Author" id="author" onChange={event => changeText(event)} required/>
-                        <TextField label="Author" variant="filled" required></TextField>
                         <br/><br/>
                         <input type="text" placeholder="ISBN" id="isbn" onChange={event => changeText(event)} required/>
                         <br/><br/>
@@ -80,17 +80,21 @@ function Sell () {
                     </form>
                 </CardContent> */}
                 <Box sx={{'& > :not(style)': { m: 1 }, height: "93%", overflowY: 'scroll'}} component="form" autoComplete="off" className="formDisplay scrollBar">
-                    <TextField id="" label="Title" required/>
-                    <TextField id="" label="Price" required/>
-                    <TextField id="" label="Author" required/>
-                    <TextField id="" label="ISBN" required/>
-                    <TextField id="" label="Edition" required/>
-                    <TextField id="" label="Condition" select sx={{width: "50%"}} required>
-                            <MenuItem value={10}>Ten</MenuItem>
-                            <MenuItem value={20}>Twenty</MenuItem>
-                            <MenuItem value={30}>Thirty</MenuItem>
+                    <Typography variant="body1" color="black">
+                        This is where you add pictures for textbooks
+                    </Typography>
+                    <TextField id="title" label="Title" required onChange={event => changeText(event)}/>
+                    <TextField id="price" label="Price" required onChange={event => handleDollar(event)}/>
+                    <TextField id="author" label="Author" required onChange={event => changeText(event)}/>
+                    <TextField id="isbn" label="ISBN" required onChange={event => changeText(event)}/>
+                    <TextField id="edition" label="Edition" required onChange={event => changeText(event)}/>
+                    <TextField id="condition" name="condition" label="Condition" select sx={{width: "80%"}} required onChange={event => changeText(event)}>
+                            <MenuItem value="New">New</MenuItem>
+                            <MenuItem value="Used - Like New">Used - Like New</MenuItem>
+                            <MenuItem value="Used - Good">Used - Good</MenuItem>
+                            <MenuItem value="Used - Fair">Used - Fair</MenuItem>
                     </TextField>
-                    <TextField id="" label="Description" multiline rows={4}/>
+                    <TextField id="description" label="Description" multiline rows={5} onChange={event => changeText(event)}/>
                     <TextField id="list" type="submit" value="List"/>
                 </Box>
             </Box>

@@ -8,7 +8,7 @@ import Sell from './pages/Sell'
 import Buy from './pages/Buy'
 import About from './pages/About'
 import Map from './pages/Map'
-import { Avatar, Menu, MenuItem, Divider, IconButton, ListItemIcon } from '@mui/material';
+import { Avatar, Menu, MenuItem, IconButton, ListItemIcon } from '@mui/material';
 import Logout from '@mui/icons-material/Logout';
 import * as React from 'react';
 
@@ -36,7 +36,7 @@ function App() {
               </NavLink>
             </ul>
             <IconButton onClick={handleClick} size="large" aria-controls={open ? 'account-menu' : undefined} aria-haspopup="true" aria-expanded={open ? 'true' : undefined}>
-              <Avatar sx={{ width: 30, height: 30 }} src=""/>
+              <Avatar sx={{ width: 35, height: 35 }} src=""/>
             </IconButton>
             <Menu anchorEl={anchorEl} id="account-menu" open={open} onClose={handleClose} onClick={handleClose}
               PaperProps={{
@@ -44,7 +44,7 @@ function App() {
                 sx: {
                   overflow: 'visible',
                   filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
-                  mt: 1.5,
+                  mt: 0,
                   '& .MuiAvatar-root': {
                     width: 32,
                     height: 32,

@@ -1,4 +1,4 @@
-.sellDisplay select:valid { 
+/* .sellDisplay select:valid { 
     color: black; 
 }
 
@@ -8,15 +8,15 @@
 
 .sellDisplay option{
     color:black;
-}
+} */
   
-.sellDisplay input {
+/* .sellDisplay input {
     border-radius: 5px;
     font-size: 20px;
     height: 40px;
     border: 2px solid rgb(202, 199, 199);
     width: 350px;
-}
+} */
 
 /* .sellDisplay input:hover, .sellDisplay select:hover, .sellDisplay textarea:hover {
     border: 2px solid rgb(111, 96, 248);

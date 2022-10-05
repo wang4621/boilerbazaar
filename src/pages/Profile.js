@@ -1,5 +1,5 @@
 import './Profile.css'
-import { Avatar, Card, CardHeader, Rating, Divider, Box, Typography, CardContent, Button, TextField } from '@mui/material';
+import { Avatar, Card, CardHeader, Rating, Divider, Box, Typography, CardContent, Button, TextField, MenuItem } from '@mui/material';
 
 function editProfile(e) {
 
@@ -25,11 +25,10 @@ function Profile () {
                     <Box sx={{width: '35%', height: '100%', backgroundColor: 'whitesmoke'}}>
                         <CardHeader sx={{textAlign:"center"}} title="General"/>
                         <Divider variant='middle' sx={{borderBottomColor: 'rgb(202, 199, 199)'}}/>
-                        <CardContent sx={{height: '88%'}}className="profileFormDisplay">
+                        {/* <CardContent sx={{height: '88%'}}className="profileFormDisplay">
                             <form onSubmit={event => editProfile(event)}>
                                 <Typography variant="body1" color="black">First Name</Typography>
-                                {/* <input type="text" disabled/> */}
-                                <TextField id="" label="First Name" />
+                                <input type="text" disabled/>
                                 <br/><br/>
                                 <Typography variant="body1" color="black">Preferred Name</Typography>
                                 <input type="text" disabled/>
@@ -49,11 +48,24 @@ function Profile () {
                                 <br/><br/>
                                 <input type="submit" value="Edit" id="edit"/>
                             </form>
-                        </CardContent>
+                        </CardContent> */}
+                        <Box sx={{'& > :not(style)': { m: 1 }, height: "92%", overflowY: 'scroll'}} component="form" autoComplete="off" className="profileFormDisplay">
+                            <TextField id="" label="First Name" disabled readOnly/>
+                            <TextField id="" label="Preferred Name" disabled/>
+                            <TextField id="" label="Last Name" disabled/>
+                            <TextField id="" label="Major" disabled/>
+                            <TextField id="" name="" label="Preferred Meeting Location" select sx={{width: "80%"}} defaultValue="None" disabled>
+                                <MenuItem value="None">None</MenuItem>
+                                <MenuItem value="Public">Public</MenuItem>
+                                <MenuItem value="Front">In front of house/apt</MenuItem>
+                            </TextField>
+                            <TextField id="edit" type="submit" value="Edit"/>
+                        </Box>
                     </Box>
                     <Box sx={{width: '50%', height: '100%', backgroundColor: 'whitesmoke'}} className="ratingBox">
                         <Avatar sx={{ width: 128, height: 128 }}/>
                         <Typography variant="h6" color="black">Profile Picture goes here</Typography>
+                        <Typography variant="h6" color="black">Name goes here</Typography>
                         <br/>
                         <Typography variant="h6" color="black">Rating</Typography>
                         <Rating name="read-only" readOnly size="large"/>
