@@ -7,7 +7,7 @@ import './Sell.css'
 // import Typography from '@mui/material/Typography';
 // import Avatar from '@mui/material/Avatar';
 // import Button from '@mui/material/Button';
-import { Avatar, Card, CardHeader, CardContent, Divider, Box, Typography, Button } from '@mui/material';
+import { Avatar, Card, CardHeader, CardContent, Divider, Box, Typography, Button, ImageList, ImageListItem } from '@mui/material';
 
 // adds dollar sign in front of price
 function handleDollar(event) {
@@ -25,6 +25,7 @@ function handleDollar(event) {
     }
 }
 
+// this checks if isbn is 10 or 13 and if it numbers only
 function handleISBN(event) {
 
 }

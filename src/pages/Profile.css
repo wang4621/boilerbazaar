@@ -36,14 +36,14 @@
 .profileFormDisplay {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     flex-direction: column;
 }
 
 .profileBoxDisplay {
     display: flex;
     flex-direction: row;
-    height: 92%;
+    height: 93%;
 }
 
 .ratingBox {
@@ -51,4 +51,15 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    border-left:1px solid rgb(202, 199, 199)
+}
+
+.diffSettings {
+    display: flex;
+    flex-direction: column;
+    border-right:1px solid rgb(202, 199, 199)
+}
+
+.buttonDisplay {
+    padding: 25px 0px;
 }

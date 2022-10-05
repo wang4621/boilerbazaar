@@ -5,9 +5,10 @@ import './Profile.css'
 // import Divider from '@mui/material/Divider';
 // import Box from '@mui/material/Box';
 // import Typography from '@mui/material/Typography';
-import { Avatar, Card, CardHeader, Rating, Divider, Box, Typography, CardContent } from '@mui/material';
+import { Avatar, Card, CardHeader, Rating, Divider, Box, Typography, CardContent, Button, TextField } from '@mui/material';
 
 function editProfile(e) {
+
     e.preventDefault()
 }
 
@@ -19,14 +20,22 @@ function Profile () {
     return (
         <div className="profileDisplay">
             <Card sx={{width: '80%', height: '90%', backgroundColor: 'white', borderRadius: 5}} elevation={24}>
-                <CardHeader title="Profile" sx={{textAlign: 'center'}}></CardHeader>
+                <CardHeader title="Settings" sx={{textAlign: 'center'}}></CardHeader>
                 <Divider variant='fullWidth' sx={{borderBottomColor: 'black'}}/>
                 <div className="profileBoxDisplay">
-                    <Box sx={{width: '50%', height: '100%', backgroundColor: 'rgb(223, 223, 223)'}}>
+                    <Box sx={{width: '15%', height: '100%', backgroundColor: 'whitesmoke'}} className="diffSettings">
+                        <div className="buttonDisplay">
+                            <Button sx={{width: '100%'}} size="large">Profile</Button>
+                        </div>
+                    </Box>
+                    <Box sx={{width: '35%', height: '100%', backgroundColor: 'whitesmoke'}}>
+                        <CardHeader sx={{textAlign:"center"}} title="General"/>
+                        <Divider variant='middle' sx={{borderBottomColor: 'rgb(202, 199, 199)'}}/>
                         <CardContent sx={{height: '88%'}}className="profileFormDisplay">
                             <form onSubmit={event => editProfile(event)}>
                                 <Typography variant="body1" color="black">First Name</Typography>
-                                <input type="text" disabled/>
+                                {/* <input type="text" disabled/> */}
+                                <TextField id="" label="First Name" />
                                 <br/><br/>
                                 <Typography variant="body1" color="black">Preferred Name</Typography>
                                 <input type="text" disabled/>
