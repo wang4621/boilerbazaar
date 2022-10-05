@@ -26,7 +26,7 @@ function App() {
         <div className="App">
           <div className="navbar">
             <img src={Img} height={70} alt="logo" style={{"float":"left"}}></img>
-            <ul className="centerNav" style={{"margin-right":"15%"}}>
+            <ul className="centerNav" style={{"margin-right":"10%"}}>
               <NavLink activeClassName="active" to="/boilerbazaar">Home</NavLink>
               <NavLink activeClassName="active" to="/buy">Buy</NavLink>
               <NavLink activeClassName="active" to="/sell">Sell</NavLink>
@@ -35,8 +35,8 @@ function App() {
                 <TbMap2 size={28}></TbMap2>
               </NavLink>
             </ul>
-            <IconButton onClick={handleClick} size="large" sx={{ ml: 2 }} aria-controls={open ? 'account-menu' : undefined} aria-haspopup="true" aria-expanded={open ? 'true' : undefined}>
-              <Avatar sx={{ width: 30, height: 30 }}/>
+            <IconButton onClick={handleClick} size="large" aria-controls={open ? 'account-menu' : undefined} aria-haspopup="true" aria-expanded={open ? 'true' : undefined}>
+              <Avatar sx={{ width: 30, height: 30 }} src=""/>
             </IconButton>
             <Menu anchorEl={anchorEl} id="account-menu" open={open} onClose={handleClose} onClick={handleClose}
               PaperProps={{
@@ -68,9 +68,8 @@ function App() {
               transformOrigin={{ horizontal: 'right', vertical: 'top' }}
               anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}>
               <MenuItem component={NavLink} to="/profile">
-                  <Avatar /> Profile
+                  <Avatar src=""/> Profile
               </MenuItem>
-              <Divider />
               <MenuItem>
                 <ListItemIcon>
                   <Logout fontSize="small" />

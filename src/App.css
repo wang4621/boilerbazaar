@@ -44,5 +44,5 @@ body {
 
 .active {
   border-bottom: 3px solid blue !important;
-  color: blue !important
+  color: blue !important;
 }
