@@ -1,25 +1,13 @@
 .mapContainer {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: repeat(7, auto);
-    grid-template-areas: 
-    "mapHeader mapHeader"
-    "universityBookstoreTitle universityBookstoreTitle"
-    "universityBookstoreInfo universityGoogleMap"
-    "stadiumBookstoreTitle stadiumBookstoreTitle"
-    "stadiumBookstoreInfo stadiumGoogleMap"
-    "follettsBookstoreTitle follettsBookstoreTitle"
-    "follettsBookstoreInfo follettsGoogleMap";
+    display:flex;
     background-color: white;
     margin: 5%;
-  }
-
-  .mapHeader {
-    grid-area: mapHeader;
-
+    flex-flow: row wrap;
+    align-content: flex-start;
   }
   
   .mapTitle {
+    flex-basis: 100%;
     text-align: center;
     padding: 5px;
   }
@@ -29,67 +17,31 @@
     margin: 0 auto;
     margin-bottom: 50px;
   }
-
-  .universityBookstoreInfo {
-    grid-area: universityBookstoreInfo;
-
-  }
-
-  .stadiumBookstoreInfo {
-    grid-area: stadiumBookstoreInfo;
-
-  }
-
-  .follettsBookstoreInfo {
-    grid-area: follettsBookstoreInfo;
-
-  }
   
-  .universityBookstoreTitle {
-    grid-area: universityBookstoreTitle;
+  .bookstoreNames {
     padding-left: 50px;
     padding-bottom: 5px;
-  }
-
-  .stadiumBookstoreTitle {
-    grid-area: stadiumBookstoreTitle;
-    padding-left: 50px;
-    padding-bottom: 5px;
-  }
-
-  .follettsBookstoreTitle {
-    grid-area: follettsBookstoreTitle;
-    padding-left: 50px;
-    padding-bottom: 5px;
-  }
-
-  .hoursHeader {
-    padding-left: 50px;
+    flex-basis: 100%;
   }
 
   .hoursText {
     padding-left: 50px;
     padding-bottom: 100px;
     padding-right: 50px;
+    flex-grow: 1;
   }
 
-  .universityGoogleMap {
-    grid-area: universityGoogleMap;
+  .googleMap {
     padding-left: 50px;
     padding-bottom: 100px;
     padding-right: 50px;
+    flex-grow: 2;
   }
 
-  .stadiumGoogleMap {
-    grid-area: stadiumGoogleMap;
+  .bookstoreImages {
     padding-left: 50px;
     padding-bottom: 100px;
     padding-right: 50px;
-  }
-
-  .follettsGoogleMap {
-    grid-area: follettsGoogleMap;
-    padding-left: 50px;
-    padding-bottom: 100px;
-    padding-right: 50px;
+    width: 300px;
+    height: 300px;
   }
