@@ -25,13 +25,6 @@
     flex-direction: column;
 }
 
-.sellDisplay .previewDisplay {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex: 1
-}
-
 .sellDisplay .innerLeftBox {
     border-radius: 10px 0px 0px 10px;
     border:1px solid rgb(202, 199, 199);

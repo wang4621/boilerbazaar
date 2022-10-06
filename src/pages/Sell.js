@@ -1,5 +1,5 @@
 import './Sell.css'
-import { Avatar, Card, CardHeader, CardContent, Divider, Box, Typography, Button, ImageList, ImageListItem } from '@mui/material';
+import { Avatar, CardHeader, CardContent, Divider, Box, Typography, Button, ImageList, ImageListItem } from '@mui/material';
 import { TextField, MenuItem } from '@mui/material';
 
 // adds dollar sign in front of price
@@ -19,9 +19,9 @@ function handleDollar(event) {
 }
 
 // this checks if isbn is 10 or 13 and if it numbers only
-function handleISBN(event) {
+// function handleISBN(event) {
 
-}
+// }
 
 function changeText(event) {
     if (event.target.id === 'title') {
@@ -45,11 +45,6 @@ function changeText(event) {
 
 function listTextbook(e) {
     console.log(e)
-    var items = e.target
-    for (var i = 0; i < items.length; i+=2) {
-        if (items[i].required && items[i].value == '') {
-        }
-    }
     e.preventDefault()
 }
 
@@ -81,7 +76,7 @@ function Sell () {
             <Box sx={{width: '72%', height: '100%', display: 'flex', justifyContent:'center', alignItems: 'center'}}>
                 <Box sx={{ width: '90%', borderRadius: 5, height: '90%', display: 'flex', flexDirection: 'column', backgroundColor:'white', boxShadow: 8}}>
                     <CardHeader title="Preview" sx={{height: '5%', marginLeft:'1%'}}/>
-                    <Box sx={{height:'95%', width:'100%', display:'flex',justifyContent:'center', overflow:'auto'}}>
+                    <Box sx={{height:'95%', width:'100%', display:'flex',justifyContent:'center', overflowY:'auto'}}>
                         <Box sx={{height: '96%', width: '95%', display: 'flex', flexDirection: 'row'}}>
                             <Box sx={{ width: '60%', height: '100%', backgroundColor: 'rgb(223, 223, 223)'}} className="innerLeftBox">
                                 <Typography variant="h4" color="black">
