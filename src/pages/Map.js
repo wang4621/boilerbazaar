@@ -6,8 +6,21 @@ import FollettsBookstoreImage from './FollettsBookstoreImage.jpg'
 function Map (){
 
     function closestBookstore() {
-        alert("Test");
-      }
+        if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(positionSuccess, positionError);
+           }
+        else {
+            alert("Geolocation not supported by this browser");
+        }
+    }
+
+    function positionSuccess(position) {
+        console.log(position);
+    }
+    
+    function positionError() {
+        alert("Please allow location to use this service");
+    }
 
     return (
         <div class="mapContainer">
