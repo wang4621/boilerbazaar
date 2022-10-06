@@ -1,0 +1,58 @@
+.sellDisplay input {
+    /* border-radius: 5px; */
+    font-size: 18px;
+    /* border: 2px solid rgb(202, 199, 199); */
+}
+
+.sellDisplay label {
+    font-size: 18px;
+}
+
+.sellDisplay .MuiTextField-root {
+    width: 85%
+}
+
+.sellDisplay {
+    display: flex;
+    flex-direction: row;
+    height: calc(100vh - var(--header-height));
+}
+
+.sellDisplay .formDisplay {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: column;
+}
+
+.sellDisplay .innerLeftBox {
+    border-radius: 10px 0px 0px 10px;
+    border:1px solid rgb(202, 199, 199);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sellDisplay .innerRightBox {
+    display: flex;
+    flex-direction: column;
+    border-radius: 0px 10px 10px 0px;
+    border:1px solid rgb(202, 199, 199);
+}
+
+.sellDisplay .innerBottomBox {
+    box-shadow: 0 -1px 0 rgb(202, 199, 199);
+    display: flex;
+    border-radius: 0px 0px 10px 0px;;
+    justify-content: center;
+    align-items: center;
+}
+
+.sellDisplay .scrollBar::-webkit-scrollbar {
+    width: 10px;
+}
+
+.sellDisplay .scrollBar::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: #c2c9d2;
+}
