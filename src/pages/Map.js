@@ -30,28 +30,28 @@ function Map (){
 
         //Compare distances
         if ((universityDistance < stadiumDistance) && (universityDistance < follettsDistance)) {
-            alert('University Bookstore is the closest');
+            document.getElementById("closestBookstoreText").innerHTML = "University Bookstore is the closest!";
         }
         else if ((stadiumDistance < universityDistance) && (stadiumDistance < follettsDistance)) {
-            alert('Stadium Bookstore is the closest');
+            document.getElementById("closestBookstoreText").innerHTML = "Stadium University Bookstore is the closest!";
         }
         else if ((follettsDistance < universityDistance) && (follettsDistance < stadiumDistance)) {
-            alert('Folletts Bookstore is the closest');
+            document.getElementById("closestBookstoreText").innerHTML = "Follett's Purdue West Bookstore is the closest!";
         }
         else if (universityDistance === stadiumDistance === follettsDistance) {
-            alert('All bookstores are the closest');
+            document.getElementById("closestBookstoreText").innerHTML = "All bookstores are the closest!";
         }
         else if (universityDistance === stadiumDistance) {
-            alert('University Bookstore and Stadium Bookstore are the closest');
+            document.getElementById("closestBookstoreText").innerHTML = "University Bookstore and Stadium University Bookstore are the closest!";
         }
         else if (universityDistance === follettsDistance) {
-            alert('University Bookstore and Folletts Bookstore are the closest');
+            document.getElementById("closestBookstoreText").innerHTML = "University Bookstore and Follett's Purdue West Bookstore are the closest!";
         }
         else if (stadiumDistance === follettsDistance) {
-            alert('Stadium Bookstore and Folletts Bookstore are the closest');
+            document.getElementById("closestBookstoreText").innerHTML = "Stadium University Bookstore and Follett's Purdue West Bookstore are the closest!";
         }
         else {
-            alert('Unable to determine the closest bookstore');
+            document.getElementById("closestBookstoreText").innerHTML = "Unable to determine the closest bookstore!";
         }
     }
     
@@ -88,6 +88,7 @@ function Map (){
             <div class = "closestBookstoreButtonContainer">
                 <button class = "closestBookstoreButton" type = "button" onClick = {closestBookstore}>Click me to locate the closest bookstore</button>
             </div>
+            <h2 class = "closestBookstoreText" id = "closestBookstoreText"></h2>
             <h2 class = "bookstoreNames">University Bookstore</h2>
             <img class = "bookstoreImages" src={UniversityBookstoreImage} alt = "UniversityBookstoreImage"></img>
             <p class = "hoursText">
