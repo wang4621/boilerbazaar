@@ -41,6 +41,7 @@ function Profile () {
                             <TextField id="firstName" label="First Name" disabled value="Jeff"></TextField>
                             <TextField id="preferredName" label="Preferred Name" disabled={isDisabled}/>
                             <TextField id="lastName" label="Last Name" disabled value="Wang"/>
+                            <TextField id="puid" label="PUID" disabled value="0031888129"/>
                             <TextField id="major" label="Major" disabled={isDisabled}/>
                             <TextField id="location" name="" label="Preferred Meeting Location" select value={location} disabled={isDisabled} onChange={locationChange}>
                                 <MenuItem value="None">None</MenuItem>
