@@ -61,9 +61,10 @@
 .diffSettings {
     display: flex;
     flex-direction: column;
-    border-right:1px solid rgb(202, 199, 199)
+    border-right:1px solid rgb(202, 199, 199);
+    border-radius: 0px 0px 0px 20px;
 }
 
-.buttonDisplay {
-    padding: 25px 0px;
+.profileDisplay button {
+    height: 80px;
 }
