@@ -1,6 +1,5 @@
 import { CgProfile } from 'react-icons/cg';
 import { TbMap2 } from 'react-icons/tb';
-import { MdOutlineDarkMode } from "react-icons/md";
 import './App.css';
 import Img from './logo.png'
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
@@ -38,11 +37,6 @@ function App() {
           <Route exact path='/map' element={< Map />}></Route>
           <Route exact path='/profile' element={< Profile />}></Route>
         </Routes>
-      </div>
-      <div class="d-flex justify-content-end">
-        <button style={{ "border": "none" }}>
-          <MdOutlineDarkMode size={40}></MdOutlineDarkMode>
-        </button>
       </div>
     </Router>
   );
