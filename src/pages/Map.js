@@ -8,6 +8,9 @@ function Map (){
         <div class="mapContainer">
             <h1 class = "mapTitle">Purdue Bookstore Locations</h1>
             <hr class= "mapDivider"></hr>
+            <div class = "closestBookstoreButtonContainer">
+                <button class = "closestBookstoreButton" type="button">Click me to locate the closest bookstore</button>
+            </div>
             <h2 class = "bookstoreNames">University Bookstore</h2>
             <img class = "bookstoreImages" src={UniversityBookstoreImage} alt = "UniversityBookstoreImage"></img>
             <p class = "hoursText">
