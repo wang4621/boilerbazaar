@@ -15,11 +15,54 @@ function Map (){
     }
 
     function positionSuccess(position) {
-        console.log(position);
+        //console.log(position);
+        const coordinates = position.coords;
+        const universityLatitude = 40.42426180398474;
+        const universityLongitude = -86.91021347670406;
+        const stadiumLatitude = 40.432860768794406;
+        const stadiumLongitude = -86.91493815243548;
+        const follettsLattitude = 40.42405686593707;
+        const follettsLongitude = -86.92522357859477;
+        const universityDistance = calculateDistance(coordinates.latitude, coordinates.longitude, universityLatitude, universityLongitude);
+        const stadiumDistance = calculateDistance(coordinates.latitude, coordinates.longitude, stadiumLatitude, stadiumLongitude);
+        const follettsDistance = calculateDistance(coordinates.latitude, coordinates.longitude, follettsLattitude, follettsLongitude);
+        if ((universityDistance < stadiumDistance) && (universityDistance < follettsDistance)) {
+            alert('University Bookstore is the closest');
+        }
+        else if ((stadiumDistance < universityDistance) && (stadiumDistance < follettsDistance)) {
+            alert('Stadium Bookstore is the closest');
+        }
+        else if ((follettsDistance < universityDistance) && (follettsDistance < stadiumDistance)) {
+            alert('Folletts Bookstore is the closest');
+        }
+        else {
+            alert('Unable to determine closest bookstore');
+        }
     }
     
     function positionError() {
         alert("Please allow location to use this service");
+    }
+
+    function calculateDistance(lat1, lon1, lat2, lon2) {
+        if ((lat1 === lat2) && (lon1 === lon2)) {
+            return 0;
+        }
+        else {
+            var radlat1 = Math.PI * lat1/180;
+		    var radlat2 = Math.PI * lat2/180;
+		    var theta = lon1-lon2;
+		    var radtheta = Math.PI * theta/180;
+		    var dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
+		    if (dist > 1) {
+			    dist = 1;
+		    }
+		    dist = Math.acos(dist);
+		    dist = dist * 180/Math.PI;
+		    dist = dist * 60 * 1.1515;
+		    dist = dist * 0.8684;
+		    return dist;
+        }
     }
 
     return (
