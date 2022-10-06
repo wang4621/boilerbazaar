@@ -1,4 +1,5 @@
 import './Map.css';
+import React from 'react';
 import UniversityBookstoreImage from './UniversityBookstoreImage.jpg'
 import StadiumBookstoreImage from './StadiumBookstoreImage.jpg'
 import FollettsBookstoreImage from './FollettsBookstoreImage.jpg'
@@ -81,7 +82,6 @@ function Map (){
     }
 
     function dynamicHours() {
-        alert('hi');
         var currentDate = new Date();
         var weekday = currentDate.getDay();
 
@@ -132,13 +132,27 @@ function Map (){
                 Saturday 10:00 AM - 5:00 PM<br/>
                 Sunday Closed (Today)`
                 break;
+            default:
+                document.getElementById("universityHours").innerHTML = `<h3>Hours:</h3>
+                Monday - Friday 9:00 AM - 5:30 PM<br/>
+                Saturday 10:00 AM - 5:00 PM<br/>
+                Sunday 12:00 PM - 5:00 PM`
+                document.getElementById("stadiumHours").innerHTML = `<h3>Hours:</h3>
+                Monday - Friday 9:00 AM - 5:00 PM<br/>
+                Saturday 10:00 AM - 5:00 PM<br/>
+                Sunday Closed`
+                document.getElementById("follettsHours").innerHTML = `<h3>Hours:</h3>
+                Monday - Friday 9:00 AM - 5:00 PM<br/>
+                Saturday 10:00 AM - 5:00 PM<br/>
+                Sunday Closed`
+                break;
         }
     }
 
-    window.onload = function() {
+    React.useEffect(() => {
         dynamicHours();
-       }
-
+    }, []);
+    
     return (
         <div class="mapContainer">
             <h1 class = "mapTitle">Purdue Bookstore Locations</h1>
