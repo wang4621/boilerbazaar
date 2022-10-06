@@ -80,9 +80,9 @@ function Sell () {
             </Box>
             <div className="previewDisplay">
                 <Box sx={{ width: '90%', borderRadius: 5, height: '90%', display: 'flex', flexDirection: 'column', backgroundColor:'white', boxShadow: 8}}>
-                    <CardHeader title="Preview" sx={{height: '5%'}}/>
-                    <Box sx={{height:'95%', display:'flex', justifyContent:'center'}}>
-                        <Box sx={{height: '96%', width: '95%', display: 'flex', flexFlow: 'row'}}>
+                    <CardHeader title="Preview" sx={{height: '5%', marginLeft:'1%'}}/>
+                    <Box sx={{height:'95%', width:'100%', display:'flex',justifyContent:'center', flex:'1'}}>
+                        <Box sx={{height: '96%', width: '95%', display: 'flex', flexDirection: 'row'}}>
                             <Box sx={{ width: '60%', height: '100%', backgroundColor: 'rgb(223, 223, 223)'}} className="innerLeftBox">
                                 <Typography variant="h4" color="black">
                                     Listing Preview
@@ -141,7 +141,6 @@ function Sell () {
                                 </Box>
                             </Box>
                         </Box>
-
                     </Box>
                     {/* <Box sx={{height: '90%', width: '100%', display: 'flex', flexDirection:'row', justifyContent:'center', alignItems: 'flex-start'}}>
                         <Box sx={{ width: '58%', height: '96%', backgroundColor: 'rgb(223, 223, 223)'}} className="innerLeftBox">
