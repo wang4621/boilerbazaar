@@ -4,12 +4,17 @@ import StadiumBookstoreImage from './StadiumBookstoreImage.jpg'
 import FollettsBookstoreImage from './FollettsBookstoreImage.jpg'
 
 function Map (){
+
+    function closestBookstore() {
+        alert("Test");
+      }
+
     return (
         <div class="mapContainer">
             <h1 class = "mapTitle">Purdue Bookstore Locations</h1>
             <hr class= "mapDivider"></hr>
             <div class = "closestBookstoreButtonContainer">
-                <button class = "closestBookstoreButton" type="button">Click me to locate the closest bookstore</button>
+                <button class = "closestBookstoreButton" type = "button" onClick = {closestBookstore}>Click me to locate the closest bookstore</button>
             </div>
             <h2 class = "bookstoreNames">University Bookstore</h2>
             <img class = "bookstoreImages" src={UniversityBookstoreImage} alt = "UniversityBookstoreImage"></img>
@@ -50,5 +55,5 @@ function Map (){
         </div>
     )
 }
-  
+
 export default Map;
