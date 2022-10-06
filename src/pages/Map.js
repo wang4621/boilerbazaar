@@ -1,4 +1,7 @@
 import './Map.css';
+import UniversityBookstoreImage from './UniversityBookstoreImage.jpg'
+import StadiumBookstoreImage from './StadiumBookstoreImage.jpg'
+import FollettsBookstoreImage from './FollettsBookstoreImage.jpg'
 
 function Map (){
     return (
@@ -6,8 +9,9 @@ function Map (){
             <h1 class = "mapTitle">Purdue Bookstore Locations</h1>
             <hr class= "mapDivider"></hr>
             <h2 class = "bookstoreNames">University Bookstore</h2>
-            <h3 class = "hoursHeader">Hours:</h3>
+            <img class = "bookstoreImages" src={UniversityBookstoreImage} alt = "UniversityBookstoreImage"></img>
             <p class = "hoursText">
+            <h3>Hours:</h3>
             Monday - Friday 9:00 AM - 5:30 PM<br/>
             Saturday 10:00 AM - 5:00 PM<br/>
             Sunday 12:00 PM - 5:00 PM</p>
@@ -17,8 +21,9 @@ function Map (){
             }} 
             allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="universityMap"></iframe>
             <h2 class = "bookstoreNames">Stadium University Bookstore</h2>
-            <h3 class = "hoursHeader">Hours:</h3>
+            <img class = "bookstoreImages" src={StadiumBookstoreImage} alt = "StadiumBookstoreImage"></img>
             <p class = "hoursText">
+            <h3>Hours:</h3>
             Monday - Friday 9:00 AM - 5:00 PM<br/>
             Saturday 10:00 AM - 5:00 PM<br/>
             Sunday Closed</p>
@@ -28,8 +33,9 @@ function Map (){
             }} 
             allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="universityMap"></iframe>
             <h2 class = "bookstoreNames">Follett's Purdue West Bookstore</h2>
-            <h3 class = "hoursHeader">Hours:</h3>
+            <img class = "bookstoreImages" src={FollettsBookstoreImage} alt = "FollettsBookstoreImage"></img>
             <p class = "hoursText">
+            <h3>Hours:</h3>
             Monday - Friday 9:00 AM - 5:00 PM<br/>
             Saturday 10:00 AM - 5:00 PM<br/>
             Sunday Closed</p>
