@@ -24,8 +24,6 @@ function handleISBN(event) {
 }
 
 function changeText(event) {
-    // console.log(event.target.value)
-    // console.log(event.target)
     if (event.target.id === 'title') {
         if (event.target.value === '') {
             document.getElementById('previewTitle').innerText = 'Title'
@@ -81,15 +79,77 @@ function Sell () {
                 </Box>
             </Box>
             <div className="previewDisplay">
-                <Card sx={{ width: "90%", borderRadius: 5, height: '90%', display: 'flex', flexDirection: 'column'}} elevation={8}>
+                <Box sx={{ width: '90%', borderRadius: 5, height: '90%', display: 'flex', flexDirection: 'column', backgroundColor:'white', boxShadow: 8}}>
                     <CardHeader title="Preview" sx={{height: '5%'}}/>
-                    <Box sx={{height: '95%', display: 'flex', flexDirection:'row', justifyContent:'center'}}>
-                        <Box sx={{ width: '58%', height: '96%', backgroundColor: 'rgb(223, 223, 223)'}} className="innerLeftBox">
-                            <CardContent sx={{alignItems: 'center', display: 'flex', justifyContent: 'center', height: '94%'}}>
+                    <Box sx={{height:'95%', display:'flex', justifyContent:'center'}}>
+                        <Box sx={{height: '96%', width: '95%', display: 'flex', flexFlow: 'row'}}>
+                            <Box sx={{ width: '60%', height: '100%', backgroundColor: 'rgb(223, 223, 223)'}} className="innerLeftBox">
                                 <Typography variant="h4" color="black">
                                     Listing Preview
                                 </Typography>
-                            </CardContent>
+                            </Box>
+                            <Box sx={{ width: '40%', height: '100%', backgroundColor: 'whitesmoke'}} className="innerRightBox">
+                                <CardContent sx={{wordBreak: 'break-word', overflowY: 'scroll', height:'70%', display:'flex', flexDirection:'column'}} className="scrollBar">
+                                    <Typography variant="h5" color="black" sx={{fontWeight:'bold'}} id="previewTitle">
+                                        Title
+                                    </Typography>
+                                    <Typography variant="h6" color="black" sx={{fontWeight:'bold'}} id="previewPrice">
+                                        Price
+                                    </Typography>
+                                    <br/>
+                                    <Typography variant="h6" color="black" sx={{fontWeight:'bold'}}>
+                                        Details
+                                    </Typography>
+                                    <br/>
+                                    <Typography variant="h6" color="black" sx={{fontWeight:'bold'}}>
+                                        Author
+                                        <Typography variant="body1" color="black" id="previewAuthor"/>
+                                    </Typography>
+                                    <Typography variant="h6" color="black" sx={{fontWeight:'bold'}}>
+                                        ISBN
+                                        <Typography variant="body1" color="black" id="previewISBN"/>
+                                    </Typography>
+                                    <Typography variant="h6" color="black" sx={{fontWeight:'bold'}}>
+                                        Edition
+                                        <Typography variant="body1" color="black" id="previewEdition"/>
+                                    </Typography>               
+                                    <Typography variant="h6" color="black" sx={{fontWeight:'bold'}}>
+                                        Condition
+                                        <Typography variant="body1" color="black" id="previewCondition"/>
+                                    </Typography>
+                                    <br/>
+                                    <Typography variant="h6" color="black" sx={{fontWeight:'bold'}}>
+                                        Description
+                                        <Typography variant="body1" color="black" id="previewDescription"/>
+                                    </Typography>
+                                    <br/><br/>
+                                </CardContent>
+                                <Divider variant='middle' sx={{borderBottomColor: 'black'}}/>
+                                <CardContent sx={{height: '20%', display: 'flex', flexDirection:'column'}}>
+                                    <Typography variant="body1" color="black" sx={{fontWeight:'bold', fontSize:18}}>
+                                        Seller Information
+                                        <Button variant="outlined" size="small" disabled sx={{float: 'right'}}>Seller Details</Button>
+                                    </Typography>
+                                    <br/>
+                                    <Typography variant="body1" color="black" sx={{display: 'flex', justifyContent:'space-between', alignItems:'center'}} id="avatarName">
+                                        <Avatar sx={{ width: 40, height: 40 }} alt="" src="" id="avatarPic"/>
+                                        Jeff Wang
+                                    </Typography>
+                                </CardContent>
+                                <Box sx={{height: '10%', backgroundColor: 'whitesmoke'}} className="innerBottomBox">
+                                    <Button variant="contained" disabled sx={{width: '95%'}}>Message</Button>
+                                </Box>
+                            </Box>
+                        </Box>
+
+                    </Box>
+                    {/* <Box sx={{height: '90%', width: '100%', display: 'flex', flexDirection:'row', justifyContent:'center', alignItems: 'flex-start'}}>
+                        <Box sx={{ width: '58%', height: '96%', backgroundColor: 'rgb(223, 223, 223)'}} className="innerLeftBox">
+                            <Box sx={{alignItems: 'center', display: 'flex', justifyContent: 'center', height: '100%'}}>
+                                <Typography variant="h4" color="black">
+                                    Listing Preview
+                                </Typography>
+                            </Box>
                         </Box>
                         <Box sx={{ width: '37%', height: '96%', backgroundColor: 'whitesmoke'}} className="innerRightBox">
                             <CardContent sx={{wordBreak: 'break-word', overflowY: 'scroll', height:'70%', display:'flex', flexDirection:'column'}} className="scrollBar">
@@ -143,8 +203,8 @@ function Sell () {
                                 <Button variant="contained" disabled sx={{width: '95%'}}>Message</Button>
                             </Box>
                         </Box>
-                    </Box>
-                </Card>
+                    </Box> */}
+                </Box>
             </div>
         </div>
     )

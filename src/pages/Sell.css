@@ -80,17 +80,18 @@
     flex: 1
 }
 
-.sellDisplay .innerCard {
+/* .sellDisplay .innerCard {
     display: flex;
     flex-direction: row;
     justify-content: center;
-    /* height: 95% */
-    /* height: 89% */
-}
+} */
 
 .sellDisplay .innerLeftBox {
     border-radius: 10px 0px 0px 10px;
-    border:1px solid rgb(202, 199, 199)
+    border:1px solid rgb(202, 199, 199);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .sellDisplay .innerRightBox {
