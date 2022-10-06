@@ -4,10 +4,91 @@ import StadiumBookstoreImage from './StadiumBookstoreImage.jpg'
 import FollettsBookstoreImage from './FollettsBookstoreImage.jpg'
 
 function Map (){
+
+    function closestBookstore() {
+        if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(positionSuccess, positionError);
+           }
+        else {
+            alert("Geolocation not supported by this browser");
+        }
+    }
+
+    function positionSuccess(position) {
+        const coordinates = position.coords;
+        const universityLatitude = 40.42426180398474;
+        const universityLongitude = -86.91021347670406;
+        const stadiumLatitude = 40.432860768794406;
+        const stadiumLongitude = -86.91493815243548;
+        const follettsLattitude = 40.42405686593707;
+        const follettsLongitude = -86.92522357859477;
+
+        //Calculate the distances from each bookstore
+        const universityDistance = calculateDistance(coordinates.latitude, coordinates.longitude, universityLatitude, universityLongitude);
+        const stadiumDistance = calculateDistance(coordinates.latitude, coordinates.longitude, stadiumLatitude, stadiumLongitude);
+        const follettsDistance = calculateDistance(coordinates.latitude, coordinates.longitude, follettsLattitude, follettsLongitude);
+
+        //Compare distances
+        if ((universityDistance < stadiumDistance) && (universityDistance < follettsDistance)) {
+            document.getElementById("closestBookstoreText").innerHTML = "University Bookstore is the closest!";
+        }
+        else if ((stadiumDistance < universityDistance) && (stadiumDistance < follettsDistance)) {
+            document.getElementById("closestBookstoreText").innerHTML = "Stadium University Bookstore is the closest!";
+        }
+        else if ((follettsDistance < universityDistance) && (follettsDistance < stadiumDistance)) {
+            document.getElementById("closestBookstoreText").innerHTML = "Follett's Purdue West Bookstore is the closest!";
+        }
+        else if (universityDistance === stadiumDistance === follettsDistance) {
+            document.getElementById("closestBookstoreText").innerHTML = "All bookstores are the closest!";
+        }
+        else if (universityDistance === stadiumDistance) {
+            document.getElementById("closestBookstoreText").innerHTML = "University Bookstore and Stadium University Bookstore are the closest!";
+        }
+        else if (universityDistance === follettsDistance) {
+            document.getElementById("closestBookstoreText").innerHTML = "University Bookstore and Follett's Purdue West Bookstore are the closest!";
+        }
+        else if (stadiumDistance === follettsDistance) {
+            document.getElementById("closestBookstoreText").innerHTML = "Stadium University Bookstore and Follett's Purdue West Bookstore are the closest!";
+        }
+        else {
+            document.getElementById("closestBookstoreText").innerHTML = "Unable to determine the closest bookstore!";
+        }
+    }
+    
+    function positionError() {
+        alert("Please allow location to use this service");
+    }
+
+    //Calculate the distance between two coordinates
+    function calculateDistance(lat1, lon1, lat2, lon2) {
+        if ((lat1 === lat2) && (lon1 === lon2)) {
+            return 0;
+        }
+        else {
+            const radlat1 = Math.PI * lat1/180;
+		    const radlat2 = Math.PI * lat2/180;
+		    const theta = lon1-lon2;
+		    const radtheta = Math.PI * theta/180;
+		    var dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
+		    if (dist > 1) {
+			    dist = 1;
+		    }
+		    dist = Math.acos(dist);
+		    dist = dist * 180/Math.PI;
+		    dist = dist * 60 * 1.1515;
+		    dist = dist * 0.8684;
+		    return dist;
+        }
+    }
+
     return (
         <div class="mapContainer">
             <h1 class = "mapTitle">Purdue Bookstore Locations</h1>
             <hr class= "mapDivider"></hr>
+            <div class = "closestBookstoreButtonContainer">
+                <button class = "closestBookstoreButton" type = "button" onClick = {closestBookstore}>Click me to locate the closest bookstore</button>
+            </div>
+            <h2 class = "closestBookstoreText" id = "closestBookstoreText"></h2>
             <h2 class = "bookstoreNames">University Bookstore</h2>
             <img class = "bookstoreImages" src={UniversityBookstoreImage} alt = "UniversityBookstoreImage"></img>
             <p class = "hoursText">
@@ -47,5 +128,5 @@ function Map (){
         </div>
     )
 }
-  
+
 export default Map;
