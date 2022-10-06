@@ -1,3 +1,7 @@
+import './Sell.css'
+import { Avatar, CardHeader, CardContent, Divider, Box, Typography, Button, ImageList, ImageListItem } from '@mui/material';
+import { TextField, MenuItem } from '@mui/material';
+
 // function sendToServer() {
 //     var title = document.getElementById("title").value;
 //     var isbn = document.getElementById("isbn").value;
@@ -12,9 +16,6 @@
 //     var json = `{"title": "${title}", "isbn": "${isbn}", "author": "${author}", "edition": "${edition}", "price": "${price}", "description": "${description}"}`; 
 //     console.log(json);
 //     client.send(json);
-import './Sell.css'
-import { Avatar, CardHeader, CardContent, Divider, Box, Typography, Button, ImageList, ImageListItem } from '@mui/material';
-import { TextField, MenuItem } from '@mui/material';
 
 // adds dollar sign in front of price
 function handleDollar(event) {
