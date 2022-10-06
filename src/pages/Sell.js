@@ -81,7 +81,7 @@ function Sell () {
             <Box sx={{width: '72%', height: '100%', display: 'flex', justifyContent:'center', alignItems: 'center'}}>
                 <Box sx={{ width: '90%', borderRadius: 5, height: '90%', display: 'flex', flexDirection: 'column', backgroundColor:'white', boxShadow: 8}}>
                     <CardHeader title="Preview" sx={{height: '5%', marginLeft:'1%'}}/>
-                    <Box sx={{height:'95%', width:'100%', display:'flex',justifyContent:'center', flex:'1'}}>
+                    <Box sx={{height:'95%', width:'100%', display:'flex',justifyContent:'center', overflowY:'scroll'}}>
                         <Box sx={{height: '96%', width: '95%', display: 'flex', flexDirection: 'row'}}>
                             <Box sx={{ width: '60%', height: '100%', backgroundColor: 'rgb(223, 223, 223)'}} className="innerLeftBox">
                                 <Typography variant="h4" color="black">
