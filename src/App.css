@@ -13,7 +13,7 @@ body {
   overflow: hidden;
   display: flex;
   justify-content: space-between;
-  height: var(--header-height)
+  height: var(--header-height);
 }
 
 .navbar a {
