@@ -80,6 +80,65 @@ function Map (){
         }
     }
 
+    function dynamicHours() {
+        alert('hi');
+        var currentDate = new Date();
+        var weekday = currentDate.getDay();
+
+        switch(weekday) {
+            case 1:
+            case 2:
+            case 3:
+            case 4:
+            case 5:
+                document.getElementById("universityHours").innerHTML = `<h3>Hours:</h3>
+                Monday - Friday 9:00 AM - 5:30 PM (Today)<br/>
+                Saturday 10:00 AM - 5:00 PM<br/>
+                Sunday 12:00 PM - 5:00 PM`
+                document.getElementById("stadiumHours").innerHTML = `<h3>Hours:</h3>
+                Monday - Friday 9:00 AM - 5:00 PM (Today)<br/>
+                Saturday 10:00 AM - 5:00 PM<br/>
+                Sunday Closed`
+                document.getElementById("follettsHours").innerHTML = `<h3>Hours:</h3>
+                Monday - Friday 9:00 AM - 5:00 PM (Today)<br/>
+                Saturday 10:00 AM - 5:00 PM<br/>
+                Sunday Closed`
+                break;
+            case 6:
+                document.getElementById("universityHours").innerHTML = `<h3>Hours:</h3>
+                Monday - Friday 9:00 AM - 5:30 PM<br/>
+                Saturday 10:00 AM - 5:00 PM (Today)<br/>
+                Sunday 12:00 PM - 5:00 PM`
+                document.getElementById("stadiumHours").innerHTML = `<h3>Hours:</h3>
+                Monday - Friday 9:00 AM - 5:00 PM<br/>
+                Saturday 10:00 AM - 5:00 PM (Today)<br/>
+                Sunday Closed`
+                document.getElementById("follettsHours").innerHTML = `<h3>Hours:</h3>
+                Monday - Friday 9:00 AM - 5:00 PM<br/>
+                Saturday 10:00 AM - 5:00 PM (Today)<br/>
+                Sunday Closed`
+                break;
+            case 0:
+                document.getElementById("universityHours").innerHTML = `<h3>Hours:</h3>
+                Monday - Friday 9:00 AM - 5:30 PM<br/>
+                Saturday 10:00 AM - 5:00 PM<br/>
+                Sunday 12:00 PM - 5:00 PM (Today)`
+                document.getElementById("stadiumHours").innerHTML = `<h3>Hours:</h3>
+                Monday - Friday 9:00 AM - 5:00 PM<br/>
+                Saturday 10:00 AM - 5:00 PM<br/>
+                Sunday Closed (Today)`
+                document.getElementById("follettsHours").innerHTML = `<h3>Hours:</h3>
+                Monday - Friday 9:00 AM - 5:00 PM<br/>
+                Saturday 10:00 AM - 5:00 PM<br/>
+                Sunday Closed (Today)`
+                break;
+        }
+    }
+
+    window.onload = function() {
+        dynamicHours();
+       }
+
     return (
         <div class="mapContainer">
             <h1 class = "mapTitle">Purdue Bookstore Locations</h1>
@@ -90,7 +149,7 @@ function Map (){
             <p class = "closestBookstoreText" id = "closestBookstoreText"></p>
             <h2 class = "bookstoreNames">University Bookstore</h2>
             <img class = "bookstoreImages" src={UniversityBookstoreImage} alt = "UniversityBookstoreImage"></img>
-            <p class = "hoursText">
+            <p class = "hoursText" id = "universityHours">
             <h3>Hours:</h3>
             Monday - Friday 9:00 AM - 5:30 PM<br/>
             Saturday 10:00 AM - 5:00 PM<br/>
@@ -102,7 +161,7 @@ function Map (){
             allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="universityMap"></iframe>
             <h2 class = "bookstoreNames">Stadium University Bookstore</h2>
             <img class = "bookstoreImages" src={StadiumBookstoreImage} alt = "StadiumBookstoreImage"></img>
-            <p class = "hoursText">
+            <p class = "hoursText" id = "stadiumHours">
             <h3>Hours:</h3>
             Monday - Friday 9:00 AM - 5:00 PM<br/>
             Saturday 10:00 AM - 5:00 PM<br/>
@@ -114,7 +173,7 @@ function Map (){
             allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="universityMap"></iframe>
             <h2 class = "bookstoreNames">Follett's Purdue West Bookstore</h2>
             <img class = "bookstoreImages" src={FollettsBookstoreImage} alt = "FollettsBookstoreImage"></img>
-            <p class = "hoursText">
+            <p class = "hoursText" id = "follettsHours">
             <h3>Hours:</h3>
             Monday - Friday 9:00 AM - 5:00 PM<br/>
             Saturday 10:00 AM - 5:00 PM<br/>
