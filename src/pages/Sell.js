@@ -100,7 +100,7 @@ function Sell () {
                                     Price
                                 </Typography>
                                 <br/>
-                                <Typography variant="h6" color="black" sx={{fontWeight:'bold'}} id="previewPrice">
+                                <Typography variant="h6" color="black" sx={{fontWeight:'bold'}}>
                                     Details
                                 </Typography>
                                 <br/>
