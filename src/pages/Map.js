@@ -15,7 +15,6 @@ function Map (){
     }
 
     function positionSuccess(position) {
-        //console.log(position);
         const coordinates = position.coords;
         const universityLatitude = 40.42426180398474;
         const universityLongitude = -86.91021347670406;
@@ -23,9 +22,13 @@ function Map (){
         const stadiumLongitude = -86.91493815243548;
         const follettsLattitude = 40.42405686593707;
         const follettsLongitude = -86.92522357859477;
+
+        //Calculate the distances from each bookstore
         const universityDistance = calculateDistance(coordinates.latitude, coordinates.longitude, universityLatitude, universityLongitude);
         const stadiumDistance = calculateDistance(coordinates.latitude, coordinates.longitude, stadiumLatitude, stadiumLongitude);
         const follettsDistance = calculateDistance(coordinates.latitude, coordinates.longitude, follettsLattitude, follettsLongitude);
+
+        //Compare distances
         if ((universityDistance < stadiumDistance) && (universityDistance < follettsDistance)) {
             alert('University Bookstore is the closest');
         }
@@ -35,8 +38,20 @@ function Map (){
         else if ((follettsDistance < universityDistance) && (follettsDistance < stadiumDistance)) {
             alert('Folletts Bookstore is the closest');
         }
+        else if (universityDistance === stadiumDistance === follettsDistance) {
+            alert('All bookstores are the closest');
+        }
+        else if (universityDistance === stadiumDistance) {
+            alert('University Bookstore and Stadium Bookstore are the closest');
+        }
+        else if (universityDistance === follettsDistance) {
+            alert('University Bookstore and Folletts Bookstore are the closest');
+        }
+        else if (stadiumDistance === follettsDistance) {
+            alert('Stadium Bookstore and Folletts Bookstore are the closest');
+        }
         else {
-            alert('Unable to determine closest bookstore');
+            alert('Unable to determine the closest bookstore');
         }
     }
     
@@ -44,15 +59,16 @@ function Map (){
         alert("Please allow location to use this service");
     }
 
+    //Calculate the distance between two coordinates
     function calculateDistance(lat1, lon1, lat2, lon2) {
         if ((lat1 === lat2) && (lon1 === lon2)) {
             return 0;
         }
         else {
-            var radlat1 = Math.PI * lat1/180;
-		    var radlat2 = Math.PI * lat2/180;
-		    var theta = lon1-lon2;
-		    var radtheta = Math.PI * theta/180;
+            const radlat1 = Math.PI * lat1/180;
+		    const radlat2 = Math.PI * lat2/180;
+		    const theta = lon1-lon2;
+		    const radtheta = Math.PI * theta/180;
 		    var dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
 		    if (dist > 1) {
 			    dist = 1;
