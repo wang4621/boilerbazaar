@@ -92,45 +92,45 @@ function Map (){
             case 4:
             case 5:
                 document.getElementById("universityHours").innerHTML = `<h3>Hours:</h3>
-                Monday - Friday 9:00 AM - 5:30 PM (Today)<br/>
+                <b>Monday - Friday 9:00 AM - 5:30 PM</b><br/>
                 Saturday 10:00 AM - 5:00 PM<br/>
                 Sunday 12:00 PM - 5:00 PM`
                 document.getElementById("stadiumHours").innerHTML = `<h3>Hours:</h3>
-                Monday - Friday 9:00 AM - 5:00 PM (Today)<br/>
+                <b>Monday - Friday 9:00 AM - 5:00 PM</b><br/>
                 Saturday 10:00 AM - 5:00 PM<br/>
                 Sunday Closed`
                 document.getElementById("follettsHours").innerHTML = `<h3>Hours:</h3>
-                Monday - Friday 9:00 AM - 5:00 PM (Today)<br/>
+                <b>Monday - Friday 9:00 AM - 5:00 PM</b><br/>
                 Saturday 10:00 AM - 5:00 PM<br/>
                 Sunday Closed`
                 break;
             case 6:
                 document.getElementById("universityHours").innerHTML = `<h3>Hours:</h3>
                 Monday - Friday 9:00 AM - 5:30 PM<br/>
-                Saturday 10:00 AM - 5:00 PM (Today)<br/>
+                <b>Saturday 10:00 AM - 5:00 PM</b><br/>
                 Sunday 12:00 PM - 5:00 PM`
                 document.getElementById("stadiumHours").innerHTML = `<h3>Hours:</h3>
                 Monday - Friday 9:00 AM - 5:00 PM<br/>
-                Saturday 10:00 AM - 5:00 PM (Today)<br/>
+                <b>Saturday 10:00 AM - 5:00 PM</b><br/>
                 Sunday Closed`
                 document.getElementById("follettsHours").innerHTML = `<h3>Hours:</h3>
                 Monday - Friday 9:00 AM - 5:00 PM<br/>
-                Saturday 10:00 AM - 5:00 PM (Today)<br/>
+                <b>Saturday 10:00 AM - 5:00 PM</b><br/>
                 Sunday Closed`
                 break;
             case 0:
                 document.getElementById("universityHours").innerHTML = `<h3>Hours:</h3>
                 Monday - Friday 9:00 AM - 5:30 PM<br/>
                 Saturday 10:00 AM - 5:00 PM<br/>
-                Sunday 12:00 PM - 5:00 PM (Today)`
+                <b>Sunday 12:00 PM - 5:00 PM</b>`
                 document.getElementById("stadiumHours").innerHTML = `<h3>Hours:</h3>
                 Monday - Friday 9:00 AM - 5:00 PM<br/>
                 Saturday 10:00 AM - 5:00 PM<br/>
-                Sunday Closed (Today)`
+                <b>Sunday Closed</b>`
                 document.getElementById("follettsHours").innerHTML = `<h3>Hours:</h3>
                 Monday - Friday 9:00 AM - 5:00 PM<br/>
                 Saturday 10:00 AM - 5:00 PM<br/>
-                Sunday Closed (Today)`
+                <b>Sunday Closed</b>`
                 break;
             default:
                 document.getElementById("universityHours").innerHTML = `<h3>Hours:</h3>
