@@ -74,7 +74,7 @@ function Sell () {
                         This is where you add pictures for textbooks
                     </Typography>
                     <TextField id="title" label="Title" required onChange={event => changeText(event)}/>
-                    <TextField id="price" label="Price" required onChange={event => handleDollar(event)}/>
+                    <TextField id="price" label="Price" required onChange={event => handleDollar(event)} inputProps={{ maxLength: 4 }}/>
                     <TextField id="author" label="Author" required onChange={event => changeText(event)}/>
                     <TextField id="isbn" label="ISBN" required onChange={event => changeText(event)}/>
                     <TextField id="edition" label="Edition" required onChange={event => changeText(event)}/>
