@@ -23,9 +23,11 @@ function handleDollar(event) {
     if (value.includes('$')) {
         value = value.split('$')[1]
     }
-    if (isNaN(value) || value === '') {
+    if (value === '') {
         event.target.value = ''
         document.getElementById('previewPrice').innerText = 'Price'
+    } else if (isNaN(value)) {
+        event.target.value = event.target.value.slice(0, -1)
     } else {
         value = "$" + value;
         event.target.value = value
@@ -50,7 +52,11 @@ function changeText(event) {
     } else if (event.target.id === 'isbn') {
         document.getElementById('previewISBN').innerText = event.target.value
     } else if (event.target.id === 'edition') {
-        document.getElementById('previewEdition').innerText = event.target.value
+        if (!isNaN(event.target.value)) {
+            document.getElementById('previewEdition').innerText = event.target.value
+        } else {
+            event.target.value = event.target.value.slice(0,-1)
+        }
     } else if (event.target.name === 'condition') {
         document.getElementById('previewCondition').innerText = event.target.value
     } else if (event.target.id === 'description') {
@@ -76,8 +82,8 @@ function Sell () {
                     <TextField id="title" label="Title" required onChange={event => changeText(event)}/>
                     <TextField id="price" label="Price" required onChange={event => handleDollar(event)} inputProps={{ maxLength: 4 }}/>
                     <TextField id="author" label="Author" required onChange={event => changeText(event)}/>
-                    <TextField id="isbn" label="ISBN" required onChange={event => changeText(event)}/>
-                    <TextField id="edition" label="Edition" required onChange={event => changeText(event)}/>
+                    <TextField id="isbn" label="ISBN" required onChange={event => changeText(event)} inputProps={{ maxLength: 13 }}/>
+                    <TextField id="edition" label="Edition" required onChange={event => changeText(event)} inputProps={{ maxLength: 2 }}/>
                     <TextField id="condition" name="condition" label="Condition" select required onChange={event => changeText(event)}>
                             <MenuItem value="New">New</MenuItem>
                             <MenuItem value="Used - Like New">Used - Like New</MenuItem>
