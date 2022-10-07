@@ -1,16 +1,14 @@
 {
   "files": {
-    "main.css": "/boilerbazaar/static/css/main.65acbde3.css",
-    "main.js": "/boilerbazaar/static/js/main.c5ff0bea.js",
-    "static/js/787.4abcebeb.chunk.js": "/boilerbazaar/static/js/787.4abcebeb.chunk.js",
-    "static/media/logo.png": "/boilerbazaar/static/media/logo.87ff033d280ee088a21b.png",
+    "main.css": "/boilerbazaar/static/css/main.9836354f.css",
+    "main.js": "/boilerbazaar/static/js/main.b6852033.js",
+    "static/media/logo.png": "/boilerbazaar/static/media/logo.ba7d7fad80f878a0df34.png",
     "index.html": "/boilerbazaar/index.html",
-    "main.65acbde3.css.map": "/boilerbazaar/static/css/main.65acbde3.css.map",
-    "main.c5ff0bea.js.map": "/boilerbazaar/static/js/main.c5ff0bea.js.map",
-    "787.4abcebeb.chunk.js.map": "/boilerbazaar/static/js/787.4abcebeb.chunk.js.map"
+    "main.9836354f.css.map": "/boilerbazaar/static/css/main.9836354f.css.map",
+    "main.b6852033.js.map": "/boilerbazaar/static/js/main.b6852033.js.map"
   },
   "entrypoints": [
-    "static/css/main.65acbde3.css",
-    "static/js/main.c5ff0bea.js"
+    "static/css/main.9836354f.css",
+    "static/js/main.b6852033.js"
   ]
 }
