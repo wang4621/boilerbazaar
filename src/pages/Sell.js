@@ -2,6 +2,7 @@ import './Sell.css'
 import { Avatar, CardHeader, CardContent, Divider, Box, Typography, Button, ImageList, ImageListItem } from '@mui/material';
 import { TextField, MenuItem } from '@mui/material';
 import $ from 'jquery';
+import * as React from 'react';
 
 // adds dollar sign in front of price
 function handleDollar(event) {
@@ -44,37 +45,49 @@ function changeText(event) {
     }
 }
 
-function listTextbook(e) {
-    console.log(e)
-    var title = document.getElementById('title').value
-    var price = document.getElementById('price').value
-    console.log(price)
-    var author = document.getElementById('author').value
-    var isbn = document.getElementById('isbn').value
-    var edition = document.getElementById('edition').value
-    $.ajax({
-        url: 'https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/listing',
-        type: 'POST',
-        data: '',
-        datatype: 'json',
-        contentType: 'application/json',
-        success: function (result) {
-            alert(JSON.stringify(result))
-        },
-        error: function (result) {
-            alert(JSON.stringify(result));
-        }
-    });
-    e.preventDefault()
-}
-
 function Sell () {
+    const [condition, setCondition] = React.useState('');
+
+    const conditionChange = event => {
+        console.log(event.target.value)
+        setCondition(event.target.value)
+        document.getElementById('previewCondition').innerText = event.target.value
+    }
+
+    const listTextbook = event => {
+        // console.log(e)
+        var title = document.getElementById('title').value
+        var price = document.getElementById('price').value.substring(1)
+        // console.log(price)
+        var author = document.getElementById('author').value
+        var isbn = document.getElementById('isbn').value
+        var edition = document.getElementById('edition').value
+        var description = document.getElementById('description').value
+        var jsonData = {"title": title, "price": price, "author": author, "isbn": isbn, "edition": edition, "condition": condition, "description": description}; 
+        jsonData = "\""+JSON.stringify(jsonData).replaceAll('"', '\\"')+"\""
+        console.log(jsonData)
+        $.ajax({
+            url: 'https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/listing',
+            type: 'PUT',
+            data: jsonData,
+            datatype: 'json',
+            contentType: 'application/json',
+            success: function (result) {
+                alert(JSON.stringify(result))
+            },
+            error: function (result) {
+                alert(JSON.stringify(result));
+            }
+        });
+        event.preventDefault()
+    }
+
     return (
         <div className="sellDisplay">
             <Box sx={{width: '28%', height: '100%', backgroundColor: 'whitesmoke', display: 'flex', flexDirection: 'column'}}>
                 <CardHeader title="Textbooks for sale" sx={{textAlign: 'center', height: '5%'}}/>
                 <Box sx={{'& > :not(style)': { m: 1 }, height: "95%", overflowY: 'scroll'}} component="form" noValidate autoComplete="off" className="formDisplay scrollBar"
-                onSubmit={event => listTextbook(event)}>
+                onSubmit={listTextbook}>
                     <Typography variant="body1" color="black">
                         This is where you add pictures for textbooks
                     </Typography>
@@ -83,7 +96,7 @@ function Sell () {
                     <TextField id="author" label="Author" required onChange={event => changeText(event)}/>
                     <TextField id="isbn" label="ISBN" required onChange={event => changeText(event)}/>
                     <TextField id="edition" label="Edition" required onChange={event => changeText(event)}/>
-                    <TextField id="condition" name="condition" label="Condition" select required onChange={event => changeText(event)}>
+                    <TextField id="condition" name="condition" label="Condition" select required value={condition} onChange={conditionChange}>
                             <MenuItem value="New">New</MenuItem>
                             <MenuItem value="Used - Like New">Used - Like New</MenuItem>
                             <MenuItem value="Used - Good">Used - Good</MenuItem>
