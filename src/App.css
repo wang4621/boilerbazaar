@@ -1,5 +1,9 @@
+:root {
+  --header-height: 70px;
+}
+
 body {
-  min-height: 100vh;
+  max-height: 100vh;
   background-color: rgb(233, 233, 233);
   margin: 0;
 }
@@ -9,15 +13,21 @@ body {
   overflow: hidden;
   display: flex;
   justify-content: space-between;
+  height: var(--header-height);
 }
 
 .navbar a {
   text-transform: uppercase;
   color: black;
   text-align: center;
-  padding: 14px 25px;
+  padding: 20px 25px;
   text-decoration: none;
   font-size: 20px;
+  border-bottom: 3px solid transparent;
+}
+
+.navbar #map {
+  padding: 14px 25px;
 }
 
 .navbar ul {
@@ -30,4 +40,9 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.active {
+  border-bottom: 3px solid blue !important;
+  color: blue !important;
 }
