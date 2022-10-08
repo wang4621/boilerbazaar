@@ -1,6 +1,7 @@
 import './Sell.css'
 import { Avatar, CardHeader, CardContent, Divider, Box, Typography, Button, ImageList, ImageListItem } from '@mui/material';
 import { TextField, MenuItem } from '@mui/material';
+import $ from 'jquery';
 
 // adds dollar sign in front of price
 function handleDollar(event) {
@@ -45,6 +46,25 @@ function changeText(event) {
 
 function listTextbook(e) {
     console.log(e)
+    var title = document.getElementById('title').value
+    var price = document.getElementById('price').value
+    console.log(price)
+    var author = document.getElementById('author').value
+    var isbn = document.getElementById('isbn').value
+    var edition = document.getElementById('edition').value
+    $.ajax({
+        url: 'https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/listing',
+        type: 'POST',
+        data: '',
+        datatype: 'json',
+        contentType: 'application/json',
+        success: function (result) {
+            alert(JSON.stringify(result))
+        },
+        error: function (result) {
+            alert(JSON.stringify(result));
+        }
+    });
     e.preventDefault()
 }
 
