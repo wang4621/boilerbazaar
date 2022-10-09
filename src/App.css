@@ -1,6 +1,8 @@
 :root {
   --header-height: 70px;
+  --div-color: #FFFFFF;
 }
+
 
 .bodyLight {
   max-height: 100vh;

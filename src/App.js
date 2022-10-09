@@ -21,13 +21,16 @@ function App() {
   const handleClose = () => {
     setAnchorEl(null);
   };
+  let root = document.documentElement;
   //Code for dark mode
   const [theme, setTheme] = useState('bodyLight');
   const toggleTheme = () => {
     if (theme === 'bodyLight') {
       setTheme('bodyDark');
+      root.style.setProperty('--div-color', "#161B22");
     } else {
       setTheme('bodyLight');
+      root.style.setProperty('--div-color', "#FFFFFF");
     }
   };
   //Update dark mode

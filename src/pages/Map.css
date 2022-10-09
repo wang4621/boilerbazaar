@@ -1,6 +1,6 @@
 .mapContainer {
     display:flex;
-    background-color: white;
+    background-color: var(--div-color);
     margin: 5%;
     flex-flow: row wrap;
     align-content: flex-start;
