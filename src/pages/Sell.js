@@ -3,6 +3,34 @@ import { Avatar, CardHeader, CardContent, Divider, Box, Typography, Button, Imag
 import { TextField, MenuItem } from '@mui/material';
 import $ from 'jquery';
 import * as React from 'react';
+import {v4 as uuidv4} from 'uuid';
+
+function getBase64(file, i, imagesJson, final) {
+    var reader = new FileReader()
+    reader.readAsDataURL(file)
+    reader.onload = function() {
+        imagesJson["images" + i] = reader.result
+        if (final) {
+            sendImages(imagesJson)
+        }
+    }
+}
+
+function sendImages(imagesJson) {
+    $.ajax({
+        url: 'https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/listing/images',
+        type: 'PUT',
+        data: imagesJson,
+        datatype: 'json',
+        contentType: 'application/json',
+        success: function (result) {
+            alert(JSON.stringify(result))
+        },
+        error: function (result) {
+            alert(JSON.stringify(result));
+        }
+    });
+}
 
 function Sell () {
     const [condition, setCondition] = React.useState('');
@@ -27,12 +55,16 @@ function Sell () {
 
     const listTextbook = event => {
         setSubmittedListing(true)
+        var listingID = uuidv4().toString();
+        var sellerID = '';
         var title = document.getElementById('title').value
         var price = document.getElementById('price').value.substring(1)
         var author = document.getElementById('author').value
         var isbn = document.getElementById('isbn').value
         var edition = document.getElementById('edition').value
         var description = document.getElementById('description').value
+        var images = document.getElementById('images').files
+        var count = images.length;
         var missing = false
         if (title === '') {
             setTitleError(true)
@@ -59,7 +91,7 @@ function Sell () {
             missing = true
         }
         if (!missing) {
-            var jsonData = {"title": title, "price": price, "author": author, "isbn": isbn, "edition": edition, "condition": condition, "description": description}; 
+            var jsonData = {"listingID": listingID, "sellerID": sellerID, "title": title, "price": price, "author": author, "isbn": isbn, "edition": edition, "condition": condition, "description": description}; 
             jsonData = "\""+JSON.stringify(jsonData).replaceAll('"', '\\"')+"\""
             $.ajax({
                 url: 'https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/listing',
@@ -74,6 +106,10 @@ function Sell () {
                     alert(JSON.stringify(result));
                 }
             });
+            var imagesJson = {"listingID": listingID, "count": count};
+            for (var i = 0; i < count; i++) {
+                getBase64(images[i], i, imagesJson, i == count - 1)
+            }
         }
         event.preventDefault()
     }
@@ -150,8 +186,8 @@ function Sell () {
                 <Box sx={{'& > :not(style)': { m: 1 }, height: "95%", overflowY: 'scroll'}} component="form" noValidate autoComplete="off" className="formDisplay scrollBar"
                 onSubmit={listTextbook}>
                     <Typography variant="body1" color="black">
-                        This is where you add pictures for textbooks
                     </Typography>
+                    <Button variant="contained" component="label">Upload Images Here<input id='images' type="file" hidden multiple/></Button>
                     <TextField id="title" label="Title" required onChange={changeText} error={titleError} helperText={titleError ? 'Please add a title.' : ''}/>
                     <TextField id="price" label="Price" required onChange={handleDollar} error={priceError} helperText={priceError ? 'Please add a price.' : ''} inputProps={{ maxLength: 4}}/>
                     <TextField id="author" label="Author" required onChange={changeText} error={authorError} helperText={authorError ? 'Please add an author.' : ''}/>
