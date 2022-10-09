@@ -26,7 +26,6 @@ function Sell () {
     }
 
     const listTextbook = event => {
-        // console.log(e)
         setSubmittedListing(true)
         var title = document.getElementById('title').value
         var price = document.getElementById('price').value.substring(1)
