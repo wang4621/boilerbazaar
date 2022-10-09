@@ -10,7 +10,7 @@ import About from './pages/About'
 import Map from './pages/Map'
 import { Avatar, Menu, MenuItem, IconButton, ListItemIcon } from '@mui/material';
 import Logout from '@mui/icons-material/Logout';
-import * as React from 'react';
+import React, { useEffect, useState } from "react";
 
 function App() {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -21,9 +21,22 @@ function App() {
   const handleClose = () => {
     setAnchorEl(null);
   };
+  //Code for dark mode
+  const [theme, setTheme] = useState('bodyLight');
+  const toggleTheme = () => {
+    if (theme === 'bodyLight') {
+      setTheme('bodyDark');
+    } else {
+      setTheme('bodyLight');
+    }
+  };
+  //Update dark mode
+  useEffect(() => {
+    document.body.className = theme;
+  }, [theme]);
   return (
     <Router>
-        <div className="App">
+        <div className={`${theme}`}>
           <div className="navbar">
             <img src={Img} height={70} alt="logo" style={{"float":"left"}}></img>
             <ul className="centerNav" style={{"margin-right":"10%"}}>
@@ -69,6 +82,9 @@ function App() {
               anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}>
               <MenuItem component={NavLink} to="/profile">
                   <Avatar src=""/> Profile
+              </MenuItem>
+              <MenuItem onClick={toggleTheme}>
+                Toggle Darkmode
               </MenuItem>
               <MenuItem>
                 <ListItemIcon>
