@@ -27,9 +27,9 @@ function App() {
   const toggleTheme = () => {
     if (theme === 'bodyLight') {
       setTheme('bodyDark');
-      root.style.setProperty('--primary-color', "#161B22");
+      root.style.setProperty('--primary-color', "#1e252e");
       root.style.setProperty('--secondary-color', "#323d4d");
-      root.style.setProperty('--tertiary-color', "#1e252e");
+      root.style.setProperty('--tertiary-color', "#161B22");
       root.style.setProperty('--text-color', "#FFFFFF");
     } else {
       setTheme('bodyLight');
