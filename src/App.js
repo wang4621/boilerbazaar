@@ -27,10 +27,16 @@ function App() {
   const toggleTheme = () => {
     if (theme === 'bodyLight') {
       setTheme('bodyDark');
-      root.style.setProperty('--div-color', "#161B22");
+      root.style.setProperty('--primary-color', "#161B22");
+      root.style.setProperty('--secondary-color', "#323d4d");
+      root.style.setProperty('--tertiary-color', "#1e252e");
+      root.style.setProperty('--text-color', "#FFFFFF");
     } else {
       setTheme('bodyLight');
-      root.style.setProperty('--div-color', "#FFFFFF");
+      root.style.setProperty('--primary-color', "#FFFFFF");
+      root.style.setProperty('--secondary-color', "#f5f5f5");
+      root.style.setProperty('--tertiary-color', "#DFDFDF");
+      root.style.setProperty('--text-color', "#000000");
     }
   };
   //Update dark mode
