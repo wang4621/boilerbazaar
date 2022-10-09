@@ -10,9 +10,11 @@ function handleDollar(event) {
     if (value.includes('$')) {
         value = value.split('$')[1]
     }
-    if (isNaN(value) || value === '') {
+    if (value === '') {
         event.target.value = ''
         document.getElementById('previewPrice').innerText = 'Price'
+    } else if (isNaN(value)) {
+        event.target.value = event.target.value.slice(0, -1)
     } else {
         value = "$" + value;
         event.target.value = value
