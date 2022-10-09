@@ -20,36 +20,19 @@ function handleDollar(event) {
     }
 }
 
-// this checks if isbn is 10 or 13 and if it numbers only
-// function handleISBN(event) {
-
-// }
-
-function changeText(event) {
-    if (event.target.id === 'title') {
-        if (event.target.value === '') {
-            document.getElementById('previewTitle').innerText = 'Title'
-        } else {
-            document.getElementById('previewTitle').innerText = event.target.value
-        }
-    } else if (event.target.id === 'author') {
-        document.getElementById('previewAuthor').innerText = event.target.value
-    } else if (event.target.id === 'isbn') {
-        document.getElementById('previewISBN').innerText = event.target.value
-    } else if (event.target.id === 'edition') {
-        document.getElementById('previewEdition').innerText = event.target.value
-    } else if (event.target.name === 'condition') {
-        document.getElementById('previewCondition').innerText = event.target.value
-    } else if (event.target.id === 'description') {
-        document.getElementById('previewDescription').innerText = event.target.value
-    }
-}
-
 function Sell () {
     const [condition, setCondition] = React.useState('');
+    const limit = 250;
+    const [getStringLength, setStringLength] = React.useState(0);
+    const [titleError, setTitleError] = React.useState(false);
+    const [priceError, setPriceError] = React.useState(false);
+    const [authorError, setAuthorError] = React.useState(false);
+    const [isbnError, setISBNError] = React.useState(false);
+    const [editionError, setEditionError] = React.useState(false);
+    const [conditionError, setConditionError] = React.useState(false);
+
 
     const conditionChange = event => {
-        console.log(event.target.value)
         setCondition(event.target.value)
         document.getElementById('previewCondition').innerText = event.target.value
     }
@@ -58,28 +41,87 @@ function Sell () {
         // console.log(e)
         var title = document.getElementById('title').value
         var price = document.getElementById('price').value.substring(1)
-        // console.log(price)
         var author = document.getElementById('author').value
         var isbn = document.getElementById('isbn').value
         var edition = document.getElementById('edition').value
         var description = document.getElementById('description').value
-        var jsonData = {"title": title, "price": price, "author": author, "isbn": isbn, "edition": edition, "condition": condition, "description": description}; 
-        jsonData = "\""+JSON.stringify(jsonData).replaceAll('"', '\\"')+"\""
-        console.log(jsonData)
-        $.ajax({
-            url: 'https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/listing',
-            type: 'PUT',
-            data: jsonData,
-            datatype: 'json',
-            contentType: 'application/json',
-            success: function (result) {
-                alert(JSON.stringify(result))
-            },
-            error: function (result) {
-                alert(JSON.stringify(result));
-            }
-        });
+        var missing = false
+        if (title === '') {
+            setTitleError(true)
+            missing = true
+        }
+        if (price === '') {
+            setPriceError(true)
+            missing = true
+        }
+        if (author === '') {
+            setAuthorError(true)
+            missing = true
+        }
+        if (isbn === '') {
+            setISBNError(true)
+            missing = true
+        }   
+        if (edition === '') {
+            setEditionError(true)
+            missing = true
+        }
+        if (condition === '') {
+            setConditionError(true)
+            missing = true
+        }
+        if (!missing) {
+            var jsonData = {"title": title, "price": price, "author": author, "isbn": isbn, "edition": edition, "condition": condition, "description": description}; 
+            jsonData = "\""+JSON.stringify(jsonData).replaceAll('"', '\\"')+"\""
+            $.ajax({
+                url: 'https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/listing',
+                type: 'PUT',
+                data: jsonData,
+                datatype: 'json',
+                contentType: 'application/json',
+                success: function (result) {
+                    alert(JSON.stringify(result))
+                },
+                error: function (result) {
+                    alert(JSON.stringify(result));
+                }
+            });
+        }
         event.preventDefault()
+    }
+
+    const changeText = event => {
+        if (event.target.id === 'title') {
+            if (event.target.value === '') {
+                document.getElementById('previewTitle').innerText = 'Title'
+            } else {
+                setTitleError(false);
+                document.getElementById('previewTitle').innerText = event.target.value
+            }
+        } else if (event.target.id === 'author') {
+            if (event.target.value !== '') {
+                setAuthorError(false);
+            }
+            document.getElementById('previewAuthor').innerText = event.target.value
+        } else if (event.target.id === 'isbn') {
+            if (event.target.value !== '') {
+                setISBNError(false);
+            }
+            document.getElementById('previewISBN').innerText = event.target.value
+        } else if (event.target.id === 'edition') {
+            if (event.target.value !== '') {
+                setEditionError(false);
+            }
+            document.getElementById('previewEdition').innerText = event.target.value
+        } else if (event.target.name === 'condition') {
+            if (event.target.value !== '') {
+                setConditionError(false);
+            }
+            document.getElementById('previewCondition').innerText = event.target.value
+        } else if (event.target.id === 'description') {
+            setStringLength(event.target.value.length)
+            document.getElementById('previewDescription').innerText = event.target.value
+        }
     }
 
     return (
@@ -91,18 +133,18 @@ function Sell () {
                     <Typography variant="body1" color="black">
                         This is where you add pictures for textbooks
                     </Typography>
-                    <TextField id="title" label="Title" required onChange={event => changeText(event)}/>
-                    <TextField id="price" label="Price" required onChange={event => handleDollar(event)}/>
-                    <TextField id="author" label="Author" required onChange={event => changeText(event)}/>
-                    <TextField id="isbn" label="ISBN" required onChange={event => changeText(event)}/>
-                    <TextField id="edition" label="Edition" required onChange={event => changeText(event)}/>
-                    <TextField id="condition" name="condition" label="Condition" select required value={condition} onChange={conditionChange}>
+                    <TextField id="title" label="Title" required onChange={changeText} error={titleError} helperText={titleError ? 'Please add a title.' : ''}/>
+                    <TextField id="price" label="Price" required onChange={event => handleDollar(event)} error={priceError} helperText={priceError ? 'Please add a price.' : ''}/>
+                    <TextField id="author" label="Author" required onChange={changeText} error={authorError} helperText={authorError ? 'Please add an author.' : ''}/>
+                    <TextField id="isbn" label="ISBN" required onChange={changeText} error={isbnError} helperText={isbnError ? 'Please add an ISBN.' : ''}/>
+                    <TextField id="edition" label="Edition" required onChange={changeText} error={editionError} helperText={editionError ? 'Please add an edition.' : ''}/>
+                    <TextField id="condition" name="condition" label="Condition" select required value={condition} onChange={conditionChange} error={conditionError} helperText={conditionError ? 'Please select a condition' : ''}>
                             <MenuItem value="New">New</MenuItem>
                             <MenuItem value="Used - Like New">Used - Like New</MenuItem>
                             <MenuItem value="Used - Good">Used - Good</MenuItem>
                             <MenuItem value="Used - Fair">Used - Fair</MenuItem>
                     </TextField>
-                    <TextField id="description" label="Description" multiline rows={5} onChange={event => changeText(event)} inputProps={{ maxLength: 250 }}/>
+                    <TextField id="description" label="Description" multiline rows={5} onChange={changeText} inputProps={{ maxLength: limit}} helperText={`${getStringLength}/${limit}`}/>
                     <TextField id="list" type="submit" value="List"/>
                 </Box>
             </Box>
