@@ -4,24 +4,6 @@ import { TextField, MenuItem } from '@mui/material';
 import $ from 'jquery';
 import * as React from 'react';
 
-// adds dollar sign in front of price
-function handleDollar(event) {
-    var value = event.target.value
-    if (value.includes('$')) {
-        value = value.split('$')[1]
-    }
-    if (value === '') {
-        event.target.value = ''
-        document.getElementById('previewPrice').innerText = 'Price'
-    } else if (isNaN(value)) {
-        event.target.value = event.target.value.slice(0, -1)
-    } else {
-        value = "$" + value;
-        event.target.value = value
-        document.getElementById('previewPrice').innerText = value
-    }
-}
-
 function Sell () {
     const [condition, setCondition] = React.useState('');
     const limit = 250;
@@ -32,15 +14,20 @@ function Sell () {
     const [isbnError, setISBNError] = React.useState(false);
     const [editionError, setEditionError] = React.useState(false);
     const [conditionError, setConditionError] = React.useState(false);
+    const [submitedListing, setSubmittedListing] = React.useState(false);
 
 
     const conditionChange = event => {
         setCondition(event.target.value)
+        if (event.target.value !== '') {
+            setConditionError(false);
+        }
         document.getElementById('previewCondition').innerText = event.target.value
     }
 
     const listTextbook = event => {
         // console.log(e)
+        setSubmittedListing(true)
         var title = document.getElementById('title').value
         var price = document.getElementById('price').value.substring(1)
         var author = document.getElementById('author').value
@@ -92,9 +79,34 @@ function Sell () {
         event.preventDefault()
     }
 
+    // adds dollar sign in front of price
+    const handleDollar = event => {
+        var value = event.target.value
+        if (value.includes('$')) {
+            value = value.split('$')[1]
+        }
+        if (value === '') {
+            if (submitedListing) {
+                setPriceError(true)
+            }
+            event.target.value = ''
+            document.getElementById('previewPrice').innerText = 'Price'
+        } else if (isNaN(value)) {
+            event.target.value = event.target.value.slice(0, -1)
+        } else {
+            value = "$" + value;
+            event.target.value = value
+            setPriceError(false)
+            document.getElementById('previewPrice').innerText = value
+        }
+    }
+
     const changeText = event => {
         if (event.target.id === 'title') {
             if (event.target.value === '') {
+                if (submitedListing) {
+                    setTitleError(true)
+                }
                 document.getElementById('previewTitle').innerText = 'Title'
             } else {
                 setTitleError(false);
@@ -104,22 +116,28 @@ function Sell () {
             if (event.target.value !== '') {
                 setAuthorError(false);
             }
+            if (submitedListing && event.target.value === '') {
+                setAuthorError(true)
+            }
             document.getElementById('previewAuthor').innerText = event.target.value
         } else if (event.target.id === 'isbn') {
             if (event.target.value !== '') {
                 setISBNError(false);
             }
+            if (submitedListing && event.target.value === '') {
+                setISBNError(true)
+            }
             document.getElementById('previewISBN').innerText = event.target.value
         } else if (event.target.id === 'edition') {
-            if (event.target.value !== '') {
+            if (!isNaN(event.target.value)) {
                 setEditionError(false);
+                document.getElementById('previewEdition').innerText = event.target.value
+            } else {
+                event.target.value = event.target.value.slice(0,-1)
             }
-            document.getElementById('previewEdition').innerText = event.target.value
-        } else if (event.target.name === 'condition') {
-            if (event.target.value !== '') {
-                setConditionError(false);
+            if (submitedListing && event.target.value === '') {
+                setEditionError(true)
             }
-            document.getElementById('previewCondition').innerText = event.target.value
         } else if (event.target.id === 'description') {
             setStringLength(event.target.value.length)
             document.getElementById('previewDescription').innerText = event.target.value
@@ -136,10 +154,10 @@ function Sell () {
                         This is where you add pictures for textbooks
                     </Typography>
                     <TextField id="title" label="Title" required onChange={changeText} error={titleError} helperText={titleError ? 'Please add a title.' : ''}/>
-                    <TextField id="price" label="Price" required onChange={event => handleDollar(event)} error={priceError} helperText={priceError ? 'Please add a price.' : ''}/>
+                    <TextField id="price" label="Price" required onChange={handleDollar} error={priceError} helperText={priceError ? 'Please add a price.' : ''} inputProps={{ maxLength: 4}}/>
                     <TextField id="author" label="Author" required onChange={changeText} error={authorError} helperText={authorError ? 'Please add an author.' : ''}/>
-                    <TextField id="isbn" label="ISBN" required onChange={changeText} error={isbnError} helperText={isbnError ? 'Please add an ISBN.' : ''}/>
-                    <TextField id="edition" label="Edition" required onChange={changeText} error={editionError} helperText={editionError ? 'Please add an edition.' : ''}/>
+                    <TextField id="isbn" label="ISBN" required onChange={changeText} error={isbnError} helperText={isbnError ? 'Please add an ISBN.' : ''} inputProps={{ maxLength: 13}}/>
+                    <TextField id="edition" label="Edition" required onChange={changeText} error={editionError} helperText={editionError ? 'Please add an edition.' : ''} inputProps={{ maxLength: 2}}/>
                     <TextField id="condition" name="condition" label="Condition" select required value={condition} onChange={conditionChange} error={conditionError} helperText={conditionError ? 'Please select a condition' : ''}>
                             <MenuItem value="New">New</MenuItem>
                             <MenuItem value="Used - Like New">Used - Like New</MenuItem>
