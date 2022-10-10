@@ -9,8 +9,10 @@ function getBase64(file, i, imagesJson, final) {
     var reader = new FileReader()
     reader.readAsDataURL(file)
     reader.onload = function() {
-        imagesJson["images" + i] = reader.result
+        imagesJson["image" + i] = reader.result
         if (final) {
+            imagesJson = "\""+JSON.stringify(imagesJson).replaceAll('"', '\\"')+"\""
+            console.log(imagesJson)
             sendImages(imagesJson)
         }
     }
