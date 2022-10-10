@@ -64,6 +64,7 @@ function App() {
               PaperProps={{
                 elevation: 0,
                 sx: {
+                  backgroundColor: 'var(--primary-color)',
                   overflow: 'visible',
                   filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
                   mt: 0,
@@ -81,7 +82,7 @@ function App() {
                     right: 14,
                     width: 10,
                     height: 10,
-                    bgcolor: 'background.paper',
+                    bgcolor: 'var(--primary-color)',
                     transform: 'translateY(-50%) rotate(45deg)',
                     zIndex: 0,
                   },
@@ -89,13 +90,13 @@ function App() {
               }}
               transformOrigin={{ horizontal: 'right', vertical: 'top' }}
               anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}>
-              <MenuItem component={NavLink} to="/profile">
+              <MenuItem component={NavLink} to="/profile" sx={{ color: 'var(--text-color)', backgroundColor: 'var(--primary-color)' }}>
                   <Avatar src=""/> Profile
               </MenuItem>
-              <MenuItem onClick={toggleTheme}>
+              <MenuItem onClick={toggleTheme} sx={{ color: 'var(--text-color)', backgroundColor: 'var(--primary-color)' }}>
                 Toggle Darkmode
               </MenuItem>
-              <MenuItem>
+              <MenuItem sx={{ color: 'var(--text-color)', backgroundColor: 'var(--primary-color)' }}>
                 <ListItemIcon>
                   <Logout fontSize="small" />
                 </ListItemIcon>
