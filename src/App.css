@@ -1,15 +1,28 @@
 :root {
   --header-height: 70px;
+  --primary-color: #FFFFFF;
+  --secondary-color: #f5f5f5;
+  --tertiary-color: #DFDFDF;
+  --text-color: #000000;
 }
 
-body {
+
+.bodyLight {
   max-height: 100vh;
   background-color: rgb(233, 233, 233);
+  color:rgb(0, 0, 0);
+  margin: 0;
+}
+
+.bodyDark {
+  max-height: 100vh;
+  background-color: rgb(0, 0, 0);
+  color: rgb(255, 255, 255);
   margin: 0;
 }
 
 .navbar {
-  background-color: rgb(255, 255, 255);
+  background-color: var(--primary-color);
   overflow: hidden;
   display: flex;
   justify-content: space-between;
@@ -18,7 +31,7 @@ body {
 
 .navbar a {
   text-transform: uppercase;
-  color: black;
+  color: var(--text-color);
   text-align: center;
   padding: 20px 25px;
   text-decoration: none;
