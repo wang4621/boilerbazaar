@@ -14,14 +14,16 @@ Listings = db["Listings"]
 Users = db["User"]
 
 class Handler(http.server.BaseHTTPRequestHandler):
+    #new/update listing, send messages, etc
     def do_POST(self):
         print("POST")
         #TODO: switch cases to determine the required operation
         content_len = int(self.headers.get('Content-Length'))
-        post_body = self.rfile.read(content_len).decode("utf-8")
-        listing = json.loads(post_body)
-        Sell.newListing(Listings, listing)
+        post_body = self.rfile.read(content_len)
+        listing = post_body
+        print(listing)        
 
+    #searching, receive messages, etc
     def do_GET(self):
         print("GET")
     
