@@ -84,13 +84,13 @@ function Sell () {
                     <TextField id="author" label="Author" required onChange={event => changeText(event)}/>
                     <TextField id="isbn" label="ISBN" required onChange={event => changeText(event)} inputProps={{ maxLength: 13 }}/>
                     <TextField id="edition" label="Edition" required onChange={event => changeText(event)} inputProps={{ maxLength: 2 }}/>
-                    <TextField id="condition" name="condition" label="Condition" select required onChange={event => changeText(event)}>
+                    <TextField id="condition" name="condition" label="Condition" select required onChange={event => changeText(event)} sx={{backgroundColor: 'var(--secondary-color)'}} >
                             <MenuItem value="New">New</MenuItem>
                             <MenuItem value="Used - Like New">Used - Like New</MenuItem>
                             <MenuItem value="Used - Good">Used - Good</MenuItem>
                             <MenuItem value="Used - Fair">Used - Fair</MenuItem>
                     </TextField>
-                    <TextField id="description" label="Description" multiline rows={5} onChange={event => changeText(event)} inputProps={{ maxLength: 250 }}/>
+                    <TextField id="description" label="Description" multiline rows={5} onChange={event => changeText(event)} inputProps={{ maxLength: 250 }} sx={{backgroundColor: 'var(--secondary-color)'}} />
                     <TextField id="list" type="submit" value="List"/>
                 </Box>
             </Box>

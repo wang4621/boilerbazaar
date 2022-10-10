@@ -8,6 +8,7 @@
 
 .sellDisplay label {
     font-size: 18px;
+    color: var(--text-color);
 }
 
 .sellDisplay .MuiTextField-root {
