@@ -20,17 +20,16 @@
 }
 
 .filterLabel {
-    margin-right: 25px;
-}
-
-.filterLabelDiv {
     flex-basis: 100%;
+    margin-right: 40px;
 }
 
 .filterSelector {
-    margin-right: 20px;
+    flex-basis: 100%;
 }
 
-.filterSelectorDiv {
-    flex-basis: 100%;
+.filterDiv {
+    display: flex;
+    flex-flow: row wrap;
+    margin-right: 25px;
 }

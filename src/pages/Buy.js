@@ -19,35 +19,40 @@ function Buy() {
             <button id="filtersButton" onClick={toggleFilters}>Filters and Sorting</button>
             <div class="filters" id="filters">
                 <div class="filterCheckboxes">
-                    <div class="filterLabelDiv">
+                    <div class="filterDiv">
                         <label class="filterLabel">
                             Course:
                         </label>
+                        <select multiple size="5" class="filterSelector">
+                            <option value='none'>No filter</option>
+                            <option value='CS307'>CS 307</option>
+                            <option value='CS381'>CS 381</option>
+                            <option value='CS182'>CS 182</option>
+                            <option value='CS240'>CS 240</option>
+                        </select>
+                    </div>
+                    <div class="filterDiv">
                         <label class="filterLabel">
                             Edition:
                         </label>
+                        <select multiple size="5" class="filterSelector">
+                            <option value='none'>No filter</option>
+                            <option value='1'>1</option>
+                            <option value='2'>2</option>
+                            <option value='3'>3</option>
+                            <option value='4'>4</option>
+                        </select>
+                    </div>
+                    <div class="filterDiv">
                         <label class="filterLabel">
                             Condition:
                         </label>
-                    </div>
-                    <div class="filterSelectorDiv">
-                        <select multiple size="4" class="filterSelector">
-                            <option value='1'>one</option>
-                            <option value='2'>two</option>
-                            <option value='3'>three</option>
-                            <option value='4'>four</option>
-                        </select>
-                        <select multiple size="4" class="filterSelector">
-                            <option value='1'>one</option>
-                            <option value='2'>two</option>
-                            <option value='3'>three</option>
-                            <option value='4'>four</option>
-                        </select>
-                        <select multiple size="4" class="filterSelector">
-                            <option value='1'>one</option>
-                            <option value='2'>two</option>
-                            <option value='3'>three</option>
-                            <option value='4'>four</option>
+                        <select multiple size="5" class="filterSelector">
+                            <option value='none'>No filter</option>
+                            <option value='new'>New</option>
+                            <option value='usedLN'>Used - Like New</option>
+                            <option value='usedG'>Used - Good</option>
+                            <option value='usedF'>Used - Fair</option>
                         </select>
                     </div>
                 </div>
