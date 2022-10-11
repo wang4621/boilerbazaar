@@ -1,0 +1,37 @@
+.filters {
+    display: none;
+    background-color: var(--primary-color);
+    flex-flow: row wrap;
+    align-items: center;
+    
+}
+
+.sorting {
+    flex: 1 1 0px;
+    background-color: var(--secondary-color);
+    margin-right: 25px;
+}
+
+.filterCheckboxes {
+    display: flex;
+    flex-flow: row wrap;
+    flex: 1 1 0px;
+    margin-left: 25px;
+}
+
+.filterLabel {
+    flex-basis: 100%;
+    margin-right: 40px;
+}
+
+.filterSelector {
+    flex-basis: 100%;
+    background-color: var(--secondary-color);
+    color: var(--text-color);
+}
+
+.filterDiv {
+    display: flex;
+    flex-flow: row wrap;
+    margin-right: 25px;
+}
