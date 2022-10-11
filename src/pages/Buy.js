@@ -1,7 +1,7 @@
 import './Buy.css';
 import { TextField, MenuItem } from '@mui/material';
 
-function Buy (){
+function Buy() {
     //Function to toggle the display of filters and sorting options
     function toggleFilters() {
         const filtersDiv = document.getElementById("filters");
@@ -16,21 +16,40 @@ function Buy (){
     return (
         <div class="buyDisplay">
             <h1>Buy</h1>
-            <button id="filtersButton" onClick={toggleFilters}>Show Filters and Sorting</button>
+            <button id="filtersButton" onClick={toggleFilters}>Filters and Sorting</button>
             <div class="filters" id="filters">
                 <div class="filterCheckboxes">
-                <label>
-                    Course
-                    <input type="checkbox"></input>
-                </label>
-                <label>
-                    Edition
-                    <input type="checkbox"></input>
-                </label>
-                <label>
-                    Condition
-                    <input type="checkbox"></input>
-                </label>
+                    <div class="filterLabelDiv">
+                        <label class="filterLabel">
+                            Course:
+                        </label>
+                        <label class="filterLabel">
+                            Edition:
+                        </label>
+                        <label class="filterLabel">
+                            Condition:
+                        </label>
+                    </div>
+                    <div class="filterSelectorDiv">
+                        <select multiple size="4" class="filterSelector">
+                            <option value='1'>one</option>
+                            <option value='2'>two</option>
+                            <option value='3'>three</option>
+                            <option value='4'>four</option>
+                        </select>
+                        <select multiple size="4" class="filterSelector">
+                            <option value='1'>one</option>
+                            <option value='2'>two</option>
+                            <option value='3'>three</option>
+                            <option value='4'>four</option>
+                        </select>
+                        <select multiple size="4" class="filterSelector">
+                            <option value='1'>one</option>
+                            <option value='2'>two</option>
+                            <option value='3'>three</option>
+                            <option value='4'>four</option>
+                        </select>
+                    </div>
                 </div>
                 <label>
                     Sort by
@@ -47,5 +66,5 @@ function Buy (){
         </div>
     )
 }
-  
+
 export default Buy;

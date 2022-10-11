@@ -13,6 +13,24 @@
 }
 
 .filterCheckboxes {
+    display: flex;
+    flex-flow: row wrap;
     flex: 1 1 0px;
     margin-left: 25px;
+}
+
+.filterLabel {
+    margin-right: 25px;
+}
+
+.filterLabelDiv {
+    flex-basis: 100%;
+}
+
+.filterSelector {
+    margin-right: 20px;
+}
+
+.filterSelectorDiv {
+    flex-basis: 100%;
 }
