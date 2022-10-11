@@ -1,3 +1,5 @@
 .filters {
     display:flex;
+    background-color: var(--primary-color);
+    flex-flow: row wrap;
 }

@@ -17,7 +17,30 @@ function Buy (){
             <h1>Buy</h1>
             <button id="filtersButton" onClick={toggleFilters}>Show Filters and Sorting</button>
             <div class="filters" id="filters">
-                <input type="checkbox"></input>
+                <label>
+                    Course
+                    <input type="checkbox"></input>
+                </label>
+                <label>
+                    Edition
+                    <input type="checkbox"></input>
+                </label>
+                <label>
+                    Condition
+                    <input type="checkbox"></input>
+                </label>
+                <label>
+                    Title
+                    <input type="radio" name="sorting" value="Title"></input>
+                </label>
+                <label>
+                    Author
+                    <input type="radio" name="sorting" value="Author"></input>
+                </label>
+                <label>
+                    Price
+                    <input type="radio" name="sorting" value="Price"></input>
+                </label>
             </div>
         </div>
     )
