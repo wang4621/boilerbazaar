@@ -2,13 +2,17 @@
     display: none;
     background-color: var(--primary-color);
     flex-flow: row wrap;
+    align-items: center;
+    
 }
 
 .sorting {
-    flex-grow: 2;
+    flex: 1 1 0px;
     background-color: var(--secondary-color);
+    margin-right: 25px;
 }
 
 .filterCheckboxes {
-    flex-grow: 1;
+    flex: 1 1 0px;
+    margin-left: 25px;
 }
