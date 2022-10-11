@@ -21,9 +21,9 @@ function Buy() {
                 <div class="filterCheckboxes">
                     <div class="filterDiv">
                         <label class="filterLabel">
-                            Course:
+                            Course
                         </label>
-                        <select multiple size="5" class="filterSelector">
+                        <select multiple size="4" class="filterSelector">
                             <option value='none'>No filter</option>
                             <option value='CS307'>CS 307</option>
                             <option value='CS381'>CS 381</option>
@@ -33,9 +33,9 @@ function Buy() {
                     </div>
                     <div class="filterDiv">
                         <label class="filterLabel">
-                            Edition:
+                            Edition
                         </label>
-                        <select multiple size="5" class="filterSelector">
+                        <select multiple size="4" class="filterSelector">
                             <option value='none'>No filter</option>
                             <option value='1'>1</option>
                             <option value='2'>2</option>
@@ -45,9 +45,9 @@ function Buy() {
                     </div>
                     <div class="filterDiv">
                         <label class="filterLabel">
-                            Condition:
+                            Condition
                         </label>
-                        <select multiple size="5" class="filterSelector">
+                        <select multiple size="4" class="filterSelector">
                             <option value='none'>No filter</option>
                             <option value='new'>New</option>
                             <option value='usedLN'>Used - Like New</option>

@@ -26,6 +26,8 @@
 
 .filterSelector {
     flex-basis: 100%;
+    background-color: var(--secondary-color);
+    color: var(--text-color);
 }
 
 .filterDiv {
