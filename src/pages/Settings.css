@@ -18,9 +18,14 @@
 
 .settingsDisplay .MuiButton-root {
     height: 80px;
+    border-radius: 0px 0px 0px 0px;
     color: black;
 }
 
+.settingsDisplay .MuiButton-root:hover {
+    background-color: gray;
+}
+
 .settingsDisplay .active {
-    background-color: aquamarine;
+    background-color: rgb(32, 169, 211);
 }
