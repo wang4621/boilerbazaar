@@ -46,7 +46,6 @@ function Sell () {
     const [conditionError, setConditionError] = React.useState(false);
     const [submitedListing, setSubmittedListing] = React.useState(false);
 
-
     const conditionChange = event => {
         setCondition(event.target.value)
         if (event.target.value !== '') {

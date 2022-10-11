@@ -1,5 +1,5 @@
 import './Settings.css'
-import { Avatar, CardHeader, Rating, Divider, Box, Typography, Button, TextField, MenuItem } from '@mui/material';
+import { CardHeader, Divider, Box, Button } from '@mui/material';
 import * as React from 'react';
 import { Routes, Route, NavLink } from 'react-router-dom';
 import Profile from './Profile'
