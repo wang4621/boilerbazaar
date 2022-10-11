@@ -1,5 +1,14 @@
 .filters {
-    display:flex;
+    display: none;
     background-color: var(--primary-color);
     flex-flow: row wrap;
+}
+
+.sorting {
+    flex-grow: 2;
+    background-color: var(--secondary-color);
+}
+
+.filterCheckboxes {
+    flex-grow: 1;
 }

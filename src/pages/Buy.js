@@ -1,4 +1,5 @@
 import './Buy.css';
+import { TextField, MenuItem } from '@mui/material';
 
 function Buy (){
     //Function to toggle the display of filters and sorting options
@@ -9,14 +10,15 @@ function Buy (){
             filtersDiv.style.display = "none";
         }
         else {
-            filtersDiv.style.display = "block";
+            filtersDiv.style.display = "flex";
         }
     }
     return (
-        <div>
+        <div class="buyDisplay">
             <h1>Buy</h1>
             <button id="filtersButton" onClick={toggleFilters}>Show Filters and Sorting</button>
             <div class="filters" id="filters">
+                <div class="filterCheckboxes">
                 <label>
                     Course
                     <input type="checkbox"></input>
@@ -29,17 +31,17 @@ function Buy (){
                     Condition
                     <input type="checkbox"></input>
                 </label>
+                </div>
                 <label>
-                    Title
-                    <input type="radio" name="sorting" value="Title"></input>
-                </label>
-                <label>
-                    Author
-                    <input type="radio" name="sorting" value="Author"></input>
-                </label>
-                <label>
-                    Price
-                    <input type="radio" name="sorting" value="Price"></input>
+                    Sort by
+                    <TextField id="sorting" name="sorting" class="sorting" select>
+                        <MenuItem value="titleAscending">Title - Ascending</MenuItem>
+                        <MenuItem value="titleDescending">Title - Descending</MenuItem>
+                        <MenuItem value="authorAscending">Author - Ascending</MenuItem>
+                        <MenuItem value="authorDescending">Author - Descending</MenuItem>
+                        <MenuItem value="priceAscending">Price - Ascending</MenuItem>
+                        <MenuItem value="priceDescending">Price - Descending</MenuItem>
+                    </TextField>
                 </label>
             </div>
         </div>
