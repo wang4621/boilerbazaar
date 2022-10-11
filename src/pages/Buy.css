@@ -35,3 +35,7 @@
     flex-flow: row wrap;
     margin-right: 25px;
 }
+
+.filters .MuiSelect-select {
+    color: var(--text-color);
+}
