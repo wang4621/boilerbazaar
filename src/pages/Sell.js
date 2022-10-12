@@ -109,7 +109,7 @@ function Sell () {
             });
             var imagesJson = {"listingID": listingID, "count": count};
             for (var i = 0; i < count; i++) {
-                getBase64(images[i], i, imagesJson, i == count - 1)
+                getBase64(images[i], i, imagesJson, i === count - 1)
             }
         }
         event.preventDefault()

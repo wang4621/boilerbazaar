@@ -1,6 +1,7 @@
 import { Avatar, CardHeader, Rating, Divider, Box, Typography, TextField, MenuItem } from '@mui/material';
 import * as React from 'react';
 import './Profile.css'
+import $ from 'jquery';
 
 function Profile() {
     const [isDisabled, setDisabled] = React.useState(true)
@@ -16,9 +17,28 @@ function Profile() {
         if (value === "Edit") {
             setValue('Save')
         } else if (value === "Save") {
-            console.log(document.getElementById('preferredName').value)
-            console.log(document.getElementById('major').value)
-            console.log(location)
+            // console.log(document.getElementById('preferredName').value)
+            var name = document.getElementById('preferredName').value
+            var major = document.getElementById('major').value
+            var puid = document.getElementById('puid').value
+            // console.log(document.getElementById('major').value)
+            // console.log(location)
+            var jsonData = {"puid": puid, "preferredName": name, "major": major, "preferredMeeting": location}
+            jsonData = "\""+JSON.stringify(jsonData).replaceAll('"', '\\"')+"\""
+            console.log(jsonData)
+            $.ajax({
+                url: 'https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/profile',
+                type: 'PUT',
+                data: jsonData,
+                datatype: 'json',
+                contentType: 'application/json',
+                success: function (result) {
+                    alert(JSON.stringify(result))
+                },
+                error: function (result) {
+                    alert(JSON.stringify(result));
+                }
+            });
             setValue('Edit')
         }
         event.preventDefault()
