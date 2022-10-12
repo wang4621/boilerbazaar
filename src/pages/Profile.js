@@ -7,6 +7,8 @@ function Profile() {
     const [isDisabled, setDisabled] = React.useState(true)
     const [value, setValue] = React.useState('Edit')
     const [location, setLocation] = React.useState('None');
+    const [preferredName, setPreferredName] = React.useState('')
+    const lastName = 'Wang'
 
     const locationChange = event => {
         setLocation(event.target.value)
@@ -20,13 +22,13 @@ function Profile() {
             var name = document.getElementById('preferredName').value
             var major = document.getElementById('major').value
             var puid = document.getElementById('puid').value
-            var jsonData = {"puid": puid, "preferredName": name, "major": major, "preferredMeeting": location}
-            jsonData = "\""+JSON.stringify(jsonData).replaceAll('"', '\\"')+"\""
-            console.log(jsonData)
+            var profileData = {"puid": puid, "preferredName": name, "major": major, "preferredMeeting": location}
+            profileData = "\""+JSON.stringify(profileData).replaceAll('"', '\\"')+"\""
+            console.log(profileData)
             $.ajax({
                 url: 'https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/profile',
                 type: 'PUT',
-                data: jsonData,
+                data: profileData,
                 datatype: 'json',
                 contentType: 'application/json',
                 success: function (result) {
@@ -49,8 +51,8 @@ function Profile() {
                 <br/>
                 <Box sx={{'& > :not(style)': { m: 1.5 }, height: "95%", overflowY: 'auto'}} component="form" autoComplete="off" className="profileFormDisplay" onSubmit={editOrSaveProfile} id="profileForm">
                     <TextField id="firstName" label="First Name" disabled value="Jeff"></TextField>
-                    <TextField id="preferredName" label="Preferred Name" disabled={isDisabled}/>
-                    <TextField id="lastName" label="Last Name" disabled value="Wang"/>
+                    <TextField id="preferredName" label="Preferred Name" disabled={isDisabled} value={preferredName}/>
+                    <TextField id="lastName" label="Last Name" disabled value={lastName}/>
                     <TextField id="puid" label="PUID" disabled value="0031888129"/>
                     <TextField id="major" label="Major" disabled={isDisabled}/>
                     <TextField id="location" label="Preferred Meeting Location" select value={location} disabled={isDisabled} onChange={locationChange}>
@@ -64,7 +66,7 @@ function Profile() {
             <Box sx={{width: '65%', height: '100%', backgroundColor: 'whitesmoke'}} className="ratingBox">
                 <Typography variant="h6" color="black" sx={{textAlign:'center'}}>
                     <Avatar sx={{ width: 128, height: 128 }}/>
-                    Jeff Wang
+                    Jeff {lastName}
                 </Typography>
                 <br/>
                 <Typography variant="h6" color="black">Rating</Typography>
