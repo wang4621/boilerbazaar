@@ -92,6 +92,10 @@ function Sell () {
             missing = true
         }
         if (!missing) {
+            var imagesJson = {"listingID": listingID, "count": count};
+            for (var i = 0; i < count; i++) {
+                getBase64(images[i], i, imagesJson, i === count - 1)
+            }
             var jsonData = {"listingID": listingID, "sellerID": sellerID, "title": title, "price": price, "author": author, "isbn": isbn, "edition": edition, "condition": condition, "description": description}; 
             jsonData = "\""+JSON.stringify(jsonData).replaceAll('"', '\\"')+"\""
             $.ajax({
@@ -107,10 +111,6 @@ function Sell () {
                     alert(JSON.stringify(result));
                 }
             });
-            var imagesJson = {"listingID": listingID, "count": count};
-            for (var i = 0; i < count; i++) {
-                getBase64(images[i], i, imagesJson, i === count - 1)
-            }
         }
         event.preventDefault()
     }

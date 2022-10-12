@@ -17,12 +17,9 @@ function Profile() {
         if (value === "Edit") {
             setValue('Save')
         } else if (value === "Save") {
-            // console.log(document.getElementById('preferredName').value)
             var name = document.getElementById('preferredName').value
             var major = document.getElementById('major').value
             var puid = document.getElementById('puid').value
-            // console.log(document.getElementById('major').value)
-            // console.log(location)
             var jsonData = {"puid": puid, "preferredName": name, "major": major, "preferredMeeting": location}
             jsonData = "\""+JSON.stringify(jsonData).replaceAll('"', '\\"')+"\""
             console.log(jsonData)
