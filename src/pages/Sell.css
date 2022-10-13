@@ -1,5 +1,4 @@
 .sellDisplay input {
-    /* border-radius: 5px; */
     font-size: 18px;
     /* border: 2px solid rgb(202, 199, 199); */
     color: var(--text-color);
@@ -58,4 +57,8 @@
 .sellDisplay .scrollBar::-webkit-scrollbar-thumb {
     border-radius: 10px;
     background: #c2c9d2;
+}
+
+.sellDisplay .MuiFormHelperText-root {
+    margin-left: 0;
 }
