@@ -8,51 +8,11 @@ import Sell from './pages/Sell'
 import Buy from './pages/Buy'
 import About from './pages/About'
 import Map from './pages/Map'
-import { Avatar, Menu, MenuItem, IconButton, ListItemIcon, Switch, styled } from '@mui/material';
+import { Avatar, Menu, MenuItem, IconButton, ListItemIcon } from '@mui/material';
 import Logout from '@mui/icons-material/Logout';
 import React, { useEffect, useState } from "react";
-
-const AntSwitch = styled(Switch)(({ theme }) => ({
-  width: 28,
-  height: 16,
-  padding: 0,
-  display: 'flex',
-  '&:active': {
-    '& .MuiSwitch-thumb': {
-      width: 15,
-    },
-    '& .MuiSwitch-switchBase.Mui-checked': {
-      transform: 'translateX(9px)',
-    },
-  },
-  '& .MuiSwitch-switchBase': {
-    padding: 2,
-    '&.Mui-checked': {
-      transform: 'translateX(12px)',
-      color: '#fff',
-      '& + .MuiSwitch-track': {
-        opacity: 1,
-        backgroundColor: theme.palette.mode === 'dark' ? '#177ddc' : '#1890ff',
-      },
-    },
-  },
-  '& .MuiSwitch-thumb': {
-    boxShadow: '0 2px 4px 0 rgb(0 35 11 / 20%)',
-    width: 12,
-    height: 12,
-    borderRadius: 6,
-    transition: theme.transitions.create(['width'], {
-      duration: 200,
-    }),
-  },
-  '& .MuiSwitch-track': {
-    borderRadius: 16 / 2,
-    opacity: 1,
-    backgroundColor:
-      theme.palette.mode === 'dark' ? 'rgba(255,255,255,.35)' : 'rgba(0,0,0,.25)',
-    boxSizing: 'border-box',
-  },
-}));
+import Brightness4Icon from '@mui/icons-material/Brightness4';
+import Brightness7Icon from '@mui/icons-material/Brightness7';
 
 function App() {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -100,9 +60,14 @@ function App() {
                       <TbMap2 size={28}></TbMap2>
                   </NavLink>
               </ul>
-              <IconButton onClick={handleClick} size="large" aria-controls={open ? 'account-menu' : undefined} aria-haspopup="true" aria-expanded={open ? 'true' : undefined}>
-                  <Avatar sx={{ width: 35, height: 35 }} src=""/>
-              </IconButton>
+              <div>
+                <IconButton sx={{ ml: 1, transform: 'scale(1.3)' }} onClick={toggleTheme} color="inherit">
+                  {theme === 'bodyDark' ? <Brightness7Icon /> : <Brightness4Icon />}
+                </IconButton>
+                <IconButton onClick={handleClick} size="large" aria-controls={open ? 'account-menu' : undefined} aria-haspopup="true" aria-expanded={open ? 'true' : undefined}>
+                    <Avatar sx={{ width: 35, height: 35 }} src=""/>
+                </IconButton>
+              </div>
               <Menu anchorEl={anchorEl} id="account-menu" open={open} onClose={handleClose} onClick={handleClose}
                   PaperProps={{
                   elevation: 0,
@@ -135,9 +100,6 @@ function App() {
                   anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}>
                   <MenuItem component={NavLink} to="/settings/profile"  sx={{ color: 'var(--text-color)', backgroundColor: 'var(--primary-color)' }}>
                       <Avatar src=""/> Settings
-                  </MenuItem>
-                  <MenuItem onClick={toggleTheme} sx={{ color: 'var(--text-color)', backgroundColor: 'var(--primary-color)' }}>
-                    <AntSwitch sx={{ m: 1 }} />
                   </MenuItem>
                   <MenuItem sx={{ color: 'var(--text-color)', backgroundColor: 'var(--primary-color)' }}>
                       <ListItemIcon>
