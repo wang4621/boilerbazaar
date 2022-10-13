@@ -1,24 +1,16 @@
+import {useState} from "react";
+import {sendGetRequest} from "../../Util/HTTP";
+
 function BrowsingHistory (){
-    const data = [
-        {
-            img: "https://m.media-amazon.com/images/I/41jdHU5RZsL._SX351_BO1,204,203,200_.jpg",
-            url: "*",
-            name: "book1",
-            lastOpen: new Date()
-        },
-        {
-            img: "https://m.media-amazon.com/images/I/41jdHU5RZsL._SX351_BO1,204,203,200_.jpg",
-            url: "*",
-            name: "book2",
-            lastOpen: new Date()
-        },
-        {
-            img: "https://m.media-amazon.com/images/I/41jdHU5RZsL._SX351_BO1,204,203,200_.jpg",
-            url: "*",
-            name: "book3",
-            lastOpen: new Date()
-        }
-    ]
+    const [data, setData] = useState(null)
+    const email = "doan23@purdue.edu"
+
+    if (data === null) {
+        sendGetRequest(`https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/search_history?email=${email}`).then((rep)=>{
+            setData(rep.body)
+        })
+        return <div>Loading...</div>
+    }
     return (
         <div style={{
             width: "1000px",
@@ -42,11 +34,11 @@ function BrowsingHistory (){
                                         display: "flex",
                                         flexDirection: "column"
                                 }}>
-                                    <img src={each.img} style={{
+                                    <img src={each.image} style={{
                                         width: "60px"
                                     }}></img>
                                     <br/>
-                                    <div href={each.url}>{each.name}</div>
+                                    <a href={each.url}>{each.name}</a>
                                 </div>
 
                                 <div>Your opened just now</div>
