@@ -173,7 +173,7 @@ function App() {
           </div>
           <Routes>
               <Route path='/boilerbazaar' element={< Home />}/>
-              <Route path='/buy' element={< Buy />}/>
+              <Route path='/buy/*' element={< Buy />}/>
               <Route path='/sell' element={< Sell />}/>
               <Route path='/about' element={< About />}/>
               <Route path='/map' element={< Map />}/>
