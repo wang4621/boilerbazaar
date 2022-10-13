@@ -46,8 +46,8 @@ function Profile() {
 
     const CustomDisabledTextField = styled (TextField)(() => ({
         ".MuiInputBase-input.Mui-disabled": {
-          WebkitTextFillColor: "var(--text-color)",
-          color: "var(--text-color)"
+            WebkitTextFillColor: "var(--text-color)",
+            color: "var(--text-color)",
         }
       }));
 

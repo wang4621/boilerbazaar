@@ -24,3 +24,11 @@
 .profileDisplay label {
     color: var(--text-color);
 }
+
+.profileDisplay input {
+    color: var(--text-color);
+}
+
+.profileDisplay .MuiSelect-select {
+    color: var(--text-color);
+}
