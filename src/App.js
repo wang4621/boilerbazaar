@@ -49,19 +49,36 @@ function App() {
 
   //Get dark mode preference from the database
   useEffect(() => {
-    var jsonData = {"puid": "0031888129", "darkModePreference": "mode"};
-    jsonData = "\""+JSON.stringify(jsonData).replaceAll('"', '\\"')+"\""
+    /**
+      @todo: add actual puid instead of hardcode
+      @todo: remove console output
+    **/
     $.ajax({
-      url: 'https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/profile?id=1',
+      url: 'https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/profile?puid=0031888129',
       type: 'GET',
       success: function (result) {
-          alert(JSON.stringify(result))
+        let returnedItem = result.Item;
+        if (returnedItem.darkModePreference === 'dark') {
+          setTheme('bodyDark');
+          root.style.setProperty('--primary-color', "#1e252e");
+          root.style.setProperty('--secondary-color', "#323d4d");
+          root.style.setProperty('--tertiary-color', "#161B22");
+          root.style.setProperty('--text-color', "#FFFFFF");
+        }
+        else {
+          setTheme('bodyLight');
+          root.style.setProperty('--primary-color', "#FFFFFF");
+          root.style.setProperty('--secondary-color', "#f5f5f5");
+          root.style.setProperty('--tertiary-color', "#DFDFDF");
+          root.style.setProperty('--text-color', "#000000");
+        }
+          console.log(JSON.stringify(result));
       },
       error: function (result) {
-          alert(JSON.stringify(result));
+          console.log(JSON.stringify(result));
       }
     });
-  }, []);
+  }, []); 
 
   //Update dark mode preference on the database
   const updateDarkModePreference = (mode) => {
