@@ -13,6 +13,19 @@ function Buy() {
             filtersDiv.style.display = "flex";
         }
     }
+
+    /*var input = document.getElementById("searchBar");
+    input.addEventListener("keypress", function(event) {
+        if (event.key === "Enter") {
+        event.preventDefault();
+        document.getElementById("searchBtn").click();
+        }
+    });*/
+
+    function search() {
+        alert('search')
+    }
+
     return (
         <div class="buyDisplay">
             <h1>Buy</h1>
@@ -67,6 +80,11 @@ function Buy() {
                         <MenuItem value="priceDescending">Price - Descending</MenuItem>
                     </TextField>
                 </label>
+            </div>
+            <div>
+                <form id="searchFrm" ></form>
+                <input id="searchBar" type="text" placeholder ="Search Book Title"></input>
+                <input id="searchBtn" type="submit" onClick={search}></input>
             </div>
         </div>
     )
