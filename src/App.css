@@ -6,7 +6,6 @@
   --text-color: #000000;
 }
 
-
 .bodyLight {
   max-height: 100vh;
   background-color: rgb(233, 233, 233);
@@ -33,14 +32,14 @@
   text-transform: uppercase;
   color: var(--text-color);
   text-align: center;
-  padding: 20px 25px;
+  padding: 23px 25px;
   text-decoration: none;
   font-size: 20px;
   border-bottom: 3px solid transparent;
 }
 
 .navbar #map {
-  padding: 14px 25px;
+  padding: 15px 25px;
 }
 
 .navbar ul {
