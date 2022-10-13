@@ -14,6 +14,7 @@ import React, { useEffect, useState } from "react";
 import $ from 'jquery';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
+import SettingsIcon from '@mui/icons-material/Settings';
 
 function App() {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -157,13 +158,16 @@ function App() {
                   transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                   anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}>
                   <MenuItem component={NavLink} to="/settings/profile"  sx={{ color: 'var(--text-color)', backgroundColor: 'var(--primary-color)' }}>
-                      <Avatar src=""/> Settings
+                    <ListItemIcon>
+                      <SettingsIcon fontSize="small" sx={{ color: 'var(--text-color)'}}/>
+                    </ListItemIcon>
+                    Settings
                   </MenuItem>
                   <MenuItem sx={{ color: 'var(--text-color)', backgroundColor: 'var(--primary-color)' }}>
-                      <ListItemIcon>
-                          <Logout fontSize="small" />
-                      </ListItemIcon>
-                      Logout
+                    <ListItemIcon>
+                        <Logout fontSize="small" sx={{ color: 'var(--text-color)'}}/>
+                    </ListItemIcon>
+                    Logout
                   </MenuItem>
               </Menu>
           </div>
