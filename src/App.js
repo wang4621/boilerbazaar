@@ -86,7 +86,6 @@ function App() {
   const updateDarkModePreference = (mode) => {
     /**
       @todo: add actual puid instead of hardcode
-      @todo: remove alert
     **/
     var jsonData = {"puid": "0031888129", "darkModePreference": mode};
     jsonData = "\""+JSON.stringify(jsonData).replaceAll('"', '\\"')+"\""
@@ -97,10 +96,10 @@ function App() {
       datatype: 'json',
       contentType: 'application/json',
       success: function (result) {
-          alert(JSON.stringify(result))
+          console.log(JSON.stringify(result))
       },
       error: function (result) {
-          alert(JSON.stringify(result));
+          console.log(JSON.stringify(result));
       }
     });
   };

@@ -19,7 +19,7 @@
 .settingsDisplay .MuiButton-root {
     height: 80px;
     border-radius: 0px 0px 0px 0px;
-    color: black;
+    color: var(--text-color);
 }
 
 .settingsDisplay .MuiButton-root:hover {
