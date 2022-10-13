@@ -5,7 +5,7 @@ import { Routes, Route, NavLink } from 'react-router-dom';
 import Profile from './Profile'
 import Listings from './Listings'
 
-function Settings () {
+function Settings() {
     return (
         <div className="settingsDisplay">
             <Box sx={{width: '85%', height: '90%', backgroundColor: 'white', borderRadius: 5, display: 'flex', flexDirection:'column', boxShadow: 8}}>
