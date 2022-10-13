@@ -29,3 +29,9 @@
 .settingsDisplay .active {
     background-color: rgb(32, 169, 211);
 }
+
+.settingsDisplay .profileBoxDisplay {
+    display: flex;
+    flex-direction: row;
+    height: 93%;
+}

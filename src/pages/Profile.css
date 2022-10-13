@@ -5,12 +5,6 @@
     flex-direction: column;
 }
 
-.profileBoxDisplay {
-    display: flex;
-    flex-direction: row;
-    height: 95%;
-}
-
 .ratingBox {
     display: flex;
     flex-direction: column;
