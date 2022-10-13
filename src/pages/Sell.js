@@ -183,8 +183,8 @@ function Sell () {
     return (
         <div className="sellDisplay">
             <Box sx={{width: '28%', height: '100%', backgroundColor: 'var(--primary-color)', display: 'flex', flexDirection: 'column'}}>
-                <CardHeader title="Textbooks for sale" sx={{textAlign: 'center', height: '5%'}}/>
-                <Box sx={{'& > :not(style)': { m: 1 }, height: "95%", overflowY: 'scroll'}} component="form" noValidate autoComplete="off" className="formDisplay scrollBar"
+                <CardHeader title="Textbooks for sale" sx={{textAlign: 'center', height: '7%'}}/>
+                <Box sx={{'& > :not(style)': { m: 1 }, height: "93%", overflowY: 'scroll'}} component="form" noValidate autoComplete="off" className="formDisplay scrollBar"
                 onSubmit={listTextbook}>
                     <Button variant="contained" component="label">Upload Images Here<input id='images' type="file" hidden multiple/></Button>
                     <TextField id="title" label="Title" required onChange={changeText} error={titleError} helperText={titleError ? 'Please add a title.' : ''}/>
@@ -205,8 +205,8 @@ function Sell () {
             </Box>
             <Box sx={{width: '72%', height: '100%', display: 'flex', justifyContent:'center', alignItems: 'center'}}>
                 <Box sx={{ width: '90%', borderRadius: 5, height: '90%', display: 'flex', flexDirection: 'column', backgroundColor:'var(--primary-color)', boxShadow: 8}}>
-                    <CardHeader title="Preview" sx={{height: '5%', marginLeft:'1%'}}/>
-                    <Box sx={{height:'95%', width:'100%', display:'flex',justifyContent:'center', overflowY:'auto'}}>
+                    <CardHeader title="Preview" sx={{height: '7%', marginLeft:'1%'}}/>
+                    <Box sx={{height:'93%', width:'100%', display:'flex',justifyContent:'center', overflowY:'auto'}}>
                         <Box sx={{height: '96%', width: '95%', display: 'flex', flexDirection: 'row'}}>
                             <Box sx={{ width: '60%', height: '100%', backgroundColor: 'var(--tertiary-color)'}} className="innerLeftBox">
                                 <Typography variant="h4" color='var(--text-color)'>
