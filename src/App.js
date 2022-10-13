@@ -66,6 +66,7 @@ function App() {
                   elevation: 0,
                   sx: {
                       overflow: 'visible',
+                      backgroundColor: 'var(--primary-color)',
                       filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
                       mt: 0,
                       '& .MuiAvatar-root': {
@@ -82,7 +83,7 @@ function App() {
                       right: 14,
                       width: 10,
                       height: 10,
-                      bgcolor: 'background.paper',
+                      bgcolor: 'var(--primary-color)',
                       transform: 'translateY(-50%) rotate(45deg)',
                       zIndex: 0,
                       },
@@ -90,10 +91,13 @@ function App() {
                   }}
                   transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                   anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}>
-                  <MenuItem component={NavLink} to="/settings/profile">
+                  <MenuItem component={NavLink} to="/settings/profile"  sx={{ color: 'var(--text-color)', backgroundColor: 'var(--primary-color)' }}>
                       <Avatar src=""/> Settings
                   </MenuItem>
-                  <MenuItem>
+                  <MenuItem onClick={toggleTheme} sx={{ color: 'var(--text-color)', backgroundColor: 'var(--primary-color)' }}>
+                    Toggle Darkmode
+                  </MenuItem>
+                  <MenuItem sx={{ color: 'var(--text-color)', backgroundColor: 'var(--primary-color)' }}>
                       <ListItemIcon>
                           <Logout fontSize="small" />
                       </ListItemIcon>
