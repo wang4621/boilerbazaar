@@ -67,7 +67,7 @@ function App() {
                     }}
                     transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                     anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}>
-                    <MenuItem component={NavLink} to="/settings/display">
+                    <MenuItem component={NavLink} to="/settings/profile">
                         <Avatar src=""/> Settings
                     </MenuItem>
                     <MenuItem>

@@ -13,12 +13,12 @@ function Settings () {
                 <Divider variant='fullWidth' sx={{borderBottomColor: 'black'}}/>
                 <div className="profileBoxDisplay">
                     <Box sx={{width: '15%', height: '100%', backgroundColor: 'whitesmoke'}} className="diffSettings">
-                        <Button activeClassName="active" component={NavLink} to="display">Profile</Button>
+                        <Button activeClassName="active" component={NavLink} to="profile">Profile</Button>
                         <Button activeClassName="active" component={NavLink} to="listings">Listings</Button>
                     </Box>
                     {/* when adding route to profile, make sure that when creating the new page that the width of the box is 85% */}
                     <Routes>
-                        <Route path='display' element={< Profile />}/>
+                        <Route path='profile' element={< Profile />}/>
                         <Route path='listings' element={< Listings />}/>
                     </Routes>
                 </div>
