@@ -13,3 +13,22 @@
     border-left:1px solid rgb(202, 199, 199);
     border-radius: 0px 0px 20px 0px;
 }
+
+.profileDisplay {
+    width: 85%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+.profileDisplay label {
+    color: var(--text-color);
+}
+
+.profileDisplay input {
+    color: var(--text-color);
+}
+
+.profileDisplay .MuiSelect-select {
+    color: var(--text-color);
+}
