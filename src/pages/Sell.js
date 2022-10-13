@@ -26,10 +26,10 @@ function sendImages(imagesJson) {
         datatype: 'json',
         contentType: 'application/json',
         success: function (result) {
-            alert(JSON.stringify(result))
+            console.log(JSON.stringify(result))
         },
         error: function (result) {
-            alert(JSON.stringify(result));
+            console.log(JSON.stringify(result));
         }
     });
 }
@@ -105,10 +105,10 @@ function Sell () {
                 datatype: 'json',
                 contentType: 'application/json',
                 success: function (result) {
-                    alert(JSON.stringify(result))
+                    console.log(JSON.stringify(result))
                 },
                 error: function (result) {
-                    alert(JSON.stringify(result));
+                    console.log(JSON.stringify(result));
                 }
             });
         }
