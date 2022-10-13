@@ -1,96 +1,205 @@
 import './Sell.css'
 import { Avatar, CardHeader, CardContent, Divider, Box, Typography, Button, ImageList, ImageListItem } from '@mui/material';
 import { TextField, MenuItem } from '@mui/material';
+import $ from 'jquery';
+import * as React from 'react';
+import {v4 as uuidv4} from 'uuid';
 
-// function sendToServer() {
-//     var title = document.getElementById("title").value;
-//     var isbn = document.getElementById("isbn").value;
-//     var author = document.getElementById("author").value;
-//     var edition = document.getElementById("edition").value;
-//     var price = document.getElementById("price").value;
-//     var description = document.getElementById("description").value;
-//     var client = new XMLHttpRequest();
-//     client.open("POST", "http://localhost:8080", true);
-//     //client.setRequestHeader("Request_Type", 1);
-//     client.setRequestHeader("Content-Type", "text/plain;charset=UTF-8");
-//     var json = `{"title": "${title}", "isbn": "${isbn}", "author": "${author}", "edition": "${edition}", "price": "${price}", "description": "${description}"}`; 
-//     console.log(json);
-//     client.send(json);
-
-// adds dollar sign in front of price
-function handleDollar(event) {
-    var value = event.target.value
-    if (value.includes('$')) {
-        value = value.split('$')[1]
-    }
-    if (value === '') {
-        event.target.value = ''
-        document.getElementById('previewPrice').innerText = 'Price'
-    } else if (isNaN(value)) {
-        event.target.value = event.target.value.slice(0, -1)
-    } else {
-        value = "$" + value;
-        event.target.value = value
-        document.getElementById('previewPrice').innerText = value
+function getBase64(file, i, imagesJson, final) {
+    var reader = new FileReader()
+    reader.readAsDataURL(file)
+    reader.onload = function() {
+        imagesJson["image" + i] = reader.result
+        if (final) {
+            imagesJson = "\""+JSON.stringify(imagesJson).replaceAll('"', '\\"')+"\""
+            console.log(imagesJson)
+            sendImages(imagesJson)
+        }
     }
 }
 
-// this checks if isbn is 10 or 13 and if it numbers only
-// function handleISBN(event) {
-
-// }
-
-function changeText(event) {
-    if (event.target.id === 'title') {
-        if (event.target.value === '') {
-            document.getElementById('previewTitle').innerText = 'Title'
-        } else {
-            document.getElementById('previewTitle').innerText = event.target.value
+function sendImages(imagesJson) {
+    $.ajax({
+        url: 'https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/listing/images',
+        type: 'PUT',
+        data: imagesJson,
+        datatype: 'json',
+        contentType: 'application/json',
+        success: function (result) {
+            alert(JSON.stringify(result))
+        },
+        error: function (result) {
+            alert(JSON.stringify(result));
         }
-    } else if (event.target.id === 'author') {
-        document.getElementById('previewAuthor').innerText = event.target.value
-    } else if (event.target.id === 'isbn') {
-        document.getElementById('previewISBN').innerText = event.target.value
-    } else if (event.target.id === 'edition') {
-        if (!isNaN(event.target.value)) {
-            document.getElementById('previewEdition').innerText = event.target.value
-        } else {
-            event.target.value = event.target.value.slice(0,-1)
-        }
-    } else if (event.target.name === 'condition') {
-        document.getElementById('previewCondition').innerText = event.target.value
-    } else if (event.target.id === 'description') {
-        document.getElementById('previewDescription').innerText = event.target.value
-    }
-}
-
-function listTextbook(e) {
-    console.log(e)
-    e.preventDefault()
+    });
 }
 
 function Sell () {
+    const [condition, setCondition] = React.useState('');
+    const limit = 250;
+    const [getStringLength, setStringLength] = React.useState(0);
+    const [titleError, setTitleError] = React.useState(false);
+    const [priceError, setPriceError] = React.useState(false);
+    const [authorError, setAuthorError] = React.useState(false);
+    const [isbnError, setISBNError] = React.useState(false);
+    const [editionError, setEditionError] = React.useState(false);
+    const [conditionError, setConditionError] = React.useState(false);
+    const [submitedListing, setSubmittedListing] = React.useState(false);
+
+    const conditionChange = event => {
+        setCondition(event.target.value)
+        if (event.target.value !== '') {
+            setConditionError(false);
+        }
+        document.getElementById('previewCondition').innerText = event.target.value
+    }
+
+    const listTextbook = event => {
+        setSubmittedListing(true)
+        var listingID = uuidv4().toString();
+        var sellerID = '';
+        var title = document.getElementById('title').value
+        var price = document.getElementById('price').value.substring(1)
+        var author = document.getElementById('author').value
+        var isbn = document.getElementById('isbn').value
+        var edition = document.getElementById('edition').value
+        var description = document.getElementById('description').value
+        var images = document.getElementById('images').files
+        var count = images.length;
+        var missing = false
+        if (title === '') {
+            setTitleError(true)
+            missing = true
+        }
+        if (price === '') {
+            setPriceError(true)
+            missing = true
+        }
+        if (author === '') {
+            setAuthorError(true)
+            missing = true
+        }
+        if (isbn === '') {
+            setISBNError(true)
+            missing = true
+        }   
+        if (edition === '') {
+            setEditionError(true)
+            missing = true
+        }
+        if (condition === '') {
+            setConditionError(true)
+            missing = true
+        }
+        if (!missing) {
+            var imagesJson = {"listingID": listingID, "count": count};
+            for (var i = 0; i < count; i++) {
+                getBase64(images[i], i, imagesJson, i === count - 1)
+            }
+            var jsonData = {"listingID": listingID, "sellerID": sellerID, "title": title, "price": price, "author": author, "isbn": isbn, "edition": edition, "condition": condition, "description": description}; 
+            jsonData = "\""+JSON.stringify(jsonData).replaceAll('"', '\\"')+"\""
+            $.ajax({
+                url: 'https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/listing',
+                type: 'PUT',
+                data: jsonData,
+                datatype: 'json',
+                contentType: 'application/json',
+                success: function (result) {
+                    alert(JSON.stringify(result))
+                },
+                error: function (result) {
+                    alert(JSON.stringify(result));
+                }
+            });
+        }
+        event.preventDefault()
+    }
+
+    // adds dollar sign in front of price
+    const handleDollar = event => {
+        var value = event.target.value
+        if (value.includes('$')) {
+            value = value.split('$')[1]
+        }
+        if (value === '') {
+            if (submitedListing) {
+                setPriceError(true)
+            }
+            event.target.value = ''
+            document.getElementById('previewPrice').innerText = 'Price'
+        } else if (isNaN(value)) {
+            event.target.value = event.target.value.slice(0, -1)
+        } else {
+            value = "$" + value;
+            event.target.value = value
+            setPriceError(false)
+            document.getElementById('previewPrice').innerText = value
+        }
+    }
+
+    const changeText = event => {
+        if (event.target.id === 'title') {
+            if (event.target.value === '') {
+                if (submitedListing) {
+                    setTitleError(true)
+                }
+                document.getElementById('previewTitle').innerText = 'Title'
+            } else {
+                setTitleError(false);
+                document.getElementById('previewTitle').innerText = event.target.value
+            }
+        } else if (event.target.id === 'author') {
+            if (event.target.value !== '') {
+                setAuthorError(false);
+            }
+            if (submitedListing && event.target.value === '') {
+                setAuthorError(true)
+            }
+            document.getElementById('previewAuthor').innerText = event.target.value
+        } else if (event.target.id === 'isbn') {
+            if (event.target.value !== '') {
+                setISBNError(false);
+            }
+            if (submitedListing && event.target.value === '') {
+                setISBNError(true)
+            }
+            document.getElementById('previewISBN').innerText = event.target.value
+        } else if (event.target.id === 'edition') {
+            if (!isNaN(event.target.value)) {
+                setEditionError(false);
+                document.getElementById('previewEdition').innerText = event.target.value
+            } else {
+                event.target.value = event.target.value.slice(0,-1)
+            }
+            if (submitedListing && event.target.value === '') {
+                setEditionError(true)
+            }
+        } else if (event.target.id === 'description') {
+            setStringLength(event.target.value.length)
+            document.getElementById('previewDescription').innerText = event.target.value
+        }
+    }
+
     return (
         <div className="sellDisplay">
             <Box sx={{width: '28%', height: '100%', backgroundColor: 'var(--primary-color)', display: 'flex', flexDirection: 'column'}}>
                 <CardHeader title="Textbooks for sale" sx={{textAlign: 'center', height: '5%'}}/>
                 <Box sx={{'& > :not(style)': { m: 1 }, height: "95%", overflowY: 'scroll'}} component="form" noValidate autoComplete="off" className="formDisplay scrollBar"
-                onSubmit={event => listTextbook(event)}>
-                    <Typography variant="body1" color='var(--text-color)'>
-                        This is where you add pictures for textbooks
-                    </Typography>
-                    <TextField id="title" label="Title" required onChange={event => changeText(event)}/>
-                    <TextField id="price" label="Price" required onChange={event => handleDollar(event)} inputProps={{ maxLength: 4 }}/>
-                    <TextField id="author" label="Author" required onChange={event => changeText(event)}/>
-                    <TextField id="isbn" label="ISBN" required onChange={event => changeText(event)} inputProps={{ maxLength: 13 }}/>
-                    <TextField id="edition" label="Edition" required onChange={event => changeText(event)} inputProps={{ maxLength: 2 }}/>
-                    <TextField id="condition" name="condition" label="Condition" select required onChange={event => changeText(event)} sx={{backgroundColor: 'var(--secondary-color)'}} >
+                onSubmit={listTextbook}>
+                    <Button variant="contained" component="label">Upload Images Here<input id='images' type="file" hidden multiple/></Button>
+                    <TextField id="title" label="Title" required onChange={changeText} error={titleError} helperText={titleError ? 'Please add a title.' : ''}/>
+                    <TextField id="price" label="Price" required onChange={handleDollar} error={priceError} helperText={priceError ? 'Please add a price.' : ''} inputProps={{ maxLength: 4}}/>
+                    <TextField id="author" label="Author" required onChange={changeText} error={authorError} helperText={authorError ? 'Please add an author.' : ''}/>
+                    <TextField id="isbn" label="ISBN" required onChange={changeText} error={isbnError} helperText={isbnError ? 'Please add an ISBN.' : ''} inputProps={{ maxLength: 13}}/>
+                    <TextField id="edition" label="Edition" required onChange={changeText} error={editionError} helperText={editionError ? 'Please add an edition.' : ''} inputProps={{ maxLength: 2}}/>
+                    <TextField id="condition" name="condition" label="Condition" select required value={condition} onChange={conditionChange} error={conditionError} helperText={conditionError ? 'Please select a condition' : ''}
+                    sx={{backgroundColor: 'var(--secondary-color)'}}>
                             <MenuItem value="New">New</MenuItem>
                             <MenuItem value="Used - Like New">Used - Like New</MenuItem>
                             <MenuItem value="Used - Good">Used - Good</MenuItem>
                             <MenuItem value="Used - Fair">Used - Fair</MenuItem>
                     </TextField>
-                    <TextField id="description" label="Description" multiline rows={5} onChange={event => changeText(event)} inputProps={{ maxLength: 250 }} sx={{backgroundColor: 'var(--secondary-color)'}} />
+                    <TextField id="description" label="Description" multiline rows={5} onChange={changeText} inputProps={{ maxLength: limit}} helperText={`${getStringLength}/${limit}`} sx={{backgroundColor: 'var(--secondary-color)'}} />
                     <TextField id="list" type="submit" value="List"/>
                 </Box>
             </Box>

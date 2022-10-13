@@ -49,13 +49,13 @@
   margin: 0;
 }
 
-.centerNav {
+.navbar .centerNav {
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.active {
+.navbar .active {
   border-bottom: 3px solid blue !important;
   color: blue !important;
 }
