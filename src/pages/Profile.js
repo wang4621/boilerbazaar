@@ -44,8 +44,8 @@ function Profile() {
     }
 
     return (
-        <Box sx={{width: '85%', height: '100%', display: 'flex', flexDirection:'row'}}>
-            <Box sx={{width: '35%', height: '100%', backgroundColor: 'whitesmoke', display:'flex', flexDirection:'column'}}>
+        <Box sx={{width: '85%', height: '100%', display: 'flex', flexDirection:'row' }}>
+            <Box sx={{width: '35%', height: '100%', backgroundColor: 'var(--secondary-color)', display:'flex', flexDirection:'column'}}>
                 <CardHeader sx={{textAlign:"center", height:'5%'}} title="General"/>
                 <Divider variant='middle' sx={{borderBottomColor: 'rgb(202, 199, 199)'}}/>
                 <br/>
@@ -63,26 +63,26 @@ function Profile() {
                     <TextField type="submit" value={value}/>
                 </Box>
             </Box>
-            <Box sx={{width: '65%', height: '100%', backgroundColor: 'whitesmoke'}} className="ratingBox">
-                <Typography variant="h6" color="black" sx={{textAlign:'center'}}>
+            <Box sx={{width: '65%', height: '100%', backgroundColor: 'var(--secondary-color)'}} className="ratingBox">
+                <Typography variant="h6" color="var(--text-color)" sx={{textAlign:'center'}}>
                     <Avatar sx={{ width: 128, height: 128 }}/>
                     Jeff {lastName}
                 </Typography>
                 <br/>
-                <Typography variant="h6" color="black">Rating</Typography>
+                <Typography variant="h6" color="var(--text-color)">Rating</Typography>
                 <Rating name="read-only" readOnly size="large"/>
                 <br/><br/>
-                <Typography variant="h6" color="black">
+                <Typography variant="h6" color="var(--text-color)">
                     Completed Purchases:
                     <Typography display="inline">&nbsp;</Typography>
-                    <Typography variant="h6" color="black" display="inline" id="purchases">
+                    <Typography variant="h6" color="var(--text-color)" display="inline" id="purchases">
                         5
                     </Typography>
                 </Typography>
-                <Typography variant="h6" color="black">
+                <Typography variant="h6" color="var(--text-color)">
                     Completed Sales:
                     <Typography display="inline">&nbsp;</Typography>
-                    <Typography variant="h6" color="black" display="inline" id="sales">
+                    <Typography variant="h6" color="var(--text-color)" display="inline" id="sales">
                         1
                     </Typography>
                 </Typography>
