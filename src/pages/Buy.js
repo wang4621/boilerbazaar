@@ -6,11 +6,11 @@ function Buy() {
     function toggleFilters() {
         const filtersDiv = document.getElementById("filters");
         const filtersButton = document.getElementById("filtersButton");
-        if (filtersDiv.style.display !== "none") {
-            filtersDiv.style.display = "none";
+        if (filtersDiv.style.display !== "flex") {
+            filtersDiv.style.display = "flex";
         }
         else {
-            filtersDiv.style.display = "flex";
+            filtersDiv.style.display = "none";
         }
     }
     return (
