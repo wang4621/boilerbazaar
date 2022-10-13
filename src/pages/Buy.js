@@ -1,5 +1,9 @@
 import './Buy.css';
 import { TextField, MenuItem } from '@mui/material';
+import $ from 'jquery';
+import * as React from 'react';
+import {v4 as uuidv4} from 'uuid';
+
 
 function Buy() {
     //Function to toggle the display of filters and sorting options
@@ -14,21 +18,60 @@ function Buy() {
         }
     }
 
-    /*var input = document.getElementById("searchBar");
-    input.addEventListener("keypress", function(event) {
-        if (event.key === "Enter") {
-        event.preventDefault();
-        document.getElementById("searchBtn").click();
-        }
-    });*/
+    
 
     function search() {
-        alert('search')
+        alert("filter" + document.getElementById("searchFilter").value);
+        $.ajax({
+            url: 'https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/listing?listingID=db7ba216-b6f6-45bb-952d-ce4f0aa8a169',
+            type: 'GET',    
+            success: function (result) {
+                //alert(JSON.stringify(result))
+                let returnedItem = result.Item;
+                
+                search = document.getElementById('searchBar').value;
+                const listings = document.getElementById("listings");
+                const listingList = ["Title: " + returnedItem.title + " Author: " + returnedItem.isbn + " ISBN: " + returnedItem.isbn + " Edition: " + returnedItem.condition + " Condition: " + returnedItem.price + " Price: " + returnedItem.price + " Description: " + returnedItem.description];
+
+                while (listings.hasChildNodes()) {
+                    listings.removeChild(listings.firstChild);
+                }
+                for (let item of listingList) {
+                    let newListing = document.createElement('li');
+                    let a = document.createElement('a');
+                    let text = document.createTextNode(item.trim());
+                    a.appendChild(text);
+                    a.title = "title";
+                    a.href = "";
+                    newListing.appendChild(a);
+                    listings.appendChild(newListing);
+                }
+            },
+            error: function (result) {
+                alert(JSON.stringify(result));
+            }
+        });
+        
     }
 
     return (
         <div class="buyDisplay">
-            <h1>Buy</h1>
+
+                <label>
+                    Search By
+                    <TextField id="searchFilter" select>
+                        <MenuItem value="title">Title</MenuItem>
+                        <MenuItem value="author">Author</MenuItem>
+                        <MenuItem value="isbn">ISBN</MenuItem>
+                    </TextField>
+                </label>
+
+            <div>
+                <form id="searchFrm" ></form>
+                <input id="searchBar" type="text" placeholder ="Search Book Title"></input>
+                <input id="searchBtn" type="submit" onClick={search}></input>
+            </div>
+
             <button id="filtersButton" onClick={toggleFilters}>Filters and Sorting</button>
             <div class="filters" id="filters">
                 <div class="filterCheckboxes">
@@ -81,11 +124,13 @@ function Buy() {
                     </TextField>
                 </label>
             </div>
+
             <div>
-                <form id="searchFrm" ></form>
-                <input id="searchBar" type="text" placeholder ="Search Book Title"></input>
-                <input id="searchBtn" type="submit" onClick={search}></input>
+                <ul id="listings">
+
+                </ul>
             </div>
+            
         </div>
     )
 }
