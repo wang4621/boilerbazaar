@@ -11,6 +11,7 @@ import Map from './pages/Map'
 import { Avatar, Menu, MenuItem, IconButton, ListItemIcon } from '@mui/material';
 import Logout from '@mui/icons-material/Logout';
 import React, { useEffect, useState } from "react";
+import $ from 'jquery';
 
 function App() {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -26,12 +27,14 @@ function App() {
   const [theme, setTheme] = useState('bodyLight');
   const toggleTheme = () => {
     if (theme === 'bodyLight') {
+      updateDarkModePreference("dark");
       setTheme('bodyDark');
       root.style.setProperty('--primary-color', "#1e252e");
       root.style.setProperty('--secondary-color', "#323d4d");
       root.style.setProperty('--tertiary-color', "#161B22");
       root.style.setProperty('--text-color', "#FFFFFF");
     } else {
+      updateDarkModePreference("light");
       setTheme('bodyLight');
       root.style.setProperty('--primary-color', "#FFFFFF");
       root.style.setProperty('--secondary-color', "#f5f5f5");
@@ -43,6 +46,29 @@ function App() {
   useEffect(() => {
     document.body.className = theme;
   }, [theme]);
+
+  //Update dark mode preference on the database
+  const updateDarkModePreference = (mode) => {
+    /**
+      @todo: add actual puid instead of hardcode
+      @todo: remove alert
+    **/
+    var jsonData = {"puid": "0031888129", "darkModePreference": mode};
+    jsonData = "\""+JSON.stringify(jsonData).replaceAll('"', '\\"')+"\""
+    $.ajax({
+      url: 'https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/profile',
+      type: 'PUT',
+      data: jsonData,
+      datatype: 'json',
+      contentType: 'application/json',
+      success: function (result) {
+          alert(JSON.stringify(result))
+      },
+      error: function (result) {
+          alert(JSON.stringify(result));
+      }
+    });
+  };
   return (
     <Router>
         <div className={`${theme}`}>
