@@ -47,6 +47,22 @@ function App() {
     document.body.className = theme;
   }, [theme]);
 
+  //Get dark mode preference from the database
+  useEffect(() => {
+    var jsonData = {"puid": "0031888129", "darkModePreference": "mode"};
+    jsonData = "\""+JSON.stringify(jsonData).replaceAll('"', '\\"')+"\""
+    $.ajax({
+      url: 'https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/profile?id=1',
+      type: 'GET',
+      success: function (result) {
+          alert(JSON.stringify(result))
+      },
+      error: function (result) {
+          alert(JSON.stringify(result));
+      }
+    });
+  }, []);
+
   //Update dark mode preference on the database
   const updateDarkModePreference = (mode) => {
     /**
