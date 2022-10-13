@@ -262,7 +262,7 @@ function Sell () {
                                     </Typography>
                                 </CardContent>
                                 <Box sx={{height: '10%', backgroundColor: 'var(--secondary-color)'}} className="innerBottomBox">
-                                    <Button variant="contained" disabled sx={{width: '95%', backgroundColor: 'var(--tertiary-color) !important'}}>Message</Button>
+                                    <Button variant="outlined" disabled sx={{width: '95%', backgroundColor: 'var(--tertiary-color) !important'}}>Message</Button>
                                 </Box>
                             </Box>
                         </Box>
