@@ -19,7 +19,7 @@ function getSearchHistory() {
             //alert(JSON.stringify(searchHistory));
         },
         error: function (result) {
-            alert(JSON.stringify(result));
+            console.log(JSON.stringify(result));
         }
     });
 }
@@ -36,10 +36,10 @@ function removeSearch(s) {
         datatype: 'json',
         contentType: 'application/json',
         success: function (result) {
-            alert(JSON.stringify(result));
+            console.log(JSON.stringify(result));
         },
         error: function (result) {
-            alert(JSON.stringify(result));
+            console.log(JSON.stringify(result));
         }
     });
 }
@@ -55,10 +55,10 @@ function addSearchHistory(s) {
         datatype: 'json',
         contentType: 'application/json',
         success: function (result) {
-            alert(JSON.stringify(result));
+            console.log(JSON.stringify(result));
         },
         error: function (result) {
-            alert(JSON.stringify(result));
+            console.log(JSON.stringify(result));
         }
     });
 }
@@ -221,7 +221,7 @@ function BuyMain() {
                 repopulateFilters();
             },
             error: function (result) {
-                alert(JSON.stringify(result));
+                console.log(JSON.stringify(result));
             }
         });
         
