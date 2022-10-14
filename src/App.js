@@ -1,7 +1,7 @@
 import { TbMap2 } from 'react-icons/tb';
 import './App.css';
 import Img from './logo.png'
-import { BrowserRouter as Router,Routes, Route, NavLink } from 'react-router-dom';
+import { BrowserRouter as Router,Routes, Route, NavLink, useNavigate } from 'react-router-dom';
 import Settings from './pages/Settings'
 import Home from './pages/Home'
 import Sell from './pages/Sell'
@@ -13,16 +13,20 @@ import Logout from '@mui/icons-material/Logout';
 import * as React from 'react';
 
 function App() {
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const open = Boolean(anchorEl);
-  const handleClick = (event) => {
+    const [anchorEl, setAnchorEl] = React.useState(null);
+    const open = Boolean(anchorEl);
+    const [data, setData] = React.useState('');
+    const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
-  };
-  const handleClose = () => {
+    };
+    const handleClose = () => {
     setAnchorEl(null);
-  };
-  return (
-    <Router>
+    };
+    const navigate = useNavigate();
+    const toSettings=()=>{
+        navigate('/settings/profile',{state:{id:1,name:'sabaoon'}});
+    }
+    return (
         <div className="App">
             <div className="navbar">
                 <img src={Img} height={70} alt="logo" style={{"float":"left"}}></img>
@@ -67,7 +71,7 @@ function App() {
                     }}
                     transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                     anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}>
-                    <MenuItem component={NavLink} to="/settings/profile">
+                    <MenuItem component={NavLink} onClick={()=>{toSettings()}}>
                         <Avatar src=""/> Settings
                     </MenuItem>
                     <MenuItem>
@@ -87,8 +91,7 @@ function App() {
                 <Route path='/settings/*' element={< Settings />}/>
             </Routes>
         </div>
-    </Router>
-  );
+    );
 }
 
 export default App;
