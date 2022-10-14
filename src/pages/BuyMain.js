@@ -1,6 +1,6 @@
 import './BuyMain.css'
 import * as React from 'react';
-import { TextField, MenuItem } from '@mui/material';
+import { TextField, MenuItem, Button } from '@mui/material';
 import $ from 'jquery';
 import { Routes, Route, NavLink } from 'react-router-dom';
 
@@ -361,6 +361,11 @@ function BuyMain() {
             listings.appendChild(newListing);
         }
     }
+
+    function filterListings() {
+        
+    }
+
     window.onload = function() {
         addSearchHistory("test");
         getSearchHistory();
@@ -423,6 +428,7 @@ function BuyMain() {
                         </select>
                     </div>
                 </div>
+                <button onClick={filterListings}>Filter</button>
                 <label>
                     Sort by
                     <TextField id="sorting" name="sorting" class="sorting" select>
