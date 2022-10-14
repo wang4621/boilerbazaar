@@ -20,12 +20,27 @@ function BuyMain() {
     
 
     function search() {
-        alert("filter" + document.getElementById("searchFilter").value);
+        const searchFilterValue = document.getElementById("searchFilter").innerText;
+        const searchText = document.getElementById("searchBar").value;
+        console.log("filter: " + searchFilterValue);
+        var searchParams = "";
+        if (searchFilterValue == "Title") {
+            searchParams = "title=" + searchText;
+        }
+        else if (searchFilterValue == "Author") {
+            searchParams = "author=" + searchText;
+        }
+        else if (searchFilterValue == "ISBN") {
+            searchParams = "isbn=" + searchText;
+        }
+        const searchUrl = "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/listing?" + searchParams;
+        console.log(searchUrl);
         $.ajax({
-            url: 'https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/listing?listingID=db7ba216-b6f6-45bb-952d-ce4f0aa8a169',
+            url: searchUrl,
             type: 'GET',    
             success: function (result) {
                 //alert(JSON.stringify(result))
+                console.log(result);
                 let returnedItem = result.Item;
                 
                 search = document.getElementById('searchBar').value;
