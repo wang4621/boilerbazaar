@@ -3,6 +3,7 @@ import * as React from 'react';
 import './Profile.css'
 import $ from 'jquery';
 import { styled  } from "@mui/material/styles";
+import {useLocation} from 'react-router-dom';
 
 function Profile() {
     const [isDisabled, setDisabled] = React.useState(true)
@@ -14,6 +15,9 @@ function Profile() {
     const locationChange = event => {
         setLocation(event.target.value)
     }
+
+    const data = useLocation();
+    console.log(data)
 
     const editOrSaveProfile = event => {
         setDisabled(!isDisabled)
