@@ -182,6 +182,7 @@ function BuyMain() {
 
     
     var listingList = [];
+    var originalListingList=[];
     function search() {
         const searchFilterValue = document.getElementById("searchFilter").innerText;
         const searchText = document.getElementById("searchBar").value;
@@ -214,7 +215,10 @@ function BuyMain() {
                 //const listingList = ["Title: " + returnedItem.title + " Author: " + returnedItem.isbn + " ISBN: " + returnedItem.isbn + " Edition: " + returnedItem.condition + " Condition: " + returnedItem.price + " Price: " + returnedItem.price + " Description: " + returnedItem.description];
 
                 console.log(listingList);
-                repopulateListingsAndFilters();
+                originalListingList = JSON.parse(JSON.stringify(listingList));
+                console.log(originalListingList);
+                repopulateListings();
+                repopulateFilters();
             },
             error: function (result) {
                 alert(JSON.stringify(result));
@@ -331,10 +335,10 @@ function BuyMain() {
             default:
                 return;
         }
-        repopulateListingsAndFilters();
+        repopulateListings();
     }
 
-    function repopulateListingsAndFilters() {
+    function repopulateListings() {
         //Repopulate listings display
         const listings = document.getElementById("listings");
         while (listings.hasChildNodes()) {
@@ -350,7 +354,9 @@ function BuyMain() {
             newListing.appendChild(a);
             listings.appendChild(newListing);
         }
+    }
 
+    function repopulateFilters() {
         //Repopulate filters
         let filters = document.getElementById("editionFilter");
         while (filters.hasChildNodes()) {
@@ -360,12 +366,13 @@ function BuyMain() {
         //Create filter for no filter
         let noFilter = document.createElement('option');
         let noFilterText = document.createTextNode("No filter");
-        noFilter.value = "";
+        noFilter.value = "none";
+        noFilter.selected = "selected";
         noFilter.appendChild(noFilterText);
         filters.appendChild(noFilter);
 
         let addedEditions = [];
-        for (const item of listingList) {
+        for (const item of originalListingList) {
             if (!(addedEditions.includes(item.edition))) {
                 addedEditions.push(item.edition);
                 let newFilter = document.createElement('option');
@@ -384,17 +391,18 @@ function BuyMain() {
         //Create filter for no filter
         noFilter = document.createElement('option');
         noFilterText = document.createTextNode("No filter");
-        noFilter.value = "";
+        noFilter.value = "none";
+        noFilter.selected = "selected";
         noFilter.appendChild(noFilterText);
         filters.appendChild(noFilter);
 
         let addedConditions = [];
-        for (const item of listingList) {
+        for (const item of originalListingList) {
             if (!(addedConditions.includes(item.condition))) {
                 addedConditions.push(item.condition);
                 let newFilter = document.createElement('option');
                 let text = document.createTextNode(item.condition.trim());
-                newFilter.value = item.edition.trim();
+                newFilter.value = item.condition.trim();
                 newFilter.appendChild(text);
                 filters.appendChild(newFilter);
             }
@@ -402,7 +410,27 @@ function BuyMain() {
     }
 
     function filterListings() {
+        /**
+         * @TODO implement course filter whenever we add that to the database
+         */
+        let courseFilter = document.getElementById("courseFilter").value;
+        let editionFilter = document.getElementById("editionFilter").value;
+        let conditionFilter = document.getElementById("conditionFilter").value;
         
+        listingList = JSON.parse(JSON.stringify(originalListingList));
+        
+        if (editionFilter != "none") {
+            listingList = listingList.filter(function(value, index, arr) {
+                return value.edition == editionFilter;
+            });
+        }
+        if (conditionFilter != "none") {
+            listingList = listingList.filter(function(value, index, arr) {
+                return value.condition == conditionFilter;
+            });
+        }
+        console.log(listingList);
+        repopulateListings();
     }
 
     window.onload = function() {
@@ -435,7 +463,7 @@ function BuyMain() {
                             Course
                         </label>
                         <select multiple size="4" id="courseFilter" class="filterSelector">
-                            <option value='none'>No filter</option>
+                            <option value='none' selected="selected">No filter</option>
                         </select>
                     </div>
                     <div class="filterDiv">
@@ -443,7 +471,7 @@ function BuyMain() {
                             Edition
                         </label>
                         <select multiple size="4" id="editionFilter" class="filterSelector">
-                            <option value='none'>No filter</option>
+                            <option value='none' selected="selected">No filter</option>
                             <option value='1'>1</option>
                             <option value='2'>2</option>
                             <option value='3'>3</option>
@@ -455,11 +483,11 @@ function BuyMain() {
                             Condition
                         </label>
                         <select multiple size="4" id="conditionFilter" class="filterSelector">
-                            <option value='none'>No filter</option>
-                            <option value='new'>New</option>
-                            <option value='usedLN'>Used - Like New</option>
-                            <option value='usedG'>Used - Good</option>
-                            <option value='usedF'>Used - Fair</option>
+                            <option value='none' selected="selected">No filter</option>
+                            <option value='New'>New</option>
+                            <option value='Used - Like New'>Used - Like New</option>
+                            <option value='Used - Good'>Used - Good</option>
+                            <option value='Used - Fair'>Used - Fair</option>
                         </select>
                     </div>
                 </div>
