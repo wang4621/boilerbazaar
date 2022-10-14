@@ -1,17 +1,64 @@
 import './Buy.css';
 import { TextField, MenuItem } from '@mui/material';
+import $ from 'jquery';
+import * as React from 'react';
 
 var searchHistory = [];
 var user = "doan23@purdue.edu";
 
 function getSearchHistory() {
-    var url = "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/search_history?" + user;
-
+    var url = "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/search_history?email=" + user;
+    $.ajax({
+        url: url,
+        type: 'GET',
+        success: function (result) {
+            for (var i = 0; i < result['body'].length; i++) {
+                searchHistory.push(result['body'][i]);
+            }
+            //alert(JSON.stringify(searchHistory));
+        },
+        error: function (result) {
+            alert(JSON.stringify(result));
+        }
+    });
 }
 
-function removeSearch() {
-    var url = " https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/search_history";
+function removeSearch(s) {
+    var json = {"user": user, "search": s}
+    json = "\""+JSON.stringify(json).replaceAll('"', '\\"')+"\""
+    var url = "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/search_history";
+    console.log(json);
+    $.ajax({
+        url: url,
+        type: 'PUT',
+        data: json,
+        datatype: 'json',
+        contentType: 'application/json',
+        success: function (result) {
+            alert(JSON.stringify(result));
+        },
+        error: function (result) {
+            alert(JSON.stringify(result));
+        }
+    });
+}
 
+function addSearchHistory(s) {
+    var json = {"user": user, "search": s}
+    var url = "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/search_history";
+    $.ajax({
+        url: url,
+        type: 'POST',
+        data: json,
+        datatype: 'json',
+        contentType: 'application/json',
+        success: function (result) {
+            alert(JSON.stringify(result));
+        },
+        error: function (result) {
+            alert(JSON.stringify(result));
+        }
+    });
 }
 
 function autocomplete(inp, arr) {
@@ -38,17 +85,24 @@ function autocomplete(inp, arr) {
             /*create a DIV element for each matching element:*/
             b = document.createElement("DIV");
             /*make the matching letters bold:*/
+            b.id = arr[i];
             b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
             b.innerHTML += arr[i].substr(val.length);
             /*insert a input field that will hold the current array item's value:*/
-            b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+            b.innerHTML += "<input type='hidden' value='" + arr[i] + "'></input>";
+            b.innerHTML += "<button>x</button>";
             /*execute a function when someone clicks on the item value (DIV element):*/
                 b.addEventListener("click", function(e) {
                 /*insert the value for the autocomplete text field:*/
-                inp.value = this.getElementsByTagName("input")[0].value;
+                if (e.target.tagName === 'BUTTON') {
+                    removeSearch(this.id);
+                } else {
+                    inp.value = this.getElementsByTagName("input")[0].value;
+                    closeAllLists();
+                }
+                
                 /*close the list of autocompleted values,
                 (or any other open lists of autocompleted values:*/
-                closeAllLists();
             });
             a.appendChild(b);
           }
@@ -123,8 +177,9 @@ function Buy() {
             filtersDiv.style.display = "flex";
         }
     }
-    getSearchHistory();
     window.onload = function() {
+        getSearchHistory();
+        addSearchHistory("test");
         autocomplete(document.getElementById("search"), searchHistory);
     }
     return (
