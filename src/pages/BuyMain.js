@@ -207,7 +207,6 @@ function BuyMain() {
                 console.log(result);
                 let returnedItems = result.Items;
             
-                const listings = document.getElementById("listings");
                 listingList = [];
                 for (let i = 0; i < returnedItems.length; i++) {
                     listingList.push({"title": returnedItems[i].title, "author": returnedItems[i].author, "isbn": returnedItems[i].isbn, "edition:": returnedItems[i].edition, "condition": returnedItems[i].condition, "price": returnedItems[i].price, "description": returnedItems[i].description, "toString": "Title: " + returnedItems[i].title + " Author: " + returnedItems[i].author + " ISBN: " + returnedItems[i].isbn + " Edition: " + returnedItems[i].edition + " Condition: " + returnedItems[i].condition + " Price: " + returnedItems[i].price + " Description: " + returnedItems[i].description});
@@ -215,19 +214,7 @@ function BuyMain() {
                 //const listingList = ["Title: " + returnedItem.title + " Author: " + returnedItem.isbn + " ISBN: " + returnedItem.isbn + " Edition: " + returnedItem.condition + " Condition: " + returnedItem.price + " Price: " + returnedItem.price + " Description: " + returnedItem.description];
 
                 console.log(listingList);
-                while (listings.hasChildNodes()) {
-                    listings.removeChild(listings.firstChild);
-                }
-                for (const item of listingList) {
-                    let newListing = document.createElement('li');
-                    let a = document.createElement('a');
-                    let text = document.createTextNode(item.toString.trim());
-                    a.appendChild(text);
-                    a.title = "title";
-                    a.href = "";
-                    newListing.appendChild(a);
-                    listings.appendChild(newListing);
-                }
+                repopulateListingsAndFilters();
             },
             error: function (result) {
                 alert(JSON.stringify(result));
@@ -344,7 +331,10 @@ function BuyMain() {
             default:
                 return;
         }
+        repopulateListingsAndFilters();
+    }
 
+    function repopulateListingsAndFilters() {
         //Repopulate listings display
         const listings = document.getElementById("listings");
         while (listings.hasChildNodes()) {
