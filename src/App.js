@@ -1,7 +1,7 @@
 import { TbMap2 } from 'react-icons/tb';
 import './App.css';
 import Img from './logo.png'
-import { BrowserRouter as Router,Routes, Route, NavLink } from 'react-router-dom';
+import { Routes, Route, NavLink, useNavigate } from 'react-router-dom';
 import Settings from './pages/Settings'
 import Home from './pages/Home'
 import Sell from './pages/Sell'
@@ -17,14 +17,18 @@ import Brightness7Icon from '@mui/icons-material/Brightness7';
 import SettingsIcon from '@mui/icons-material/Settings';
 
 function App() {
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const open = Boolean(anchorEl);
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
+    const [anchorEl, setAnchorEl] = React.useState(null);
+    const open = Boolean(anchorEl);
+    const handleClick = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+    const navigate = useNavigate();
+    const toSettings=()=>{
+        navigate('/settings/profile',{state:{id:1,name:'sabaoon'}});
+    }
   let root = document.documentElement;
   //Code for dark mode
   const [theme, setTheme] = useState('bodyLight');
@@ -105,7 +109,6 @@ function App() {
     });
   };
   return (
-    <Router>
       <div className={`${theme}`}>
         <div className="App">
           <div className="navbar">
@@ -181,7 +184,6 @@ function App() {
           </Routes>
         </div>
       </div>
-    </Router>
   );
 }
 
