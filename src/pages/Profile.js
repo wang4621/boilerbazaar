@@ -78,16 +78,12 @@ function Profile() {
                 <Divider variant='middle' sx={{borderBottomColor: 'rgb(202, 199, 199)'}}/>
                 <br/>
                 <Box sx={{'& > :not(style)': { m: 1.5 }, height: "95%", overflowY: 'auto'}} component="form" autoComplete="off" className="profileFormDisplay" onSubmit={editOrSaveProfile} id="profileForm">
-                    <TextField id="firstName" label="First Name" disabled value={firstName} sx = {{"& .MuiOutlinedInput-root:hover": {
-      "& > fieldset": {
-        borderColor: "var(--text-color)"
-      }
-    }}}/>
-                    <TextField id="preferredName" label="Preferred Name" disabled={isDisabled} value={preferredName} onChange={preferredNameChange}/>
+                    <TextField id="firstName" label="First Name" disabled value={firstName} />
+                    <TextField id="preferredName" label="Preferred Name" disabled={isDisabled} value={preferredName} onChange={preferredNameChange} sx = {{"& .MuiOutlinedInput-root:hover": {"& > fieldset": {borderColor: "var(--text-color)"}}}}/>
                     <TextField id="lastName" label="Last Name" disabled value={lastName}/>
                     <TextField id="puid" label="PUID" disabled value={puid}/>
-                    <TextField id="major" label="Major" disabled={isDisabled} value={major} onChange={majorChange}/>
-                    <TextField id="location" label="Preferred Meeting Location" select value={preferredMeeting} disabled={isDisabled} onChange={preferredMeetingChange}>
+                    <TextField id="major" label="Major" disabled={isDisabled} value={major} onChange={majorChange} sx = {{"& .MuiOutlinedInput-root:hover": {"& > fieldset": {borderColor: "var(--text-color)"}}}}/>
+                    <TextField id="location" label="Preferred Meeting Location" select value={preferredMeeting} disabled={isDisabled} onChange={preferredMeetingChange} sx = {{"& .MuiOutlinedInput-root:hover": {"& > fieldset": {borderColor: "var(--text-color)"}}}}>
                         <MenuItem value="None">None</MenuItem>
                         <MenuItem value="Public">Public</MenuItem>
                         <MenuItem value="In front of house/apt">In front of house/apt</MenuItem>
