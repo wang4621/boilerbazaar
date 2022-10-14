@@ -1,7 +1,7 @@
 import { TbMap2 } from 'react-icons/tb';
 import './App.css';
 import Img from './logo.png'
-import { BrowserRouter as Router,Routes, Route, NavLink } from 'react-router-dom';
+import { Routes, Route, NavLink, useNavigate } from 'react-router-dom';
 import Settings from './pages/Settings'
 import Home from './pages/Home'
 import Sell from './pages/Sell'
@@ -14,16 +14,22 @@ import React, { useEffect, useState } from "react";
 import $ from 'jquery';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
+import SettingsIcon from '@mui/icons-material/Settings';
 
 function App() {
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const open = Boolean(anchorEl);
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
+    const [anchorEl, setAnchorEl] = React.useState(null);
+    const [data, setData] = React.useState('');
+    const open = Boolean(anchorEl);
+    const handleClick = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+    const navigate = useNavigate();
+    const toSettings=()=>{
+        navigate('/settings/profile',{state: data});
+    }
   let root = document.documentElement;
   //Code for dark mode
   const [theme, setTheme] = useState('bodyLight');
@@ -60,6 +66,7 @@ function App() {
       type: 'GET',
       success: function (result) {
         let returnedItem = result.Item;
+        setData(returnedItem);
         if (returnedItem.darkModePreference === 'dark') {
           setTheme('bodyDark');
           root.style.setProperty('--primary-color', "#1e252e");
@@ -86,7 +93,6 @@ function App() {
   const updateDarkModePreference = (mode) => {
     /**
       @todo: add actual puid instead of hardcode
-      @todo: remove alert
     **/
     var jsonData = {"puid": "0031888129", "darkModePreference": mode};
     jsonData = "\""+JSON.stringify(jsonData).replaceAll('"', '\\"')+"\""
@@ -97,15 +103,15 @@ function App() {
       datatype: 'json',
       contentType: 'application/json',
       success: function (result) {
-          alert(JSON.stringify(result))
+          console.log(JSON.stringify(result))
       },
       error: function (result) {
-          alert(JSON.stringify(result));
+          console.log(JSON.stringify(result));
       }
     });
   };
+
   return (
-    <Router>
       <div className={`${theme}`}>
         <div className="App">
           <div className="navbar">
@@ -157,14 +163,17 @@ function App() {
                   }}
                   transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                   anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}>
-                  <MenuItem component={NavLink} to="/settings/profile"  sx={{ color: 'var(--text-color)', backgroundColor: 'var(--primary-color)' }}>
-                      <Avatar src=""/> Settings
+                  <MenuItem onClick={()=>{toSettings()}} sx={{ color: 'var(--text-color)', backgroundColor: 'var(--primary-color)' }}>
+                    <ListItemIcon>
+                      <SettingsIcon fontSize="small" sx={{ color: 'var(--text-color)'}}/>
+                    </ListItemIcon>
+                    Settings
                   </MenuItem>
                   <MenuItem sx={{ color: 'var(--text-color)', backgroundColor: 'var(--primary-color)' }}>
-                      <ListItemIcon>
-                          <Logout fontSize="small" />
-                      </ListItemIcon>
-                      Logout
+                    <ListItemIcon>
+                        <Logout fontSize="small" sx={{ color: 'var(--text-color)'}}/>
+                    </ListItemIcon>
+                    Logout
                   </MenuItem>
               </Menu>
           </div>
@@ -178,7 +187,6 @@ function App() {
           </Routes>
         </div>
       </div>
-    </Router>
   );
 }
 

@@ -5,7 +5,7 @@ function Listings() {
     return (
         <Box sx={{width: '85%', height: '100%', display: 'flex', flexDirection:'row'}}>
             <Box sx={{width: '100%', height: '100%', display: 'flex', justifyContent:'center', alignItems:'center'}}>
-                <Typography variant="h6" color="black">
+                <Typography variant="h6" color="var(--text-color)">
                     You have no listings
                 </Typography>
             </Box>
