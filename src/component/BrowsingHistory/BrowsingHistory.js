@@ -2,7 +2,28 @@ import {useState} from "react";
 import {sendGetRequest} from "../../Util/HTTP";
 
 function BrowsingHistory (){
-    const [data, setData] = useState(null)
+    const [data, setData] = useState([
+        {
+            name:"Designing Data-Intensive Applications",
+            image: "https://images-na.ssl-images-amazon.com/images/I/91JAIKQUkYL._AC_UL232_SR232,232_.jpg",
+            url: "*"
+        },
+        {
+            name:"Cloud computing and AWS",
+            image: "https://images-na.ssl-images-amazon.com/images/I/61yTwax120L._AC_UL320_SR320,320_.jpg",
+            url: "*"
+        },
+        {
+            name:"Introduction to cloud computing",
+            image: "https://images-na.ssl-images-amazon.com/images/I/71rbWhYKI7L._AC_UL320_SR320,320_.jpg",
+            url: "*"
+        },
+        {
+            name:"Golang for DevOps",
+            image: "https://m.media-amazon.com/images/I/71GEXj+7hVL._AC_UL480_FMwebp_QL65_.jpg",
+            url: "*"
+        },
+    ])
     const email = "doan23@purdue.edu"
 
     if (data === null) {
@@ -35,7 +56,7 @@ function BrowsingHistory (){
                                         flexDirection: "column"
                                 }}>
                                     <img src={each.image} style={{
-                                        width: "60px"
+                                        width: "120px"
                                     }}></img>
                                     <br/>
                                     <a href={each.url}>{each.name}</a>
