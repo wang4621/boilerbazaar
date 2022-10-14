@@ -21,14 +21,14 @@
     flex-direction: row;
 }
 
-.profileDisplay label {
+/* .profileDisplay label {
+    color: var(--text-color);
+} */
+
+.profileDisplay input, .profileDisplay label, .profileDisplay .MuiSelect-select {
     color: var(--text-color);
 }
 
-.profileDisplay input {
+/* .profileDisplay .MuiSelect-select {
     color: var(--text-color);
-}
-
-.profileDisplay .MuiSelect-select {
-    color: var(--text-color);
-}
+} */

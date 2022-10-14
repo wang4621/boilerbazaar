@@ -78,7 +78,11 @@ function Profile() {
                 <Divider variant='middle' sx={{borderBottomColor: 'rgb(202, 199, 199)'}}/>
                 <br/>
                 <Box sx={{'& > :not(style)': { m: 1.5 }, height: "95%", overflowY: 'auto'}} component="form" autoComplete="off" className="profileFormDisplay" onSubmit={editOrSaveProfile} id="profileForm">
-                    <TextField id="firstName" label="First Name" disabled value={firstName}/>
+                    <TextField id="firstName" label="First Name" disabled value={firstName} sx = {{"& .MuiOutlinedInput-root:hover": {
+      "& > fieldset": {
+        borderColor: "var(--text-color)"
+      }
+    }}}/>
                     <TextField id="preferredName" label="Preferred Name" disabled={isDisabled} value={preferredName} onChange={preferredNameChange}/>
                     <TextField id="lastName" label="Last Name" disabled value={lastName}/>
                     <TextField id="puid" label="PUID" disabled value={puid}/>
