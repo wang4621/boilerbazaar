@@ -163,7 +163,7 @@ function App() {
                   }}
                   transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                   anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}>
-                  <MenuItem component={NavLink} onClick={()=>{toSettings()}} sx={{ color: 'var(--text-color)', backgroundColor: 'var(--primary-color)' }}>
+                  <MenuItem onClick={()=>{toSettings()}} sx={{ color: 'var(--text-color)', backgroundColor: 'var(--primary-color)' }}>
                     <ListItemIcon>
                       <SettingsIcon fontSize="small" sx={{ color: 'var(--text-color)'}}/>
                     </ListItemIcon>
