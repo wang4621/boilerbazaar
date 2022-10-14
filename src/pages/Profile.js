@@ -6,16 +6,17 @@ import { styled  } from "@mui/material/styles";
 import {useLocation} from 'react-router-dom';
 
 function Profile() {
-    const data = useLocation();
-    console.log(data.state)
+    // const data = useLocation();
+    // console.log(data.state)
     const [isDisabled, setDisabled] = React.useState(true)
     const [value, setValue] = React.useState('Edit')
-    const firstName = data.state.firstName;
-    const lastName = data.state.lastName;
-    const puid = data.state.puid;
-    const [preferredMeeting, setPreferredMeeting] = React.useState(data.state.preferredMeeting);
-    const [preferredName, setPreferredName] = React.useState(data.state.preferredName);
-    const [major, setMajor] = React.useState(data.state.major);
+    let profileData = JSON.parse(localStorage.getItem('userData'));
+    const firstName = profileData['firstName'];
+    const lastName = profileData['lastName'];
+    const puid = profileData['puid'];;
+    const [preferredMeeting, setPreferredMeeting] = React.useState(profileData['preferredMeeting']);
+    const [preferredName, setPreferredName] = React.useState(profileData['preferredName']);
+    const [major, setMajor] = React.useState(profileData['major']);
 
     const preferredMeetingChange = event => {
         setPreferredMeeting(event.target.value);

@@ -22,7 +22,7 @@ import SettingsIcon from '@mui/icons-material/Settings';
 
 function App() {
     const [anchorEl, setAnchorEl] = React.useState(null);
-    const [data, setData] = React.useState('');
+    // const [data, setData] = React.useState('');
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -32,7 +32,7 @@ function App() {
     };
     const navigate = useNavigate();
     const toSettings=()=>{
-        navigate('/settings/profile',{state: data});
+        navigate('/settings/profile');
     }
   let root = document.documentElement;
   //Code for dark mode
@@ -70,7 +70,7 @@ function App() {
       type: 'GET',
       success: function (result) {
         let returnedItem = result.Item;
-        setData(returnedItem);
+        window.localStorage.setItem('userData', JSON.stringify(returnedItem))
         if (returnedItem.darkModePreference === 'dark') {
           setTheme('bodyDark');
           root.style.setProperty('--primary-color', "#1e252e");
