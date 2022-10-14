@@ -63,12 +63,13 @@ function Profile() {
         event.preventDefault()
     }
 
-    const CustomDisabledTextField = styled (TextField)(() => ({
-        ".MuiInputBase-input.Mui-disabled": {
-            WebkitTextFillColor: "var(--text-color)",
-            color: "var(--text-color)",
-        }
-      }));
+    // This caused issues with typing in input box.
+    // const CustomDisabledTextField = styled (TextField)(() => ({
+    //     ".MuiInputBase-input.Mui-disabled": {
+    //         WebkitTextFillColor: "var(--text-color)",
+    //         color: "var(--text-color)",
+    //     }
+    //   }));
 
     return (
         <Box className="profileDisplay">
@@ -77,16 +78,16 @@ function Profile() {
                 <Divider variant='middle' sx={{borderBottomColor: 'rgb(202, 199, 199)'}}/>
                 <br/>
                 <Box sx={{'& > :not(style)': { m: 1.5 }, height: "95%", overflowY: 'auto'}} component="form" autoComplete="off" className="profileFormDisplay" onSubmit={editOrSaveProfile} id="profileForm">
-                    <CustomDisabledTextField id="firstName" label="First Name" disabled value={firstName}/>
-                    <CustomDisabledTextField id="preferredName" label="Preferred Name" disabled={isDisabled} value={preferredName} onChange={preferredNameChange}/>
-                    <CustomDisabledTextField id="lastName" label="Last Name" disabled value={lastName}/>
-                    <CustomDisabledTextField id="puid" label="PUID" disabled value={puid}/>
-                    <CustomDisabledTextField id="major" label="Major" disabled={isDisabled} value={major} onChange={majorChange}/>
-                    <CustomDisabledTextField id="location" label="Preferred Meeting Location" select value={preferredMeeting} disabled={isDisabled} onChange={preferredMeetingChange}>
+                    <TextField id="firstName" label="First Name" disabled value={firstName}/>
+                    <TextField id="preferredName" label="Preferred Name" disabled={isDisabled} value={preferredName} onChange={preferredNameChange}/>
+                    <TextField id="lastName" label="Last Name" disabled value={lastName}/>
+                    <TextField id="puid" label="PUID" disabled value={puid}/>
+                    <TextField id="major" label="Major" disabled={isDisabled} value={major} onChange={majorChange}/>
+                    <TextField id="location" label="Preferred Meeting Location" select value={preferredMeeting} disabled={isDisabled} onChange={preferredMeetingChange}>
                         <MenuItem value="None">None</MenuItem>
                         <MenuItem value="Public">Public</MenuItem>
                         <MenuItem value="In front of house/apt">In front of house/apt</MenuItem>
-                    </CustomDisabledTextField>
+                    </TextField>
                     <TextField type="submit" value={value}/>
                 </Box>
             </Box>
