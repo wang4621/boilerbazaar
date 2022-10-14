@@ -24,13 +24,13 @@ function BuyMain() {
         const searchText = document.getElementById("searchBar").value;
         console.log("filter: " + searchFilterValue);
         var searchParams = "";
-        if (searchFilterValue == "Title") {
+        if (searchFilterValue === "Title") {
             searchParams = "title=" + searchText;
         }
-        else if (searchFilterValue == "Author") {
+        else if (searchFilterValue === "Author") {
             searchParams = "author=" + searchText;
         }
-        else if (searchFilterValue == "ISBN") {
+        else if (searchFilterValue === "ISBN") {
             searchParams = "isbn=" + searchText;
         }
         const searchUrl = "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/listing?" + searchParams;
@@ -41,12 +41,16 @@ function BuyMain() {
             success: function (result) {
                 //alert(JSON.stringify(result))
                 console.log(result);
-                let returnedItem = result.Item;
-                
-                search = document.getElementById('searchBar').value;
+                let returnedItems = result.Items;
+            
                 const listings = document.getElementById("listings");
-                const listingList = ["Title: " + returnedItem.title + " Author: " + returnedItem.isbn + " ISBN: " + returnedItem.isbn + " Edition: " + returnedItem.condition + " Condition: " + returnedItem.price + " Price: " + returnedItem.price + " Description: " + returnedItem.description];
+                var listingList = [];
+                for (let i = 0; i < returnedItems.length; i++) {
+                    listingList.push(["Title: " + returnedItems[i].title + " Author: " + returnedItems[i].isbn + " ISBN: " + returnedItems[i].isbn + " Edition: " + returnedItems[i].condition + " Condition: " + returnedItems[i].price + " Price: " + returnedItems[i].price + " Description: " + returnedItems[i].description]);
+                }
+                //const listingList = ["Title: " + returnedItem.title + " Author: " + returnedItem.isbn + " ISBN: " + returnedItem.isbn + " Edition: " + returnedItem.condition + " Condition: " + returnedItem.price + " Price: " + returnedItem.price + " Description: " + returnedItem.description];
 
+                console.log(listingList);
                 while (listings.hasChildNodes()) {
                     listings.removeChild(listings.firstChild);
                 }
