@@ -352,16 +352,48 @@ function BuyMain() {
         }
 
         //Repopulate filters
-        const filters = document.getElementById("editionFilter");
+        let filters = document.getElementById("editionFilter");
         while (filters.hasChildNodes()) {
             filters.removeChild(filters.firstChild);
         }
+
+        //Create filter for no filter
+        let noFilter = document.createElement('option');
+        let noFilterText = document.createTextNode("No filter");
+        noFilter.value = "";
+        noFilter.appendChild(noFilterText);
+        filters.appendChild(noFilter);
+
         let addedEditions = [];
         for (const item of listingList) {
             if (!(addedEditions.includes(item.edition))) {
                 addedEditions.push(item.edition);
                 let newFilter = document.createElement('option');
                 let text = document.createTextNode(item.edition.trim());
+                newFilter.value = item.edition.trim();
+                newFilter.appendChild(text);
+                filters.appendChild(newFilter);
+            }
+        }
+
+        filters = document.getElementById("conditionFilter");
+        while (filters.hasChildNodes()) {
+            filters.removeChild(filters.firstChild);
+        }
+
+        //Create filter for no filter
+        noFilter = document.createElement('option');
+        noFilterText = document.createTextNode("No filter");
+        noFilter.value = "";
+        noFilter.appendChild(noFilterText);
+        filters.appendChild(noFilter);
+
+        let addedConditions = [];
+        for (const item of listingList) {
+            if (!(addedConditions.includes(item.condition))) {
+                addedConditions.push(item.condition);
+                let newFilter = document.createElement('option');
+                let text = document.createTextNode(item.condition.trim());
                 newFilter.value = item.edition.trim();
                 newFilter.appendChild(text);
                 filters.appendChild(newFilter);
