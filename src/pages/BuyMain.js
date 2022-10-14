@@ -18,7 +18,7 @@ function BuyMain() {
     }
 
     
-
+    var listingList = [];
     function search() {
         const searchFilterValue = document.getElementById("searchFilter").innerText;
         const searchText = document.getElementById("searchBar").value;
@@ -44,9 +44,9 @@ function BuyMain() {
                 let returnedItems = result.Items;
             
                 const listings = document.getElementById("listings");
-                var listingList = [];
+                listingList = [];
                 for (let i = 0; i < returnedItems.length; i++) {
-                    listingList.push("Title: " + returnedItems[i].title + " Author: " + returnedItems[i].author + " ISBN: " + returnedItems[i].isbn + " Edition: " + returnedItems[i].edition + " Condition: " + returnedItems[i].condition + " Price: " + returnedItems[i].price + " Description: " + returnedItems[i].description);
+                    listingList.push({"title": returnedItems[i].title, "author": returnedItems[i].author, "isbn": returnedItems[i].isbn, "edition:": returnedItems[i].edition, "condition": returnedItems[i].condition, "price": returnedItems[i].price, "description": returnedItems[i].description, "toString": "Title: " + returnedItems[i].title + " Author: " + returnedItems[i].author + " ISBN: " + returnedItems[i].isbn + " Edition: " + returnedItems[i].edition + " Condition: " + returnedItems[i].condition + " Price: " + returnedItems[i].price + " Description: " + returnedItems[i].description});
                 }
                 //const listingList = ["Title: " + returnedItem.title + " Author: " + returnedItem.isbn + " ISBN: " + returnedItem.isbn + " Edition: " + returnedItem.condition + " Condition: " + returnedItem.price + " Price: " + returnedItem.price + " Description: " + returnedItem.description];
 
@@ -57,7 +57,7 @@ function BuyMain() {
                 for (const item of listingList) {
                     let newListing = document.createElement('li');
                     let a = document.createElement('a');
-                    let text = document.createTextNode(item.trim());
+                    let text = document.createTextNode(item.toString.trim());
                     a.appendChild(text);
                     a.title = "title";
                     a.href = "";
