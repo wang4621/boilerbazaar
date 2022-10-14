@@ -235,6 +235,132 @@ function BuyMain() {
         });
         
     }
+
+    function compareByTitleA(a, b) {
+        const x = a.title.toUpperCase();
+        const y = b.title.toUpperCase();
+        if (x < y) {
+            return -1;
+        }
+        else if (x > y) {
+            return 1;
+        }
+        else {
+            return 0;
+        }
+    }
+
+    function compareByTitleD(a, b) {
+        const x = a.title.toUpperCase();
+        const y = b.title.toUpperCase();
+        if (x > y) {
+            return -1;
+        }
+        else if (x < y) {
+            return 1;
+        }
+        else {
+            return 0;
+        }
+    }
+
+    function compareByAuthorA(a, b) {
+        const x = a.author.toUpperCase();
+        const y = b.author.toUpperCase();
+        if (x < y) {
+            return -1;
+        }
+        else if (x > y) {
+            return 1;
+        }
+        else {
+            return 0;
+        }
+    }
+
+    function compareByAuthorD(a, b) {
+        const x = a.author.toUpperCase();
+        const y = b.author.toUpperCase();
+        if (x > y) {
+            return -1;
+        }
+        else if (x < y) {
+            return 1;
+        }
+        else {
+            return 0;
+        }
+    }
+
+    function compareByPriceA(a, b) {
+        const x = parseInt(a.price);
+        const y = parseInt(b.price);
+        if (x < y) {
+            return -1;
+        }
+        else if (x > y) {
+            return 1;
+        }
+        else {
+            return 0;
+        }
+    }
+
+    function compareByPriceD(a, b) {
+        const x = parseInt(a.price);
+        const y = parseInt(b.price);
+        if (x > y) {
+            return -1;
+        }
+        else if (x < y) {
+            return 1;
+        }
+        else {
+            return 0;
+        }
+    }
+    
+    function sortListings() {
+        const sortingMode = document.getElementById("sorting").innerText;
+        switch (sortingMode) {
+            case "Title - Ascending":
+                listingList.sort(compareByTitleA);
+                break;
+            case "Title - Descending":
+                listingList.sort(compareByTitleD);
+                break;
+            case "Author - Ascending":
+                listingList.sort(compareByAuthorA);
+                break;
+            case "Author - Descending":
+                listingList.sort(compareByAuthorD);
+                break; 
+            case "Price - Ascending":
+                listingList.sort(compareByPriceA);
+                break;
+            case "Price - Descending":
+                listingList.sort(compareByPriceD);
+                break;
+            default:
+                return;
+        }
+
+        //Repopulate listings display
+        const listings = document.getElementById("listings");
+        while (listings.hasChildNodes()) {
+            listings.removeChild(listings.firstChild);
+        }
+        for (const item of listingList) {
+            let newListing = document.createElement('li');
+            let a = document.createElement('a');
+            let text = document.createTextNode(item.toString.trim());
+            a.appendChild(text);
+            a.title = "title";
+            a.href = "";
+            newListing.appendChild(a);
+            listings.appendChild(newListing);
+        }
+    }
     window.onload = function() {
         addSearchHistory("test");
         getSearchHistory();
@@ -307,6 +433,7 @@ function BuyMain() {
                         <MenuItem value="priceAscending">Price - Ascending</MenuItem>
                         <MenuItem value="priceDescending">Price - Descending</MenuItem>
                     </TextField>
+                    <button onClick={sortListings}>Sort</button>
                 </label>
             </div>
 
