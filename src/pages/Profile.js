@@ -5,28 +5,41 @@ import $ from 'jquery';
 import {useLocation} from 'react-router-dom';
 
 function Profile() {
+    const data = useLocation();
     const [isDisabled, setDisabled] = React.useState(true)
     const [value, setValue] = React.useState('Edit')
-    const [location, setLocation] = React.useState('None');
-    const [preferredName, setPreferredName] = React.useState('')
-    const lastName = 'Wang'
+    const firstName = data.state.firstName;
+    const lastName = data.state.lastName;
+    const puid = data.state.puid;
+    const [preferredMeeting, setPreferredMeeting] = React.useState(data.state.preferredMeetingLocation);
+    const [preferredName, setPreferredName] = React.useState(data.state.preferredName);
+    const [major, setMajor] = React.useState(data.state.major);
 
-    const locationChange = event => {
-        setLocation(event.target.value)
+    const preferredMeetingChange = event => {
+        setPreferredMeeting(event.target.value);
     }
 
-    const data = useLocation();
-    console.log(data)
+    const majorChange = event => {
+        setMajor(event.target.value);
+    }
+
+    const preferredNameChange = event => {
+        setPreferredName(event.target.value);
+    }
+
+    let name;
+    if (preferredName === '') {
+        name = firstName + ' ' + lastName
+    } else {
+       name = preferredName + ' ' + lastName
+    }
 
     const editOrSaveProfile = event => {
         setDisabled(!isDisabled)
         if (value === "Edit") {
             setValue('Save')
         } else if (value === "Save") {
-            var name = document.getElementById('preferredName').value
-            var major = document.getElementById('major').value
-            var puid = document.getElementById('puid').value
-            var profileData = {"puid": puid, "preferredName": name, "major": major, "preferredMeeting": location}
+            var profileData = {"puid": puid, "preferredName": preferredName, "major": major, "preferredMeeting": preferredMeeting}
             profileData = "\""+JSON.stringify(profileData).replaceAll('"', '\\"')+"\""
             console.log(profileData)
             $.ajax({
@@ -54,12 +67,12 @@ function Profile() {
                 <Divider variant='middle' sx={{borderBottomColor: 'rgb(202, 199, 199)'}}/>
                 <br/>
                 <Box sx={{'& > :not(style)': { m: 1.5 }, height: "95%", overflowY: 'auto'}} component="form" autoComplete="off" className="profileFormDisplay" onSubmit={editOrSaveProfile} id="profileForm">
-                    <TextField id="firstName" label="First Name" disabled value="Jeff"></TextField>
-                    <TextField id="preferredName" label="Preferred Name" disabled={isDisabled} value={preferredName}/>
+                    <TextField id="firstName" label="First Name" disabled value={firstName}></TextField>
+                    <TextField id="preferredName" label="Preferred Name" disabled={isDisabled} value={preferredName} onChange={preferredNameChange}/>
                     <TextField id="lastName" label="Last Name" disabled value={lastName}/>
-                    <TextField id="puid" label="PUID" disabled value="0031888129"/>
-                    <TextField id="major" label="Major" disabled={isDisabled}/>
-                    <TextField id="location" label="Preferred Meeting Location" select value={location} disabled={isDisabled} onChange={locationChange}>
+                    <TextField id="puid" label="PUID" disabled value={puid}/>
+                    <TextField id="major" label="Major" disabled={isDisabled} value={major} onChange={majorChange}/>
+                    <TextField id="location" label="Preferred Meeting Location" select value={preferredMeeting} disabled={isDisabled} onChange={preferredMeetingChange}>
                         <MenuItem value="None">None</MenuItem>
                         <MenuItem value="Public">Public</MenuItem>
                         <MenuItem value="In front of house/apt">In front of house/apt</MenuItem>
@@ -70,23 +83,23 @@ function Profile() {
             <Box sx={{width: '65%', height: '100%', backgroundColor: 'whitesmoke'}} className="ratingBox">
                 <Typography variant="h6" color="black" sx={{textAlign:'center'}}>
                     <Avatar sx={{ width: 128, height: 128 }}/>
-                    Jeff {lastName}
+                    {name}
                 </Typography>
                 <br/>
                 <Typography variant="h6" color="black">Rating</Typography>
                 <Rating name="read-only" readOnly size="large"/>
                 <br/><br/>
-                <Typography variant="h6" color="black">
+                <Typography component={'span'} variant="h6" color="black">
                     Completed Purchases:
                     <Typography display="inline">&nbsp;</Typography>
-                    <Typography variant="h6" color="black" display="inline" id="purchases">
+                    <Typography component={'span'} variant="h6" color="black" display="inline" id="purchases">
                         5
                     </Typography>
                 </Typography>
-                <Typography variant="h6" color="black">
+                <Typography component={'span'} variant="h6" color="black">
                     Completed Sales:
                     <Typography display="inline">&nbsp;</Typography>
-                    <Typography variant="h6" color="black" display="inline" id="sales">
+                    <Typography component={'span'} variant="h6" color="black" display="inline" id="sales">
                         1
                     </Typography>
                 </Typography>

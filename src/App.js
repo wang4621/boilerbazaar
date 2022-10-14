@@ -1,7 +1,7 @@
 import { TbMap2 } from 'react-icons/tb';
 import './App.css';
 import Img from './logo.png'
-import { BrowserRouter as Router,Routes, Route, NavLink, useNavigate } from 'react-router-dom';
+import { Routes, Route, NavLink, useNavigate } from 'react-router-dom';
 import Settings from './pages/Settings'
 import Home from './pages/Home'
 import Sell from './pages/Sell'
@@ -15,7 +15,6 @@ import * as React from 'react';
 function App() {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
-    const [data, setData] = React.useState('');
     const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
     };
@@ -24,7 +23,7 @@ function App() {
     };
     const navigate = useNavigate();
     const toSettings=()=>{
-        navigate('/settings/profile',{state:{id:1,name:'sabaoon'}});
+        navigate('/settings/profile',{state:{firstName: 'Jeffrey', lastName: 'Wang', puid: '0031888129', preferredName: 'Jeff', major:'CS', preferredMeetingLocation: 'Public'}});
     }
     return (
         <div className="App">
@@ -71,7 +70,7 @@ function App() {
                     }}
                     transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                     anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}>
-                    <MenuItem component={NavLink} onClick={()=>{toSettings()}}>
+                    <MenuItem onClick={()=>{toSettings()}}>
                         <Avatar src=""/> Settings
                     </MenuItem>
                     <MenuItem>
