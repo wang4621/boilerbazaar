@@ -39,3 +39,7 @@
 .filters .MuiSelect-select {
     color: var(--text-color);
 }
+
+.searchFilter {
+    background-color: var(--secondary-color);
+}

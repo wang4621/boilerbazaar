@@ -75,7 +75,7 @@ function BuyMain() {
         <div>
         <label>
             Search By
-            <TextField id="searchFilter" select>
+            <TextField id="searchFilter" class="searchFilter" select>
                 <MenuItem value="title">Title</MenuItem>
                 <MenuItem value="author">Author</MenuItem>
                 <MenuItem value="isbn">ISBN</MenuItem>
