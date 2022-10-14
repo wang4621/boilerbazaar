@@ -46,7 +46,7 @@ function BuyMain() {
                 const listings = document.getElementById("listings");
                 var listingList = [];
                 for (let i = 0; i < returnedItems.length; i++) {
-                    listingList.push("Title: " + returnedItems[i].title + " Author: " + returnedItems[i].isbn + " ISBN: " + returnedItems[i].isbn + " Edition: " + returnedItems[i].condition + " Condition: " + returnedItems[i].price + " Price: " + returnedItems[i].price + " Description: " + returnedItems[i].description);
+                    listingList.push("Title: " + returnedItems[i].title + " Author: " + returnedItems[i].author + " ISBN: " + returnedItems[i].isbn + " Edition: " + returnedItems[i].edition + " Condition: " + returnedItems[i].condition + " Price: " + returnedItems[i].price + " Description: " + returnedItems[i].description);
                 }
                 //const listingList = ["Title: " + returnedItem.title + " Author: " + returnedItem.isbn + " ISBN: " + returnedItem.isbn + " Edition: " + returnedItem.condition + " Condition: " + returnedItem.price + " Price: " + returnedItem.price + " Description: " + returnedItem.description];
 
