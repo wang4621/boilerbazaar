@@ -35,9 +35,6 @@ function Profile() {
        name = preferredName + ' ' + lastName
     }
 
-    const data = useLocation();
-    console.log(data)
-
     const editOrSaveProfile = event => {
         setDisabled(!isDisabled)
         if (value === "Edit") {
