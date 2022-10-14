@@ -46,7 +46,7 @@ function BuyMain() {
                 const listings = document.getElementById("listings");
                 var listingList = [];
                 for (let i = 0; i < returnedItems.length; i++) {
-                    listingList.push(["Title: " + returnedItems[i].title + " Author: " + returnedItems[i].isbn + " ISBN: " + returnedItems[i].isbn + " Edition: " + returnedItems[i].condition + " Condition: " + returnedItems[i].price + " Price: " + returnedItems[i].price + " Description: " + returnedItems[i].description]);
+                    listingList.push("Title: " + returnedItems[i].title + " Author: " + returnedItems[i].isbn + " ISBN: " + returnedItems[i].isbn + " Edition: " + returnedItems[i].condition + " Condition: " + returnedItems[i].price + " Price: " + returnedItems[i].price + " Description: " + returnedItems[i].description);
                 }
                 //const listingList = ["Title: " + returnedItem.title + " Author: " + returnedItem.isbn + " ISBN: " + returnedItem.isbn + " Edition: " + returnedItem.condition + " Condition: " + returnedItem.price + " Price: " + returnedItem.price + " Description: " + returnedItem.description];
 
@@ -54,7 +54,7 @@ function BuyMain() {
                 while (listings.hasChildNodes()) {
                     listings.removeChild(listings.firstChild);
                 }
-                for (let item of listingList) {
+                for (const item of listingList) {
                     let newListing = document.createElement('li');
                     let a = document.createElement('a');
                     let text = document.createTextNode(item.trim());
