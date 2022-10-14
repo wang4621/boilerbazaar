@@ -5,14 +5,14 @@ import { Routes, Route, NavLink } from 'react-router-dom';
 import Profile from './Profile'
 import Listings from './Listings'
 
-function Settings () {
+function Settings() {
     return (
         <div className="settingsDisplay">
-            <Box sx={{width: '85%', height: '90%', backgroundColor: 'white', borderRadius: 5, display: 'flex', flexDirection:'column', boxShadow: 8}}>
+            <Box sx={{width: '85%', height: '90%', backgroundColor: 'var(--primary-color)', borderRadius: 5, display: 'flex', flexDirection:'column', boxShadow: 8}}>
                 <CardHeader title="Settings" sx={{textAlign: 'center', height: "7%"}}/>
                 <Divider variant='fullWidth' sx={{borderBottomColor: 'black'}}/>
                 <div className="profileBoxDisplay">
-                    <Box sx={{width: '15%', height: '100%', backgroundColor: 'whitesmoke'}} className="diffSettings">
+                    <Box sx={{width: '15%', height: '100%', backgroundColor: 'var(--secondary-color)'}} className="diffSettings">
                         <Button activeClassName="active" component={NavLink} to="profile">Profile</Button>
                         <Button activeClassName="active" component={NavLink} to="listings">Listings</Button>
                     </Box>

@@ -26,10 +26,10 @@ function sendImages(imagesJson) {
         datatype: 'json',
         contentType: 'application/json',
         success: function (result) {
-            alert(JSON.stringify(result))
+            console.log(JSON.stringify(result))
         },
         error: function (result) {
-            alert(JSON.stringify(result));
+            console.log(JSON.stringify(result));
         }
     });
 }
@@ -105,10 +105,10 @@ function Sell () {
                 datatype: 'json',
                 contentType: 'application/json',
                 success: function (result) {
-                    alert(JSON.stringify(result))
+                    console.log(JSON.stringify(result))
                 },
                 error: function (result) {
-                    alert(JSON.stringify(result));
+                    console.log(JSON.stringify(result));
                 }
             });
         }
@@ -214,7 +214,7 @@ function Sell () {
                                 </Typography>
                             </Box>
                             <Box sx={{ width: '40%', height: '100%', backgroundColor: 'var(--secondary-color)'}} className="innerRightBox">
-                                <CardContent sx={{wordBreak: 'break-word', overflowY: 'scroll', height:'70%', display:'flex', flexDirection:'column'}} className="scrollBar">
+                                <CardContent sx={{wordBreak: 'break-word', overflowY: 'scroll', height:'65%', display:'flex', flexDirection:'column'}} className="scrollBar">
                                     <Typography variant="h5" color='var(--text-color)' sx={{fontWeight:'bold'}} id="previewTitle">
                                         Title
                                     </Typography>
@@ -250,7 +250,7 @@ function Sell () {
                                     <br/><br/>
                                 </CardContent>
                                 <Divider variant='middle' sx={{borderBottomColor: 'black'}}/>
-                                <CardContent sx={{height: '20%', display: 'flex', flexDirection:'column'}}>
+                                <CardContent sx={{height: '25%', display: 'flex', flexDirection:'column'}}>
                                     <Typography variant="body1" color='var(--text-color)' sx={{fontWeight:'bold', fontSize:18}}>
                                         Seller Information
                                         <Button variant="outlined" size="small" disabled sx={{float: 'right'}}>Seller Details</Button>
@@ -262,7 +262,7 @@ function Sell () {
                                     </Typography>
                                 </CardContent>
                                 <Box sx={{height: '10%', backgroundColor: 'var(--secondary-color)'}} className="innerBottomBox">
-                                    <Button variant="contained" disabled sx={{width: '95%'}}>Message</Button>
+                                    <Button variant="outlined" disabled sx={{width: '95%', backgroundColor: 'var(--tertiary-color) !important'}}>Message</Button>
                                 </Box>
                             </Box>
                         </Box>

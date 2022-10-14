@@ -3,9 +3,8 @@
 * @author Ben
 * @param url: string
 * @param body: object
-* @param errorHandling: Function
 * */
-export const sendPostRequest = (url, body={}, errorHandling=()=>{window.location.reload()})=>{
+export const sendPostRequest = (url, body={})=>{
     return new Promise((resolve, reject)=>{
         fetch(url, {
             method: "POST",
@@ -13,7 +12,9 @@ export const sendPostRequest = (url, body={}, errorHandling=()=>{window.location
         }).then((resp)=>{
             return resp.json()
         }).then((data)=>{
-            return data
+            resolve(data)
+        }).catch(()=>{
+            reject()
         })
     })
 }
@@ -22,16 +23,17 @@ export const sendPostRequest = (url, body={}, errorHandling=()=>{window.location
  * @author Ben
  * @return Promise
  * @param url: string
- * @param errorHandling: Function
  * */
-export const sendGetRequest = (url, errorHandling=()=>{window.location.reload()})=>{
+export const sendGetRequest = (url)=>{
     return new Promise((resolve, reject)=>{
         fetch(url, {
             method: "GET"
         }).then((resp)=>{
             return resp.json()
         }).then((data)=>{
-            return data
+            resolve(data)
+        }).catch(()=>{
+            reject()
         })
     })
 }
