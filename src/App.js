@@ -10,7 +10,7 @@ import About from './pages/About'
 import Map from './pages/Map'
 import Listings from './pages/Listings'
 import Profile from './pages/Profile'
-import SingleListing from './pages/SingleListing';
+import BuyListing from './pages/BuyListing';
 import BuyMain from './pages/BuyMain';
 import { Avatar, Menu, MenuItem, IconButton, ListItemIcon } from '@mui/material';
 import Logout from '@mui/icons-material/Logout';
@@ -185,14 +185,14 @@ function App() {
                 <Route path='/boilerbazaar' element={< Home />}/>
                 <Route path='/buy' element={< Buy />}>
                   <Route path='' element={< BuyMain />}/>
-                  <Route path='listing' element={< SingleListing />}/>
+                  <Route path='listing' element={< BuyListing />}/>
                 </Route>
                 <Route path='/sell' element={< Sell />}/>
                 <Route path='/about' element={< About />}/>
                 <Route path='/map' element={< Map />}/>
                 <Route path='/settings' element={< Settings />}>
                   <Route path='profile' element={< Profile />}/>
-                  {/* <Route path='listings' element={< Listings />}/> */}
+                  <Route path='listings' element={< Listings />}/>
                 </Route>
             </Routes>
         </div>

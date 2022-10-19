@@ -26,6 +26,7 @@
   display: flex;
   justify-content: space-between;
   height: var(--header-height);
+  border-bottom: 1px solid rgb(202, 199, 199);
 }
 
 .navbar a {
