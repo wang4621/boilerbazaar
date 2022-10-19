@@ -183,7 +183,10 @@ function Sell () {
     return (
         <div className="sellDisplay">
             <Box sx={{width: '28%', height: '100%', backgroundColor: 'var(--primary-color)', display: 'flex', flexDirection: 'column'}}>
-                <CardHeader title="Textbooks for sale" sx={{textAlign: 'center', height: '7%'}}/>
+                {/* <CardHeader title="Textbooks for sale" sx={{textAlign: 'center', height: '7%'}}/> */}
+                <Typography variant="h5" sx={{fontWeight:'bold', textAlign:'center', padding:'10px'}}>
+                    Textbook For Sale
+                </Typography>
                 <Box sx={{'& > :not(style)': { m: 1 }, height: "93%", overflowY: 'scroll'}} component="form" noValidate autoComplete="off" className="formDisplay scrollBar"
                 onSubmit={listTextbook}>
                     <Button variant="contained" component="label">Upload Images Here<input id='images' type="file" hidden multiple/></Button>
@@ -199,13 +202,16 @@ function Sell () {
                             <MenuItem value="Used - Good">Used - Good</MenuItem>
                             <MenuItem value="Used - Fair">Used - Fair</MenuItem>
                     </TextField>
-                    <TextField id="description" label="Description" multiline rows={5} onChange={changeText} inputProps={{ maxLength: limit}} helperText={`${getStringLength}/${limit}`} sx={{backgroundColor: 'var(--secondary-color)'}} />
+                    <TextField id="description" label="Description" multiline rows={5} onChange={changeText} inputProps={{ maxLength: limit}} helperText={`${getStringLength}/${limit}`}/>
                     <TextField id="list" type="submit" value="List"/>
                 </Box>
             </Box>
             <Box sx={{width: '72%', height: '100%', display: 'flex', justifyContent:'center', alignItems: 'center'}}>
                 <Box sx={{ width: '90%', borderRadius: 5, height: '90%', display: 'flex', flexDirection: 'column', backgroundColor:'var(--primary-color)', boxShadow: 8}}>
-                    <CardHeader title="Preview" sx={{height: '7%', marginLeft:'1%'}}/>
+                    {/* <CardHeader title="Preview" sx={{height: '7%', marginLeft:'1%'}}/> */}
+                    <Typography variant="h6" sx={{fontWeight:'bold', padding:'10px', marginLeft:'1.5%'}}>
+                        Preview
+                    </Typography>
                     <Box sx={{height:'93%', width:'100%', display:'flex',justifyContent:'center', overflowY:'auto'}}>
                         <Box sx={{height: '96%', width: '95%', display: 'flex', flexDirection: 'row'}}>
                             <Box sx={{ width: '60%', height: '100%', backgroundColor: 'var(--tertiary-color)'}} className="innerLeftBox">
@@ -249,7 +255,7 @@ function Sell () {
                                     </Typography>
                                     <br/><br/>
                                 </CardContent>
-                                <Divider variant='middle' sx={{borderBottomColor: 'black'}}/>
+                                <Divider variant='middle' sx={{borderBottomColor: 'var(--text-color)'}}/>
                                 <CardContent sx={{height: '25%', display: 'flex', flexDirection:'column'}}>
                                     <Typography variant="body1" color='var(--text-color)' sx={{fontWeight:'bold', fontSize:18}}>
                                         Seller Information

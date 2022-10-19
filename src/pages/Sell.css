@@ -61,6 +61,7 @@
 
 .sellDisplay .MuiFormHelperText-root {
     margin-left: 0;
+    color: var(--text-color);
 }
 
 .sellDisplay .MuiSelect-select {
@@ -71,11 +72,11 @@
     color: var(--text-color);
 }
 
-.sellDisplay .MuiFormHelperText-root {
-    color: var(--text-color);
-}
-
 .sellDisplay .MuiButton-root {
     color: var(--text-color) !important;
     border-color: var(--text-color) !important;
+}
+
+.sellDisplay .MuiInputBase-root {
+    background-color: var(--secondary-color);
 }
