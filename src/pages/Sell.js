@@ -1,5 +1,5 @@
 import './Sell.css'
-import { Avatar, CardHeader, CardContent, Divider, Box, Typography, Button, ImageList, ImageListItem } from '@mui/material';
+import { Avatar, CardContent, Divider, Box, Typography, Button } from '@mui/material';
 import { TextField, MenuItem } from '@mui/material';
 import $ from 'jquery';
 import * as React from 'react';
