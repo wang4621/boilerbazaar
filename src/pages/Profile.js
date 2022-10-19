@@ -2,18 +2,14 @@ import { Avatar, CardHeader, Rating, Divider, Box, Typography, TextField, MenuIt
 import * as React from 'react';
 import './Profile.css'
 import $ from 'jquery';
-import { styled  } from "@mui/material/styles";
-import {useLocation} from 'react-router-dom';
 
 function Profile() {
-    // const data = useLocation();
-    // console.log(data.state)
     const [isDisabled, setDisabled] = React.useState(true)
     const [value, setValue] = React.useState('Edit')
     let profileData = JSON.parse(localStorage.getItem('userData'));
     const firstName = profileData['firstName'];
     const lastName = profileData['lastName'];
-    const puid = profileData['puid'];;
+    const puid = profileData['puid'];
     const [preferredMeeting, setPreferredMeeting] = React.useState(profileData['preferredMeeting']);
     const [preferredName, setPreferredName] = React.useState(profileData['preferredName']);
     const [major, setMajor] = React.useState(profileData['major']);
@@ -42,13 +38,15 @@ function Profile() {
         if (value === "Edit") {
             setValue('Save')
         } else if (value === "Save") {
-            var profileData = {"puid": puid, "preferredName": preferredName, "major": major, "preferredMeeting": preferredMeeting}
-            profileData = "\""+JSON.stringify(profileData).replaceAll('"', '\\"')+"\""
+            // save new values into local storage
+            var jsonData = {"puid": puid, "preferredName": preferredName, "major": major, "preferredMeeting": preferredMeeting, "firstName": firstName, "lastName": lastName}
+            localStorage.setItem('userData', JSON.stringify(jsonData));
+            jsonData = "\""+JSON.stringify(profileData).replaceAll('"', '\\"')+"\""
             console.log(profileData)
             $.ajax({
                 url: 'https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/profile',
                 type: 'PUT',
-                data: profileData,
+                data: jsonData,
                 datatype: 'json',
                 contentType: 'application/json',
                 success: function (result) {
@@ -74,12 +72,14 @@ function Profile() {
     return (
         <Box className="profileDisplay">
             <Box sx={{width: '35%', height: '100%', backgroundColor: 'var(--secondary-color)', display:'flex', flexDirection:'column'}}>
-                <CardHeader sx={{textAlign:"center", height:'5%'}} title="General"/>
-                <Divider variant='middle' sx={{borderBottomColor: 'rgb(202, 199, 199)'}}/>
+                <Typography variant="h6" sx={{fontWeight:'bold', textAlign:'center', padding:'10px'}}>
+                    General
+                </Typography>
+                <Divider variant='middle' sx={{borderBottomColor: 'var(--text-color)'}}/>
                 <br/>
                 <Box sx={{'& > :not(style)': { m: 1.5 }, height: "95%", overflowY: 'auto'}} component="form" autoComplete="off" className="profileFormDisplay" onSubmit={editOrSaveProfile} id="profileForm">
                     <TextField id="firstName" label="First Name" disabled value={firstName} />
-                    <TextField id="preferredName" label="Preferred Name" disabled={isDisabled} value={preferredName} onChange={preferredNameChange} sx = {{"& .MuiOutlinedInput-root:hover": {"& > fieldset": {borderColor: "var(--text-color)"}}}}/>
+                    <TextField id="preferredName" label="Preferred Name" disabled={isDisabled} value={preferredName} onChange={preferredNameChange} sx = {{"& .MuiOutlinedInput-root:hover": {"& > fieldset": {borderColor: "var(--text-color)"}}}} inputProps={{ maxLength: 30}}/>
                     <TextField id="lastName" label="Last Name" disabled value={lastName}/>
                     <TextField id="puid" label="PUID" disabled value={puid}/>
                     <TextField id="major" label="Major" disabled={isDisabled} value={major} onChange={majorChange} sx = {{"& .MuiOutlinedInput-root:hover": {"& > fieldset": {borderColor: "var(--text-color)"}}}}/>
@@ -92,8 +92,8 @@ function Profile() {
                 </Box>
             </Box>
             <Box sx={{width: '65%', height: '100%', backgroundColor: 'var(--secondary-color)'}} className="ratingBox">
+                <Avatar sx={{ width: 128, height: 128 }}/>
                 <Typography variant="h6" color="var(--text-color)" sx={{textAlign:'center'}}>
-                    <Avatar sx={{ width: 128, height: 128 }}/>
                     {name}
                 </Typography>
                 <br/>
