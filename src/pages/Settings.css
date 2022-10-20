@@ -18,7 +18,7 @@
 
 .settingsDisplay .MuiButton-root {
     height: 80px;
-    /* border-radius: 0px 0px 0px 0px; */
+    border-radius: 0px 0px 0px 0px;
     color: var(--text-color);
     text-transform: none;
     font-size: 16px;

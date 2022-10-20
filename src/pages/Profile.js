@@ -1,4 +1,4 @@
-import { Avatar, CardHeader, Rating, Divider, Box, Typography, TextField, MenuItem } from '@mui/material';
+import { Avatar, Rating, Divider, Box, Typography, TextField, MenuItem } from '@mui/material';
 import * as React from 'react';
 import './Profile.css'
 import $ from 'jquery';
