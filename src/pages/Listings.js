@@ -9,25 +9,32 @@ import DeleteIcon from '@mui/icons-material/Delete';
 
 function Listings() {
     const [listedTextbooks, setListedTextbooks] = useState(<CircularProgress/>);
-    const [soldOrAvailable, setSoldOrAvailable] = useState("Mark as Sold");
-    const [soldOrAvailableIcon, setSoldOrAvailableIcon] = useState(<CloseIcon/>);
+    const [soldOrAvailable, setSoldOrAvailable] = useState({});
+    const [soldOrAvailableIcon, setSoldOrAvailableIcon] = useState({});
     
-    const changeIcon = item => {
+    const changeTextAndIcon = listingID => {
+        console.log(listingID)
         console.log(soldOrAvailable)
-        console.log(item)
-        if (soldOrAvailable === "Mark as Available") {
-            setSoldOrAvailable("Mark as Sold")
-            setSoldOrAvailableIcon(<CloseIcon/>)
-        } else {
-            setSoldOrAvailable("Mark as Available")
-            setSoldOrAvailableIcon(<CheckIcon/>)
-        }
+    }
+
+    function setListingValues(listing) {
+        console.log(listing)
+        let listingID = listing['listingID'];
+        setSoldOrAvailable({
+            ...soldOrAvailable,
+            [listingID]: 'Mark as Sold'
+        })
+        setSoldOrAvailableIcon({
+            ...soldOrAvailableIcon,
+            [listingID]: <CloseIcon/>
+        })
     }
 
     function generateListingUI(listing) {
         console.log(listing)
+        let listingID = listing['listingID'];
         return (
-            <Box key={listing['listingID']} m={2} sx={{width: '60%', height: '20%', display: 'flex', flexDirection:'row', justifyContent: 'center', backgroundColor:'var(--secondary-color)', borderRadius:5, boxShadow: 8}}>
+            <Box key={listingID} m={2} sx={{width: '60%', height: '20%', display: 'flex', flexDirection:'row', justifyContent: 'center', backgroundColor:'var(--secondary-color)', borderRadius:5, boxShadow: 8}}>
                 <Box sx={{height:'100%', width:'30%', display: 'flex', alignItems:'center', justifyContent:'center'}}>
                     <Box sx={{height:'80%', width:'80%', backgroundColor:'lightgrey', borderRadius:5, display:'flex', justifyContent:'center', alignItems:'center'}}>
                         Image Preview
@@ -47,8 +54,8 @@ function Listings() {
                             </Typography>
                         </Box>
                         <Box sx={{height: '20%', width: '100%', display: 'flex', flexDirection:'row', justifyContent:'space-between'}}>
-                            <Button variant='contained' startIcon={soldOrAvailableIcon} sx={{height:'100% !important', width: '35%', borderRadius: '5px !important'}} onClick={() => changeIcon(listing['listingID'])}>
-                                {soldOrAvailable}
+                            <Button variant='contained' startIcon={<CloseIcon/>} sx={{height:'100% !important', width: '35%', borderRadius: '5px !important'}} onClick={() => changeTextAndIcon(listingID)}>
+                                temp
                             </Button>
                             <Button variant='contained' startIcon={<EditIcon/>} sx={{height:'100% !important', width: '30%', borderRadius: '5px !important'}}>
                                 Edit Listing
@@ -71,9 +78,28 @@ function Listings() {
         );
     }
 
+    function testGenerate() {
+        return (
+            <Box m={2} sx={{width: '60%', height: '20%', display: 'flex', flexDirection:'row', justifyContent: 'center', backgroundColor:'var(--secondary-color)', borderRadius:5, boxShadow: 8}}>
+                <Box sx={{height:'100%', width:'30%', display: 'flex', alignItems:'center', justifyContent:'center'}}>
+                    <Box sx={{height:'80%', width:'80%', backgroundColor:'lightgrey', borderRadius:5, display:'flex', justifyContent:'center', alignItems:'center'}}>
+                        Image Preview
+                    </Box>
+                </Box>
+                <Box sx={{height:'100%', width:'70%', display:'flex', justifyContent:'flex-start', alignItems:'center'}}>
+                </Box>
+            </Box>
+        );
+    }
+
+    useEffect(() => {
+        console.log("here")
+        // generateListingUI();
+    }, [soldOrAvailable, soldOrAvailableIcon])
+
     useEffect(() => {
         // get user textbook listings
-        let list = []
+        let list = [];
         $.ajax({
             url: 'https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/userlisting?puid=' + JSON.parse(localStorage.getItem('userData'))['puid'],
             type: 'GET',
@@ -81,12 +107,14 @@ function Listings() {
                 console.log(JSON.stringify(result));
                 if (result.length === 0) {
                     list.push(generateNoListing());
+                    setListedTextbooks(list);
                 } else {
                     for (var i = 0; i < result.length; i++) {
-                        list.push(generateListingUI(result[i]));
+                        setListingValues(result[i])
+                        // list.push(generateListingUI(result[i]));
                     }
                 }
-                setListedTextbooks(list);
+                // setListedTextbooks(list);
             },
             error: function (result) {
                 console.log(JSON.stringify(result));
