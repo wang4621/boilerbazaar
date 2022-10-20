@@ -12,8 +12,9 @@ function Listings() {
     const [soldOrAvailable, setSoldOrAvailable] = useState("Mark as Sold");
     const [soldOrAvailableIcon, setSoldOrAvailableIcon] = useState(<CloseIcon/>);
     
-    function changeIcon() {
+    const changeIcon = item => {
         console.log(soldOrAvailable)
+        console.log(item)
         if (soldOrAvailable === "Mark as Available") {
             setSoldOrAvailable("Mark as Sold")
             setSoldOrAvailableIcon(<CloseIcon/>)
@@ -26,7 +27,7 @@ function Listings() {
     function generateListingUI(listing) {
         console.log(listing)
         return (
-            <Box m={2} sx={{width: '60%', height: '20%', display: 'flex', flexDirection:'row', justifyContent: 'center', backgroundColor:'var(--secondary-color)', borderRadius:5, boxShadow: 8}}>
+            <Box key={listing['listingID']} m={2} sx={{width: '60%', height: '20%', display: 'flex', flexDirection:'row', justifyContent: 'center', backgroundColor:'var(--secondary-color)', borderRadius:5, boxShadow: 8}}>
                 <Box sx={{height:'100%', width:'30%', display: 'flex', alignItems:'center', justifyContent:'center'}}>
                     <Box sx={{height:'80%', width:'80%', backgroundColor:'lightgrey', borderRadius:5, display:'flex', justifyContent:'center', alignItems:'center'}}>
                         Image Preview
@@ -46,7 +47,7 @@ function Listings() {
                             </Typography>
                         </Box>
                         <Box sx={{height: '20%', width: '100%', display: 'flex', flexDirection:'row', justifyContent:'space-between'}}>
-                            <Button variant='contained' startIcon={soldOrAvailableIcon} sx={{height:'100% !important', width: '35%', borderRadius: '5px !important'}} onClick={changeIcon}>
+                            <Button variant='contained' startIcon={soldOrAvailableIcon} sx={{height:'100% !important', width: '35%', borderRadius: '5px !important'}} onClick={() => changeIcon(listing['listingID'])}>
                                 {soldOrAvailable}
                             </Button>
                             <Button variant='contained' startIcon={<EditIcon/>} sx={{height:'100% !important', width: '30%', borderRadius: '5px !important'}}>
