@@ -119,12 +119,12 @@ function App() {
         <div className="App">
           <div className="navbar">
               <img src={Img} height={70} alt="logo" style={{"float":"left"}}></img>
-              <ul className="centerNav" style={{"margin-right":"10%"}}>
+              <ul className="centerNav" style={{"marginRight":"10%"}}>
                   <NavLink activeClassName="active" to="/boilerbazaar">Home</NavLink>
                   <NavLink activeClassName="active" to="/buy">Buy</NavLink>
                   <NavLink activeClassName="active" to="/sell">Sell</NavLink>
                   <NavLink activeClassName="active" to="/about">About</NavLink>
-                  <NavLink activeClassName="active" to="/map" style={{"margin-top":"5px"}} id="map">
+                  <NavLink activeClassName="active" to="/map" style={{"marginTop":"5px"}} id="map">
                       <TbMap2 size={28}></TbMap2>
                   </NavLink>
               </ul>
