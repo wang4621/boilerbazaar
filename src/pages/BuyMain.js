@@ -204,7 +204,6 @@ function BuyMain() {
             url: searchUrl,
             type: 'GET',    
             success: function (result) {
-                //alert(JSON.stringify(result))
                 console.log(result);
                 let returnedItems = result.Items;
             
@@ -212,7 +211,6 @@ function BuyMain() {
                 for (let i = 0; i < returnedItems.length; i++) {
                     listingList.push({"title": returnedItems[i].title, "author": returnedItems[i].author, "isbn": returnedItems[i].isbn, "edition": returnedItems[i].edition, "course": returnedItems[i].course, "condition": returnedItems[i].condition, "price": returnedItems[i].price, "description": returnedItems[i].description, "toString": "Title: " + returnedItems[i].title + " Author: " + returnedItems[i].author + " ISBN: " + returnedItems[i].isbn + " Edition: " + returnedItems[i].edition + " Course: " + returnedItems[i].course + " Condition: " + returnedItems[i].condition + " Price: " + returnedItems[i].price + " Description: " + returnedItems[i].description});
                 }
-                //const listingList = ["Title: " + returnedItem.title + " Author: " + returnedItem.isbn + " ISBN: " + returnedItem.isbn + " Edition: " + returnedItem.condition + " Condition: " + returnedItem.price + " Price: " + returnedItem.price + " Description: " + returnedItem.description];
 
                 console.log(listingList);
                 originalListingList = JSON.parse(JSON.stringify(listingList));
@@ -373,13 +371,15 @@ function BuyMain() {
 
         let addedEditions = [];
         for (const item of originalListingList) {
-            if (!(addedEditions.includes(item.edition))) {
-                addedEditions.push(item.edition);
-                let newFilter = document.createElement('option');
-                let text = document.createTextNode(item.edition.trim());
-                newFilter.value = item.edition.trim();
-                newFilter.appendChild(text);
-                filters.appendChild(newFilter);
+            if (item.edition !== undefined) {
+                if (!(addedEditions.includes(item.edition))) {
+                    addedEditions.push(item.edition);
+                    let newFilter = document.createElement('option');
+                    let text = document.createTextNode(item.edition.trim());
+                    newFilter.value = item.edition.trim();
+                    newFilter.appendChild(text);
+                    filters.appendChild(newFilter);
+                }
             }
         }
 
@@ -398,13 +398,42 @@ function BuyMain() {
 
         let addedConditions = [];
         for (const item of originalListingList) {
-            if (!(addedConditions.includes(item.condition))) {
-                addedConditions.push(item.condition);
-                let newFilter = document.createElement('option');
-                let text = document.createTextNode(item.condition.trim());
-                newFilter.value = item.condition.trim();
-                newFilter.appendChild(text);
-                filters.appendChild(newFilter);
+            if (item.condition !== undefined) {
+                if (!(addedConditions.includes(item.condition))) {
+                    addedConditions.push(item.condition);
+                    let newFilter = document.createElement('option');
+                    let text = document.createTextNode(item.condition.trim());
+                    newFilter.value = item.condition.trim();
+                    newFilter.appendChild(text);
+                    filters.appendChild(newFilter);
+                }
+            }
+        }
+
+        filters = document.getElementById("courseFilter");
+        while (filters.hasChildNodes()) {
+            filters.removeChild(filters.firstChild);
+        }
+
+        //Create filter for no filter
+        noFilter = document.createElement('option');
+        noFilterText = document.createTextNode("No filter");
+        noFilter.value = "none";
+        noFilter.selected = "selected";
+        noFilter.appendChild(noFilterText);
+        filters.appendChild(noFilter);
+
+        let addedCourses = [];
+        for (const item of originalListingList) {
+            if (item.course !== undefined){
+                if (!(addedCourses.includes(item.course))) {
+                    addedCourses.push(item.course);
+                    let newFilter = document.createElement('option');
+                    let text = document.createTextNode(item.course.trim());
+                    newFilter.value = item.course.trim();
+                    newFilter.appendChild(text);
+                    filters.appendChild(newFilter);
+                }
             }
         }
     }
@@ -472,10 +501,6 @@ function BuyMain() {
                         </label>
                         <select multiple size="4" id="editionFilter" class="filterSelector">
                             <option value='none' selected="selected">No filter</option>
-                            <option value='1'>1</option>
-                            <option value='2'>2</option>
-                            <option value='3'>3</option>
-                            <option value='4'>4</option>
                         </select>
                     </div>
                     <div class="filterDiv">
@@ -484,10 +509,6 @@ function BuyMain() {
                         </label>
                         <select multiple size="4" id="conditionFilter" class="filterSelector">
                             <option value='none' selected="selected">No filter</option>
-                            <option value='New'>New</option>
-                            <option value='Used - Like New'>Used - Like New</option>
-                            <option value='Used - Good'>Used - Good</option>
-                            <option value='Used - Fair'>Used - Fair</option>
                         </select>
                     </div>
                 </div>
