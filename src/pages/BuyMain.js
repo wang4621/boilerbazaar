@@ -458,6 +458,13 @@ function BuyMain() {
                 return value.condition == conditionFilter;
             });
         }
+
+        if (courseFilter != "none") {
+            listingList = listingList.filter(function(value, index, arr) {
+                return value.course == courseFilter;
+            });
+        }
+
         console.log(listingList);
         repopulateListings();
     }
