@@ -1,7 +1,8 @@
 import {
   Divider,
   Box,
-  Typography
+  Typography,
+  CircularProgress 
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import $ from "jquery";
@@ -15,12 +16,14 @@ function Listings() {
 
   useEffect(() => {
     // get user textbook listings
+    setLoading(true);
     $.ajax({
       url:
         "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/userlisting?puid=" +
         JSON.parse(localStorage.getItem("userData"))["puid"],
       type: "GET",
       success: function (result) {
+        setLoading(false);
         setListedTextbooks(result);
       },
       error: function (result) {
@@ -59,7 +62,8 @@ function Listings() {
           overFlowY: "scroll",
         }}
       >
-        {listedTextbooks.length > 0 ? (
+        {loading ? <CircularProgress/> : 
+        listedTextbooks.length > 0 ? (
           listedTextbooks.map((textbook) => {
             return <ListingBox listing={textbook} stateChange={stateChange} setStateChange={setStateChange}/>;
           })

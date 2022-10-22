@@ -11,9 +11,12 @@ import $ from "jquery";
 const ListingBox = ({ listing, stateChange, setStateChange }) => {
   let listingSold = listing["sold"];
   let listingId = listing["listingID"];
+  console.log("listingId:", listingId)
+  console.log("listingSold:", listingSold)
 
   const [editOpen, setEditOpen] = React.useState(false);
   const [deleteOpen, setDeleteOpen] = React.useState(false);
+  const [sold, setSold] = React.useState(listingSold)
 
   const openDelete = () => {
     setDeleteOpen(true);
@@ -35,7 +38,8 @@ const ListingBox = ({ listing, stateChange, setStateChange }) => {
         type: "PUT",
         success: function (result) {
           console.log(JSON.stringify(result));
-          setStateChange(!stateChange)
+          setSold('true')
+          // setStateChange(!stateChange)
         },
         error: function (result) {
           console.log(JSON.stringify(result));
@@ -51,7 +55,8 @@ const ListingBox = ({ listing, stateChange, setStateChange }) => {
         type: "PUT",
         success: function (result) {
           console.log(JSON.stringify(result));
-          setStateChange(!stateChange)
+          setSold('false')
+          // setStateChange(!stateChange)
         },
         error: function (result) {
           console.log(JSON.stringify(result));
@@ -130,7 +135,7 @@ const ListingBox = ({ listing, stateChange, setStateChange }) => {
           >
             <Button
               variant="contained"
-              startIcon={listingSold === "true" ? <CheckIcon /> : <CloseIcon />}
+              startIcon={sold === 'true' ? <CheckIcon /> : <CloseIcon />}
               sx={{
                 height: "100% !important",
                 width: "35%",
@@ -138,7 +143,7 @@ const ListingBox = ({ listing, stateChange, setStateChange }) => {
               }}
               onClick={changeTextAndIcon}
             >
-              {listingSold === "true" ? "Mark as Available" : "Mark as Sold"}
+              {sold === 'true' ? "Mark as Available" : "Mark as Sold"}
             </Button>
             <Button
               variant="contained"
@@ -148,7 +153,7 @@ const ListingBox = ({ listing, stateChange, setStateChange }) => {
                 width: "30%",
                 borderRadius: "5px !important",
               }}
-              disabled={listingSold === "true" ? true : false}
+              disabled={sold === 'true' ? true : false}
               onClick={openEdit}
             >
               Edit Listing
