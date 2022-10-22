@@ -1,6 +1,6 @@
 import './BuyMain.css'
 import * as React from 'react';
-import { TextField, MenuItem } from '@mui/material';
+import { TextField, MenuItem, Menu } from '@mui/material';
 import $ from 'jquery';
 import { Routes, Route, NavLink } from 'react-router-dom';
 
@@ -197,6 +197,9 @@ function BuyMain() {
         }
         else if (searchFilterValue === "ISBN") {
             searchParams = "isbn=" + searchText;
+        }
+        else if (searchFilterValue === "Course") {
+            searchParams = "course=" + searchText;
         }
         const searchUrl = "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/listing?" + searchParams;
         console.log(searchUrl);
@@ -536,6 +539,7 @@ function BuyMain() {
                 <MenuItem value="title">Title</MenuItem>
                 <MenuItem value="author">Author</MenuItem>
                 <MenuItem value="isbn">ISBN</MenuItem>
+                <MenuItem value="course">Course</MenuItem>
             </TextField>
         </label>
 
