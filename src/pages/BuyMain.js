@@ -226,6 +226,15 @@ function BuyMain() {
     }
 
     function compareByTitleA(a, b) {
+        if ((a.title === undefined) && (b.title === undefined)) {
+            return 0;
+        }
+        else if (a.title === undefined) {
+            return 1;
+        }
+        else if (b.title === undefined) {
+            return -1;
+        }
         const x = a.title.toUpperCase();
         const y = b.title.toUpperCase();
         if (x < y) {
@@ -240,6 +249,15 @@ function BuyMain() {
     }
 
     function compareByTitleD(a, b) {
+        if ((a.title === undefined) && (b.title === undefined)) {
+            return 0;
+        }
+        else if (a.title === undefined) {
+            return 1;
+        }
+        else if (b.title === undefined) {
+            return -1;
+        }
         const x = a.title.toUpperCase();
         const y = b.title.toUpperCase();
         if (x > y) {
@@ -254,6 +272,15 @@ function BuyMain() {
     }
 
     function compareByAuthorA(a, b) {
+        if ((a.author === undefined) && (b.author === undefined)) {
+            return 0;
+        }
+        else if (a.author === undefined) {
+            return 1;
+        }
+        else if (b.author === undefined) {
+            return -1;
+        }
         const x = a.author.toUpperCase();
         const y = b.author.toUpperCase();
         if (x < y) {
@@ -268,6 +295,15 @@ function BuyMain() {
     }
 
     function compareByAuthorD(a, b) {
+        if ((a.author === undefined) && (b.author === undefined)) {
+            return 0;
+        }
+        else if (a.author === undefined) {
+            return 1;
+        }
+        else if (b.author === undefined) {
+            return -1;
+        }
         const x = a.author.toUpperCase();
         const y = b.author.toUpperCase();
         if (x > y) {
@@ -282,6 +318,15 @@ function BuyMain() {
     }
 
     function compareByPriceA(a, b) {
+        if ((a.price === undefined) && (b.price === undefined)) {
+            return 0;
+        }
+        else if (a.price === undefined) {
+            return 1;
+        }
+        else if (b.price === undefined) {
+            return -1;
+        }
         const x = parseInt(a.price);
         const y = parseInt(b.price);
         if (x < y) {
@@ -296,6 +341,15 @@ function BuyMain() {
     }
 
     function compareByPriceD(a, b) {
+        if ((a.price === undefined) && (b.price === undefined)) {
+            return 0;
+        }
+        else if (a.price === undefined) {
+            return 1;
+        }
+        else if (b.price === undefined) {
+            return -1;
+        }
         const x = parseInt(a.price);
         const y = parseInt(b.price);
         if (x > y) {
