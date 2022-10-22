@@ -89,7 +89,7 @@ function Sell () {
             setEditionError(true)
             missing = true
         }
-        if (course == '') {
+        if (course === '') {
             setCourseError(true)
             missing = true
         }
