@@ -43,6 +43,7 @@ function Sell () {
     const [authorError, setAuthorError] = React.useState(false);
     const [isbnError, setISBNError] = React.useState(false);
     const [editionError, setEditionError] = React.useState(false);
+    const [courseError, setCourseError] = React.useState(false);
     const [conditionError, setConditionError] = React.useState(false);
     const [submitedListing, setSubmittedListing] = React.useState(false);
 
@@ -63,6 +64,7 @@ function Sell () {
         var author = document.getElementById('author').value
         var isbn = document.getElementById('isbn').value
         var edition = document.getElementById('edition').value
+        var course = document.getElementById('course').value
         var description = document.getElementById('description').value
         var images = document.getElementById('images').files
         var count = images.length;
@@ -87,6 +89,10 @@ function Sell () {
             setEditionError(true)
             missing = true
         }
+        if (course === '') {
+            setCourseError(true)
+            missing = true
+        }
         if (condition === '') {
             setConditionError(true)
             missing = true
@@ -96,7 +102,7 @@ function Sell () {
             for (var i = 0; i < count; i++) {
                 getBase64(images[i], i, imagesJson, i === count - 1)
             }
-            var jsonData = {"listingID": listingID, "sellerID": sellerID, "title": title, "price": price, "author": author, "isbn": isbn, "edition": edition, "condition": condition, "description": description}; 
+            var jsonData = {"listingID": listingID, "sellerID": sellerID, "title": title, "price": price, "author": author, "isbn": isbn, "edition": edition, "course": course, "condition": condition, "description": description}; 
             jsonData = "\""+JSON.stringify(jsonData).replaceAll('"', '\\"')+"\""
             $.ajax({
                 url: 'https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/listing',
@@ -174,6 +180,14 @@ function Sell () {
             if (submitedListing && event.target.value === '') {
                 setEditionError(true)
             }
+        } else if (event.target.id === 'course') {
+            if (event.target.value !== '') {
+                setCourseError(false);
+            }
+            if (submitedListing && event.target.value === '') {
+                setCourseError(true)
+            }
+            document.getElementById('previewCourse').innerText = event.target.value
         } else if (event.target.id === 'description') {
             setStringLength(event.target.value.length)
             document.getElementById('previewDescription').innerText = event.target.value
@@ -192,6 +206,7 @@ function Sell () {
                     <TextField id="author" label="Author" required onChange={changeText} error={authorError} helperText={authorError ? 'Please add an author.' : ''}/>
                     <TextField id="isbn" label="ISBN" required onChange={changeText} error={isbnError} helperText={isbnError ? 'Please add an ISBN.' : ''} inputProps={{ maxLength: 13}}/>
                     <TextField id="edition" label="Edition" required onChange={changeText} error={editionError} helperText={editionError ? 'Please add an edition.' : ''} inputProps={{ maxLength: 2}}/>
+                    <TextField id="course" label="Course" required onChange={changeText} error={courseError} helperText={courseError ? 'Please add a course.' : ''} inputProps={{ maxLength: 10}}/>
                     <TextField id="condition" name="condition" label="Condition" select required value={condition} onChange={conditionChange} error={conditionError} helperText={conditionError ? 'Please select a condition' : ''}
                     sx={{backgroundColor: 'var(--secondary-color)'}}>
                             <MenuItem value="New">New</MenuItem>
@@ -237,6 +252,10 @@ function Sell () {
                                     <Typography variant="h6" color='var(--text-color)' sx={{fontWeight:'bold'}}>
                                         Edition
                                         <Typography variant="body1" color='var(--text-color)' id="previewEdition"/>
+                                    </Typography>
+                                    <Typography variant="h6" color='var(--text-color)' sx={{fontWeight:'bold'}}>
+                                        Course
+                                        <Typography variant="body1" color='var(--text-color)' id="previewCourse"/>
                                     </Typography>               
                                     <Typography variant="h6" color='var(--text-color)' sx={{fontWeight:'bold'}}>
                                         Condition
