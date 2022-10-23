@@ -507,7 +507,6 @@ function BuyMain() {
 
             <div>
                 <ul id="listings">
-                    <NavLink to='listing'>textbook</NavLink>
                 </ul>
             </div>
         </div>
