@@ -277,6 +277,11 @@ function Sell() {
             onChange={changeText}
             error={titleError}
             helperText={titleError ? "Please add a title." : ""}
+            sx={{
+              "& .MuiOutlinedInput-root:hover": {
+                "& > fieldset": { borderColor: "var(--text-color)" },
+              },
+            }}
           />
           <TextField
             id="price"
@@ -286,6 +291,11 @@ function Sell() {
             error={priceError}
             helperText={priceError ? "Please add a price." : ""}
             inputProps={{ maxLength: 3 }}
+            sx={{
+              "& .MuiOutlinedInput-root:hover": {
+                "& > fieldset": { borderColor: "var(--text-color)" },
+              },
+            }}
           />
           <TextField
             id="author"
@@ -294,6 +304,11 @@ function Sell() {
             onChange={changeText}
             error={authorError}
             helperText={authorError ? "Please add an author." : ""}
+            sx={{
+              "& .MuiOutlinedInput-root:hover": {
+                "& > fieldset": { borderColor: "var(--text-color)" },
+              },
+            }}
           />
           <TextField
             id="isbn"
@@ -303,6 +318,11 @@ function Sell() {
             error={isbnError}
             helperText={isbnError ? "Please add an ISBN." : ""}
             inputProps={{ maxLength: 13 }}
+            sx={{
+              "& .MuiOutlinedInput-root:hover": {
+                "& > fieldset": { borderColor: "var(--text-color)" },
+              },
+            }}
           />
           <TextField
             id="edition"
@@ -312,6 +332,11 @@ function Sell() {
             error={editionError}
             helperText={editionError ? "Please add an edition." : ""}
             inputProps={{ maxLength: 2 }}
+            sx={{
+              "& .MuiOutlinedInput-root:hover": {
+                "& > fieldset": { borderColor: "var(--text-color)" },
+              },
+            }}
           />
           <TextField
             id="condition"
@@ -323,6 +348,11 @@ function Sell() {
             onChange={conditionChange}
             error={conditionError}
             helperText={conditionError ? "Please select a condition" : ""}
+            sx={{
+              "& .MuiOutlinedInput-root:hover": {
+                "& > fieldset": { borderColor: "var(--text-color)" },
+              },
+            }}
             // sx={{ backgroundColor: "var(--secondary-color)" }}
           >
             <MenuItem value="New">New</MenuItem>
@@ -338,6 +368,11 @@ function Sell() {
             onChange={changeText}
             inputProps={{ maxLength: limit }}
             helperText={`${getStringLength}/${limit}`}
+            sx={{
+              "& .MuiOutlinedInput-root:hover": {
+                "& > fieldset": { borderColor: "var(--text-color)" },
+              },
+            }}
           />
           <TextField id="list" type="submit" value="List" />
         </Box>
