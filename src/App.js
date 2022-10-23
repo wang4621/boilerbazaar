@@ -184,7 +184,7 @@ function App() {
                 <Route path='/boilerbazaar' element={< Home />}/>
                 <Route path='/buy' element={< Buy />}>
                   <Route path='' element={< BuyMain />}/>
-                  <Route path='listing' element={< SingleListing />}/>
+                  <Route path='listing/:id' element={< SingleListing />}/>
                 </Route>
                 <Route path='/sell' element={< Sell />}/>
                 <Route path='/about' element={< About />}/>
