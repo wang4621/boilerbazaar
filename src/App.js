@@ -6,6 +6,7 @@ import Settings from './pages/Settings'
 import Home from './pages/Home'
 import Sell from './pages/Sell'
 import Buy from './pages/Buy'
+import Message from './pages/Message'
 import About from './pages/About'
 import Map from './pages/Map'
 import Listings from './pages/Listings'
@@ -124,6 +125,7 @@ function App() {
                   <NavLink activeClassName="active" to="/boilerbazaar">Home</NavLink>
                   <NavLink activeClassName="active" to="/buy">Buy</NavLink>
                   <NavLink activeClassName="active" to="/sell">Sell</NavLink>
+                  <NavLink activeClassName="active" to="/message">Message</NavLink>
                   <NavLink activeClassName="active" to="/about">About</NavLink>
                   <NavLink activeClassName="active" to="/map" style={{"margin-top":"5px"}} id="map">
                       <TbMap2 size={28}></TbMap2>
@@ -188,6 +190,7 @@ function App() {
                   <Route path='listing/:id' element={< SingleListing />}/>
                 </Route>
                 <Route path='/sell' element={< Sell />}/>
+                <Route path='/message' element={< Message />}/>
                 <Route path='/about' element={< About />}/>
                 <Route path='/map' element={< Map />}/>
                 <Route path='/settings' element={< Settings />}>

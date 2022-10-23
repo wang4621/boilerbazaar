@@ -1,0 +1,44 @@
+.message {
+    display: flex;
+    flex-direction: row;
+    height: calc(100vh - var(--header-height));
+}
+
+.message * {
+    margin: 20px;
+}
+
+.contact {
+    display: flex;
+    flex-direction: row;
+    width: 30%;
+}
+
+.contact img{
+    width:auto;
+    height:auto;
+    max-width: 50px;
+    max-height: 50px;
+}
+
+.contact Typography {
+    align: 'center';
+}
+
+.chat {
+    width: 70%;
+}
+
+.chatInput {
+    display: flex;
+    flex-direction: row;
+    height: calc(100vh - var(--header-height));
+}
+
+#messageInput {
+    width: 70%;
+}
+
+#send {
+    width: 30%;
+}
