@@ -323,7 +323,7 @@ function Sell() {
             onChange={conditionChange}
             error={conditionError}
             helperText={conditionError ? "Please select a condition" : ""}
-            sx={{ backgroundColor: "var(--secondary-color)" }}
+            // sx={{ backgroundColor: "var(--secondary-color)" }}
           >
             <MenuItem value="New">New</MenuItem>
             <MenuItem value="Used - Like New">Used - Like New</MenuItem>

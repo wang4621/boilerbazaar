@@ -1,7 +1,7 @@
 .sellDisplay input {
     font-size: 18px;
     color: var(--text-color);
-    background-color: var(--secondary-color);
+    /* background-color: var(--secondary-color); */
 }
 
 .sellDisplay label {

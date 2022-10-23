@@ -5,7 +5,7 @@ import { Avatar, CardContent, Divider, Box, Button } from "@mui/material";
 import { TextField, MenuItem } from "@mui/material";
 import $ from "jquery";
 import { v4 as uuidv4 } from "uuid";
-import './EditListing.css'
+import "./EditListing.css";
 
 function getBase64(file, i, imagesJson, final) {
   var reader = new FileReader();
@@ -47,8 +47,13 @@ const EditListing = ({
   const closeEdit = () => {
     setOpen(false);
   };
-  console.log(listing)
+  const [title, setTitle] = React.useState(listing['title']);
+  const [price, setPrice] = React.useState(listing['price']);
+  const [author, setAuthor] = React.useState(listing['author']);
+  const [isbn, setISBN] = React.useState(listing['isbn']);
+  const [edition, setEdition] = React.useState(listing['edition']);
   const [condition, setCondition] = React.useState(listing['condition']);
+  const [description, setDescription] = React.useState(listing['description']);
   const limit = 250;
   const [getStringLength, setStringLength] = React.useState(0);
   const [titleError, setTitleError] = React.useState(false);
@@ -57,26 +62,26 @@ const EditListing = ({
   const [isbnError, setISBNError] = React.useState(false);
   const [editionError, setEditionError] = React.useState(false);
   const [conditionError, setConditionError] = React.useState(false);
-  const [submitedListing, setSubmittedListing] = React.useState(false);
+  const [submittedListing, setSubmittedListing] = React.useState(false);
 
   const conditionChange = (event) => {
     setCondition(event.target.value);
     if (event.target.value !== "") {
       setConditionError(false);
     }
-    document.getElementById("previewCondition").innerText = event.target.value;
+    // document.getElementById("previewCondition").innerText = event.target.value;
   };
 
   const saveTextbook = (event) => {
     setSubmittedListing(true);
     var listingID = uuidv4().toString();
     var sellerID = "";
-    var title = document.getElementById("title").value;
-    var price = document.getElementById("price").value.substring(1);
-    var author = document.getElementById("author").value;
-    var isbn = document.getElementById("isbn").value;
-    var edition = document.getElementById("edition").value;
-    var description = document.getElementById("description").value;
+    // var title = document.getElementById("title").value;
+    // var price = document.getElementById("price").value.substring(1);
+    // var author = document.getElementById("author").value;
+    // var isbn = document.getElementById("isbn").value;
+    // var edition = document.getElementById("edition").value;
+    // var description = document.getElementById("description").value;
     var images = document.getElementById("images").files;
     var count = images.length;
     var missing = false;
@@ -139,69 +144,98 @@ const EditListing = ({
   };
 
   // adds dollar sign in front of price
-  const handleDollar = (event) => {
-    var value = event.target.value;
-    if (value.includes("$")) {
-      value = value.split("$")[1];
-    }
-    if (value === "") {
-      if (submitedListing) {
-        setPriceError(true);
-      }
-      event.target.value = "";
-      document.getElementById("previewPrice").innerText = "Price";
-    } else if (isNaN(value)) {
-      event.target.value = event.target.value.slice(0, -1);
-    } else {
-      value = "$" + value;
-      event.target.value = value;
-      setPriceError(false);
-      document.getElementById("previewPrice").innerText = value;
-    }
-  };
+  // const handleDollar = (event) => {
+  //   var value = event.target.value;
+  //   if (value.includes("$")) {
+  //     value = value.split("$")[1];
+  //   }
+  //   if (value === "") {
+  //     if (submittedListing) {
+  //       setPriceError(true);
+  //     }
+  //     event.target.value = "";
+  //     document.getElementById("previewPrice").innerText = "Price";
+  //   } else if (isNaN(value)) {
+  //     event.target.value = event.target.value.slice(0, -1);
+  //   } else {
+  //     value = "$" + value;
+  //     event.target.value = value;
+  //     setPriceError(false);
+  //     document.getElementById("previewPrice").innerText = value;
+  //   }
+  // };
 
   const changeText = (event) => {
     if (event.target.id === "title") {
-      if (event.target.value === "") {
-        if (submitedListing) {
-          setTitleError(true);
-        }
-        document.getElementById("previewTitle").innerText = "Title";
-      } else {
-        setTitleError(false);
-        document.getElementById("previewTitle").innerText = event.target.value;
+      if (event.target.value === "" && submittedListing) {
+        // if (submittedListing) {
+        setTitleError(true);
+        // }
+        // document.getElementById("previewTitle").innerText = "Title";
       }
+      if (event.target.value !== "") {
+        setTitleError(false);
+        // document.getElementById("previewTitle").innerText = event.target.value;
+      }
+      setTitle(event.target.value);
+    } else if (event.target.id === "price") {
+      // console.log(event.target.value)
+      // if (event.target.value === "") {
+      //   if (submittedListing) {
+      //     setPriceError(true);
+      //   }
+      //   event.target.value = "";
+      //   document.getElementById("previewPrice").innerText = "Price";
+      // } else if (isNaN(event.target.value)) {
+      //   event.target.value = event.target.value.slice(0, -1);
+      // } else {
+      //   value = "$" + value;
+      //   event.target.value = value;
+      //   setPriceError(false);
+      //   document.getElementById("previewPrice").innerText = value;
+      // }
+      if (!isNaN(event.target.value)) {
+        setPriceError(false);
+      } else {
+        event.target.value = event.target.value.slice(0, -1);
+      }
+      if (submittedListing && event.target.value === "") {
+        setPriceError(true);
+      }
+      setPrice(event.target.value);
     } else if (event.target.id === "author") {
       if (event.target.value !== "") {
         setAuthorError(false);
       }
-      if (submitedListing && event.target.value === "") {
+      if (submittedListing && event.target.value === "") {
         setAuthorError(true);
       }
-      document.getElementById("previewAuthor").innerText = event.target.value;
+      // document.getElementById("previewAuthor").innerText = event.target.value;
+      setAuthor(event.target.value);
     } else if (event.target.id === "isbn") {
       if (event.target.value !== "") {
         setISBNError(false);
       }
-      if (submitedListing && event.target.value === "") {
+      if (submittedListing && event.target.value === "") {
         setISBNError(true);
       }
-      document.getElementById("previewISBN").innerText = event.target.value;
+      // document.getElementById("previewISBN").innerText = event.target.value;
+      setISBN(event.target.value);
     } else if (event.target.id === "edition") {
       if (!isNaN(event.target.value)) {
         setEditionError(false);
-        document.getElementById("previewEdition").innerText =
-          event.target.value;
+        // document.getElementById("previewEdition").innerText = event.target.value;
       } else {
         event.target.value = event.target.value.slice(0, -1);
       }
-      if (submitedListing && event.target.value === "") {
+      if (submittedListing && event.target.value === "") {
         setEditionError(true);
       }
+      setEdition(event.target.value);
     } else if (event.target.id === "description") {
       setStringLength(event.target.value.length);
-      document.getElementById("previewDescription").innerText =
-        event.target.value;
+      // document.getElementById("previewDescription").innerText = event.target.value;
+      setDescription(event.target.value);
     }
   };
 
@@ -226,7 +260,7 @@ const EditListing = ({
           </Typography>
         </Toolbar>
       </AppBar>
-      <Box sx={{ height: "92%"}} className='editDisplay'>
+      <Box sx={{ height: "92%", backgroundColor:'var(--background-color)' }} className="editDisplay">
         <Box
           sx={{
             width: "28%",
@@ -236,9 +270,10 @@ const EditListing = ({
             flexDirection: "column",
           }}
         >
+          {/* <CardHeader title="Textbooks for sale" sx={{textAlign: 'center', height: '7%'}}/> */}
           <Typography
             variant="h5"
-            sx={{ fontWeight: "bold", textAlign: "center", padding: "10px" }}
+            sx={{ fontWeight: "bold", textAlign: "center", padding: "10px", color: 'var(--text-color)'}}
           >
             Textbook For Sale
           </Typography>
@@ -261,7 +296,7 @@ const EditListing = ({
             <TextField
               id="title"
               label="Title"
-              value={listing['title']}
+              value={title}
               required
               onChange={changeText}
               error={titleError}
@@ -270,17 +305,17 @@ const EditListing = ({
             <TextField
               id="price"
               label="Price"
-              value={listing['price']}
+              value={price}
               required
-              onChange={handleDollar}
+              onChange={changeText}
               error={priceError}
               helperText={priceError ? "Please add a price." : ""}
-              inputProps={{ maxLength: 4 }}
+              inputProps={{ maxLength: 3 }}
             />
             <TextField
               id="author"
               label="Author"
-              value={listing['author']}
+              value={author}
               required
               onChange={changeText}
               error={authorError}
@@ -289,7 +324,7 @@ const EditListing = ({
             <TextField
               id="isbn"
               label="ISBN"
-              value={listing['isbn']}
+              value={isbn}
               required
               onChange={changeText}
               error={isbnError}
@@ -299,7 +334,7 @@ const EditListing = ({
             <TextField
               id="edition"
               label="Edition"
-              value={listing['edition']}
+              value={edition}
               required
               onChange={changeText}
               error={editionError}
@@ -316,7 +351,7 @@ const EditListing = ({
               onChange={conditionChange}
               error={conditionError}
               helperText={conditionError ? "Please select a condition" : ""}
-              sx={{ backgroundColor: "var(--secondary-color)" }}
+              // sx={{ backgroundColor: "var(--secondary-color)" }}
             >
               <MenuItem value="New">New</MenuItem>
               <MenuItem value="Used - Like New">Used - Like New</MenuItem>
@@ -328,7 +363,6 @@ const EditListing = ({
               label="Description"
               multiline
               rows={5}
-              value={listing['description']}
               onChange={changeText}
               inputProps={{ maxLength: limit }}
               helperText={`${getStringLength}/${limit}`}
@@ -344,7 +378,6 @@ const EditListing = ({
             justifyContent: "center",
             alignItems: "center",
           }}
-          className="bodyLight"
         >
           <Box
             sx={{
@@ -357,10 +390,9 @@ const EditListing = ({
               boxShadow: 8,
             }}
           >
-            {/* <CardHeader title="Preview" sx={{height: '7%', marginLeft:'1%'}}/> */}
             <Typography
               variant="h6"
-              sx={{ fontWeight: "bold", padding: "10px", marginLeft: "1.5%" }}
+              sx={{ fontWeight: "bold", padding: "10px", marginLeft: "1.5%", color: 'var(--text-color)'}}
             >
               Preview
             </Typography>
@@ -415,17 +447,17 @@ const EditListing = ({
                       variant="h5"
                       color="var(--text-color)"
                       sx={{ fontWeight: "bold" }}
-                      id="previewTitle"
+                      // id="previewTitle"
                     >
-                      {listing['title']}
+                      {title === "" ? "Title" : title}
                     </Typography>
                     <Typography
                       variant="h6"
                       color="var(--text-color)"
                       sx={{ fontWeight: "bold" }}
-                      id="previewPrice"
+                      // id="previewPrice"
                     >
-                      ${listing['price']}
+                      {price === "" ? "Price" : "$" + price}
                     </Typography>
                     <br />
                     <Typography
@@ -445,9 +477,9 @@ const EditListing = ({
                       <Typography
                         variant="body1"
                         color="var(--text-color)"
-                        id="previewAuthor"
+                        // id="previewAuthor"
                       >
-                        {listing['author']}
+                        {author}
                       </Typography>
                     </Typography>
                     <Typography
@@ -459,9 +491,9 @@ const EditListing = ({
                       <Typography
                         variant="body1"
                         color="var(--text-color)"
-                        id="previewISBN"
+                        // id="previewISBN"
                       >
-                        {listing['isbn']}
+                        {isbn}
                       </Typography>
                     </Typography>
                     <Typography
@@ -473,9 +505,9 @@ const EditListing = ({
                       <Typography
                         variant="body1"
                         color="var(--text-color)"
-                        id="previewEdition"
+                        // id="previewEdition"
                       >
-                        {listing['edition']}
+                        {edition}
                       </Typography>
                     </Typography>
                     <Typography
@@ -487,9 +519,9 @@ const EditListing = ({
                       <Typography
                         variant="body1"
                         color="var(--text-color)"
-                        id="previewCondition"
+                        // id="previewCondition"
                       >
-                        {listing['condition']}
+                        {condition}
                       </Typography>
                     </Typography>
                     <br />
@@ -502,9 +534,9 @@ const EditListing = ({
                       <Typography
                         variant="body1"
                         color="var(--text-color)"
-                        id="previewDescription"
+                        // id="previewDescription"
                       >
-                        {listing['description']}
+                        {description}
                       </Typography>
                     </Typography>
                     <br />
