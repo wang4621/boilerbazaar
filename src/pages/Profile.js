@@ -61,14 +61,6 @@ function Profile() {
         event.preventDefault()
     }
 
-    // This caused issues with typing in input box.
-    // const CustomDisabledTextField = styled (TextField)(() => ({
-    //     ".MuiInputBase-input.Mui-disabled": {
-    //         WebkitTextFillColor: "var(--text-color)",
-    //         color: "var(--text-color)",
-    //     }
-    //   }));
-
     return (
         <Box className="profileDisplay">
             <Box sx={{width: '35%', height: '100%', backgroundColor: 'var(--secondary-color)', display:'flex', flexDirection:'column'}}>

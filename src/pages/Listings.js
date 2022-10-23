@@ -59,7 +59,7 @@ function Listings() {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          overFlowY: "scroll",
+          overflow: "scroll",
         }}
       >
         {loading ? <CircularProgress/> : 
