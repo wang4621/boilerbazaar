@@ -5,6 +5,7 @@ import { Avatar, CardContent, Divider, Box, Button } from "@mui/material";
 import { TextField, MenuItem } from "@mui/material";
 import $ from "jquery";
 import { v4 as uuidv4 } from "uuid";
+import './EditListing.css'
 
 function getBase64(file, i, imagesJson, final) {
   var reader = new FileReader();
@@ -37,7 +38,7 @@ function sendImages(imagesJson) {
 }
 
 const EditListing = ({
-  listingId,
+  listing,
   open,
   setOpen,
   stateChange,
@@ -46,8 +47,8 @@ const EditListing = ({
   const closeEdit = () => {
     setOpen(false);
   };
-
-  const [condition, setCondition] = React.useState("");
+  console.log(listing)
+  const [condition, setCondition] = React.useState(listing['condition']);
   const limit = 250;
   const [getStringLength, setStringLength] = React.useState(0);
   const [titleError, setTitleError] = React.useState(false);
@@ -66,7 +67,7 @@ const EditListing = ({
     document.getElementById("previewCondition").innerText = event.target.value;
   };
 
-  const listTextbook = (event) => {
+  const saveTextbook = (event) => {
     setSubmittedListing(true);
     var listingID = uuidv4().toString();
     var sellerID = "";
@@ -206,7 +207,7 @@ const EditListing = ({
 
   return (
     <Dialog fullScreen open={open} onClose={closeEdit}>
-      <AppBar sx={{ position: "relative", height: "7%" }}>
+      <AppBar sx={{ position: "relative", height: "8%" }}>
         <Toolbar>
           <IconButton
             edge="start"
@@ -225,336 +226,354 @@ const EditListing = ({
           </Typography>
         </Toolbar>
       </AppBar>
-      <Box
-        sx={{
-          width: "28%",
-          height: "100%",
-          backgroundColor: "var(--primary-color)",
-          display: "flex",
-          flexDirection: "column",
-        }}
-      >
-        {/* <CardHeader title="Textbooks for sale" sx={{textAlign: 'center', height: '7%'}}/> */}
-        <Typography
-          variant="h5"
-          sx={{ fontWeight: "bold", textAlign: "center", padding: "10px" }}
-        >
-          Textbook For Sale
-        </Typography>
+      <Box sx={{ height: "92%"}} className='editDisplay'>
         <Box
           sx={{
-            "& > :not(style)": { m: 1 },
-            height: "93%",
-            overflowY: "scroll",
-          }}
-          component="form"
-          noValidate
-          autoComplete="off"
-          className="formDisplay scrollBar"
-          onSubmit={listTextbook}
-        >
-          <Button variant="contained" component="label">
-            Upload Images Here
-            <input id="images" type="file" hidden multiple />
-          </Button>
-          <TextField
-            id="title"
-            label="Title"
-            required
-            onChange={changeText}
-            error={titleError}
-            helperText={titleError ? "Please add a title." : ""}
-          />
-          <TextField
-            id="price"
-            label="Price"
-            required
-            onChange={handleDollar}
-            error={priceError}
-            helperText={priceError ? "Please add a price." : ""}
-            inputProps={{ maxLength: 4 }}
-          />
-          <TextField
-            id="author"
-            label="Author"
-            required
-            onChange={changeText}
-            error={authorError}
-            helperText={authorError ? "Please add an author." : ""}
-          />
-          <TextField
-            id="isbn"
-            label="ISBN"
-            required
-            onChange={changeText}
-            error={isbnError}
-            helperText={isbnError ? "Please add an ISBN." : ""}
-            inputProps={{ maxLength: 13 }}
-          />
-          <TextField
-            id="edition"
-            label="Edition"
-            required
-            onChange={changeText}
-            error={editionError}
-            helperText={editionError ? "Please add an edition." : ""}
-            inputProps={{ maxLength: 2 }}
-          />
-          <TextField
-            id="condition"
-            name="condition"
-            label="Condition"
-            select
-            required
-            value={condition}
-            onChange={conditionChange}
-            error={conditionError}
-            helperText={conditionError ? "Please select a condition" : ""}
-            sx={{ backgroundColor: "var(--secondary-color)" }}
-          >
-            <MenuItem value="New">New</MenuItem>
-            <MenuItem value="Used - Like New">Used - Like New</MenuItem>
-            <MenuItem value="Used - Good">Used - Good</MenuItem>
-            <MenuItem value="Used - Fair">Used - Fair</MenuItem>
-          </TextField>
-          <TextField
-            id="description"
-            label="Description"
-            multiline
-            rows={5}
-            onChange={changeText}
-            inputProps={{ maxLength: limit }}
-            helperText={`${getStringLength}/${limit}`}
-          />
-          <TextField id="list" type="submit" value="Save" />
-        </Box>
-      </Box>
-      <Box
-        sx={{
-          width: "72%",
-          height: "100%",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <Box
-          sx={{
-            width: "90%",
-            borderRadius: 5,
-            height: "90%",
+            width: "28%",
+            height: "100%",
+            backgroundColor: "var(--primary-color)",
             display: "flex",
             flexDirection: "column",
-            backgroundColor: "var(--primary-color)",
-            boxShadow: 8,
           }}
         >
-          {/* <CardHeader title="Preview" sx={{height: '7%', marginLeft:'1%'}}/> */}
           <Typography
-            variant="h6"
-            sx={{ fontWeight: "bold", padding: "10px", marginLeft: "1.5%" }}
+            variant="h5"
+            sx={{ fontWeight: "bold", textAlign: "center", padding: "10px" }}
           >
-            Preview
+            Textbook For Sale
           </Typography>
           <Box
             sx={{
+              "& > :not(style)": { m: 1 },
               height: "93%",
-              width: "100%",
+              overflowY: "scroll",
+            }}
+            component="form"
+            noValidate
+            autoComplete="off"
+            className="formDisplay scrollBar"
+            onSubmit={saveTextbook}
+          >
+            <Button variant="contained" component="label">
+              Upload Images Here
+              <input id="images" type="file" hidden multiple />
+            </Button>
+            <TextField
+              id="title"
+              label="Title"
+              value={listing['title']}
+              required
+              onChange={changeText}
+              error={titleError}
+              helperText={titleError ? "Please add a title." : ""}
+            />
+            <TextField
+              id="price"
+              label="Price"
+              value={listing['price']}
+              required
+              onChange={handleDollar}
+              error={priceError}
+              helperText={priceError ? "Please add a price." : ""}
+              inputProps={{ maxLength: 4 }}
+            />
+            <TextField
+              id="author"
+              label="Author"
+              value={listing['author']}
+              required
+              onChange={changeText}
+              error={authorError}
+              helperText={authorError ? "Please add an author." : ""}
+            />
+            <TextField
+              id="isbn"
+              label="ISBN"
+              value={listing['isbn']}
+              required
+              onChange={changeText}
+              error={isbnError}
+              helperText={isbnError ? "Please add an ISBN." : ""}
+              inputProps={{ maxLength: 13 }}
+            />
+            <TextField
+              id="edition"
+              label="Edition"
+              value={listing['edition']}
+              required
+              onChange={changeText}
+              error={editionError}
+              helperText={editionError ? "Please add an edition." : ""}
+              inputProps={{ maxLength: 2 }}
+            />
+            <TextField
+              id="condition"
+              name="condition"
+              label="Condition"
+              select
+              required
+              value={condition}
+              onChange={conditionChange}
+              error={conditionError}
+              helperText={conditionError ? "Please select a condition" : ""}
+              sx={{ backgroundColor: "var(--secondary-color)" }}
+            >
+              <MenuItem value="New">New</MenuItem>
+              <MenuItem value="Used - Like New">Used - Like New</MenuItem>
+              <MenuItem value="Used - Good">Used - Good</MenuItem>
+              <MenuItem value="Used - Fair">Used - Fair</MenuItem>
+            </TextField>
+            <TextField
+              id="description"
+              label="Description"
+              multiline
+              rows={5}
+              value={listing['description']}
+              onChange={changeText}
+              inputProps={{ maxLength: limit }}
+              helperText={`${getStringLength}/${limit}`}
+            />
+            <TextField id="list" type="submit" value="Save" />
+          </Box>
+        </Box>
+        <Box
+          sx={{
+            width: "72%",
+            height: "100%",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+          className="bodyLight"
+        >
+          <Box
+            sx={{
+              width: "90%",
+              borderRadius: 5,
+              height: "90%",
               display: "flex",
-              justifyContent: "center",
-              overflowY: "auto",
+              flexDirection: "column",
+              backgroundColor: "var(--primary-color)",
+              boxShadow: 8,
             }}
           >
+            {/* <CardHeader title="Preview" sx={{height: '7%', marginLeft:'1%'}}/> */}
+            <Typography
+              variant="h6"
+              sx={{ fontWeight: "bold", padding: "10px", marginLeft: "1.5%" }}
+            >
+              Preview
+            </Typography>
             <Box
               sx={{
-                height: "96%",
-                width: "95%",
+                height: "93%",
+                width: "100%",
                 display: "flex",
-                flexDirection: "row",
+                justifyContent: "center",
+                overflowY: "auto",
               }}
             >
               <Box
                 sx={{
-                  width: "60%",
-                  height: "100%",
-                  backgroundColor: "var(--tertiary-color)",
+                  height: "96%",
+                  width: "95%",
+                  display: "flex",
+                  flexDirection: "row",
                 }}
-                className="innerLeftBox"
               >
-                <Typography variant="h4" color="var(--text-color)">
-                  Listing Preview
-                </Typography>
-              </Box>
-              <Box
-                sx={{
-                  width: "40%",
-                  height: "100%",
-                  backgroundColor: "var(--secondary-color)",
-                }}
-                className="innerRightBox"
-              >
-                <CardContent
-                  sx={{
-                    wordBreak: "break-word",
-                    overflowY: "scroll",
-                    height: "65%",
-                    display: "flex",
-                    flexDirection: "column",
-                  }}
-                  className="scrollBar"
-                >
-                  <Typography
-                    variant="h5"
-                    color="var(--text-color)"
-                    sx={{ fontWeight: "bold" }}
-                    id="previewTitle"
-                  >
-                    Title
-                  </Typography>
-                  <Typography
-                    variant="h6"
-                    color="var(--text-color)"
-                    sx={{ fontWeight: "bold" }}
-                    id="previewPrice"
-                  >
-                    Price
-                  </Typography>
-                  <br />
-                  <Typography
-                    variant="h6"
-                    color="var(--text-color)"
-                    sx={{ fontWeight: "bold" }}
-                  >
-                    Details
-                  </Typography>
-                  <br />
-                  <Typography
-                    variant="h6"
-                    color="var(--text-color)"
-                    sx={{ fontWeight: "bold" }}
-                  >
-                    Author
-                    <Typography
-                      variant="body1"
-                      color="var(--text-color)"
-                      id="previewAuthor"
-                    />
-                  </Typography>
-                  <Typography
-                    variant="h6"
-                    color="var(--text-color)"
-                    sx={{ fontWeight: "bold" }}
-                  >
-                    ISBN
-                    <Typography
-                      variant="body1"
-                      color="var(--text-color)"
-                      id="previewISBN"
-                    />
-                  </Typography>
-                  <Typography
-                    variant="h6"
-                    color="var(--text-color)"
-                    sx={{ fontWeight: "bold" }}
-                  >
-                    Edition
-                    <Typography
-                      variant="body1"
-                      color="var(--text-color)"
-                      id="previewEdition"
-                    />
-                  </Typography>
-                  <Typography
-                    variant="h6"
-                    color="var(--text-color)"
-                    sx={{ fontWeight: "bold" }}
-                  >
-                    Condition
-                    <Typography
-                      variant="body1"
-                      color="var(--text-color)"
-                      id="previewCondition"
-                    />
-                  </Typography>
-                  <br />
-                  <Typography
-                    variant="h6"
-                    color="var(--text-color)"
-                    sx={{ fontWeight: "bold" }}
-                  >
-                    Description
-                    <Typography
-                      variant="body1"
-                      color="var(--text-color)"
-                      id="previewDescription"
-                    />
-                  </Typography>
-                  <br />
-                  <br />
-                </CardContent>
-                <Divider
-                  variant="middle"
-                  sx={{ borderBottomColor: "var(--text-color)" }}
-                />
-                <CardContent
-                  sx={{
-                    height: "25%",
-                    display: "flex",
-                    flexDirection: "column",
-                  }}
-                >
-                  <Typography
-                    variant="body1"
-                    color="var(--text-color)"
-                    sx={{ fontWeight: "bold", fontSize: 18 }}
-                  >
-                    Seller Information
-                    <Button
-                      variant="outlined"
-                      size="small"
-                      disabled
-                      sx={{ float: "right" }}
-                    >
-                      Seller Details
-                    </Button>
-                  </Typography>
-                  <br />
-                  <Typography
-                    variant="body1"
-                    color="var(--text-color)"
-                    sx={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      alignItems: "center",
-                    }}
-                    id="avatarName"
-                  >
-                    <Avatar
-                      sx={{ width: 40, height: 40 }}
-                      alt=""
-                      src=""
-                      id="avatarPic"
-                    />
-                    Jeff Wang
-                  </Typography>
-                </CardContent>
                 <Box
                   sx={{
-                    height: "10%",
+                    width: "60%",
+                    height: "100%",
+                    backgroundColor: "var(--tertiary-color)",
+                  }}
+                  className="innerLeftBox"
+                >
+                  <Typography variant="h4" color="var(--text-color)">
+                    Listing Preview
+                  </Typography>
+                </Box>
+                <Box
+                  sx={{
+                    width: "40%",
+                    height: "100%",
                     backgroundColor: "var(--secondary-color)",
                   }}
-                  className="innerBottomBox"
+                  className="innerRightBox"
                 >
-                  <Button
-                    variant="outlined"
-                    disabled
+                  <CardContent
                     sx={{
-                      width: "95%",
-                      backgroundColor: "var(--tertiary-color) !important",
+                      wordBreak: "break-word",
+                      overflowY: "scroll",
+                      height: "65%",
+                      display: "flex",
+                      flexDirection: "column",
+                    }}
+                    className="scrollBar"
+                  >
+                    <Typography
+                      variant="h5"
+                      color="var(--text-color)"
+                      sx={{ fontWeight: "bold" }}
+                      id="previewTitle"
+                    >
+                      {listing['title']}
+                    </Typography>
+                    <Typography
+                      variant="h6"
+                      color="var(--text-color)"
+                      sx={{ fontWeight: "bold" }}
+                      id="previewPrice"
+                    >
+                      ${listing['price']}
+                    </Typography>
+                    <br />
+                    <Typography
+                      variant="h6"
+                      color="var(--text-color)"
+                      sx={{ fontWeight: "bold" }}
+                    >
+                      Details
+                    </Typography>
+                    <br />
+                    <Typography
+                      variant="h6"
+                      color="var(--text-color)"
+                      sx={{ fontWeight: "bold" }}
+                    >
+                      Author
+                      <Typography
+                        variant="body1"
+                        color="var(--text-color)"
+                        id="previewAuthor"
+                      >
+                        {listing['author']}
+                      </Typography>
+                    </Typography>
+                    <Typography
+                      variant="h6"
+                      color="var(--text-color)"
+                      sx={{ fontWeight: "bold" }}
+                    >
+                      ISBN
+                      <Typography
+                        variant="body1"
+                        color="var(--text-color)"
+                        id="previewISBN"
+                      >
+                        {listing['isbn']}
+                      </Typography>
+                    </Typography>
+                    <Typography
+                      variant="h6"
+                      color="var(--text-color)"
+                      sx={{ fontWeight: "bold" }}
+                    >
+                      Edition
+                      <Typography
+                        variant="body1"
+                        color="var(--text-color)"
+                        id="previewEdition"
+                      >
+                        {listing['edition']}
+                      </Typography>
+                    </Typography>
+                    <Typography
+                      variant="h6"
+                      color="var(--text-color)"
+                      sx={{ fontWeight: "bold" }}
+                    >
+                      Condition
+                      <Typography
+                        variant="body1"
+                        color="var(--text-color)"
+                        id="previewCondition"
+                      >
+                        {listing['condition']}
+                      </Typography>
+                    </Typography>
+                    <br />
+                    <Typography
+                      variant="h6"
+                      color="var(--text-color)"
+                      sx={{ fontWeight: "bold" }}
+                    >
+                      Description
+                      <Typography
+                        variant="body1"
+                        color="var(--text-color)"
+                        id="previewDescription"
+                      >
+                        {listing['description']}
+                      </Typography>
+                    </Typography>
+                    <br />
+                    <br />
+                  </CardContent>
+                  <Divider
+                    variant="middle"
+                    sx={{ borderBottomColor: "var(--text-color)" }}
+                  />
+                  <CardContent
+                    sx={{
+                      height: "25%",
+                      display: "flex",
+                      flexDirection: "column",
                     }}
                   >
-                    Message
-                  </Button>
+                    <Typography
+                      variant="body1"
+                      color="var(--text-color)"
+                      sx={{ fontWeight: "bold", fontSize: 18 }}
+                    >
+                      Seller Information
+                      <Button
+                        variant="outlined"
+                        size="small"
+                        disabled
+                        sx={{ float: "right" }}
+                      >
+                        Seller Details
+                      </Button>
+                    </Typography>
+                    <br />
+                    <Typography
+                      variant="body1"
+                      color="var(--text-color)"
+                      sx={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                      }}
+                      id="avatarName"
+                    >
+                      <Avatar
+                        sx={{ width: 40, height: 40 }}
+                        alt=""
+                        src=""
+                        id="avatarPic"
+                      />
+                      Jeff Wang
+                    </Typography>
+                  </CardContent>
+                  <Box
+                    sx={{
+                      height: "10%",
+                      backgroundColor: "var(--secondary-color)",
+                    }}
+                    className="innerBottomBox"
+                  >
+                    <Button
+                      variant="outlined"
+                      disabled
+                      sx={{
+                        width: "95%",
+                        backgroundColor: "var(--tertiary-color) !important",
+                      }}
+                    >
+                      Message
+                    </Button>
+                  </Box>
                 </Box>
               </Box>
             </Box>

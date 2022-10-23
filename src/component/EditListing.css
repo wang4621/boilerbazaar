@@ -1,0 +1,82 @@
+.editDisplay input {
+    font-size: 18px;
+    /* border: 2px solid rgb(202, 199, 199); */
+    color: var(--text-color);
+    background-color: var(--secondary-color);
+}
+
+.editDisplay label {
+    font-size: 18px;
+    color: var(--text-color);
+}
+
+.editDisplay .MuiTextField-root {
+    width: 85%
+}
+
+.editDisplay {
+    display: flex;
+    flex-direction: row;
+}
+
+.editDisplay .formDisplay {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: column;
+}
+
+.editDisplay .innerLeftBox {
+    border-radius: 10px 0px 0px 10px;
+    border:1px solid rgb(202, 199, 199);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.editDisplay .innerRightBox {
+    display: flex;
+    flex-direction: column;
+    border-radius: 0px 10px 10px 0px;
+    border:1px solid rgb(202, 199, 199);
+}
+
+.editDisplay .innerBottomBox {
+    /* box-shadow: 0 -1px 0 rgb(202, 199, 199); */
+    border-top: 1px solid rgb(202, 199, 199);
+    display: flex;
+    border-radius: 0px 0px 10px 0px;;
+    justify-content: center;
+    align-items: center;
+}
+
+.editDisplay .scrollBar::-webkit-scrollbar {
+    width: 10px;
+}
+
+.editDisplay .scrollBar::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: #c2c9d2;
+}
+
+.editDisplay .MuiFormHelperText-root {
+    margin-left: 0;
+    color: var(--text-color);
+}
+
+.editDisplay .MuiSelect-select {
+    color: var(--text-color);
+}
+
+.editDisplay .MuiInputBase-input {
+    color: var(--text-color);
+}
+
+.editDisplay .MuiButton-root {
+    color: var(--text-color) !important;
+    border-color: var(--text-color) !important;
+}
+
+.editDisplay .MuiInputBase-root {
+    background-color: var(--secondary-color);
+}
