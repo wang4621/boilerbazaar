@@ -180,17 +180,27 @@ function Sell () {
             if (submitedListing && event.target.value === '') {
                 setEditionError(true)
             }
-        } else if (event.target.id === 'course') {
-            if (event.target.value !== '') {
-                setCourseError(false);
-            }
-            if (submitedListing && event.target.value === '') {
-                setCourseError(true)
-            }
-            document.getElementById('previewCourse').innerText = event.target.value
         } else if (event.target.id === 'description') {
             setStringLength(event.target.value.length)
             document.getElementById('previewDescription').innerText = event.target.value
+        }
+    }
+
+    //Prevent spaces in course field
+    const handleCourse = event => {
+        var value = event.target.value
+        if (value === '') {
+            if (submitedListing) {
+                setCourseError(true)
+            }
+            event.target.value = ''
+            document.getElementById('previewCourse').innerText = 'Course'
+        } else if (value.includes(' ')) {
+            event.target.value = event.target.value.slice(0, -1)
+        } else {
+            event.target.value = value
+            setCourseError(false)
+            document.getElementById('previewCourse').innerText = value
         }
     }
 
@@ -206,7 +216,7 @@ function Sell () {
                     <TextField id="author" label="Author" required onChange={changeText} error={authorError} helperText={authorError ? 'Please add an author.' : ''}/>
                     <TextField id="isbn" label="ISBN" required onChange={changeText} error={isbnError} helperText={isbnError ? 'Please add an ISBN.' : ''} inputProps={{ maxLength: 13}}/>
                     <TextField id="edition" label="Edition" required onChange={changeText} error={editionError} helperText={editionError ? 'Please add an edition.' : ''} inputProps={{ maxLength: 2}}/>
-                    <TextField id="course" label="Course" required onChange={changeText} error={courseError} helperText={courseError ? 'Please add a course.' : ''} inputProps={{ maxLength: 10}}/>
+                    <TextField id="course" label="Course" required onChange={handleCourse} error={courseError} helperText={courseError ? 'Please add a course.' : ''} inputProps={{ maxLength: 10}}/>
                     <TextField id="condition" name="condition" label="Condition" select required value={condition} onChange={conditionChange} error={conditionError} helperText={conditionError ? 'Please select a condition' : ''}
                     sx={{backgroundColor: 'var(--secondary-color)'}}>
                             <MenuItem value="New">New</MenuItem>
