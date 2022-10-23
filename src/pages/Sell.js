@@ -177,20 +177,27 @@ function Sell() {
       setTitle(event.target.value)
     } else if (event.target.id === "price") {
       // console.log(event.target.value)
-      if (event.target.value === "") {
-        if (submittedListing) {
-          setPriceError(true);
-        }
-        // event.target.value = "";
-        // document.getElementById("previewPrice").innerText = "Price";
-      } else if (isNaN(event.target.value)) {
-        event.target.value = event.target.value.slice(0, -1);
-      } else {
-        // value = "$" + value;
-        // event.target.value = value;
+      // if (event.target.value === "") {
+      //   if (submittedListing) {
+      //     setPriceError(true);
+      //   }
+      //   event.target.value = "";
+      //   document.getElementById("previewPrice").innerText = "Price";
+      // } else if (isNaN(event.target.value)) {
+      //   event.target.value = event.target.value.slice(0, -1);
+      // } else {
+      //   value = "$" + value;
+      //   event.target.value = value;
+      //   setPriceError(false);
+      //   document.getElementById("previewPrice").innerText = value;
+      // }
+      if (!isNaN(event.target.value)) {
         setPriceError(false);
-        
-        // document.getElementById("previewPrice").innerText = value;
+      } else {
+        event.target.value = event.target.value.slice(0, -1);
+      }
+      if (submittedListing && event.target.value === "") {
+        setPriceError(true);
       }
       setPrice(event.target.value)
     } else if (event.target.id === "author") {
@@ -215,7 +222,6 @@ function Sell() {
       if (!isNaN(event.target.value)) {
         setEditionError(false);
         // document.getElementById("previewEdition").innerText = event.target.value;
-        
       } else {
         event.target.value = event.target.value.slice(0, -1);
       }
