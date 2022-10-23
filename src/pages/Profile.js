@@ -3,16 +3,23 @@ import * as React from 'react';
 import './Profile.css'
 import $ from 'jquery';
 
-function Profile() {
+const Profile = ({userData, setUserData}) => {
+    console.log(userData)
     const [isDisabled, setDisabled] = React.useState(true)
     const [value, setValue] = React.useState('Edit')
-    let profileData = JSON.parse(localStorage.getItem('userData'));
-    const firstName = profileData['firstName'];
-    const lastName = profileData['lastName'];
-    const puid = profileData['puid'];
-    const [preferredMeeting, setPreferredMeeting] = React.useState(profileData['preferredMeeting']);
-    const [preferredName, setPreferredName] = React.useState(profileData['preferredName']);
-    const [major, setMajor] = React.useState(profileData['major']);
+    // let profileData = JSON.parse(localStorage.getItem('userData'));
+    // const firstName = profileData['firstName'];
+    const firstName = userData['firstName'];
+    // const lastName = profileData['lastName'];
+    const lastName = userData['lastName'];
+    // const puid = profileData['puid'];
+    const puid = userData['puid']
+    // const [preferredMeeting, setPreferredMeeting] = React.useState(profileData['preferredMeeting']);
+    const [preferredMeeting, setPreferredMeeting] = React.useState(userData['preferredMeeting']);
+    // const [preferredName, setPreferredName] = React.useState(profileData['preferredName']);
+    const [preferredName, setPreferredName] = React.useState(userData['preferredName']);
+    // const [major, setMajor] = React.useState(profileData['major']);
+    const [major, setMajor] = React.useState(userData['major']);
 
     const preferredMeetingChange = event => {
         setPreferredMeeting(event.target.value);
@@ -40,9 +47,10 @@ function Profile() {
         } else if (value === "Save") {
             // save new values into local storage
             var jsonData = {"puid": puid, "preferredName": preferredName, "major": major, "preferredMeeting": preferredMeeting, "firstName": firstName, "lastName": lastName}
-            localStorage.setItem('userData', JSON.stringify(jsonData));
-            jsonData = "\""+JSON.stringify(profileData).replaceAll('"', '\\"')+"\""
-            console.log(profileData)
+            // localStorage.setItem('userData', JSON.stringify(jsonData));
+            setUserData(jsonData)
+            jsonData = "\""+JSON.stringify(jsonData).replaceAll('"', '\\"')+"\""
+            // console.log(profileData)
             $.ajax({
                 url: 'https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/profile',
                 type: 'PUT',

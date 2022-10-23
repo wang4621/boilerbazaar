@@ -22,7 +22,7 @@ import SettingsIcon from '@mui/icons-material/Settings';
 
 function App() {
     const [anchorEl, setAnchorEl] = React.useState(null);
-    // const [data, setData] = React.useState('');
+    const [userData, setUserData] = React.useState('');
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -69,7 +69,8 @@ function App() {
       url: 'https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/profile?puid=0031888129',
       type: 'GET',
       success: function (result) {
-        localStorage.setItem('userData', JSON.stringify(result))
+        // localStorage.setItem('userData', JSON.stringify(result))
+        setUserData(result);
         if (result.darkModePreference === 'dark') {
           setTheme('bodyDark');
           root.style.setProperty('--primary-color', "#1e252e");
@@ -84,7 +85,7 @@ function App() {
           root.style.setProperty('--tertiary-color', "#DFDFDF");
           root.style.setProperty('--text-color', "#000000");
         }
-          console.log(JSON.stringify(result));
+          // console.log(JSON.stringify(result));
       },
       error: function (result) {
           console.log(JSON.stringify(result));
@@ -190,7 +191,7 @@ function App() {
                 <Route path='/about' element={< About />}/>
                 <Route path='/map' element={< Map />}/>
                 <Route path='/settings' element={< Settings />}>
-                  <Route path='profile' element={< Profile />}/>
+                  <Route path='profile' element={< Profile userData={userData} setUserData={setUserData}/>}/>
                   <Route path='listings' element={< Listings />}/>
                 </Route>
             </Routes>

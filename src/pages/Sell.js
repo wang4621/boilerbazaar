@@ -44,7 +44,13 @@ function sendImages(imagesJson) {
 }
 
 function Sell() {
+  const [title, setTitle] = React.useState("");
+  const [price, setPrice] = React.useState("")
+  const [author, setAuthor] = React.useState("");
+  const [isbn, setISBN] = React.useState("");
+  const [edition, setEdition] = React.useState("");
   const [condition, setCondition] = React.useState("");
+  const [description, setDescription] = React.useState("");
   const limit = 250;
   const [getStringLength, setStringLength] = React.useState(0);
   const [titleError, setTitleError] = React.useState(false);
@@ -53,26 +59,26 @@ function Sell() {
   const [isbnError, setISBNError] = React.useState(false);
   const [editionError, setEditionError] = React.useState(false);
   const [conditionError, setConditionError] = React.useState(false);
-  const [submitedListing, setSubmittedListing] = React.useState(false);
+  const [submittedListing, setSubmittedListing] = React.useState(false);
 
   const conditionChange = (event) => {
     setCondition(event.target.value);
     if (event.target.value !== "") {
       setConditionError(false);
     }
-    document.getElementById("previewCondition").innerText = event.target.value;
+    // document.getElementById("previewCondition").innerText = event.target.value;
   };
 
   const listTextbook = (event) => {
     setSubmittedListing(true);
     var listingID = uuidv4().toString();
     var sellerID = "";
-    var title = document.getElementById("title").value;
-    var price = document.getElementById("price").value.substring(1);
-    var author = document.getElementById("author").value;
-    var isbn = document.getElementById("isbn").value;
-    var edition = document.getElementById("edition").value;
-    var description = document.getElementById("description").value;
+    // var title = document.getElementById("title").value;
+    // var price = document.getElementById("price").value.substring(1);
+    // var author = document.getElementById("author").value;
+    // var isbn = document.getElementById("isbn").value;
+    // var edition = document.getElementById("edition").value;
+    // var description = document.getElementById("description").value;
     var images = document.getElementById("images").files;
     var count = images.length;
     var missing = false;
@@ -135,69 +141,92 @@ function Sell() {
   };
 
   // adds dollar sign in front of price
-  const handleDollar = (event) => {
-    var value = event.target.value;
-    if (value.includes("$")) {
-      value = value.split("$")[1];
-    }
-    if (value === "") {
-      if (submitedListing) {
-        setPriceError(true);
-      }
-      event.target.value = "";
-      document.getElementById("previewPrice").innerText = "Price";
-    } else if (isNaN(value)) {
-      event.target.value = event.target.value.slice(0, -1);
-    } else {
-      value = "$" + value;
-      event.target.value = value;
-      setPriceError(false);
-      document.getElementById("previewPrice").innerText = value;
-    }
-  };
+  // const handleDollar = (event) => {
+  //   var value = event.target.value;
+  //   if (value.includes("$")) {
+  //     value = value.split("$")[1];
+  //   }
+  //   if (value === "") {
+  //     if (submittedListing) {
+  //       setPriceError(true);
+  //     }
+  //     event.target.value = "";
+  //     document.getElementById("previewPrice").innerText = "Price";
+  //   } else if (isNaN(value)) {
+  //     event.target.value = event.target.value.slice(0, -1);
+  //   } else {
+  //     value = "$" + value;
+  //     event.target.value = value;
+  //     setPriceError(false);
+  //     document.getElementById("previewPrice").innerText = value;
+  //   }
+  // };
 
   const changeText = (event) => {
     if (event.target.id === "title") {
-      if (event.target.value === "") {
-        if (submitedListing) {
+      if (event.target.value === "" && submittedListing) {
+        // if (submittedListing) {
           setTitleError(true);
-        }
-        document.getElementById("previewTitle").innerText = "Title";
-      } else {
-        setTitleError(false);
-        document.getElementById("previewTitle").innerText = event.target.value;
+        // }
+        // document.getElementById("previewTitle").innerText = "Title";
       }
+      if (event.target.value !== "") {
+        setTitleError(false);
+        // document.getElementById("previewTitle").innerText = event.target.value;
+      }
+      setTitle(event.target.value)
+    } else if (event.target.id === "price") {
+      // console.log(event.target.value)
+      if (event.target.value === "") {
+        if (submittedListing) {
+          setPriceError(true);
+        }
+        // event.target.value = "";
+        // document.getElementById("previewPrice").innerText = "Price";
+      } else if (isNaN(event.target.value)) {
+        event.target.value = event.target.value.slice(0, -1);
+      } else {
+        // value = "$" + value;
+        // event.target.value = value;
+        setPriceError(false);
+        
+        // document.getElementById("previewPrice").innerText = value;
+      }
+      setPrice(event.target.value)
     } else if (event.target.id === "author") {
       if (event.target.value !== "") {
         setAuthorError(false);
       }
-      if (submitedListing && event.target.value === "") {
+      if (submittedListing && event.target.value === "") {
         setAuthorError(true);
       }
-      document.getElementById("previewAuthor").innerText = event.target.value;
+      // document.getElementById("previewAuthor").innerText = event.target.value;
+      setAuthor(event.target.value)
     } else if (event.target.id === "isbn") {
       if (event.target.value !== "") {
         setISBNError(false);
       }
-      if (submitedListing && event.target.value === "") {
+      if (submittedListing && event.target.value === "") {
         setISBNError(true);
       }
-      document.getElementById("previewISBN").innerText = event.target.value;
+      // document.getElementById("previewISBN").innerText = event.target.value;
+      setISBN(event.target.value)
     } else if (event.target.id === "edition") {
       if (!isNaN(event.target.value)) {
         setEditionError(false);
-        document.getElementById("previewEdition").innerText =
-          event.target.value;
+        // document.getElementById("previewEdition").innerText = event.target.value;
+        
       } else {
         event.target.value = event.target.value.slice(0, -1);
       }
-      if (submitedListing && event.target.value === "") {
+      if (submittedListing && event.target.value === "") {
         setEditionError(true);
       }
+      setEdition(event.target.value)
     } else if (event.target.id === "description") {
       setStringLength(event.target.value.length);
-      document.getElementById("previewDescription").innerText =
-        event.target.value;
+      // document.getElementById("previewDescription").innerText = event.target.value;
+      setDescription(event.target.value)
     }
   };
 
@@ -247,10 +276,10 @@ function Sell() {
             id="price"
             label="Price"
             required
-            onChange={handleDollar}
+            onChange={changeText}
             error={priceError}
             helperText={priceError ? "Please add a price." : ""}
-            inputProps={{ maxLength: 4 }}
+            inputProps={{ maxLength: 3 }}
           />
           <TextField
             id="author"
@@ -385,17 +414,17 @@ function Sell() {
                     variant="h5"
                     color="var(--text-color)"
                     sx={{ fontWeight: "bold" }}
-                    id="previewTitle"
+                    // id="previewTitle"
                   >
-                    Title
+                    {title === '' ? 'Title' : title}
                   </Typography>
                   <Typography
                     variant="h6"
                     color="var(--text-color)"
                     sx={{ fontWeight: "bold" }}
-                    id="previewPrice"
+                    // id="previewPrice"
                   >
-                    Price
+                    {price ==='' ? 'Price' : '$' + price}
                   </Typography>
                   <br />
                   <Typography
@@ -415,8 +444,10 @@ function Sell() {
                     <Typography
                       variant="body1"
                       color="var(--text-color)"
-                      id="previewAuthor"
-                    />
+                      // id="previewAuthor"
+                    >
+                      {author}
+                    </Typography>
                   </Typography>
                   <Typography
                     variant="h6"
@@ -427,8 +458,10 @@ function Sell() {
                     <Typography
                       variant="body1"
                       color="var(--text-color)"
-                      id="previewISBN"
-                    />
+                      // id="previewISBN"
+                    >
+                      {isbn}
+                    </Typography>
                   </Typography>
                   <Typography
                     variant="h6"
@@ -439,8 +472,10 @@ function Sell() {
                     <Typography
                       variant="body1"
                       color="var(--text-color)"
-                      id="previewEdition"
-                    />
+                      // id="previewEdition"
+                    >
+                      {edition}
+                    </Typography>
                   </Typography>
                   <Typography
                     variant="h6"
@@ -451,8 +486,10 @@ function Sell() {
                     <Typography
                       variant="body1"
                       color="var(--text-color)"
-                      id="previewCondition"
-                    />
+                      // id="previewCondition"
+                    >
+                      {condition}
+                    </Typography>
                   </Typography>
                   <br />
                   <Typography
@@ -464,8 +501,10 @@ function Sell() {
                     <Typography
                       variant="body1"
                       color="var(--text-color)"
-                      id="previewDescription"
-                    />
+                      // id="previewDescription"
+                    >
+                      {description}
+                    </Typography>
                   </Typography>
                   <br />
                   <br />
