@@ -7,7 +7,7 @@ import {
   Typography,
   Button,
   TextField,
-  MenuItem
+  MenuItem,
 } from "@mui/material";
 import $ from "jquery";
 import * as React from "react";
@@ -45,7 +45,7 @@ function sendImages(imagesJson) {
 
 function Sell() {
   const [title, setTitle] = React.useState("");
-  const [price, setPrice] = React.useState("")
+  const [price, setPrice] = React.useState("");
   const [author, setAuthor] = React.useState("");
   const [isbn, setISBN] = React.useState("");
   const [edition, setEdition] = React.useState("");
@@ -166,7 +166,7 @@ function Sell() {
     if (event.target.id === "title") {
       if (event.target.value === "" && submittedListing) {
         // if (submittedListing) {
-          setTitleError(true);
+        setTitleError(true);
         // }
         // document.getElementById("previewTitle").innerText = "Title";
       }
@@ -174,7 +174,7 @@ function Sell() {
         setTitleError(false);
         // document.getElementById("previewTitle").innerText = event.target.value;
       }
-      setTitle(event.target.value)
+      setTitle(event.target.value);
     } else if (event.target.id === "price") {
       // console.log(event.target.value)
       // if (event.target.value === "") {
@@ -199,7 +199,7 @@ function Sell() {
       if (submittedListing && event.target.value === "") {
         setPriceError(true);
       }
-      setPrice(event.target.value)
+      setPrice(event.target.value);
     } else if (event.target.id === "author") {
       if (event.target.value !== "") {
         setAuthorError(false);
@@ -208,7 +208,7 @@ function Sell() {
         setAuthorError(true);
       }
       // document.getElementById("previewAuthor").innerText = event.target.value;
-      setAuthor(event.target.value)
+      setAuthor(event.target.value);
     } else if (event.target.id === "isbn") {
       if (event.target.value !== "") {
         setISBNError(false);
@@ -217,7 +217,7 @@ function Sell() {
         setISBNError(true);
       }
       // document.getElementById("previewISBN").innerText = event.target.value;
-      setISBN(event.target.value)
+      setISBN(event.target.value);
     } else if (event.target.id === "edition") {
       if (!isNaN(event.target.value)) {
         setEditionError(false);
@@ -228,11 +228,11 @@ function Sell() {
       if (submittedListing && event.target.value === "") {
         setEditionError(true);
       }
-      setEdition(event.target.value)
+      setEdition(event.target.value);
     } else if (event.target.id === "description") {
       setStringLength(event.target.value.length);
       // document.getElementById("previewDescription").innerText = event.target.value;
-      setDescription(event.target.value)
+      setDescription(event.target.value);
     }
   };
 
@@ -374,7 +374,16 @@ function Sell() {
               },
             }}
           />
-          <TextField id="list" type="submit" value="List" />
+          <TextField
+            id="list"
+            type="submit"
+            value="List"
+            sx={{
+              "& .MuiOutlinedInput-root:hover": {
+                "& > fieldset": { borderColor: "var(--text-color)" },
+              }
+            }}
+          />
         </Box>
       </Box>
       <Box
@@ -457,7 +466,7 @@ function Sell() {
                     sx={{ fontWeight: "bold" }}
                     // id="previewTitle"
                   >
-                    {title === '' ? 'Title' : title}
+                    {title === "" ? "Title" : title}
                   </Typography>
                   <Typography
                     variant="h6"
@@ -465,7 +474,7 @@ function Sell() {
                     sx={{ fontWeight: "bold" }}
                     // id="previewPrice"
                   >
-                    {price ==='' ? 'Price' : '$' + price}
+                    {price === "" ? "Price" : "$" + price}
                   </Typography>
                   <br />
                   <Typography

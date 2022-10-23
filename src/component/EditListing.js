@@ -47,13 +47,13 @@ const EditListing = ({
   const closeEdit = () => {
     setOpen(false);
   };
-  const [title, setTitle] = React.useState(listing['title']);
-  const [price, setPrice] = React.useState(listing['price']);
-  const [author, setAuthor] = React.useState(listing['author']);
-  const [isbn, setISBN] = React.useState(listing['isbn']);
-  const [edition, setEdition] = React.useState(listing['edition']);
-  const [condition, setCondition] = React.useState(listing['condition']);
-  const [description, setDescription] = React.useState(listing['description']);
+  const [title, setTitle] = React.useState(listing["title"]);
+  const [price, setPrice] = React.useState(listing["price"]);
+  const [author, setAuthor] = React.useState(listing["author"]);
+  const [isbn, setISBN] = React.useState(listing["isbn"]);
+  const [edition, setEdition] = React.useState(listing["edition"]);
+  const [condition, setCondition] = React.useState(listing["condition"]);
+  const [description, setDescription] = React.useState(listing["description"]);
   const limit = 250;
   const [getStringLength, setStringLength] = React.useState(0);
   const [titleError, setTitleError] = React.useState(false);
@@ -69,19 +69,12 @@ const EditListing = ({
     if (event.target.value !== "") {
       setConditionError(false);
     }
-    // document.getElementById("previewCondition").innerText = event.target.value;
   };
 
   const saveTextbook = (event) => {
     setSubmittedListing(true);
     var listingID = uuidv4().toString();
     var sellerID = "";
-    // var title = document.getElementById("title").value;
-    // var price = document.getElementById("price").value.substring(1);
-    // var author = document.getElementById("author").value;
-    // var isbn = document.getElementById("isbn").value;
-    // var edition = document.getElementById("edition").value;
-    // var description = document.getElementById("description").value;
     var images = document.getElementById("images").files;
     var count = images.length;
     var missing = false;
@@ -128,12 +121,13 @@ const EditListing = ({
       jsonData = '"' + JSON.stringify(jsonData).replaceAll('"', '\\"') + '"';
       $.ajax({
         url: "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/listing",
-        type: "PUT",
+        type: "POST",
         data: jsonData,
         datatype: "json",
         contentType: "application/json",
         success: function (result) {
           console.log(JSON.stringify(result));
+          setStateChange(!stateChange)
         },
         error: function (result) {
           console.log(JSON.stringify(result));
@@ -143,57 +137,16 @@ const EditListing = ({
     event.preventDefault();
   };
 
-  // adds dollar sign in front of price
-  // const handleDollar = (event) => {
-  //   var value = event.target.value;
-  //   if (value.includes("$")) {
-  //     value = value.split("$")[1];
-  //   }
-  //   if (value === "") {
-  //     if (submittedListing) {
-  //       setPriceError(true);
-  //     }
-  //     event.target.value = "";
-  //     document.getElementById("previewPrice").innerText = "Price";
-  //   } else if (isNaN(value)) {
-  //     event.target.value = event.target.value.slice(0, -1);
-  //   } else {
-  //     value = "$" + value;
-  //     event.target.value = value;
-  //     setPriceError(false);
-  //     document.getElementById("previewPrice").innerText = value;
-  //   }
-  // };
-
   const changeText = (event) => {
     if (event.target.id === "title") {
       if (event.target.value === "" && submittedListing) {
-        // if (submittedListing) {
         setTitleError(true);
-        // }
-        // document.getElementById("previewTitle").innerText = "Title";
       }
       if (event.target.value !== "") {
         setTitleError(false);
-        // document.getElementById("previewTitle").innerText = event.target.value;
       }
       setTitle(event.target.value);
     } else if (event.target.id === "price") {
-      // console.log(event.target.value)
-      // if (event.target.value === "") {
-      //   if (submittedListing) {
-      //     setPriceError(true);
-      //   }
-      //   event.target.value = "";
-      //   document.getElementById("previewPrice").innerText = "Price";
-      // } else if (isNaN(event.target.value)) {
-      //   event.target.value = event.target.value.slice(0, -1);
-      // } else {
-      //   value = "$" + value;
-      //   event.target.value = value;
-      //   setPriceError(false);
-      //   document.getElementById("previewPrice").innerText = value;
-      // }
       if (!isNaN(event.target.value)) {
         setPriceError(false);
       } else {
@@ -210,7 +163,6 @@ const EditListing = ({
       if (submittedListing && event.target.value === "") {
         setAuthorError(true);
       }
-      // document.getElementById("previewAuthor").innerText = event.target.value;
       setAuthor(event.target.value);
     } else if (event.target.id === "isbn") {
       if (event.target.value !== "") {
@@ -219,12 +171,10 @@ const EditListing = ({
       if (submittedListing && event.target.value === "") {
         setISBNError(true);
       }
-      // document.getElementById("previewISBN").innerText = event.target.value;
       setISBN(event.target.value);
     } else if (event.target.id === "edition") {
       if (!isNaN(event.target.value)) {
         setEditionError(false);
-        // document.getElementById("previewEdition").innerText = event.target.value;
       } else {
         event.target.value = event.target.value.slice(0, -1);
       }
@@ -234,7 +184,6 @@ const EditListing = ({
       setEdition(event.target.value);
     } else if (event.target.id === "description") {
       setStringLength(event.target.value.length);
-      // document.getElementById("previewDescription").innerText = event.target.value;
       setDescription(event.target.value);
     }
   };
@@ -260,7 +209,10 @@ const EditListing = ({
           </Typography>
         </Toolbar>
       </AppBar>
-      <Box sx={{ height: "92%", backgroundColor:'var(--background-color)' }} className="editDisplay">
+      <Box
+        sx={{ height: "92%", backgroundColor: "var(--background-color)" }}
+        className="editDisplay"
+      >
         <Box
           sx={{
             width: "28%",
@@ -273,7 +225,12 @@ const EditListing = ({
           {/* <CardHeader title="Textbooks for sale" sx={{textAlign: 'center', height: '7%'}}/> */}
           <Typography
             variant="h5"
-            sx={{ fontWeight: "bold", textAlign: "center", padding: "10px", color: 'var(--text-color)'}}
+            sx={{
+              fontWeight: "bold",
+              textAlign: "center",
+              padding: "10px",
+              color: "var(--text-color)",
+            }}
           >
             Textbook For Sale
           </Typography>
@@ -301,6 +258,11 @@ const EditListing = ({
               onChange={changeText}
               error={titleError}
               helperText={titleError ? "Please add a title." : ""}
+              sx={{
+                "& .MuiOutlinedInput-root:hover": {
+                  "& > fieldset": { borderColor: "var(--text-color)" },
+                },
+              }}
             />
             <TextField
               id="price"
@@ -311,6 +273,11 @@ const EditListing = ({
               error={priceError}
               helperText={priceError ? "Please add a price." : ""}
               inputProps={{ maxLength: 3 }}
+              sx={{
+                "& .MuiOutlinedInput-root:hover": {
+                  "& > fieldset": { borderColor: "var(--text-color)" },
+                },
+              }}
             />
             <TextField
               id="author"
@@ -320,6 +287,11 @@ const EditListing = ({
               onChange={changeText}
               error={authorError}
               helperText={authorError ? "Please add an author." : ""}
+              sx={{
+                "& .MuiOutlinedInput-root:hover": {
+                  "& > fieldset": { borderColor: "var(--text-color)" },
+                },
+              }}
             />
             <TextField
               id="isbn"
@@ -330,6 +302,11 @@ const EditListing = ({
               error={isbnError}
               helperText={isbnError ? "Please add an ISBN." : ""}
               inputProps={{ maxLength: 13 }}
+              sx={{
+                "& .MuiOutlinedInput-root:hover": {
+                  "& > fieldset": { borderColor: "var(--text-color)" },
+                },
+              }}
             />
             <TextField
               id="edition"
@@ -340,6 +317,11 @@ const EditListing = ({
               error={editionError}
               helperText={editionError ? "Please add an edition." : ""}
               inputProps={{ maxLength: 2 }}
+              sx={{
+                "& .MuiOutlinedInput-root:hover": {
+                  "& > fieldset": { borderColor: "var(--text-color)" },
+                },
+              }}
             />
             <TextField
               id="condition"
@@ -351,7 +333,11 @@ const EditListing = ({
               onChange={conditionChange}
               error={conditionError}
               helperText={conditionError ? "Please select a condition" : ""}
-              // sx={{ backgroundColor: "var(--secondary-color)" }}
+              sx={{
+                "& .MuiOutlinedInput-root:hover": {
+                  "& > fieldset": { borderColor: "var(--text-color)" },
+                },
+              }}
             >
               <MenuItem value="New">New</MenuItem>
               <MenuItem value="Used - Like New">Used - Like New</MenuItem>
@@ -366,8 +352,22 @@ const EditListing = ({
               onChange={changeText}
               inputProps={{ maxLength: limit }}
               helperText={`${getStringLength}/${limit}`}
+              sx={{
+                "& .MuiOutlinedInput-root:hover": {
+                  "& > fieldset": { borderColor: "var(--text-color)" },
+                },
+              }}
             />
-            <TextField id="list" type="submit" value="Save" />
+            <TextField
+              id="list"
+              type="submit"
+              value="Save"
+              sx={{
+                "& .MuiOutlinedInput-root:hover": {
+                  "& > fieldset": { borderColor: "var(--text-color)" },
+                }
+              }}
+            />
           </Box>
         </Box>
         <Box
@@ -392,7 +392,12 @@ const EditListing = ({
           >
             <Typography
               variant="h6"
-              sx={{ fontWeight: "bold", padding: "10px", marginLeft: "1.5%", color: 'var(--text-color)'}}
+              sx={{
+                fontWeight: "bold",
+                padding: "10px",
+                marginLeft: "1.5%",
+                color: "var(--text-color)",
+              }}
             >
               Preview
             </Typography>
