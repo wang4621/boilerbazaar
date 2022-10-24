@@ -10,7 +10,7 @@ import About from './pages/About'
 import Map from './pages/Map'
 import Listings from './pages/Listings'
 import Profile from './pages/Profile'
-import SingleListing from './pages/SingleListing';
+import BuyListing from './pages/BuyListing';
 import BuyMain from './pages/BuyMain';
 import { Avatar, Menu, MenuItem, IconButton, ListItemIcon } from '@mui/material';
 import Logout from '@mui/icons-material/Logout';
@@ -22,7 +22,7 @@ import SettingsIcon from '@mui/icons-material/Settings';
 
 function App() {
     const [anchorEl, setAnchorEl] = React.useState(null);
-    // const [data, setData] = React.useState('');
+    const [userData, setUserData] = React.useState('');
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -69,13 +69,15 @@ function App() {
       url: 'https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/profile?puid=0031888129',
       type: 'GET',
       success: function (result) {
-        localStorage.setItem('userData', JSON.stringify(result))
+        // localStorage.setItem('userData', JSON.stringify(result))
+        setUserData(result);
         if (result.darkModePreference === 'dark') {
           setTheme('bodyDark');
           root.style.setProperty('--primary-color', "#1e252e");
           root.style.setProperty('--secondary-color', "#323d4d");
           root.style.setProperty('--tertiary-color', "#161B22");
           root.style.setProperty('--text-color', "#FFFFFF");
+          root.style.setProperty('--background-color', '#000000')
         }
         else {
           setTheme('bodyLight');
@@ -83,8 +85,9 @@ function App() {
           root.style.setProperty('--secondary-color', "#f5f5f5");
           root.style.setProperty('--tertiary-color', "#DFDFDF");
           root.style.setProperty('--text-color', "#000000");
+          root.style.setProperty('--text-color', 'rgb(233, 233, 233)');
         }
-          console.log(JSON.stringify(result));
+          // console.log(JSON.stringify(result));
       },
       error: function (result) {
           console.log(JSON.stringify(result));
@@ -185,13 +188,14 @@ function App() {
                 <Route path='/buy' element={< Buy />}>
                   <Route path='' element={< BuyMain />}/>
                   <Route path='listing/:id' element={< SingleListing />}/>
+                  <Route path='listing' element={< BuyListing />}/>
                 </Route>
                 <Route path='/sell' element={< Sell />}/>
                 <Route path='/about' element={< About />}/>
                 <Route path='/map' element={< Map />}/>
                 <Route path='/settings' element={< Settings />}>
-                  <Route path='profile' element={< Profile />}/>
-                  {/* <Route path='listings' element={< Listings />}/> */}
+                  <Route path='profile' element={< Profile userData={userData} setUserData={setUserData}/>}/>
+                  <Route path='listings' element={< Listings />}/>
                 </Route>
             </Routes>
         </div>
