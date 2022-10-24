@@ -59,6 +59,7 @@ function Sell() {
   const [authorError, setAuthorError] = React.useState(false);
   const [isbnError, setISBNError] = React.useState(false);
   const [editionError, setEditionError] = React.useState(false);
+  const [courseError, setCourseError] = React.useState(false);
   const [conditionError, setConditionError] = React.useState(false);
   const [submittedListing, setSubmittedListing] = React.useState(false);
 
