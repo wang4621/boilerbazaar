@@ -119,6 +119,7 @@ const EditListing = ({
         description: description,
       };
       jsonData = '"' + JSON.stringify(jsonData).replaceAll('"', '\\"') + '"';
+      // TODO: Change ajax call and send the correct values
       $.ajax({
         url: "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/listing",
         type: "POST",
