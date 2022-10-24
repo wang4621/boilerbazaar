@@ -85,7 +85,7 @@ function App() {
           root.style.setProperty('--secondary-color', "#f5f5f5");
           root.style.setProperty('--tertiary-color', "#DFDFDF");
           root.style.setProperty('--text-color', "#000000");
-          root.style.setProperty('--text-color', 'rgb(233, 233, 233)');
+          root.style.setProperty('--background-color', 'rgb(233, 233, 233)');
         }
           // console.log(JSON.stringify(result));
       },
