@@ -6,9 +6,8 @@ import IconButton from '@mui/material/IconButton';
 function About (){
     return (
         <div>
-            <div  class="header">
+            <div class="header">
                 <h1>About Boiler Bazaar</h1>
-                <p>about</p>
             </div>
             <div class="horizontal">
                 <div class="vertical">
