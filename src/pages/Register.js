@@ -17,14 +17,42 @@ const Register = ({ open, setOpen }) => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [firstName, setFirstName] = useState("");
+  const [firstNameError, setFirstNameError] = useState(false);
   const [lastName, setLastName] = useState("");
+  const [lastNameError, setLastNameError] = useState(false);
   const [puid, setPUID] = useState("");
+  const [puidError, setPUIDError] = useState(false);
+  const [email, setEmail] = useState("");
+  const [emailError, setEmailError] = useState(false);
 
+  
+  const changeInput = event => {
+    if (event.target.id === 'puid') {
+      if (isNaN(event.target.value)) {
+        event.target.value = event.target.value.slice(0, -1);
+      }
+      if (event.target.value !== '') {
+        setPUIDError(false);
+      }
+    }
+  }
 
   const createAccount = () => {
     console.log(password);
     console.log(confirmPassword);
-    if (password != confirmPassword) {
+    if (firstName === '') {
+      setFirstNameError(true)
+    }
+    if (lastName === '') {
+      setLastNameError(true)
+    }
+    if (puid === '') {
+      setPUIDError(true)
+    }
+    if (email === '') {
+      setEmailError(true)
+    }
+    if (password !== confirmPassword || password === '' || confirmPassword === '') {
       setPasswordError(true)
     } else {
       setOpen(false);
@@ -49,38 +77,51 @@ const Register = ({ open, setOpen }) => {
           autoFocus
           margin="dense"
           label="First Name"
-          type="email"
           fullWidth
           required
-          // variant="standard"
+          inputProps={{ maxLength: 15 }}
+          error={firstNameError}
+          helperText={firstNameError ? 'Please enter a first name.' : ''}
+          onChange={e=>setFirstName(e.target.value)}
         />
         <TextField
           margin="dense"
           label="Last Name"
           fullWidth
           required
-          // variant="standard"
+          inputProps={{ maxLength: 15 }}
+          error={lastNameError}
+          helperText={lastNameError ? 'Please enter a last name.' : ''}
+          onChange={e=>setLastName(e.target.value)}
         />
         <TextField
           margin="dense"
           label="Purdue Email Address"
           type="email"
+          inputProps={{ maxLength: 15 }}
           fullWidth
           required
-          // variant="standard"
+          error={emailError}
+          helperText={emailError ? 'Please enter your Purdue email.' : ''}
+          id="email"
+          // onChange={changeInput}
         />
         <TextField
           margin="dense"
           label="PUID"
           fullWidth
           required
-          // variant="standard"
+          id="puid"
+          error={puidError}
+          helperText={puidError ? 'Please enter your PUID.' : ''}
           inputProps={{ maxLength: 10 }}
+          onChange={changeInput}
         />
         <TextField
           margin="dense"
           label="Password"
           type="password"
+          inputProps={{ maxLength: 20 }}
           fullWidth
           required
           // variant="standard"
@@ -93,6 +134,7 @@ const Register = ({ open, setOpen }) => {
           label="Confirm Password"
           type="password"
           fullWidth
+          inputProps={{ maxLength: 20 }}
           required
           error={passwordError}
           helperText={passwordError ? "Passwords do not match." : ""}
