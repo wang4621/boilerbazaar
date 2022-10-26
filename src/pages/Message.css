@@ -11,7 +11,10 @@
 .contact {
     display: flex;
     flex-direction: row;
-    width: 30%;
+}
+
+.contact:hover {
+    background-color: antiquewhite;
 }
 
 .contact img{
