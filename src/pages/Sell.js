@@ -43,7 +43,7 @@ function sendImages(imagesJson) {
   });
 }
 
-const Sell = ({userData}) => {
+const Sell = ({ userData }) => {
   const [title, setTitle] = React.useState("");
   const [price, setPrice] = React.useState("");
   const [author, setAuthor] = React.useState("");
@@ -74,13 +74,7 @@ const Sell = ({userData}) => {
   const listTextbook = (event) => {
     setSubmittedListing(true);
     var listingID = uuidv4().toString();
-    var sellerID = userData['puid'];
-    // var title = document.getElementById("title").value;
-    // var price = document.getElementById("price").value.substring(1);
-    // var author = document.getElementById("author").value;
-    // var isbn = document.getElementById("isbn").value;
-    // var edition = document.getElementById("edition").value;
-    // var description = document.getElementById("description").value;
+    var sellerID = userData["puid"];
     var images = document.getElementById("images").files;
     var count = images.length;
     var missing = false;
@@ -215,14 +209,14 @@ const Sell = ({userData}) => {
       setEdition(event.target.value);
     } else if (event.target.id === "course") {
       if (event.target.value === "" && submittedListing) {
-          setCourseError(true);
-      } 
+        setCourseError(true);
+      }
       if (event.target.value.includes(" ")) {
         event.target.value = event.target.value.slice(0, -1);
       } else {
         setCourseError(false);
       }
-      setCourse(event.target.value)
+      setCourse(event.target.value);
     } else if (event.target.id === "description") {
       setStringLength(event.target.value.length);
       // document.getElementById("previewDescription").innerText = event.target.value;
@@ -284,7 +278,9 @@ const Sell = ({userData}) => {
             onChange={changeText}
             error={priceError}
             helperText={priceError ? "Please add a price." : ""}
-            inputProps={{ maxLength: 3 }}
+            InputProps={{
+              maxLength: 3,
+            }}
             sx={{
               "& .MuiOutlinedInput-root:hover": {
                 "& > fieldset": { borderColor: "var(--text-color)" },
@@ -615,7 +611,7 @@ const Sell = ({userData}) => {
                       src=""
                       id="avatarPic"
                     />
-                    {userData['firstName']} {userData['lastName']}
+                    {userData["firstName"]} {userData["lastName"]}
                   </Typography>
                 </CardContent>
                 <Box
@@ -643,6 +639,6 @@ const Sell = ({userData}) => {
       </Box>
     </div>
   );
-}
+};
 
 export default Sell;

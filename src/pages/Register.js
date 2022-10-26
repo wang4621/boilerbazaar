@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Button,
   TextField,
@@ -13,10 +13,23 @@ import { useNavigate } from "react-router-dom";
 
 const Register = ({ open, setOpen }) => {
   const navigate = useNavigate();
+  const [passwordError, setPasswordError] = useState(false);
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [puid, setPUID] = useState("");
+
 
   const createAccount = () => {
-    setOpen(false);
-    navigate("/home");
+    console.log(password);
+    console.log(confirmPassword);
+    if (password != confirmPassword) {
+      setPasswordError(true)
+    } else {
+      setOpen(false);
+      navigate("/home");
+    }
   };
 
   const handleClose = () => {
@@ -32,32 +45,36 @@ const Register = ({ open, setOpen }) => {
         </IconButton>
       </DialogTitle>
       <DialogContent>
-      <TextField
+        <TextField
           autoFocus
           margin="dense"
           label="First Name"
           type="email"
           fullWidth
-          variant="standard"
+          required
+          // variant="standard"
         />
         <TextField
           margin="dense"
           label="Last Name"
           fullWidth
-          variant="standard"
+          required
+          // variant="standard"
         />
         <TextField
           margin="dense"
           label="Purdue Email Address"
           type="email"
           fullWidth
-          variant="standard"
+          required
+          // variant="standard"
         />
         <TextField
           margin="dense"
           label="PUID"
           fullWidth
-          variant="standard"
+          required
+          // variant="standard"
           inputProps={{ maxLength: 10 }}
         />
         <TextField
@@ -65,20 +82,30 @@ const Register = ({ open, setOpen }) => {
           label="Password"
           type="password"
           fullWidth
-          variant="standard"
+          required
+          // variant="standard"
+          error={passwordError}
+          helperText={passwordError ? "Passwords do not match." : ""}
+          onChange={e=>setPassword(e.target.value)}
         />
         <TextField
           margin="dense"
           label="Confirm Password"
           type="password"
           fullWidth
-          variant="standard"
+          required
+          error={passwordError}
+          helperText={passwordError ? "Passwords do not match." : ""}
+          onChange={e=>setConfirmPassword(e.target.value)}
+          // variant="standard"
         />
       </DialogContent>
       <DialogActions sx={{ justifyContent: "center" }}>
         <Button
+          variant="contained"
           onClick={createAccount}
-          sx={{ backgroundColor: "green", color: "white" }}
+          color="success"
+          // sx={{ backgroundColor: "green", color: "white" }}
         >
           Create New Account
         </Button>
