@@ -26,3 +26,8 @@
   color: rgb(255, 255, 255);
   margin: 0;
 }
+
+.appDisplay .MuiFormHelperText-root {
+  margin-left: 0;
+  color: var(--text-color);
+}
