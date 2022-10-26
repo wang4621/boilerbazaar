@@ -98,6 +98,10 @@ const Sell = ({ userData }) => {
       setEditionError(true);
       missing = true;
     }
+    if (course === "") {
+      setCourseError(true);
+      missing = true;
+    }
     if (condition === "") {
       setConditionError(true);
       missing = true;
@@ -136,24 +140,6 @@ const Sell = ({ userData }) => {
     }
     event.preventDefault();
   };
-
-  // //Prevent spaces in course field
-  // const handleCourse = (event) => {
-  //   var value = event.target.value;
-  //   if (event.target.value === "") {
-  //     if (submittedListing) {
-  //       setCourseError(true);
-  //     }
-  //     event.target.value = "";
-  //     document.getElementById("previewCourse").innerText = "Course";
-  //   } else if (value.includes(" ")) {
-  //     event.target.value = event.target.value.slice(0, -1);
-  //   } else {
-  //     event.target.value = value;
-  //     setCourseError(false);
-  //     document.getElementById("previewCourse").innerText = value;
-  //   }
-  // };
 
   const changeText = (event) => {
     if (event.target.id === "title") {
@@ -247,6 +233,9 @@ const Sell = ({ userData }) => {
             "& > :not(style)": { m: 1 },
             height: "93%",
             overflowY: "scroll",
+            "& .MuiOutlinedInput-root:hover": {
+              "& > fieldset": { borderColor: "var(--text-color)" },
+            },
           }}
           component="form"
           noValidate
@@ -265,11 +254,11 @@ const Sell = ({ userData }) => {
             onChange={changeText}
             error={titleError}
             helperText={titleError ? "Please add a title." : ""}
-            sx={{
-              "& .MuiOutlinedInput-root:hover": {
-                "& > fieldset": { borderColor: "var(--text-color)" },
-              },
-            }}
+            // sx={{
+            //   "& .MuiOutlinedInput-root:hover": {
+            //     "& > fieldset": { borderColor: "var(--text-color)" },
+            //   },
+            // }}
           />
           <TextField
             id="price"
@@ -281,11 +270,11 @@ const Sell = ({ userData }) => {
             InputProps={{
               maxLength: 3,
             }}
-            sx={{
-              "& .MuiOutlinedInput-root:hover": {
-                "& > fieldset": { borderColor: "var(--text-color)" },
-              },
-            }}
+            // sx={{
+            //   "& .MuiOutlinedInput-root:hover": {
+            //     "& > fieldset": { borderColor: "var(--text-color)" },
+            //   },
+            // }}
           />
           <TextField
             id="author"
@@ -294,11 +283,11 @@ const Sell = ({ userData }) => {
             onChange={changeText}
             error={authorError}
             helperText={authorError ? "Please add an author." : ""}
-            sx={{
-              "& .MuiOutlinedInput-root:hover": {
-                "& > fieldset": { borderColor: "var(--text-color)" },
-              },
-            }}
+            // sx={{
+            //   "& .MuiOutlinedInput-root:hover": {
+            //     "& > fieldset": { borderColor: "var(--text-color)" },
+            //   },
+            // }}
           />
           <TextField
             id="isbn"
@@ -308,11 +297,11 @@ const Sell = ({ userData }) => {
             error={isbnError}
             helperText={isbnError ? "Please add an ISBN." : ""}
             inputProps={{ maxLength: 13 }}
-            sx={{
-              "& .MuiOutlinedInput-root:hover": {
-                "& > fieldset": { borderColor: "var(--text-color)" },
-              },
-            }}
+            // sx={{
+            //   "& .MuiOutlinedInput-root:hover": {
+            //     "& > fieldset": { borderColor: "var(--text-color)" },
+            //   },
+            // }}
           />
           <TextField
             id="edition"
@@ -322,11 +311,11 @@ const Sell = ({ userData }) => {
             error={editionError}
             helperText={editionError ? "Please add an edition." : ""}
             inputProps={{ maxLength: 2 }}
-            sx={{
-              "& .MuiOutlinedInput-root:hover": {
-                "& > fieldset": { borderColor: "var(--text-color)" },
-              },
-            }}
+            // sx={{
+            //   "& .MuiOutlinedInput-root:hover": {
+            //     "& > fieldset": { borderColor: "var(--text-color)" },
+            //   },
+            // }}
           />
           <TextField
             id="course"
@@ -347,11 +336,11 @@ const Sell = ({ userData }) => {
             onChange={conditionChange}
             error={conditionError}
             helperText={conditionError ? "Please select a condition" : ""}
-            sx={{
-              "& .MuiOutlinedInput-root:hover": {
-                "& > fieldset": { borderColor: "var(--text-color)" },
-              },
-            }}
+            // sx={{
+            //   "& .MuiOutlinedInput-root:hover": {
+            //     "& > fieldset": { borderColor: "var(--text-color)" },
+            //   },
+            // }}
             // sx={{ backgroundColor: "var(--secondary-color)" }}
           >
             <MenuItem value="New">New</MenuItem>
@@ -367,21 +356,21 @@ const Sell = ({ userData }) => {
             onChange={changeText}
             inputProps={{ maxLength: limit }}
             helperText={`${getStringLength}/${limit}`}
-            sx={{
-              "& .MuiOutlinedInput-root:hover": {
-                "& > fieldset": { borderColor: "var(--text-color)" },
-              },
-            }}
+            // sx={{
+            //   "& .MuiOutlinedInput-root:hover": {
+            //     "& > fieldset": { borderColor: "var(--text-color)" },
+            //   },
+            // }}
           />
           <TextField
             id="list"
             type="submit"
             value="List"
-            sx={{
-              "& .MuiOutlinedInput-root:hover": {
-                "& > fieldset": { borderColor: "var(--text-color)" },
-              },
-            }}
+            // sx={{
+            //   "& .MuiOutlinedInput-root:hover": {
+            //     "& > fieldset": { borderColor: "var(--text-color)" },
+            //   },
+            // }}
           />
         </Box>
       </Box>

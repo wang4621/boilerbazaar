@@ -7,9 +7,11 @@ import {
   DialogContent,
   DialogTitle,
   IconButton,
+  InputAdornment
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { useNavigate } from "react-router-dom";
+import WarningIcon from '@mui/icons-material/Warning';
 
 const Register = ({ open, setOpen }) => {
   const navigate = useNavigate();
@@ -25,35 +27,38 @@ const Register = ({ open, setOpen }) => {
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState(false);
 
-  
-  const changeInput = event => {
-    if (event.target.id === 'puid') {
+  const changeInput = (event) => {
+    if (event.target.id === "puid") {
       if (isNaN(event.target.value)) {
         event.target.value = event.target.value.slice(0, -1);
       }
-      if (event.target.value !== '') {
+      if (event.target.value !== "") {
         setPUIDError(false);
       }
     }
-  }
+  };
 
   const createAccount = () => {
     console.log(password);
     console.log(confirmPassword);
-    if (firstName === '') {
-      setFirstNameError(true)
+    if (firstName === "") {
+      setFirstNameError(true);
     }
-    if (lastName === '') {
-      setLastNameError(true)
+    if (lastName === "") {
+      setLastNameError(true);
     }
-    if (puid === '') {
-      setPUIDError(true)
+    if (puid === "") {
+      setPUIDError(true);
     }
-    if (email === '') {
-      setEmailError(true)
+    if (email === "") {
+      setEmailError(true);
     }
-    if (password !== confirmPassword || password === '' || confirmPassword === '') {
-      setPasswordError(true)
+    if (
+      password !== confirmPassword ||
+      password === "" ||
+      confirmPassword === ""
+    ) {
+      setPasswordError(true);
     } else {
       setOpen(false);
       navigate("/home");
@@ -72,7 +77,12 @@ const Register = ({ open, setOpen }) => {
           <CloseIcon />
         </IconButton>
       </DialogTitle>
-      <DialogContent>
+      <DialogContent sx={{
+            "& .MuiFormHelperText-root": {
+              marginLeft:0,
+            },
+          }}
+          >
         <TextField
           autoFocus
           margin="dense"
@@ -80,9 +90,10 @@ const Register = ({ open, setOpen }) => {
           fullWidth
           required
           inputProps={{ maxLength: 15 }}
+          InputProps={{ endAdornment: <InputAdornment position="end">{passwordError ? <WarningIcon sx={{color:'red'}}/> : ''}</InputAdornment> }}
           error={firstNameError}
-          helperText={firstNameError ? 'Please enter a first name.' : ''}
-          onChange={e=>setFirstName(e.target.value)}
+          helperText={firstNameError ? "Please enter a first name." : ""}
+          onChange={(e) => setFirstName(e.target.value)}
         />
         <TextField
           margin="dense"
@@ -90,19 +101,20 @@ const Register = ({ open, setOpen }) => {
           fullWidth
           required
           inputProps={{ maxLength: 15 }}
+          InputProps={{ endAdornment: <InputAdornment position="end">{passwordError ? <WarningIcon sx={{color:'red'}}/> : ''}</InputAdornment> }}
           error={lastNameError}
-          helperText={lastNameError ? 'Please enter a last name.' : ''}
-          onChange={e=>setLastName(e.target.value)}
+          helperText={lastNameError ? "Please enter a last name." : ""}
+          onChange={(e) => setLastName(e.target.value)}
         />
         <TextField
           margin="dense"
           label="Purdue Email Address"
           type="email"
-          inputProps={{ maxLength: 15 }}
           fullWidth
           required
           error={emailError}
-          helperText={emailError ? 'Please enter your Purdue email.' : ''}
+          helperText={emailError ? "Please enter your Purdue email." : ""}
+          InputProps={{ endAdornment: <InputAdornment position="end">{passwordError ? <WarningIcon sx={{color:'red'}}/> : ''}</InputAdornment> }}
           id="email"
           // onChange={changeInput}
         />
@@ -113,33 +125,34 @@ const Register = ({ open, setOpen }) => {
           required
           id="puid"
           error={puidError}
-          helperText={puidError ? 'Please enter your PUID.' : ''}
+          helperText={puidError ? "Please enter your PUID." : ""}
           inputProps={{ maxLength: 10 }}
+          InputProps={{ endAdornment: <InputAdornment position="end">{passwordError ? <WarningIcon sx={{color:'red'}}/> : ''}</InputAdornment> }}
           onChange={changeInput}
         />
         <TextField
           margin="dense"
           label="Password"
           type="password"
-          inputProps={{ maxLength: 20 }}
+          inputProps={{ maxLength: 30 }}
+          InputProps={{ endAdornment: <InputAdornment position="end">{passwordError ? <WarningIcon sx={{color:'red'}}/> : ''}</InputAdornment> }}
           fullWidth
           required
-          // variant="standard"
           error={passwordError}
           helperText={passwordError ? "Passwords do not match." : ""}
-          onChange={e=>setPassword(e.target.value)}
+          onChange={(e) => setPassword(e.target.value)}
         />
         <TextField
           margin="dense"
           label="Confirm Password"
           type="password"
           fullWidth
-          inputProps={{ maxLength: 20 }}
+          inputProps={{maxLength: 30}}
+          InputProps={{ endAdornment: <InputAdornment position="end">{passwordError ? <WarningIcon sx={{color:'red'}}/> : ''}</InputAdornment> }}
           required
           error={passwordError}
           helperText={passwordError ? "Passwords do not match." : ""}
-          onChange={e=>setConfirmPassword(e.target.value)}
-          // variant="standard"
+          onChange={(e) => setConfirmPassword(e.target.value)}
         />
       </DialogContent>
       <DialogActions sx={{ justifyContent: "center" }}>
