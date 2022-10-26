@@ -10,6 +10,7 @@ import About from './pages/About'
 import Map from './pages/Map'
 import Listings from './pages/Listings'
 import Profile from './pages/Profile'
+import Watchlist from './pages/Watchlist'
 import BuyListing from './pages/BuyListing';
 import BuyMain from './pages/BuyMain';
 import { Avatar, Menu, MenuItem, IconButton, ListItemIcon } from '@mui/material';
@@ -196,6 +197,7 @@ function App() {
                 <Route path='/settings' element={< Settings />}>
                   <Route path='profile' element={< Profile userData={userData} setUserData={setUserData}/>}/>
                   <Route path='listings' element={< Listings />}/>
+                  <Route path='watchlist' element={< Watchlist />}/>
                 </Route>
             </Routes>
         </div>
