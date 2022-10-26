@@ -27,9 +27,9 @@ const Profile = ({ userData, setUserData }) => {
     userData["preferredMeeting"]
   );
   // const [preferredName, setPreferredName] = React.useState(profileData['preferredName']);
-  const [preferredName, setPreferredName] = React.useState(
-    userData["preferredName"]
-  );
+  // const [preferredName, setPreferredName] = React.useState(
+  //   userData["preferredName"]
+  // );
   // const [major, setMajor] = React.useState(profileData['major']);
   const [major, setMajor] = React.useState(userData["major"]);
 
@@ -41,16 +41,16 @@ const Profile = ({ userData, setUserData }) => {
     setMajor(event.target.value);
   };
 
-  const preferredNameChange = (event) => {
-    setPreferredName(event.target.value);
-  };
+  // const preferredNameChange = (event) => {
+  //   setPreferredName(event.target.value);
+  // };
 
-  let name;
-  if (preferredName === "") {
-    name = firstName + " " + lastName;
-  } else {
-    name = preferredName + " " + lastName;
-  }
+  // let name;
+  // if (preferredName === "") {
+  //   name = firstName + " " + lastName;
+  // } else {
+  //   name = preferredName + " " + lastName;
+  // }
 
   const editOrSaveProfile = (event) => {
     setDisabled(!isDisabled);
@@ -60,7 +60,7 @@ const Profile = ({ userData, setUserData }) => {
       // save new values into local storage
       var jsonData = {
         puid: puid,
-        preferredName: preferredName,
+        // preferredName: preferredName,
         major: major,
         preferredMeeting: preferredMeeting,
         firstName: firstName,
@@ -128,7 +128,7 @@ const Profile = ({ userData, setUserData }) => {
             disabled
             value={firstName}
           />
-          <TextField
+          {/* <TextField
             id="preferredName"
             label="Preferred Name"
             disabled={isDisabled}
@@ -140,7 +140,7 @@ const Profile = ({ userData, setUserData }) => {
               },
             }}
             inputProps={{ maxLength: 30 }}
-          />
+          /> */}
           <TextField
             id="lastName"
             label="Last Name"
@@ -196,7 +196,7 @@ const Profile = ({ userData, setUserData }) => {
           color="var(--text-color)"
           sx={{ textAlign: "center" }}
         >
-          {name}
+          {firstName} {lastName}
         </Typography>
         <br />
         <Typography variant="h6" color="var(--text-color)">

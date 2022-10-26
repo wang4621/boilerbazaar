@@ -32,8 +32,21 @@ const Register = ({ open, setOpen }) => {
         </IconButton>
       </DialogTitle>
       <DialogContent>
-        <TextField
+      <TextField
           autoFocus
+          margin="dense"
+          label="First Name"
+          type="email"
+          fullWidth
+          variant="standard"
+        />
+        <TextField
+          margin="dense"
+          label="Last Name"
+          fullWidth
+          variant="standard"
+        />
+        <TextField
           margin="dense"
           label="Purdue Email Address"
           type="email"

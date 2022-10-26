@@ -189,12 +189,12 @@ const MainPage = () => {
                   {/* <Route path='listing/:id' element={< SingleListing />}/> */}
                   <Route path='listing' element={< BuyListing />}/>
                 </Route>
-                <Route path='/sell' element={< Sell />}/>
+                <Route path='/sell' element={< Sell userData={userData}/>}/>
                 <Route path='/about' element={< About />}/>
                 <Route path='/map' element={< Map />}/>
                 <Route path='/settings' element={< Settings />}>
                   <Route path='profile' element={< Profile userData={userData} setUserData={setUserData}/>}/>
-                  <Route path='listings' element={< Listings />}/>
+                  <Route path='listings' element={< Listings userData={userData}/>}/>
                 </Route>
             </Routes>
       </div>

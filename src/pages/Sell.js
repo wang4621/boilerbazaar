@@ -43,7 +43,7 @@ function sendImages(imagesJson) {
   });
 }
 
-function Sell() {
+const Sell = ({userData}) => {
   const [title, setTitle] = React.useState("");
   const [price, setPrice] = React.useState("");
   const [author, setAuthor] = React.useState("");
@@ -74,7 +74,7 @@ function Sell() {
   const listTextbook = (event) => {
     setSubmittedListing(true);
     var listingID = uuidv4().toString();
-    var sellerID = "";
+    var sellerID = userData['puid'];
     // var title = document.getElementById("title").value;
     // var price = document.getElementById("price").value.substring(1);
     // var author = document.getElementById("author").value;
@@ -615,7 +615,7 @@ function Sell() {
                       src=""
                       id="avatarPic"
                     />
-                    Jeff Wang
+                    {userData['firstName']} {userData['lastName']}
                   </Typography>
                 </CardContent>
                 <Box

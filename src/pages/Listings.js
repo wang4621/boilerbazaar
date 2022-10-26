@@ -8,7 +8,7 @@ import React, { useEffect, useState } from "react";
 import $ from "jquery";
 import ListingBox from "../component/ListingBox.js";
 
-function Listings() {
+const Listings = ({userData}) => {
 //   const [listedTextbooks, setListedTextbooks] = useState(<CircularProgress />);
     const [listedTextbooks, setListedTextbooks] = useState([]);
     const [stateChange, setStateChange] = useState(false);
@@ -65,7 +65,7 @@ function Listings() {
         {loading ? <CircularProgress/> : 
         listedTextbooks.length > 0 ? (
           listedTextbooks.map((textbook) => {
-            return <ListingBox listing={textbook} stateChange={stateChange} setStateChange={setStateChange}/>;
+            return <ListingBox listing={textbook} stateChange={stateChange} setStateChange={setStateChange} userData={userData}/>;
           })
         ) : (
           <Typography variant="h6" sx={{ padding: "10px" }}>
