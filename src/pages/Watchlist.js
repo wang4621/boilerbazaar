@@ -7,6 +7,7 @@ import {
 import React, { useEffect, useState } from "react";
 import $ from "jquery";
 import './Watchlist.css'
+import ListingBox from "../component/ListingBox";
 
 function Watchlist() {
     const [watchlistListings, setWatchlistListings] = useState([]);
@@ -19,12 +20,12 @@ function Watchlist() {
         setLoading(true);
         $.ajax({
           url:
-            "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/profile?puid=" +
+            "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/watchlist?puid=" +
             JSON.parse(localStorage.getItem("userData"))["puid"],
           type: "GET",
           success: function (result) {
             setLoading(false);
-            setWatchlistListings(result.watchlist);
+            setWatchlistListings(result);
           },
           error: function (result) {
             console.log(JSON.stringify(result));
@@ -52,11 +53,26 @@ function Watchlist() {
                     variant="middle"
                     sx={{ borderBottomColor: "var(--text-color)" }}
                 />
-                {loading ? <CircularProgress/> : 
+            </Box>
+            <Box
+              sx={{
+                height: "94%",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                overflow: "scroll",
+              }}
+            >
+                {loading ? <CircularProgress/> :
+                watchlistListings.length > 0 ? (
+                  watchlistListings.map((listing) => {
+                    return <ListingBox listing={listing} stateChange={stateChange} setStateChange={setStateChange}/>;
+                  })
+                ) : ( 
                 <Typography variant="h6" sx={{ padding: "10px" }}>
                     No Listings in Watchlist
                 </Typography>
-                }
+                )}
             </Box>
         </Box>
       );
