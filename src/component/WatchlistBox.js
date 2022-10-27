@@ -1,7 +1,10 @@
 import React from "react";
 import { Box, Typography, Button } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
+import ArrowUpwardRoundedIcon from '@mui/icons-material/ArrowUpwardRounded';
+import ArrowDownwardRoundedIcon from '@mui/icons-material/ArrowDownwardRounded';
 import DeleteWatchlist from "./DeleteWatchlist";
+import { useEffect, useState } from "react";
 
 const WatchlistBox = ({ listing, stateChange, setStateChange }) => {
   let listingSold = listing["sold"];
@@ -12,6 +15,15 @@ const WatchlistBox = ({ listing, stateChange, setStateChange }) => {
   const openDelete = () => {
     setDeleteOpen(true);
   };
+
+  useEffect(() => {
+    if (Number(listing["price"]) > Number(listing["previousPrice"])) {
+
+    }
+    else if (Number(listing["price"]) < Number(listing["previousPrice"])) {
+
+    }
+  });
 
   return (
     <Box
@@ -66,7 +78,12 @@ const WatchlistBox = ({ listing, stateChange, setStateChange }) => {
             <Typography variant="body1" sx={{ fontWeight: "bold" }}>
               {listing["title"]}
             </Typography>
-            <Typography variant="body1">${listing["price"]}</Typography>
+            <div sx={{
+              display: "flex",
+              flexDirection: "row",
+            }} id="priceDiv">
+              <Typography variant="body1" sx={{ display: "inline-block", pr: "10px"}}>Current Price: ${listing["price"]}</Typography>
+            </div>
             <Typography variant="body2">Previous Price: ${listing["previousPrice"]}</Typography>
             <Typography variant="body2">0 clicks on listing</Typography>
             <Typography variant="body2">
