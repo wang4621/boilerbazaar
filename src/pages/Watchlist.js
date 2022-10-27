@@ -6,8 +6,7 @@ import {
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import $ from "jquery";
-import './Watchlist.css'
-import ListingBox from "../component/ListingBox";
+import WatchlistBox from "../component/WatchlistBox.js";
 
 function Watchlist() {
     const [watchlistListings, setWatchlistListings] = useState([]);
@@ -66,7 +65,7 @@ function Watchlist() {
                 {loading ? <CircularProgress/> :
                 watchlistListings.length > 0 ? (
                   watchlistListings.map((listing) => {
-                    return <ListingBox listing={listing} stateChange={stateChange} setStateChange={setStateChange}/>;
+                    return <WatchlistBox listing={listing} stateChange={stateChange} setStateChange={setStateChange}/>;
                   })
                 ) : ( 
                 <Typography variant="h6" sx={{ padding: "10px" }}>
