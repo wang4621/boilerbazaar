@@ -20,6 +20,7 @@ const WatchlistBox = ({ listing, stateChange, setStateChange }) => {
       sx={{
         width: "80%",
         height: "20%",
+        minHeight: "130px",
         display: "flex",
         flexDirection: "row",
         justifyContent: "center",
@@ -66,6 +67,7 @@ const WatchlistBox = ({ listing, stateChange, setStateChange }) => {
               {listing["title"]}
             </Typography>
             <Typography variant="body1">${listing["price"]}</Typography>
+            <Typography variant="body2">Original Price: ${listing["originalPrice"]}</Typography>
             <Typography variant="body2">0 clicks on listing</Typography>
             <Typography variant="body2">
               Listed on {listing["timeListed"]}
@@ -77,7 +79,7 @@ const WatchlistBox = ({ listing, stateChange, setStateChange }) => {
               width: "100%",
               display: "flex",
               flexDirection: "row",
-              justifyContent: "space-between",
+              justifyContent: "right",
             }}
           >
             <Button

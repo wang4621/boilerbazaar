@@ -46,7 +46,7 @@ const DeleteWatchlist = ({
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
     >
-      <DialogTitle id="alert-dialog-title">{"Delete Listing?"}</DialogTitle>
+      <DialogTitle id="alert-dialog-title">{"Remove From Watchlist?"}</DialogTitle>
       <DialogContent>
         <DialogContentText id="alert-dialog-description">
           Are you sure you would like to remove this listing from your watchlist?
