@@ -59,6 +59,10 @@
     background: #c2c9d2;
 }
 
+.sellDisplay .MuiTypography-root {
+    color: var(--text-color);
+}
+
 /* .sellDisplay .MuiFormHelperText-root {
     margin-left: 0;
     color: var(--text-color);

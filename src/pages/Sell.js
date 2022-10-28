@@ -8,10 +8,12 @@ import {
   Button,
   TextField,
   MenuItem,
+  InputAdornment,
 } from "@mui/material";
 import $ from "jquery";
 import * as React from "react";
 import { v4 as uuidv4 } from "uuid";
+import WarningIcon from "@mui/icons-material/Warning";
 
 function getBase64(file, i, imagesJson, final) {
   var reader = new FileReader();
@@ -254,11 +256,13 @@ const Sell = ({ userData }) => {
             onChange={changeText}
             error={titleError}
             helperText={titleError ? "Please add a title." : ""}
-            // sx={{
-            //   "& .MuiOutlinedInput-root:hover": {
-            //     "& > fieldset": { borderColor: "var(--text-color)" },
-            //   },
-            // }}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  {titleError ? <WarningIcon sx={{ color: "red" }} /> : ""}
+                </InputAdornment>
+              ),
+            }}
           />
           <TextField
             id="price"
@@ -267,14 +271,16 @@ const Sell = ({ userData }) => {
             onChange={changeText}
             error={priceError}
             helperText={priceError ? "Please add a price." : ""}
-            InputProps={{
+            inputProps={{
               maxLength: 3,
             }}
-            // sx={{
-            //   "& .MuiOutlinedInput-root:hover": {
-            //     "& > fieldset": { borderColor: "var(--text-color)" },
-            //   },
-            // }}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  {priceError ? <WarningIcon sx={{ color: "red" }} /> : ""}
+                </InputAdornment>
+              ),
+            }}
           />
           <TextField
             id="author"
@@ -283,11 +289,13 @@ const Sell = ({ userData }) => {
             onChange={changeText}
             error={authorError}
             helperText={authorError ? "Please add an author." : ""}
-            // sx={{
-            //   "& .MuiOutlinedInput-root:hover": {
-            //     "& > fieldset": { borderColor: "var(--text-color)" },
-            //   },
-            // }}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  {authorError ? <WarningIcon sx={{ color: "red" }} /> : ""}
+                </InputAdornment>
+              ),
+            }}
           />
           <TextField
             id="isbn"
@@ -297,11 +305,13 @@ const Sell = ({ userData }) => {
             error={isbnError}
             helperText={isbnError ? "Please add an ISBN." : ""}
             inputProps={{ maxLength: 13 }}
-            // sx={{
-            //   "& .MuiOutlinedInput-root:hover": {
-            //     "& > fieldset": { borderColor: "var(--text-color)" },
-            //   },
-            // }}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  {isbnError ? <WarningIcon sx={{ color: "red" }} /> : ""}
+                </InputAdornment>
+              ),
+            }}
           />
           <TextField
             id="edition"
@@ -311,11 +321,13 @@ const Sell = ({ userData }) => {
             error={editionError}
             helperText={editionError ? "Please add an edition." : ""}
             inputProps={{ maxLength: 2 }}
-            // sx={{
-            //   "& .MuiOutlinedInput-root:hover": {
-            //     "& > fieldset": { borderColor: "var(--text-color)" },
-            //   },
-            // }}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  {editionError ? <WarningIcon sx={{ color: "red" }} /> : ""}
+                </InputAdornment>
+              ),
+            }}
           />
           <TextField
             id="course"
@@ -325,6 +337,13 @@ const Sell = ({ userData }) => {
             error={courseError}
             helperText={courseError ? "Please add a course." : ""}
             inputProps={{ maxLength: 10 }}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  {courseError ? <WarningIcon sx={{ color: "red" }} /> : ""}
+                </InputAdornment>
+              ),
+            }}
           />
           <TextField
             id="condition"
@@ -336,12 +355,13 @@ const Sell = ({ userData }) => {
             onChange={conditionChange}
             error={conditionError}
             helperText={conditionError ? "Please select a condition" : ""}
-            // sx={{
-            //   "& .MuiOutlinedInput-root:hover": {
-            //     "& > fieldset": { borderColor: "var(--text-color)" },
-            //   },
-            // }}
-            // sx={{ backgroundColor: "var(--secondary-color)" }}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  {conditionError ? <WarningIcon sx={{ color: "red" }} /> : ""}
+                </InputAdornment>
+              ),
+            }}
           >
             <MenuItem value="New">New</MenuItem>
             <MenuItem value="Used - Like New">Used - Like New</MenuItem>
@@ -426,7 +446,7 @@ const Sell = ({ userData }) => {
                 }}
                 className="innerLeftBox"
               >
-                <Typography variant="h4" color="var(--text-color)">
+                <Typography variant="h4">
                   Listing Preview
                 </Typography>
               </Box>
@@ -450,7 +470,7 @@ const Sell = ({ userData }) => {
                 >
                   <Typography
                     variant="h5"
-                    color="var(--text-color)"
+                    // color="var(--text-color)"
                     sx={{ fontWeight: "bold" }}
                     // id="previewTitle"
                   >
@@ -458,7 +478,7 @@ const Sell = ({ userData }) => {
                   </Typography>
                   <Typography
                     variant="h6"
-                    color="var(--text-color)"
+                    // color="var(--text-color)"
                     sx={{ fontWeight: "bold" }}
                     // id="previewPrice"
                   >
@@ -467,7 +487,7 @@ const Sell = ({ userData }) => {
                   <br />
                   <Typography
                     variant="h6"
-                    color="var(--text-color)"
+                    // color="var(--text-color)"
                     sx={{ fontWeight: "bold" }}
                   >
                     Details
@@ -475,13 +495,13 @@ const Sell = ({ userData }) => {
                   <br />
                   <Typography
                     variant="h6"
-                    color="var(--text-color)"
+                    // color="var(--text-color)"
                     sx={{ fontWeight: "bold" }}
                   >
                     Author
                     <Typography
                       variant="body1"
-                      color="var(--text-color)"
+                      // color="var(--text-color)"
                       // id="previewAuthor"
                     >
                       {author}
@@ -489,13 +509,13 @@ const Sell = ({ userData }) => {
                   </Typography>
                   <Typography
                     variant="h6"
-                    color="var(--text-color)"
+                    // color="var(--text-color)"
                     sx={{ fontWeight: "bold" }}
                   >
                     ISBN
                     <Typography
                       variant="body1"
-                      color="var(--text-color)"
+                      // color="var(--text-color)"
                       // id="previewISBN"
                     >
                       {isbn}
@@ -503,13 +523,13 @@ const Sell = ({ userData }) => {
                   </Typography>
                   <Typography
                     variant="h6"
-                    color="var(--text-color)"
+                    // color="var(--text-color)"
                     sx={{ fontWeight: "bold" }}
                   >
                     Edition
                     <Typography
                       variant="body1"
-                      color="var(--text-color)"
+                      // color="var(--text-color)"
                       // id="previewEdition"
                     >
                       {edition}
@@ -517,23 +537,25 @@ const Sell = ({ userData }) => {
                   </Typography>
                   <Typography
                     variant="h6"
-                    color="var(--text-color)"
+                    // color="var(--text-color)"
                     sx={{ fontWeight: "bold" }}
                   >
                     Course
-                    <Typography variant="body1" color="var(--text-color)">
+                    <Typography variant="body1" 
+                      // color="var(--text-color)"
+                    >
                       {course}
                     </Typography>
                   </Typography>
                   <Typography
                     variant="h6"
-                    color="var(--text-color)"
+                    // color="var(--text-color)"
                     sx={{ fontWeight: "bold" }}
                   >
                     Condition
                     <Typography
                       variant="body1"
-                      color="var(--text-color)"
+                      // color="var(--text-color)"
                       // id="previewCondition"
                     >
                       {condition}
@@ -542,13 +564,13 @@ const Sell = ({ userData }) => {
                   <br />
                   <Typography
                     variant="h6"
-                    color="var(--text-color)"
+                    // color="var(--text-color)"
                     sx={{ fontWeight: "bold" }}
                   >
                     Description
                     <Typography
                       variant="body1"
-                      color="var(--text-color)"
+                      // color="var(--text-color)"
                       // id="previewDescription"
                     >
                       {description}
@@ -570,7 +592,7 @@ const Sell = ({ userData }) => {
                 >
                   <Typography
                     variant="body1"
-                    color="var(--text-color)"
+                    // color="var(--text-color)"
                     sx={{ fontWeight: "bold", fontSize: 18 }}
                   >
                     Seller Information
@@ -586,7 +608,7 @@ const Sell = ({ userData }) => {
                   <br />
                   <Typography
                     variant="body1"
-                    color="var(--text-color)"
+                    // color="var(--text-color)"
                     sx={{
                       display: "flex",
                       justifyContent: "space-between",
@@ -600,7 +622,9 @@ const Sell = ({ userData }) => {
                       src=""
                       id="avatarPic"
                     />
-                    {userData["firstName"]} {userData["lastName"]}
+                    {userData["preferredName"] === ""
+                      ? userData["firstName"] + " " + userData["lastName"]
+                      : userData["preferredName"] + " " + userData["lastName"]}
                   </Typography>
                 </CardContent>
                 <Box
