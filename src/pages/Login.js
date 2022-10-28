@@ -21,6 +21,7 @@ const Login = ({setAuth}) => {
   const navigate = useNavigate();
   const [open, setOpen] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
+  setAuth(false);
 
   const logIn = (event) => {
     console.log(username);
@@ -30,27 +31,24 @@ const Login = ({setAuth}) => {
       setError(true);
       setLoading(false)
     } else {
-      // $.ajax({
-      //   url: "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/login?username=" + username + '&password=' + password,
-      //   type: "GET",
-      //   success: function (result) {
-      //     console.log(result)
-      //     if (result === "Error") {
-      //       setError(true)
-      //       setAuth(false);
-      //     } else {
-      //       setAuth(true);
-      //       // navigate("/home");
-      //     }
-      //     setLoading(false)
-      //   },
-      //   error: function (result) {
-      //     console.log(result)
-      //   },
-      // });
-      
-      setAuth(true)
-      navigate("/home")
+      $.ajax({
+        url: "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/login?username=" + username + '&password=' + password,
+        type: "GET",
+        success: function (result) {
+          console.log(result)
+          if (result === "Success") {
+            setAuth(true);
+            navigate("/home");
+          } else {
+            setError(true)
+          }
+          setLoading(false)
+        },
+        error: function (result) {
+          console.log(result)
+        },
+      });
+      // setLoading(false)
     }
     event.preventDefault();
   };
@@ -87,7 +85,7 @@ const Login = ({setAuth}) => {
         autoComplete="off"
         onSubmit={logIn}
       >
-        <img src={Img} height={70} alt="logo"></img>
+        <img src={Img} height={80} alt="logo"></img>
         <TextField
           label="Purdue Email"
           type="email"

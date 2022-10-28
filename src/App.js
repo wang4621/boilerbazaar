@@ -7,7 +7,7 @@ import ProtectedRoutes from "./component/ProtectedRoutes";
 
 function App() {
   const [auth, setAuth] = useState(false);
-  console.log(auth)
+  // console.log(auth)
 
   return (
     <div className="appDisplay">
