@@ -1,19 +1,20 @@
 import React, { useState } from "react";
 import {
-  Button,
   TextField,
   Dialog,
   DialogActions,
   DialogContent,
   DialogTitle,
   IconButton,
-  InputAdornment
+  InputAdornment,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { useNavigate } from "react-router-dom";
-import WarningIcon from '@mui/icons-material/Warning';
+import WarningIcon from "@mui/icons-material/Warning";
+import $ from "jquery";
+import LoadingButton from "@mui/lab/LoadingButton";
 
-const Register = ({ open, setOpen }) => {
+const Register = ({ open, setOpen, setAuth }) => {
   const navigate = useNavigate();
   const [passwordError, setPasswordError] = useState(false);
   const [password, setPassword] = useState("");
@@ -26,6 +27,7 @@ const Register = ({ open, setOpen }) => {
   const [puidError, setPUIDError] = useState(false);
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const changeInput = (event) => {
     if (event.target.id === "puid") {
@@ -35,23 +37,30 @@ const Register = ({ open, setOpen }) => {
       if (event.target.value !== "") {
         setPUIDError(false);
       }
+      setPUID(event.target.value);
     }
   };
 
   const createAccount = () => {
     console.log(password);
     console.log(confirmPassword);
+    setLoading(true);
+    let missing = false;
     if (firstName === "") {
       setFirstNameError(true);
+      missing = true;
     }
     if (lastName === "") {
       setLastNameError(true);
+      missing = true;
     }
     if (puid === "") {
       setPUIDError(true);
+      missing = true;
     }
     if (email === "") {
       setEmailError(true);
+      missing = true;
     }
     if (
       password !== confirmPassword ||
@@ -59,9 +68,35 @@ const Register = ({ open, setOpen }) => {
       confirmPassword === ""
     ) {
       setPasswordError(true);
-    } else {
+      missing = true;
+    }
+
+    if (!missing) {
       setOpen(false);
-      navigate("/home");
+      var jsonData = {
+        firstName: firstName,
+        lastName: lastName,
+      };
+      jsonData = '"' + JSON.stringify(jsonData).replaceAll('"', '\\"') + '"';
+      $.ajax({
+        url: "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/login",
+        type: "PUT",
+        data: jsonData,
+        datatype: "json",
+        contentType: "application/json",
+        success: function (result) {
+          console.log(JSON.stringify(result));
+          setOpen(false);
+          setLoading(false);
+          setAuth(true);
+          navigate("/home");
+        },
+        error: function (result) {
+          console.log(JSON.stringify(result));
+        },
+      });
+    } else {
+      setLoading(false)
     }
   };
 
@@ -77,12 +112,13 @@ const Register = ({ open, setOpen }) => {
           <CloseIcon />
         </IconButton>
       </DialogTitle>
-      <DialogContent sx={{
-            "& .MuiFormHelperText-root": {
-              marginLeft:0,
-            },
-          }}
-          >
+      <DialogContent
+        sx={{
+          "& .MuiFormHelperText-root": {
+            marginLeft: 0,
+          },
+        }}
+      >
         <TextField
           autoFocus
           margin="dense"
@@ -90,7 +126,13 @@ const Register = ({ open, setOpen }) => {
           fullWidth
           required
           inputProps={{ maxLength: 15 }}
-          InputProps={{ endAdornment: <InputAdornment position="end">{passwordError ? <WarningIcon sx={{color:'red'}}/> : ''}</InputAdornment> }}
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                {passwordError ? <WarningIcon sx={{ color: "red" }} /> : ""}
+              </InputAdornment>
+            ),
+          }}
           error={firstNameError}
           helperText={firstNameError ? "Please enter a first name." : ""}
           onChange={(e) => setFirstName(e.target.value)}
@@ -101,7 +143,13 @@ const Register = ({ open, setOpen }) => {
           fullWidth
           required
           inputProps={{ maxLength: 15 }}
-          InputProps={{ endAdornment: <InputAdornment position="end">{passwordError ? <WarningIcon sx={{color:'red'}}/> : ''}</InputAdornment> }}
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                {passwordError ? <WarningIcon sx={{ color: "red" }} /> : ""}
+              </InputAdornment>
+            ),
+          }}
           error={lastNameError}
           helperText={lastNameError ? "Please enter a last name." : ""}
           onChange={(e) => setLastName(e.target.value)}
@@ -114,9 +162,15 @@ const Register = ({ open, setOpen }) => {
           required
           error={emailError}
           helperText={emailError ? "Please enter your Purdue email." : ""}
-          InputProps={{ endAdornment: <InputAdornment position="end">{passwordError ? <WarningIcon sx={{color:'red'}}/> : ''}</InputAdornment> }}
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                {passwordError ? <WarningIcon sx={{ color: "red" }} /> : ""}
+              </InputAdornment>
+            ),
+          }}
           id="email"
-          // onChange={changeInput}
+          onChange={(e) => setEmail(e.target.value)}
         />
         <TextField
           margin="dense"
@@ -127,7 +181,13 @@ const Register = ({ open, setOpen }) => {
           error={puidError}
           helperText={puidError ? "Please enter your PUID." : ""}
           inputProps={{ maxLength: 10 }}
-          InputProps={{ endAdornment: <InputAdornment position="end">{passwordError ? <WarningIcon sx={{color:'red'}}/> : ''}</InputAdornment> }}
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                {passwordError ? <WarningIcon sx={{ color: "red" }} /> : ""}
+              </InputAdornment>
+            ),
+          }}
           onChange={changeInput}
         />
         <TextField
@@ -135,11 +195,23 @@ const Register = ({ open, setOpen }) => {
           label="Password"
           type="password"
           inputProps={{ maxLength: 30 }}
-          InputProps={{ endAdornment: <InputAdornment position="end">{passwordError ? <WarningIcon sx={{color:'red'}}/> : ''}</InputAdornment> }}
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                {passwordError ? <WarningIcon sx={{ color: "red" }} /> : ""}
+              </InputAdornment>
+            ),
+          }}
           fullWidth
           required
           error={passwordError}
-          helperText={passwordError ? "Passwords do not match." : ""}
+          helperText={
+            passwordError
+              ? password === ""
+                ? "Password cannot be empty."
+                : "Passwords do not match."
+              : ""
+          }
           onChange={(e) => setPassword(e.target.value)}
         />
         <TextField
@@ -147,23 +219,37 @@ const Register = ({ open, setOpen }) => {
           label="Confirm Password"
           type="password"
           fullWidth
-          inputProps={{maxLength: 30}}
-          InputProps={{ endAdornment: <InputAdornment position="end">{passwordError ? <WarningIcon sx={{color:'red'}}/> : ''}</InputAdornment> }}
+          inputProps={{ maxLength: 30 }}
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                {passwordError ? <WarningIcon sx={{ color: "red" }} /> : ""}
+              </InputAdornment>
+            ),
+          }}
           required
           error={passwordError}
-          helperText={passwordError ? "Passwords do not match." : ""}
+          helperText={
+            passwordError
+              ? password === ""
+                ? "Password cannot be empty."
+                : "Passwords do not match."
+              : ""
+          }
           onChange={(e) => setConfirmPassword(e.target.value)}
         />
       </DialogContent>
       <DialogActions sx={{ justifyContent: "center" }}>
-        <Button
+        <LoadingButton
           variant="contained"
+          loading={loading}
+          disabled={loading}
           onClick={createAccount}
           color="success"
           // sx={{ backgroundColor: "green", color: "white" }}
         >
           Create New Account
-        </Button>
+        </LoadingButton>
       </DialogActions>
     </Dialog>
   );
