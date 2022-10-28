@@ -12,6 +12,8 @@ import "./Profile.css";
 import $ from "jquery";
 
 const Profile = ({ userData, setUserData }) => {
+
+  console.log(userData)
   const [isDisabled, setDisabled] = React.useState(true);
   const [value, setValue] = React.useState("Edit");
   // let profileData = JSON.parse(localStorage.getItem('userData'));

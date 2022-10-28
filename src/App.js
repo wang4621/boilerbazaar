@@ -7,14 +7,15 @@ import ProtectedRoutes from "./component/ProtectedRoutes";
 
 function App() {
   const [auth, setAuth] = useState(false);
+  const [username, setUserName] = useState("");
   // console.log(auth)
 
   return (
     <div className="appDisplay">
       <Routes>
-        <Route path="/boilerbazaar" element={<Login setAuth={setAuth}/>}/>
+        <Route path="/boilerbazaar" element={<Login setAuth={setAuth} setUserName={setUserName}/>}/>
         <Route element={<ProtectedRoutes auth={auth}/>}>
-          <Route path="/*" element={<MainPage />} />
+          <Route path="/*" element={<MainPage username={username}/>} />
         </Route>
       </Routes>
     </div>

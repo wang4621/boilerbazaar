@@ -417,6 +417,7 @@ const Sell = ({ userData }) => {
           {/* <CardHeader title="Preview" sx={{height: '7%', marginLeft:'1%'}}/> */}
           <Typography
             variant="h6"
+            component={"span"}
             sx={{ fontWeight: "bold", padding: "10px", marginLeft: "1.5%" }}
           >
             Preview

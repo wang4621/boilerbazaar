@@ -14,7 +14,7 @@ import WarningIcon from "@mui/icons-material/Warning";
 import $ from "jquery";
 import LoadingButton from '@mui/lab/LoadingButton';
 
-const Login = ({setAuth}) => {
+const Login = ({setAuth, setUserName}) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
@@ -38,6 +38,7 @@ const Login = ({setAuth}) => {
           console.log(result)
           if (result === "Success") {
             setAuth(true);
+            setUserName(username)
             navigate("/home");
           } else {
             setError(true)

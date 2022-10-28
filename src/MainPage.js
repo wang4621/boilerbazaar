@@ -26,7 +26,7 @@ import Brightness4Icon from "@mui/icons-material/Brightness4";
 import Brightness7Icon from "@mui/icons-material/Brightness7";
 import SettingsIcon from "@mui/icons-material/Settings";
 
-const MainPage = () => {
+const MainPage = ({username}) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [userData, setUserData] = React.useState("");
   const open = Boolean(anchorEl);
@@ -72,10 +72,11 @@ const MainPage = () => {
       @todo: remove console output
     **/
     $.ajax({
-      url: "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/profile?puid=0031888129",
+      url: "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/profile?puid=" + username,
       type: "GET",
       success: function (result) {
         // localStorage.setItem('userData', JSON.stringify(result))
+        console.log(result)
         setUserData(result);
         if (result.darkModePreference === "dark") {
           setTheme("bodyDark");
@@ -105,7 +106,7 @@ const MainPage = () => {
     /**
       @todo: add actual puid instead of hardcode
     **/
-    var jsonData = { puid: "0031888129", darkModePreference: mode };
+    var jsonData = { puid: username, darkModePreference: mode };
     jsonData = '"' + JSON.stringify(jsonData).replaceAll('"', '\\"') + '"';
     $.ajax({
       url: "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/profile",
@@ -127,20 +128,20 @@ const MainPage = () => {
       <div className="navbar">
         <img src={Img} height={70} alt="logo" style={{ float: "left" }}></img>
         <ul className="centerNav" style={{ marginRight: "10%" }}>
-          <NavLink activeClassName="active" to="/home">
+          <NavLink activeclassname="active" to="/home">
             Home
           </NavLink>
-          <NavLink activeClassName="active" to="/buy">
+          <NavLink activeclassname="active" to="/buy">
             Buy
           </NavLink>
-          <NavLink activeClassName="active" to="/sell">
+          <NavLink activeclassname="active" to="/sell">
             Sell
           </NavLink>
-          <NavLink activeClassName="active" to="/about">
+          <NavLink activeclassname="active" to="/about">
             About
           </NavLink>
           <NavLink
-            activeClassName="active"
+            activeclassname="active"
             to="/map"
             style={{ marginTop: "5px" }}
             id="map"
