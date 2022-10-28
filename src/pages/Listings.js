@@ -20,7 +20,7 @@ const Listings = ({userData}) => {
     $.ajax({
       url:
         "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/userlisting?puid=" +
-        JSON.parse(localStorage.getItem("userData"))["puid"],
+        userData["puid"],
       type: "GET",
       success: function (result) {
         setLoading(false);
