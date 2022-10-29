@@ -15,6 +15,7 @@ function Settings() {
                         {/* <Divider variant='middle' sx={{borderBottomColor: 'var(--text-color)'}}/> */}
                         <Button activeClassName="active" component={NavLink} to="profile">Profile</Button>
                         <Button activeClassName="active" component={NavLink} to="listings">Listings</Button>
+                        <Button activeClassName="active" component={NavLink} to="watchlist">Watchlist</Button>
                     </Box>
                     {/* when adding route to profile, make sure that when creating the new page that the width of the box is 85% */}
                     <Outlet/>

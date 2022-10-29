@@ -10,6 +10,7 @@ import About from './pages/About'
 import Map from './pages/Map'
 import Listings from './pages/Listings'
 import Profile from './pages/Profile'
+import Watchlist from './pages/Watchlist'
 import BuyListing from './pages/BuyListing';
 import BuyMain from './pages/BuyMain';
 import { Avatar, Menu, MenuItem, IconButton, ListItemIcon } from '@mui/material';
@@ -66,7 +67,7 @@ function App() {
       @todo: remove console output
     **/
     $.ajax({
-      url: 'https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/profile?puid=0031888129',
+      url: 'https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/profile?puid=wang4621',
       type: 'GET',
       success: function (result) {
         // localStorage.setItem('userData', JSON.stringify(result))
@@ -100,7 +101,7 @@ function App() {
     /**
       @todo: add actual puid instead of hardcode
     **/
-    var jsonData = {"puid": "0031888129", "darkModePreference": mode};
+    var jsonData = {"puid": "wang4621", "darkModePreference": mode};
     jsonData = "\""+JSON.stringify(jsonData).replaceAll('"', '\\"')+"\""
     $.ajax({
       url: 'https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/profile',
@@ -196,6 +197,7 @@ function App() {
                 <Route path='/settings' element={< Settings />}>
                   <Route path='profile' element={< Profile userData={userData} setUserData={setUserData}/>}/>
                   <Route path='listings' element={< Listings />}/>
+                  <Route path='watchlist' element={< Watchlist />}/>
                 </Route>
             </Routes>
         </div>
