@@ -67,7 +67,7 @@ function App() {
       @todo: remove console output
     **/
     $.ajax({
-      url: 'https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/profile?puid=0031888129',
+      url: 'https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/profile?puid=wang4621',
       type: 'GET',
       success: function (result) {
         // localStorage.setItem('userData', JSON.stringify(result))
@@ -101,7 +101,7 @@ function App() {
     /**
       @todo: add actual puid instead of hardcode
     **/
-    var jsonData = {"puid": "0031888129", "darkModePreference": mode};
+    var jsonData = {"puid": "wang4621", "darkModePreference": mode};
     jsonData = "\""+JSON.stringify(jsonData).replaceAll('"', '\\"')+"\""
     $.ajax({
       url: 'https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/profile',
