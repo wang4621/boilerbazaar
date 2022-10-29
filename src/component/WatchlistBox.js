@@ -16,14 +16,26 @@ const WatchlistBox = ({ listing, stateChange, setStateChange }) => {
     setDeleteOpen(true);
   };
 
-  useEffect(() => {
-    if (Number(listing["price"]) > Number(listing["previousPrice"])) {
+  function calculatePercentage(currentPrice, previousPrice) {
+    const currentPriceInt = parseInt(currentPrice);
+    const previousPriceInt = parseInt(previousPrice);
 
+    if ((currentPriceInt === 0) && (previousPriceInt === 0)) {
+      return 0;
     }
-    else if (Number(listing["price"]) < Number(listing["previousPrice"])) {
-
+    else if ((currentPriceInt === 0) || (previousPriceInt === 0)) {
+      return 100;
     }
-  });
+    else if (currentPriceInt > previousPriceInt) {
+      return Math.floor(((currentPrice - previousPrice) / previousPrice) * 100);
+    }
+    else if (currentPriceInt < previousPriceInt) {
+      return Math.floor(((previousPrice - currentPriceInt) / previousPrice) * 100);
+    }
+    else {
+      return 0;
+    }
+  }
 
   return (
     <Box
@@ -83,6 +95,18 @@ const WatchlistBox = ({ listing, stateChange, setStateChange }) => {
               flexDirection: "row",
             }} id="priceDiv">
               <Typography variant="body1" sx={{ display: "inline-block", pr: "10px"}}>Current Price: ${listing["price"]}</Typography>
+              { (Number(listing["price"]) > Number(listing["previousPrice"])) && (
+                <>
+                  <ArrowUpwardRoundedIcon sx={{ color: "red" }}></ArrowUpwardRoundedIcon>
+                  {calculatePercentage(listing["price"], listing["previousPrice"])}%
+                </>
+                )}
+              { (Number(listing["price"]) < Number(listing["previousPrice"])) && (
+                <>
+                  <ArrowDownwardRoundedIcon sx={{ color: "green" }}></ArrowDownwardRoundedIcon>
+                  {calculatePercentage(listing["price"], listing["previousPrice"])}%
+                </>
+                )}
             </div>
             <Typography variant="body2">Previous Price: ${listing["previousPrice"]}</Typography>
             <Typography variant="body2">0 clicks on listing</Typography>
