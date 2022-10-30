@@ -1,18 +1,21 @@
 import './Settings.css'
-import { CardHeader, Divider, Box, Button } from '@mui/material';
+import { Box, Button, Typography } from '@mui/material';
 import * as React from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
 
 function Settings() {
     return (
         <div className="settingsDisplay">
-            <Box sx={{width: '85%', height: '90%', backgroundColor: 'var(--primary-color)', borderRadius: 5, display: 'flex', flexDirection:'column', boxShadow: 8}}>
-                <CardHeader title="Settings" sx={{textAlign: 'center', height: "7%"}}/>
-                <Divider variant='fullWidth' sx={{borderBottomColor: 'black'}}/>
+            <Box sx={{width: '100%', height: '100%', backgroundColor: 'var(--primary-color)', display: 'flex', flexDirection:'column'}}>
                 <div className="profileBoxDisplay">
-                    <Box sx={{width: '15%', height: '100%', backgroundColor: 'var(--secondary-color)'}} className="diffSettings">
+                    <Box sx={{width: '20%', height: '100%', backgroundColor: 'var(--secondary-color)'}} className="diffSettings">
+                        <Typography variant="h5" sx={{fontWeight:'bold', textAlign:'center', padding:'10px'}}>
+                            Settings
+                        </Typography>
+                        {/* <Divider variant='middle' sx={{borderBottomColor: 'var(--text-color)'}}/> */}
                         <Button activeClassName="active" component={NavLink} to="profile">Profile</Button>
-                        {/* <Button activeClassName="active" component={NavLink} to="listings">Listings</Button> */}
+                        <Button activeClassName="active" component={NavLink} to="listings">Listings</Button>
+                        <Button activeClassName="active" component={NavLink} to="watchlist">Watchlist</Button>
                     </Box>
                     {/* when adding route to profile, make sure that when creating the new page that the width of the box is 85% */}
                     <Outlet/>
