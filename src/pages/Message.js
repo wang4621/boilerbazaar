@@ -34,18 +34,47 @@ function getContacts() {
 
 function populateContacts() {
     var contactList = document.getElementsByClassName("contactList")[0];
-    console.log(contactList)
+    //console.log(contactList)
     contactList.innerHTML = "";
     for (var i = 0; i < contactNames.length; i++) {
         var contact = document.createElement("SPAN");
         contact.id = `contact${i}`
         contact.className = "contact"
-        contact.innerHTML += `<img src={${blank}}></img><Typography label="placeholder">${contactNames[i]}</Typography>`
+        contact.innerHTML += `<img src=${blank}></img><Typography label="placeholder">${contactNames[i]}</Typography>`
         contact.addEventListener("click", function(e) {
             changeContacts(this.id[7])
         });
         contactList.appendChild(contact);
     }
+}
+
+function sendMessage() {
+    var input = document.getElementById("messageInput").value;
+    if (input.length == 0) {
+        return;
+    }
+    var data = rawData['body'][index];
+    var message = [];
+    message.push(Date.now());
+    message.push(data['user1'] == user);
+    message.push(input);
+    var jsonDict = {"id": data['id'], "message": message}
+    var jsonData = "\""+JSON.stringify(jsonDict).replaceAll('"', '\\"')+"\""
+    console.log(jsonData)
+    $.ajax({
+        url: 'https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/conversation',
+        type: 'PUT',
+        data: jsonData,
+        datatype: 'json',
+        contentType: 'application/json',
+        success: function (result) {
+            console.log(JSON.stringify(result))
+        },
+        error: function (result) {
+            console.log(JSON.stringify(result));
+        }
+    });
+    //event.preventDefault();
 }
 
 function changeContacts(id) {
@@ -65,7 +94,7 @@ function Message() {
                 </Box>
                 <Box class="chatInput">
                     <TextField type="text" id="messageInput" label="Message"></TextField>
-                    <TextField id="send" type="submit" value="Send"/>
+                    <TextField id="send" onClick={sendMessage} type="submit" value="Send"/>
                 </Box>
             </Box>
         </div>
