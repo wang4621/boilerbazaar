@@ -118,7 +118,7 @@ const EditListing = ({
         condition: condition,
         description: description,
       };
-      jsonData = '"' + JSON.stringify(jsonData).replaceAll('"', '\\"') + '"';
+      jsonData = JSON.stringify(jsonData)
       // TODO: Change ajax call and send the correct values
       $.ajax({
         url: "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/listing",
@@ -453,7 +453,7 @@ const EditListing = ({
                       variant="h5"
                       color="var(--text-color)"
                       sx={{ fontWeight: "bold" }}
-                      // id="previewTitle"
+                    // id="previewTitle"
                     >
                       {title === "" ? "Title" : title}
                     </Typography>
@@ -461,7 +461,7 @@ const EditListing = ({
                       variant="h6"
                       color="var(--text-color)"
                       sx={{ fontWeight: "bold" }}
-                      // id="previewPrice"
+                    // id="previewPrice"
                     >
                       {price === "" ? "Price" : "$" + price}
                     </Typography>
@@ -483,7 +483,7 @@ const EditListing = ({
                       <Typography
                         variant="body1"
                         color="var(--text-color)"
-                        // id="previewAuthor"
+                      // id="previewAuthor"
                       >
                         {author}
                       </Typography>
@@ -497,7 +497,7 @@ const EditListing = ({
                       <Typography
                         variant="body1"
                         color="var(--text-color)"
-                        // id="previewISBN"
+                      // id="previewISBN"
                       >
                         {isbn}
                       </Typography>
@@ -511,7 +511,7 @@ const EditListing = ({
                       <Typography
                         variant="body1"
                         color="var(--text-color)"
-                        // id="previewEdition"
+                      // id="previewEdition"
                       >
                         {edition}
                       </Typography>
@@ -525,7 +525,7 @@ const EditListing = ({
                       <Typography
                         variant="body1"
                         color="var(--text-color)"
-                        // id="previewCondition"
+                      // id="previewCondition"
                       >
                         {condition}
                       </Typography>
@@ -540,7 +540,7 @@ const EditListing = ({
                       <Typography
                         variant="body1"
                         color="var(--text-color)"
-                        // id="previewDescription"
+                      // id="previewDescription"
                       >
                         {description}
                       </Typography>
