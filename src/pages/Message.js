@@ -46,6 +46,7 @@ function populateContacts() {
         });
         contactList.appendChild(contact);
     }
+    changeContacts(0)
 }
 
 function sendMessage() {
@@ -79,6 +80,15 @@ function sendMessage() {
 
 function changeContacts(id) {
     index = parseInt(id)
+    var contactList = document.getElementsByClassName("contactList")[0];
+    var children = contactList.children;
+    for (var i = 0; i < children.length; i++) {
+        if (index == i) {
+            children[i].setAttribute("background-color", "lightgray");
+        } else {
+            children[i].setAttribute("background-color", "white");
+        }
+    }
 }
 
 function Message() {
@@ -93,8 +103,8 @@ function Message() {
                     <Typography label="placeholder">placeholder</Typography>
                 </Box>
                 <Box class="chatInput">
-                    <TextField type="text" id="messageInput" label="Message"></TextField>
-                    <TextField id="send" onClick={sendMessage} type="submit" value="Send"/>
+                    <TextField type="text" class="input" id="messageInput"></TextField>
+                    <TextField class="send" id="send" onClick={sendMessage} type="submit" value="Send"/>
                 </Box>
             </Box>
         </div>
