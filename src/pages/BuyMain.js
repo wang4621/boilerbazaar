@@ -1,6 +1,12 @@
 import "./BuyMain.css";
 import React, { useState } from "react";
-import { TextField, MenuItem, Box, Grid } from "@mui/material";
+import {
+  TextField,
+  MenuItem,
+  Box,
+  Grid,
+  CircularProgress,
+} from "@mui/material";
 import $ from "jquery";
 import { BrowserRouter, Routes, Route, NavLink } from "react-router-dom";
 import Textbook from "../component/BuyListing/Textbook";
@@ -193,6 +199,7 @@ function BuyMain() {
   var listingList = [];
   var originalListingList = [];
   function search() {
+    setLoading(true);
     const searchFilterValue = document.getElementById("searchFilter").innerText;
     const searchText = document.getElementById("searchBar").value;
     addSearchHistory(searchText);
@@ -216,6 +223,7 @@ function BuyMain() {
       type: "GET",
       success: function (result) {
         console.log(result);
+        setLoading(false);
         let returnedItems = result.Items;
         setTextbooks(result.Items);
         listingList = [];
@@ -540,11 +548,19 @@ function BuyMain() {
     getSearchHistory();
     autocomplete(document.getElementById("searchBar"), searchHistory);
   };
-  
+
   const [textbooks, setTextbooks] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   return (
-    <Box sx={{ width: "100%", height: "100%", display: 'flex', flexDirection:'row' }}>
+    <Box
+      sx={{
+        width: "100%",
+        height: "100%",
+        display: "flex",
+        flexDirection: "row",
+      }}
+    >
       <Box
         sx={{
           width: "28%",
@@ -637,14 +653,34 @@ function BuyMain() {
           <ul id="listings"></ul>
         </div> */}
       </Box>
-      <Box sx={{width:'72%', height: '100%', display:'flex', justifyContent:'flex-start', overflowY:'auto'}} className="scrollBar">
-        <Grid container spacing={1}>
-            {textbooks.map((textbook) => {
-            return <Textbook textbook={textbook} />;
-            })}
-        </Grid>  
+      <Box
+        sx={{
+          width: "72%",
+          height: "100%",
+          display: "flex",
+          justifyContent: "flex-start",
+          overflowY: "auto",
+        }}
+        className="scrollBar"
+      >
+        <Grid
+          container
+          spacing={1}
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          {loading ? (
+            <CircularProgress />
+          ) : (
+            textbooks.map((textbook) => {
+              return <Textbook textbook={textbook} />;
+            })
+          )}
+        </Grid>
       </Box>
-      
     </Box>
   );
 }
