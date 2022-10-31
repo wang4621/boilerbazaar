@@ -50,14 +50,14 @@
     align-items: center;
 }
 
-.sellDisplay .scrollBar::-webkit-scrollbar {
+/* .sellDisplay .scrollBar::-webkit-scrollbar {
     width: 10px;
 }
 
 .sellDisplay .scrollBar::-webkit-scrollbar-thumb {
     border-radius: 10px;
     background: #c2c9d2;
-}
+} */
 
 .sellDisplay .MuiTypography-root {
     color: var(--text-color);
