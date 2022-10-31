@@ -1,4 +1,4 @@
-import blank from './blank.jpg'
+import blank from '../component/Images/blank.jpg'
 import './About.css';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import IconButton from '@mui/material/IconButton';

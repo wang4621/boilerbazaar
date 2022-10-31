@@ -1,8 +1,8 @@
 import './Map.css';
 import React from 'react';
-import UniversityBookstoreImage from './UniversityBookstoreImage.jpg'
-import StadiumBookstoreImage from './StadiumBookstoreImage.jpg'
-import FollettsBookstoreImage from './FollettsBookstoreImage.jpg'
+import UniversityBookstoreImage from '../component/Images/UniversityBookstoreImage.jpg'
+import StadiumBookstoreImage from '../component/Images/StadiumBookstoreImage.jpg'
+import FollettsBookstoreImage from '../component/Images/FollettsBookstoreImage.jpg'
 
 function Map() {
 
