@@ -4,6 +4,7 @@ import { TextField, MenuItem } from '@mui/material';
 import $ from 'jquery';
 import { BrowserRouter, Routes, Route, NavLink } from 'react-router-dom';
 import BuyListing from '../component/BuyListing/BuyListing';
+import Textbook from '../component/BuyListing/Textbook';
 
 var searchHistory = [];
 var user = "doan23@purdue.edu";
@@ -210,7 +211,7 @@ function BuyMain() {
             success: function (result) {
                 console.log(result);
                 let returnedItems = result.Items;
-            
+                setTextbooks(result.Items)
                 listingList = [];
                 for (let i = 0; i < returnedItems.length; i++) {
                     listingList.push({"listingID": returnedItems[i].listingID, "title": returnedItems[i].title, "author": returnedItems[i].author, "isbn": returnedItems[i].isbn, "edition": returnedItems[i].edition, "course": returnedItems[i].course, "condition": returnedItems[i].condition, "price": returnedItems[i].price, "description": returnedItems[i].description, "toString": "Title: " + returnedItems[i].title + " Author: " + returnedItems[i].author + " ISBN: " + returnedItems[i].isbn + " Edition: " + returnedItems[i].edition + " Course: " + returnedItems[i].course + " Condition: " + returnedItems[i].condition + " Price: " + returnedItems[i].price + " Description: " + returnedItems[i].description});
@@ -532,6 +533,7 @@ function BuyMain() {
         autocomplete(document.getElementById("searchBar"), searchHistory);
     }
     const [open, setOpen] = useState(false);
+    const [textbooks, setTextbooks] = useState([]);
     
     return (
         <div>
@@ -595,6 +597,9 @@ function BuyMain() {
             </div>
 
             <div>
+                {textbooks.map((textbook) => {
+                    return <Textbook textbook={textbook}/>;
+                })}
                 <ul id="listings">
                 </ul>
             </div>
