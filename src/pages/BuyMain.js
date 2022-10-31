@@ -1,8 +1,9 @@
 import './BuyMain.css'
-import * as React from 'react';
+import React, {useState} from "react";
 import { TextField, MenuItem } from '@mui/material';
 import $ from 'jquery';
 import { BrowserRouter, Routes, Route, NavLink } from 'react-router-dom';
+import BuyListing from '../component/BuyListing/BuyListing';
 
 var searchHistory = [];
 var user = "doan23@purdue.edu";
@@ -530,6 +531,8 @@ function BuyMain() {
         getSearchHistory();
         autocomplete(document.getElementById("searchBar"), searchHistory);
     }
+    const [open, setOpen] = useState(false);
+    
     return (
         <div>
         <label>
@@ -595,6 +598,7 @@ function BuyMain() {
                 <ul id="listings">
                 </ul>
             </div>
+            <BuyListing open={open} setOpen={setOpen}/>
         </div>
     )
 }
