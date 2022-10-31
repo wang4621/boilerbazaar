@@ -43,10 +43,8 @@ const EditListing = ({
   setOpen,
   stateChange,
   setStateChange,
+  userData
 }) => {
-  const closeEdit = () => {
-    setOpen(false);
-  };
   const [title, setTitle] = React.useState(listing["title"]);
   const [price, setPrice] = React.useState(listing["price"]);
   const [author, setAuthor] = React.useState(listing["author"]);
@@ -65,6 +63,10 @@ const EditListing = ({
   const [courseError, setCourseError] = React.useState(false);
   const [conditionError, setConditionError] = React.useState(false);
   const [submittedListing, setSubmittedListing] = React.useState(false);
+
+  const closeEdit = () => {
+    setOpen(false);
+  };
 
   const conditionChange = (event) => {
     setCondition(event.target.value);
@@ -628,7 +630,7 @@ const EditListing = ({
                         src=""
                         id="avatarPic"
                       />
-                      Jeff Wang
+                      {userData['firstName']} {userData['lastName']}
                     </Typography>
                   </CardContent>
                   <Box

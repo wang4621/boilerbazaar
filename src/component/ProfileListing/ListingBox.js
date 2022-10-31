@@ -8,11 +8,9 @@ import DeleteListing from "./DeleteListing";
 import EditListing from "./EditListing";
 import $ from "jquery";
 
-const ListingBox = ({ listing, stateChange, setStateChange }) => {
+const ListingBox = ({ listing, stateChange, setStateChange, userData }) => {
   let listingSold = listing["sold"];
   let listingId = listing["listingID"];
-  // console.log("listingId:", listingId)
-  // console.log("listingSold:", listingSold)
 
   const [editOpen, setEditOpen] = React.useState(false);
   const [deleteOpen, setDeleteOpen] = React.useState(false);
@@ -186,6 +184,7 @@ const ListingBox = ({ listing, stateChange, setStateChange }) => {
         setOpen={setEditOpen}
         stateChange={stateChange}
         setStateChange={setStateChange}
+        userData={userData}
       />
     </Box>
   );

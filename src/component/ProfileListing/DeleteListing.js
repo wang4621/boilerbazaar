@@ -1,12 +1,14 @@
-import React from "react";
+import React, {useState} from "react";
 import {
   Button,
   Dialog,
   DialogTitle,
   DialogContent,
   DialogContentText,
-  DialogActions
+  DialogActions,
 } from "@mui/material";
+import LoadingButton from "@mui/lab/LoadingButton";
+import DeleteIcon from '@mui/icons-material/Delete';
 import $ from "jquery";
 
 const DeleteListing = ({
@@ -14,15 +16,16 @@ const DeleteListing = ({
   open,
   setOpen,
   stateChange,
-  setStateChange
+  setStateChange,
 }) => {
-  
+  const [loading, setLoading] = useState(false);
   const deleteClose = () => {
     setOpen(false);
   };
 
   const deleteListing = () => {
     // create loading when it is deleting
+    setLoading(true)
     $.ajax({
       url:
         "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/listing?listingID=" +
@@ -30,6 +33,7 @@ const DeleteListing = ({
       type: "DELETE",
       success: function (result) {
         console.log(JSON.stringify(result));
+        setLoading(false);
         setOpen(false);
         setStateChange(!stateChange);
       },
@@ -54,9 +58,17 @@ const DeleteListing = ({
       </DialogContent>
       <DialogActions>
         <Button onClick={deleteClose}>Cancel</Button>
-        <Button onClick={deleteListing} autoFocus>
+        <LoadingButton
+          variant="contained"
+          loading={loading}
+          loadingPosition="start"
+          startIcon={<DeleteIcon />}
+          disabled={loading}
+          onClick={deleteListing}
+          autoFocus
+        >
           Delete
-        </Button>
+        </LoadingButton>
       </DialogActions>
     </Dialog>
   );
