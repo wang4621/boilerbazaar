@@ -54,6 +54,7 @@ const BuyListing = ({ listing, open, setOpen, sellerData }) => {
   const closeBuy = () => {
     setOpen(false);
   };
+  console.log(listing)
   return (
     <Dialog fullScreen open={open} onClose={closeBuy}>
       <AppBar sx={{ position: "relative", height: "8%" }}>
@@ -71,7 +72,7 @@ const BuyListing = ({ listing, open, setOpen, sellerData }) => {
             variant="h6"
             component="div"
           >
-            Edit Listing
+            Buy Listing
           </Typography>
         </Toolbar>
       </AppBar>
@@ -106,7 +107,7 @@ const BuyListing = ({ listing, open, setOpen, sellerData }) => {
           <CardContent
             sx={{
               wordBreak: "break-word",
-              overflowY: "scroll",
+              overflowY: "auto",
               height: "65%",
               display: "flex",
               flexDirection: "column",
@@ -119,7 +120,7 @@ const BuyListing = ({ listing, open, setOpen, sellerData }) => {
               sx={{ fontWeight: "bold" }}
               id="previewTitle"
             >
-              Title
+              {listing['title']}
             </Typography>
             <Typography
               variant="h6"
@@ -127,7 +128,7 @@ const BuyListing = ({ listing, open, setOpen, sellerData }) => {
               sx={{ fontWeight: "bold" }}
               id="previewPrice"
             >
-              Price
+              ${listing['price']}
             </Typography>
             <br />
             <Typography
@@ -148,7 +149,9 @@ const BuyListing = ({ listing, open, setOpen, sellerData }) => {
                 variant="body1"
                 color="var(--text-color)"
                 id="previewAuthor"
-              />
+              >
+                {listing['author']}
+              </Typography>
             </Typography>
             <Typography
               variant="h6"
@@ -160,7 +163,9 @@ const BuyListing = ({ listing, open, setOpen, sellerData }) => {
                 variant="body1"
                 color="var(--text-color)"
                 id="previewISBN"
-              />
+              >
+                {listing['isbn']}
+              </Typography>
             </Typography>
             <Typography
               variant="h6"
@@ -172,7 +177,9 @@ const BuyListing = ({ listing, open, setOpen, sellerData }) => {
                 variant="body1"
                 color="var(--text-color)"
                 id="previewEdition"
-              />
+              >
+                {listing['edition']}
+              </Typography>
             </Typography>
             <Typography
               variant="h6"
@@ -184,7 +191,9 @@ const BuyListing = ({ listing, open, setOpen, sellerData }) => {
                 variant="body1"
                 color="var(--text-color)"
                 id="previewCondition"
-              />
+              >
+                {listing['condition']}
+              </Typography>
             </Typography>
             <br />
             <Typography
@@ -197,7 +206,9 @@ const BuyListing = ({ listing, open, setOpen, sellerData }) => {
                 variant="body1"
                 color="var(--text-color)"
                 id="previewDescription"
-              />
+              >
+                {listing['description']}
+              </Typography>
             </Typography>
             <br />
             <br />
@@ -218,7 +229,6 @@ const BuyListing = ({ listing, open, setOpen, sellerData }) => {
               <Button
                 variant="outlined"
                 size="small"
-                disabled
                 sx={{ float: "right" }}
               >
                 Seller Details
