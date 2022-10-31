@@ -1,6 +1,6 @@
 import { TbMap2 } from "react-icons/tb";
 import "./MainPage.css";
-import Img from "./logo.png";
+import logo from "./component/Images/logo.png";
 import { Routes, Route, NavLink, useNavigate } from "react-router-dom";
 import Settings from "./pages/Settings";
 import Home from "./pages/Home";
@@ -8,9 +8,9 @@ import Sell from "./pages/Sell";
 import Buy from "./pages/Buy";
 import About from "./pages/About";
 import Map from "./pages/Map";
-import Listings from "./pages/Listings";
+import Listings from "./component/ProfileListing/Listings";
 import Profile from "./pages/Profile";
-import BuyListing from "./pages/BuyListing";
+// import BuyListing from "./pages/BuyListing";
 import BuyMain from "./pages/BuyMain";
 import {
   Avatar,
@@ -126,7 +126,7 @@ const MainPage = ({username}) => {
   return (
     <div className={`${theme}`}>
       <div className="navbar">
-        <img src={Img} height={70} alt="logo" style={{ float: "left" }}></img>
+        <img src={logo} height={70} alt="logo" style={{ float: "left" }}></img>
         <ul className="centerNav" style={{ marginRight: "10%" }}>
           <NavLink activeclassname="active" to="/home">
             Home
@@ -238,7 +238,7 @@ const MainPage = ({username}) => {
         <Route path="/buy" element={<Buy />}>
           <Route path="" element={<BuyMain />} />
           {/* <Route path='listing/:id' element={< SingleListing />}/> */}
-          <Route path="listing" element={<BuyListing />} />
+          {/* <Route path="listing" element={<BuyListing />} /> */}
         </Route>
         <Route path="/sell" element={<Sell userData={userData} />} />
         <Route path="/about" element={<About />} />

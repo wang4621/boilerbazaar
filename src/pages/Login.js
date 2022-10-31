@@ -7,7 +7,7 @@ import {
   Divider,
   InputAdornment,
 } from "@mui/material";
-import Img from "../logo.png";
+import logo from "../component/Images/logo.png";
 import { useNavigate } from "react-router-dom";
 import Register from "../component/Register";
 import WarningIcon from "@mui/icons-material/Warning";
@@ -86,7 +86,7 @@ const Login = ({setAuth, setUserName}) => {
         autoComplete="off"
         onSubmit={logIn}
       >
-        <img src={Img} height={80} alt="logo"></img>
+        <img src={logo} height={80} alt="logo"></img>
         <TextField
           label="Purdue Username"
           // type="email"

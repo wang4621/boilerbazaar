@@ -6,7 +6,7 @@ import {
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import $ from "jquery";
-import ListingBox from "../component/ListingBox.js";
+import ListingBox from "./ListingBox.js";
 
 const Listings = ({userData}) => {
 //   const [listedTextbooks, setListedTextbooks] = useState(<CircularProgress />);
