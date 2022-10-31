@@ -50,6 +50,7 @@ const EditListing = ({
   const [author, setAuthor] = React.useState(listing["author"]);
   const [isbn, setISBN] = React.useState(listing["isbn"]);
   const [edition, setEdition] = React.useState(listing["edition"]);
+  const [course, setCourse] = React.useState(listing["course"]);
   const [condition, setCondition] = React.useState(listing["condition"]);
   const [description, setDescription] = React.useState(listing["description"]);
   const limit = 250;
@@ -59,6 +60,7 @@ const EditListing = ({
   const [authorError, setAuthorError] = React.useState(false);
   const [isbnError, setISBNError] = React.useState(false);
   const [editionError, setEditionError] = React.useState(false);
+  const [courseError, setCourseError] = React.useState(false);
   const [conditionError, setConditionError] = React.useState(false);
   const [submittedListing, setSubmittedListing] = React.useState(false);
 
@@ -100,6 +102,10 @@ const EditListing = ({
       setEditionError(true);
       missing = true;
     }
+    if (course === "") {
+      setCourseError(true);
+      missing = true;
+    }
     if (condition === "") {
       setConditionError(true);
       missing = true;
@@ -116,11 +122,12 @@ const EditListing = ({
         price: price,
         author: author,
         isbn: isbn,
+        course: course,
         edition: edition,
         condition: condition,
         description: description,
       };
-      jsonData = '"' + JSON.stringify(jsonData).replaceAll('"', '\\"') + '"';
+      jsonData = JSON.stringify(jsonData)
       // TODO: Change ajax call and send the correct values
       $.ajax({
         url: "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/listing",
@@ -185,6 +192,16 @@ const EditListing = ({
         setEditionError(true);
       }
       setEdition(event.target.value);
+    } else if (event.target.id === "course") {
+      if (event.target.value === "" && submittedListing) {
+          setCourseError(true);
+      } 
+      if (event.target.value.includes(" ")) {
+        event.target.value = event.target.value.slice(0, -1);
+      } else {
+        setCourseError(false);
+      }
+      setCourse(event.target.value)
     } else if (event.target.id === "description") {
       setStringLength(event.target.value.length);
       setDescription(event.target.value);
@@ -327,6 +344,16 @@ const EditListing = ({
               }}
             />
             <TextField
+              id="course"
+              label="Course"
+              value={course}
+              required
+              onChange={changeText}
+              error={courseError}
+              helperText={courseError ? "Please add a course." : ""}
+              inputProps={{ maxLength: 10 }}
+            />
+            <TextField
               id="condition"
               name="condition"
               label="Condition"
@@ -455,7 +482,7 @@ const EditListing = ({
                       variant="h5"
                       color="var(--text-color)"
                       sx={{ fontWeight: "bold" }}
-                      // id="previewTitle"
+                    // id="previewTitle"
                     >
                       {title === "" ? "Title" : title}
                     </Typography>
@@ -463,7 +490,7 @@ const EditListing = ({
                       variant="h6"
                       color="var(--text-color)"
                       sx={{ fontWeight: "bold" }}
-                      // id="previewPrice"
+                    // id="previewPrice"
                     >
                       {price === "" ? "Price" : "$" + price}
                     </Typography>
@@ -485,7 +512,7 @@ const EditListing = ({
                       <Typography
                         variant="body1"
                         color="var(--text-color)"
-                        // id="previewAuthor"
+                      // id="previewAuthor"
                       >
                         {author}
                       </Typography>
@@ -499,7 +526,7 @@ const EditListing = ({
                       <Typography
                         variant="body1"
                         color="var(--text-color)"
-                        // id="previewISBN"
+                      // id="previewISBN"
                       >
                         {isbn}
                       </Typography>
@@ -513,9 +540,19 @@ const EditListing = ({
                       <Typography
                         variant="body1"
                         color="var(--text-color)"
-                        // id="previewEdition"
+                      // id="previewEdition"
                       >
                         {edition}
+                      </Typography>
+                    </Typography>
+                    <Typography
+                      variant="h6"
+                      color="var(--text-color)"
+                      sx={{ fontWeight: "bold" }}
+                    >
+                      Course
+                      <Typography variant="body1" color="var(--text-color)">
+                        {course}
                       </Typography>
                     </Typography>
                     <Typography
@@ -527,7 +564,7 @@ const EditListing = ({
                       <Typography
                         variant="body1"
                         color="var(--text-color)"
-                        // id="previewCondition"
+                      // id="previewCondition"
                       >
                         {condition}
                       </Typography>
@@ -542,7 +579,7 @@ const EditListing = ({
                       <Typography
                         variant="body1"
                         color="var(--text-color)"
-                        // id="previewDescription"
+                      // id="previewDescription"
                       >
                         {description}
                       </Typography>
