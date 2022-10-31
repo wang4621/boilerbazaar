@@ -88,8 +88,8 @@ const Login = ({setAuth, setUserName}) => {
       >
         <img src={Img} height={80} alt="logo"></img>
         <TextField
-          label="Purdue Email"
-          type="email"
+          label="Purdue Username"
+          // type="email"
           sx={{ width: "60%" }}
           error={error}
           helperText={
