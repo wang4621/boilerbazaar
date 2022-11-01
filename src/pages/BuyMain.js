@@ -6,6 +6,7 @@ import {
   Box,
   Grid,
   CircularProgress,
+  Typography,
 } from "@mui/material";
 import $ from "jquery";
 import { BrowserRouter, Routes, Route, NavLink } from "react-router-dom";
@@ -200,6 +201,7 @@ function BuyMain() {
   var originalListingList = [];
   function search() {
     setLoading(true);
+    setFirst(false)
     const searchFilterValue = document.getElementById("searchFilter").innerText;
     const searchText = document.getElementById("searchBar").value;
     addSearchHistory(searchText);
@@ -261,7 +263,7 @@ function BuyMain() {
         console.log(listingList);
         originalListingList = JSON.parse(JSON.stringify(listingList));
         console.log(originalListingList);
-        repopulateListings();
+        // repopulateListings();
         repopulateFilters();
       },
       error: function (result) {
@@ -408,25 +410,25 @@ function BuyMain() {
       default:
         return;
     }
-    repopulateListings();
+    // repopulateListings();
   }
 
-  function repopulateListings() {
-    //Repopulate listings display
-    const listings = document.getElementById("listings");
-    while (listings.hasChildNodes()) {
-      listings.removeChild(listings.firstChild);
-    }
-    for (const item of listingList) {
-      let newListing = document.createElement("li");
-      let a = document.createElement("a");
-      let text = document.createTextNode(item.toString.trim());
-      a.appendChild(text);
-      a.href = "/buy/listing/" + item.listingID;
-      newListing.appendChild(a);
-      listings.appendChild(newListing);
-    }
-  }
+  //   function repopulateListings() {
+  //     //Repopulate listings display
+  //     const listings = document.getElementById("listings");
+  //     while (listings.hasChildNodes()) {
+  //       listings.removeChild(listings.firstChild);
+  //     }
+  //     for (const item of listingList) {
+  //       let newListing = document.createElement("li");
+  //       let a = document.createElement("a");
+  //       let text = document.createTextNode(item.toString.trim());
+  //       a.appendChild(text);
+  //       a.href = "/buy/listing/" + item.listingID;
+  //       newListing.appendChild(a);
+  //       listings.appendChild(newListing);
+  //     }
+  //   }
 
   function repopulateFilters() {
     //Repopulate filters
@@ -540,7 +542,7 @@ function BuyMain() {
     }
 
     console.log(listingList);
-    repopulateListings();
+    // repopulateListings();
   }
 
   window.onload = function () {
@@ -551,6 +553,7 @@ function BuyMain() {
 
   const [textbooks, setTextbooks] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [first, setFirst] = useState(true);
 
   return (
     <Box
@@ -658,28 +661,57 @@ function BuyMain() {
           width: "72%",
           height: "100%",
           display: "flex",
-          justifyContent: "flex-start",
+          justifyContent: "center",
+          alignItems: "flex-start",
           overflowY: "auto",
         }}
         className="scrollBar"
       >
-        <Grid
-          container
-          spacing={1}
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          {loading ? (
+        {loading ? (
+          <Box
+            sx={{
+              width: "100%",
+              height: "100%",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
             <CircularProgress />
-          ) : (
-            textbooks.map((textbook) => {
+          </Box>
+        ) : textbooks.length > 0 ? (
+          <Grid
+            container
+            spacing={1}
+            sx={{
+              display: "flex",
+              // justifyContent: "center",
+              alignItems: "flex-start",
+            }}
+          >
+            {textbooks.map((textbook) => {
               return <Textbook textbook={textbook} />;
-            })
-          )}
-        </Grid>
+            })}
+          </Grid>
+        ) : (
+          <Box
+            sx={{
+              width: "100%",
+              height: "100%",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            {first ? (
+              <Typography variant="h5">
+                To See Textbooks, Start By Searching.
+              </Typography>
+            ) : (
+              <Typography variant="h5">No Textbooks Found</Typography>
+            )}
+          </Box>
+        )}
       </Box>
     </Box>
   );

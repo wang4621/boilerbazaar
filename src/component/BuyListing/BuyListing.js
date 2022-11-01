@@ -1,5 +1,5 @@
 import "./BuyListing.css";
-import * as React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Avatar,
   Divider,
@@ -11,8 +11,11 @@ import {
   IconButton,
   AppBar,
   Dialog,
+  TextField,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
+import SendIcon from "@mui/icons-material/Send";
+import $ from "jquery";
 
 // import './SingleListing.css'
 // import * as React from 'react';
@@ -50,11 +53,29 @@ import CloseIcon from "@mui/icons-material/Close";
 // }
 // export default SingleListing;
 
-const BuyListing = ({ listing, open, setOpen, sellerData }) => {
+const BuyListing = ({ listing, open, setOpen }) => {
+  const [sellerData, setSellerData] = useState("");
+
   const closeBuy = () => {
     setOpen(false);
   };
-  console.log(listing)
+
+  useEffect(() => {
+    $.ajax({
+      url:
+        "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/profile?puid=" +
+        listing["sellerID"],
+      type: "GET",
+      success: function (result) {
+        console.log(result);
+        setSellerData(result);
+      },
+      error: function (result) {
+        console.log(JSON.stringify(result));
+      },
+    });
+  }, []);
+
   return (
     <Dialog fullScreen open={open} onClose={closeBuy}>
       <AppBar sx={{ position: "relative", height: "8%" }}>
@@ -120,7 +141,7 @@ const BuyListing = ({ listing, open, setOpen, sellerData }) => {
               sx={{ fontWeight: "bold" }}
               id="previewTitle"
             >
-              {listing['title']}
+              {listing["title"]}
             </Typography>
             <Typography
               variant="h6"
@@ -128,7 +149,7 @@ const BuyListing = ({ listing, open, setOpen, sellerData }) => {
               sx={{ fontWeight: "bold" }}
               id="previewPrice"
             >
-              ${listing['price']}
+              ${listing["price"]}
             </Typography>
             <br />
             <Typography
@@ -150,7 +171,7 @@ const BuyListing = ({ listing, open, setOpen, sellerData }) => {
                 color="var(--text-color)"
                 id="previewAuthor"
               >
-                {listing['author']}
+                {listing["author"]}
               </Typography>
             </Typography>
             <Typography
@@ -164,7 +185,7 @@ const BuyListing = ({ listing, open, setOpen, sellerData }) => {
                 color="var(--text-color)"
                 id="previewISBN"
               >
-                {listing['isbn']}
+                {listing["isbn"]}
               </Typography>
             </Typography>
             <Typography
@@ -178,7 +199,7 @@ const BuyListing = ({ listing, open, setOpen, sellerData }) => {
                 color="var(--text-color)"
                 id="previewEdition"
               >
-                {listing['edition']}
+                {listing["edition"]}
               </Typography>
             </Typography>
             <Typography
@@ -192,7 +213,7 @@ const BuyListing = ({ listing, open, setOpen, sellerData }) => {
                 color="var(--text-color)"
                 id="previewCondition"
               >
-                {listing['condition']}
+                {listing["condition"]}
               </Typography>
             </Typography>
             <br />
@@ -207,7 +228,7 @@ const BuyListing = ({ listing, open, setOpen, sellerData }) => {
                 color="var(--text-color)"
                 id="previewDescription"
               >
-                {listing['description']}
+                {listing["description"]}
               </Typography>
             </Typography>
             <br />
@@ -218,7 +239,7 @@ const BuyListing = ({ listing, open, setOpen, sellerData }) => {
             sx={{ borderBottomColor: "var(--text-color)" }}
           />
           <CardContent
-            sx={{ height: "25%", display: "flex", flexDirection: "column" }}
+            sx={{ height: "20%", display: "flex", flexDirection: "column" }}
           >
             <Typography
               variant="body1"
@@ -226,11 +247,7 @@ const BuyListing = ({ listing, open, setOpen, sellerData }) => {
               sx={{ fontWeight: "bold", fontSize: 18 }}
             >
               Seller Information
-              <Button
-                variant="outlined"
-                size="small"
-                sx={{ float: "right" }}
-              >
+              <Button variant="outlined" size="small" sx={{ float: "right" }}>
                 Seller Details
               </Button>
             </Typography>
@@ -240,38 +257,45 @@ const BuyListing = ({ listing, open, setOpen, sellerData }) => {
               color="var(--text-color)"
               sx={{
                 display: "flex",
-                justifyContent: "space-between",
+                // justifyContent: "space-between",
                 alignItems: "center",
               }}
               id="avatarName"
             >
               <Avatar
-                sx={{ width: 40, height: 40 }}
+                sx={{ width: 40, height: 40, marginRight: 2 }}
                 alt=""
                 src=""
                 id="avatarPic"
               />
-              Jeff Wang
+              {sellerData["preferredName"] === ""
+                ? sellerData["firstName"] + " " + sellerData["lastName"]
+                : sellerData["preferredName"] + " " + sellerData["lastName"]}
             </Typography>
           </CardContent>
           <Box
-            sx={{ height: "10%", backgroundColor: "var(--secondary-color)" }}
+            sx={{ height: "15%", backgroundColor: "var(--secondary-color)" }}
             className="innerBottomBox"
           >
-            <Button
-              variant="outlined"
-              disabled
+            <Typography variant="body1">Send Message to the Seller</Typography>
+            <Box
               sx={{
-                width: "95%",
-                backgroundColor: "var(--tertiary-color) !important",
+                width: "100%",
+                display: "flex",
+                justifyContent: "space-evenly",
+                alignItems: "center",
               }}
             >
-              Message
-            </Button>
+              <TextField label="Message" sx={{ width: "80%" }} />
+              <IconButton aria-label="delete" size="large" color="inherit">
+                <SendIcon />
+              </IconButton>
+            </Box>
           </Box>
         </Box>
       </Box>
     </Dialog>
   );
 };
+
 export default BuyListing;
