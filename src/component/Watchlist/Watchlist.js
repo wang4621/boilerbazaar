@@ -6,9 +6,9 @@ import {
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import $ from "jquery";
-import WatchlistBox from "../component/WatchlistBox.js";
+import WatchlistBox from "./WatchlistBox.js";
 
-function Watchlist() {
+const Watchlist = ({userData}) => {
     const [watchlistListings, setWatchlistListings] = useState([]);
     const [stateChange, setStateChange] = useState(false);
     const [loading, setLoading] = useState(true);
@@ -20,7 +20,7 @@ function Watchlist() {
         $.ajax({
           url:
             "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/watchlist?puid=" +
-            JSON.parse(localStorage.getItem("userData"))["puid"],
+            userData["puid"],
           type: "GET",
           success: function (result) {
             setLoading(false);
