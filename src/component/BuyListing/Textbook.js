@@ -2,14 +2,18 @@ import React, { useState, useEffect } from "react";
 import { Box, Grid, Typography } from "@mui/material";
 import BuyListing from "./BuyListing";
 import $ from "jquery";
+import { useNavigate } from "react-router-dom";
 
 const Textbook = ({ textbook }) => {
   // console.log(textbook);
   const [open, setOpen] = useState(false);
   const [image, setImage] = useState("");
 
+  const navigate = useNavigate();
+
   const openListing = () => {
     setOpen(true);
+    navigate("/buy/" + textbook["listingID"]);
   };
 
   useEffect(() => {
@@ -21,7 +25,7 @@ const Textbook = ({ textbook }) => {
       type: "GET",
       success: function (result) {
         // console.log(result);
-        setImage(result)
+        setImage(result);
       },
       error: function (result) {
         console.log(JSON.stringify(result));
@@ -74,7 +78,7 @@ const Textbook = ({ textbook }) => {
                 backgroundColor: "lightgrey",
               }}
             >
-              <img src={image} alt="textbook"/>
+              <img src={image} alt="textbook" />
             </Box>
           </Box>
           <Box
@@ -95,7 +99,11 @@ const Textbook = ({ textbook }) => {
           </Box>
         </Box>
       </Box>
-      <BuyListing listing={textbook} open={open} setOpen={setOpen} />
+      <BuyListing
+        listing={textbook}
+        open={open}
+        setOpen={setOpen}
+      />
     </Grid>
   );
 };
