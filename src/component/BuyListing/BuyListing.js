@@ -12,6 +12,7 @@ import {
   AppBar,
   Dialog,
   TextField,
+  Link
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import SendIcon from "@mui/icons-material/Send";
@@ -71,7 +72,7 @@ const BuyListing = ({ listing, open, setOpen }) => {
         listing["sellerID"],
       type: "GET",
       success: function (result) {
-        // console.log(result);
+        console.log(result);
         setSellerData(result);
       },
       error: function (result) {
@@ -250,10 +251,8 @@ const BuyListing = ({ listing, open, setOpen }) => {
               color="var(--text-color)"
               sx={{ fontWeight: "bold", fontSize: 18 }}
             >
-              Seller Information
-              <Button variant="outlined" size="small" sx={{ float: "right" }}>
-                Seller Details
-              </Button>
+              {/* href to profile.html?sellid=result.sellid*/}
+              <a href={"boilerbazaar/profile.html?sellid=" + sellerData["puid"]}>Seller Information</a>
             </Typography>
             <br />
             <Typography

@@ -20,7 +20,6 @@
                 <th>Last Name</th>
                 <th>First Name</th>
                 <th>Preferred Name</th>
-                <th>Email</th>
                 <th>Delivery Preference</th>
                 <th>Link</th>
             </tr>
@@ -35,6 +34,7 @@
                 data = data.body
                 // convert data to JSON
                 data = JSON.parse(data)
+                console.log(data)
                 for (let i = 0; i < data.length; i++) {
                     // data[i] contains first name, last name, preferred name, email, delivery prefernce
                     // Add those info to sellerList table 
@@ -47,10 +47,9 @@
                     let lastName = row.insertCell(0);
                     let firstName = row.insertCell(1);
                     let preferredName = row.insertCell(2);
-                    let email = row.insertCell(3);
-                    let deliveryPreference = row.insertCell(4);
+                    let deliveryPreference = row.insertCell(3);
                     // Display a button to go to the profile of the seller
-                    let link = row.insertCell(5);
+                    let link = row.insertCell(4);
                     const button = document.createElement("button");
                     // Background color of the button
                     button.style.backgroundColor = "white";
@@ -58,15 +57,14 @@
                     button.innerHTML = "Profile";
                     button.addEventListener("click", () => {
                         // Go to the profile of the seller
-                        window.location.href = `profile.html?email=${data[i].email}&first_name=${data[i].first_name}&last_name=${data[i].last_name}&prefered_name=${data[i].prefered_name}&delivery_preference=${data[i].delivery_preference}&major=${data[i].major}`
+                        window.location.href = `profile.html?sellid=${data[i].puid}`
                     })
                     link.appendChild(button);
 
-                    lastName.innerHTML = data[i].last_name;
-                    firstName.innerHTML = data[i].first_name;
-                    preferredName.innerHTML = data[i].prefered_name;
-                    email.innerHTML = data[i].email;
-                    deliveryPreference.innerHTML = data[i].delivery_preference;
+                    lastName.innerHTML = data[i].lastName;
+                    firstName.innerHTML = data[i].firstName;
+                    preferredName.innerHTML = data[i].preferredName;
+                    deliveryPreference.innerHTML = data[i].preferredMeeting;
                 }
             })
     </script>
@@ -79,7 +77,6 @@
             table.rows[i].cells[2].style.padding = "20px";
             table.rows[i].cells[3].style.padding = "20px";
             table.rows[i].cells[4].style.padding = "20px";
-            table.rows[i].cells[5].style.padding = "20px";
         }
         // // Make content of table center
         table.style.textAlign = "center";

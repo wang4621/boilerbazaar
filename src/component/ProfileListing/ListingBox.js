@@ -88,7 +88,8 @@ const ListingBox = ({ listing, stateChange, setStateChange, userData }) => {
       m={2}
       sx={{
         width: "80%",
-        // height: "30%",
+        height: "35%",
+        minHeight: "130px",
         display: "flex",
         // flexDirection: "row",
         // justifyContent: "center",
@@ -117,7 +118,7 @@ const ListingBox = ({ listing, stateChange, setStateChange, userData }) => {
             alignItems: "center",
           }}
         >
-          <img src={image} alt="textbook"/>
+          <img src={image} alt="textbook" />
         </Box>
       </Box>
       <Box
