@@ -67,14 +67,14 @@ const BuyListing = ({ listing, open, setOpen }) => {
         listing["sellerID"],
       type: "GET",
       success: function (result) {
-        console.log(result);
+        // console.log(result);
         setSellerData(result);
       },
       error: function (result) {
         console.log(JSON.stringify(result));
       },
     });
-  }, []);
+  }, [listing]);
 
   return (
     <Dialog fullScreen open={open} onClose={closeBuy}>

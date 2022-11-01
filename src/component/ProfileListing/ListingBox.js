@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Box, Typography, Button } from "@mui/material";
 import CheckIcon from "@mui/icons-material/Check";
 import CloseIcon from "@mui/icons-material/Close";
@@ -12,9 +12,10 @@ const ListingBox = ({ listing, stateChange, setStateChange, userData }) => {
   let listingSold = listing["sold"];
   let listingId = listing["listingID"];
 
-  const [editOpen, setEditOpen] = React.useState(false);
-  const [deleteOpen, setDeleteOpen] = React.useState(false);
-  const [sold, setSold] = React.useState(listingSold)
+  const [editOpen, setEditOpen] = useState(false);
+  const [deleteOpen, setDeleteOpen] = useState(false);
+  const [sold, setSold] = useState(listingSold);
+  const [image, setImage] = useState("");
 
   const openDelete = () => {
     setDeleteOpen(true);
@@ -63,6 +64,23 @@ const ListingBox = ({ listing, stateChange, setStateChange, userData }) => {
     }
   };
 
+  useEffect(() => {
+    // gets the images for the textbook
+    $.ajax({
+      url:
+        "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/listing/images?listingID=" +
+        listing["listingID"],
+      type: "GET",
+      success: function (result) {
+        // console.log(result);
+        setImage(result)
+      },
+      error: function (result) {
+        console.log(JSON.stringify(result));
+      },
+    });
+  }, [listing]);
+
   // console.log("listingID:", listingId + " sold: ",listingSold)
   return (
     <Box
@@ -70,7 +88,7 @@ const ListingBox = ({ listing, stateChange, setStateChange, userData }) => {
       m={2}
       sx={{
         width: "80%",
-        height: "20%",
+        height: "35%",
         display: "flex",
         flexDirection: "row",
         justifyContent: "center",
@@ -99,7 +117,7 @@ const ListingBox = ({ listing, stateChange, setStateChange, userData }) => {
             alignItems: "center",
           }}
         >
-          Image Preview
+          <img src={image} alt="textbook"/>
         </Box>
       </Box>
       <Box

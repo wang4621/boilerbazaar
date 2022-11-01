@@ -7,7 +7,7 @@ function About (){
     return (
         <div>
             <div class="header">
-                <h1>About Boiler Bazaar</h1>
+                <h1>About BoilerBazaar</h1>
             </div>
             <div class="horizontal">
                 <div class="vertical">

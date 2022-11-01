@@ -86,7 +86,7 @@ const Login = ({setAuth, setUserName}) => {
         autoComplete="off"
         onSubmit={logIn}
       >
-        <img src={logo} height={80} alt="logo"></img>
+        <img src={logo} height={80} alt="logo"/>
         <TextField
           label="Purdue Username"
           // type="email"

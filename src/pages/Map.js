@@ -299,7 +299,7 @@ function Map() {
               }}
             >
               {/* <h2 className="bookstoreNames">University Bookstore</h2> */}
-              <Typography variant="h5" sx={{ fontWeight: "bold" }}>
+              <Typography variant="h6" sx={{ fontWeight: "bold" }}>
                 University Bookstore
               </Typography>
               <img
@@ -366,7 +366,7 @@ function Map() {
               }}
             >
               {/* <h2 className="bookstoreNames">Stadium University Bookstore</h2> */}
-              <Typography variant="h5" sx={{ fontWeight: "bold" }}>
+              <Typography variant="h6" sx={{ fontWeight: "bold" }}>
                 Stadium University Bookstore
               </Typography>
               <img
@@ -433,7 +433,7 @@ function Map() {
               }}
             >
               {/* <h2 className="bookstoreNames">Follett's Purdue West Bookstore</h2> */}
-              <Typography variant="h5" sx={{ fontWeight: "bold" }}>
+              <Typography variant="h6" sx={{ fontWeight: "bold" }}>
                 Follett's Purdue West Bookstore
               </Typography>
               <img
