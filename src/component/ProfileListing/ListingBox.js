@@ -88,8 +88,8 @@ const ListingBox = ({ listing, stateChange, setStateChange, userData }) => {
       m={2}
       sx={{
         width: "80%",
-        height: "35%",
-        minHeight: "130px",
+        // height: "35%",
+        // minHeight: "130px",
         display: "flex",
         // flexDirection: "row",
         // justifyContent: "center",

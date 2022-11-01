@@ -41,7 +41,7 @@ const Listings = ({userData}) => {
         flexDirection: "column",
       }}
     >
-      <Box sx={{ height: "6%" }}>
+      <Box sx={{ height: "6.5%" }}>
         <Typography
           variant="h6"
           sx={{ fontWeight: "bold", textAlign: "center", padding: "10px" }}
@@ -55,7 +55,7 @@ const Listings = ({userData}) => {
       </Box>
       <Box
         sx={{
-          height: "94%",
+          height: "93.5%",
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
