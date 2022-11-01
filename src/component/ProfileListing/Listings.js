@@ -41,7 +41,7 @@ const Listings = ({userData}) => {
         flexDirection: "column",
       }}
     >
-      <Box sx={{ height: "8%" }}>
+      <Box sx={{ height: "6%" }}>
         <Typography
           variant="h6"
           sx={{ fontWeight: "bold", textAlign: "center", padding: "10px" }}
@@ -59,8 +59,9 @@ const Listings = ({userData}) => {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          overflow: "scroll",
+          overflowY: "auto",
         }}
+        className='scrollBar'
       >
         {loading ? <CircularProgress/> : 
         listedTextbooks.length > 0 ? (

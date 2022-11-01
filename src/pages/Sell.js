@@ -612,13 +612,13 @@ const Sell = ({ userData }) => {
                     // color="var(--text-color)"
                     sx={{
                       display: "flex",
-                      justifyContent: "space-between",
+                      // justifyContent: "space-between",
                       alignItems: "center",
                     }}
                     id="avatarName"
                   >
                     <Avatar
-                      sx={{ width: 40, height: 40 }}
+                      sx={{ width: 40, height: 40, marginRight: 2 }}
                       alt=""
                       src=""
                       id="avatarPic"

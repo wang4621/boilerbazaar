@@ -26,7 +26,7 @@ const ListingBox = ({ listing, stateChange, setStateChange, userData }) => {
   };
 
   // on button click for "Mark as Sold" and "Mark as Available"
-  const changeTextAndIcon = event => {
+  const changeTextAndIcon = (event) => {
     if (event.target.innerText === "Mark as Sold") {
       // send ajax to update, on success - setSold
       $.ajax({
@@ -37,7 +37,7 @@ const ListingBox = ({ listing, stateChange, setStateChange, userData }) => {
         type: "PUT",
         success: function (result) {
           console.log(JSON.stringify(result));
-          setSold('true')
+          setSold("true");
           // setStateChange(!stateChange)
         },
         error: function (result) {
@@ -54,7 +54,7 @@ const ListingBox = ({ listing, stateChange, setStateChange, userData }) => {
         type: "PUT",
         success: function (result) {
           console.log(JSON.stringify(result));
-          setSold('false')
+          setSold("false");
           // setStateChange(!stateChange)
         },
         error: function (result) {
@@ -73,7 +73,7 @@ const ListingBox = ({ listing, stateChange, setStateChange, userData }) => {
       type: "GET",
       success: function (result) {
         // console.log(result);
-        setImage(result)
+        setImage(result);
       },
       error: function (result) {
         console.log(JSON.stringify(result));
@@ -88,10 +88,10 @@ const ListingBox = ({ listing, stateChange, setStateChange, userData }) => {
       m={2}
       sx={{
         width: "80%",
-        height: "35%",
+        // height: "30%",
         display: "flex",
-        flexDirection: "row",
-        justifyContent: "center",
+        // flexDirection: "row",
+        // justifyContent: "center",
         backgroundColor: "var(--secondary-color)",
         borderRadius: 5,
         boxShadow: 8,
@@ -100,7 +100,7 @@ const ListingBox = ({ listing, stateChange, setStateChange, userData }) => {
       <Box
         sx={{
           height: "100%",
-          width: "30%",
+          width: "25%",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
@@ -123,19 +123,42 @@ const ListingBox = ({ listing, stateChange, setStateChange, userData }) => {
       <Box
         sx={{
           height: "100%",
-          width: "70%",
+          width: "75%",
           display: "flex",
           justifyContent: "flex-start",
           alignItems: "center",
         }}
       >
-        <Box sx={{ height: "80%", width: "95%" }}>
-          <Box sx={{ height: "80%", width: "100%" }}>
-            <Typography variant="body1" sx={{ fontWeight: "bold" }}>
+        <Box
+          sx={{
+            height: "80%",
+            width: "95%",
+            display: "flex",
+            flexDirection: "column",
+          }}
+          m={1.5}
+        >
+          <Box
+            sx={{
+              height: "80%",
+              width: "100%",
+              display: "flex",
+              flexDirection: "column",
+              // justifyContent: "space-evenly",
+            }}
+          >
+            <Typography
+              variant="body1"
+              sx={{ fontWeight: "bold"}}
+            >
               {listing["title"]}
             </Typography>
-            <Typography variant="body1">${listing["price"]}</Typography>
-            <Typography variant="body2">0 clicks on listing</Typography>
+            <Typography variant="body1">
+              ${listing["price"]}
+            </Typography>
+            <Typography variant="body2">
+              0 clicks on listing
+            </Typography>
             <Typography variant="body2">
               Listed on {listing["timeListed"]}
             </Typography>
@@ -151,7 +174,7 @@ const ListingBox = ({ listing, stateChange, setStateChange, userData }) => {
           >
             <Button
               variant="contained"
-              startIcon={sold === 'true' ? <CheckIcon /> : <CloseIcon />}
+              startIcon={sold === "true" ? <CheckIcon /> : <CloseIcon />}
               sx={{
                 height: "100% !important",
                 width: "35%",
@@ -159,7 +182,7 @@ const ListingBox = ({ listing, stateChange, setStateChange, userData }) => {
               }}
               onClick={changeTextAndIcon}
             >
-              {sold === 'true' ? "Mark as Available" : "Mark as Sold"}
+              {sold === "true" ? "Mark as Available" : "Mark as Sold"}
             </Button>
             <Button
               variant="contained"
@@ -169,7 +192,7 @@ const ListingBox = ({ listing, stateChange, setStateChange, userData }) => {
                 width: "30%",
                 borderRadius: "5px !important",
               }}
-              disabled={sold === 'true' ? true : false}
+              disabled={sold === "true" ? true : false}
               onClick={openEdit}
             >
               Edit Listing
