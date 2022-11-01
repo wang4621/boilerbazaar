@@ -9,6 +9,7 @@ import Buy from "./pages/Buy";
 import About from "./pages/About";
 import Map from "./pages/Map";
 import Listings from "./component/ProfileListing/Listings";
+import Watchlist from "./component/Watchlist/Watchlist"
 import Profile from "./pages/Profile";
 // import BuyListing from "./pages/BuyListing";
 import BuyMain from "./pages/BuyMain";
@@ -25,6 +26,7 @@ import $ from "jquery";
 import Brightness4Icon from "@mui/icons-material/Brightness4";
 import Brightness7Icon from "@mui/icons-material/Brightness7";
 import SettingsIcon from "@mui/icons-material/Settings";
+import WatchlistBox from "./component/Watchlist/WatchlistBox";
 
 const MainPage = ({username}) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -249,6 +251,7 @@ const MainPage = ({username}) => {
             element={<Profile userData={userData} setUserData={setUserData} />}
           />
           <Route path="listings" element={<Listings userData={userData} />} />
+          <Route path="watchlist" element={<Watchlist userData={userData} />} />
         </Route>
       </Routes>
     </div>
