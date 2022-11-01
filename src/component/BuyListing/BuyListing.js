@@ -17,6 +17,7 @@ import {
 import CloseIcon from "@mui/icons-material/Close";
 import SendIcon from "@mui/icons-material/Send";
 import $ from "jquery";
+import { useNavigate } from "react-router-dom";
 
 // import './SingleListing.css'
 // import * as React from 'react';
@@ -57,8 +58,11 @@ import $ from "jquery";
 const BuyListing = ({ listing, open, setOpen }) => {
   const [sellerData, setSellerData] = useState("");
 
+  const navigate = useNavigate();
+
   const closeBuy = () => {
     setOpen(false);
+    navigate("/buy");
   };
 
   useEffect(() => {

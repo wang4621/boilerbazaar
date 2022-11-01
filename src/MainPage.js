@@ -11,8 +11,8 @@ import Map from "./pages/Map";
 import Listings from "./component/ProfileListing/Listings";
 import Watchlist from "./component/Watchlist/Watchlist"
 import Profile from "./pages/Profile";
-// import BuyListing from "./pages/BuyListing";
-import BuyMain from "./pages/BuyMain";
+// import BuyListing from "./component/BuyListing/BuyListing";
+// import BuyMain from "./pages/BuyMain";
 import {
   Avatar,
   Menu,
@@ -237,9 +237,9 @@ const MainPage = ({username}) => {
       </div>
       <Routes>
         <Route path="/home" element={<Home />} />
-        <Route path="/buy" element={<Buy />}>
-          <Route path="" element={<BuyMain />} />
-          {/* <Route path='listing/:id' element={< SingleListing />}/> */}
+        <Route path="/buy/*" element={<Buy />}>
+          {/* <Route path="" element={<BuyMain />} /> */}
+          {/* <Route path='listing/:id' element={< BuyListing />}/> */}
           {/* <Route path="listing" element={<BuyListing />} /> */}
         </Route>
         <Route path="/sell" element={<Sell userData={userData} />} />
