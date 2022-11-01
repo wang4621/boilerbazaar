@@ -4,7 +4,7 @@
 }
 
 .mapDisplay .MuiButton-root {
-  height: 180px;
+  height: 80px;
   color: var(--text-color);
   text-transform: none;
   font-size: 18px;
@@ -74,11 +74,11 @@
   font-size: 110%;
 } */
 
-.closestBookstoreText {
+/* .closestBookstoreText {
   padding-left: 50px;
   padding-right: 50px;
   flex-basis: 100%;
   text-align: center;
   font-size: 110%;
   overflow: auto;
-}
+} */

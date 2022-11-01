@@ -235,7 +235,7 @@ function Map() {
           </Typography>
           <Divider
             variant="middle"
-            sx={{ borderBottomColor: "var(--text-color)", marginBottom:2 }}
+            sx={{ borderBottomColor: "var(--text-color)"}}
           />
           {/* <hr className="mapDivider"></hr> */}
           <Box
@@ -266,7 +266,8 @@ function Map() {
               Click me to locate the closest bookstore
             </button>
           </div> */}
-            <p className="closestBookstoreText" id="closestBookstoreText"></p>
+            {/* <p className="closestBookstoreText" id="closestBookstoreText"></p> */}
+            <Typography id="closestBookstoreText" sx={{textAlign:'center'}}/>
           </Box>
         </Box>
         <Box
