@@ -8,6 +8,7 @@
   color: var(--text-color);
   text-transform: none;
   font-size: 18px;
+  border-radius: 0px 0px 0px 0px;
 }
 
 /* .mapContainer {
