@@ -11,8 +11,8 @@ import $ from "jquery";
 const ListingBox = ({ listing, stateChange, setStateChange }) => {
   let listingSold = listing["sold"];
   let listingId = listing["listingID"];
-  // console.log("listingId:", listingId)
-  // console.log("listingSold:", listingSold)
+  console.log("listingId:", listingId)
+  console.log("listingSold:", listingSold)
 
   const [editOpen, setEditOpen] = React.useState(false);
   const [deleteOpen, setDeleteOpen] = React.useState(false);

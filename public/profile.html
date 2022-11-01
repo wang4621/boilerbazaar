@@ -23,6 +23,7 @@
         const prefered_name = urlParams.get('prefered_name')
         const delivery_preference = urlParams.get('delivery_preference')
         const major = urlParams.get('major')
+        const sell = urlParams.get('sell')
         // Profile to display those info
         const profile = {
             email: email,
@@ -41,7 +42,7 @@
         document.write(`<p>Preferred Name: ${profile.prefered_name}</p>`)
         document.write(`<p>Delivery Preference: ${profile.delivery_preference}</p>`)
         document.write(`<p>Major: ${major}</p>`)
-
+        document.write(`<p># of Sell: ${sell}</p>`)
 
 
     </script>
