@@ -12,7 +12,8 @@ import "./Profile.css";
 import $ from "jquery";
 
 const Profile = ({ userData, setUserData }) => {
-  console.log(userData);
+
+  console.log(userData)
   const [isDisabled, setDisabled] = React.useState(true);
   const [value, setValue] = React.useState("Edit");
   // let profileData = JSON.parse(localStorage.getItem('userData'));
@@ -33,24 +34,24 @@ const Profile = ({ userData, setUserData }) => {
   // const [major, setMajor] = React.useState(profileData['major']);
   const [major, setMajor] = React.useState(userData["major"]);
 
-  const preferredMeetingChange = (event) => {
-    setPreferredMeeting(event.target.value);
-  };
+  // const preferredMeetingChange = (event) => {
+  //   setPreferredMeeting(event.target.value);
+  // };
 
-  const majorChange = (event) => {
-    setMajor(event.target.value);
-  };
+  // const majorChange = (event) => {
+  //   setMajor(event.target.value);
+  // };
 
-  const preferredNameChange = (event) => {
-    setPreferredName(event.target.value);
-  };
+  // const preferredNameChange = (event) => {
+  //   setPreferredName(event.target.value);
+  // };
 
-  let name;
-  if (preferredName === "") {
-    name = firstName + " " + lastName;
-  } else {
-    name = preferredName + " " + lastName;
-  }
+  // let name;
+  // if (preferredName === "") {
+  //   name = firstName + " " + lastName;
+  // } else {
+  //   name = preferredName + " " + lastName;
+  // }
 
   const editOrSaveProfile = (event) => {
     setDisabled(!isDisabled);
@@ -60,7 +61,7 @@ const Profile = ({ userData, setUserData }) => {
       // save new values into local storage
       var jsonData = {
         puid: puid,
-        preferredName: preferredName,
+        // preferredName: preferredName,
         major: major,
         preferredMeeting: preferredMeeting,
         firstName: firstName,
@@ -133,7 +134,7 @@ const Profile = ({ userData, setUserData }) => {
             label="Preferred Name"
             disabled={isDisabled}
             value={preferredName}
-            onChange={preferredNameChange}
+            onChange={(e)=>setPreferredName(e.target.value.charAt(0).toUpperCase() + e.target.value.slice(1))}
             sx={{
               "& .MuiOutlinedInput-root:hover": {
                 "& > fieldset": { borderColor: "var(--text-color)" },
@@ -153,7 +154,7 @@ const Profile = ({ userData, setUserData }) => {
             label="Major"
             disabled={isDisabled}
             value={major}
-            onChange={majorChange}
+            onChange={(e)=>setMajor(e.target.value)}
             sx={{
               "& .MuiOutlinedInput-root:hover": {
                 "& > fieldset": { borderColor: "var(--text-color)" },
@@ -166,7 +167,7 @@ const Profile = ({ userData, setUserData }) => {
             select
             value={preferredMeeting}
             disabled={isDisabled}
-            onChange={preferredMeetingChange}
+            onChange={(e)=>setPreferredMeeting(e.target.value)}
             sx={{
               "& .MuiOutlinedInput-root:hover": {
                 "& > fieldset": { borderColor: "var(--text-color)" },
@@ -196,12 +197,12 @@ const Profile = ({ userData, setUserData }) => {
           color="var(--text-color)"
           sx={{ textAlign: "center" }}
         >
-          {name}
+          {preferredName === '' ? firstName + ' ' + lastName : preferredName + ' ' + lastName}
         </Typography>
         <br />
-        <Typography variant="h6" color="var(--text-color)">
+        {/* <Typography variant="h6" color="var(--text-color)">
           Rating
-        </Typography>
+        </Typography> */}
         <Rating name="read-only" readOnly size="large" />
         <br />
         <br />

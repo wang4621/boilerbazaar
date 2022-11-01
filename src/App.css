@@ -7,6 +7,12 @@
   --background-color: rgb(233, 233, 233);
 }
 
+.appDisplay {
+  height: 100%;
+  background-color: rgb(233, 233, 233);
+  margin:0;
+}
+
 .bodyLight {
   max-height: 100vh;
   background-color: rgb(233, 233, 233);
@@ -21,42 +27,16 @@
   margin: 0;
 }
 
-.navbar {
-  background-color: var(--primary-color);
-  overflow: hidden;
-  display: flex;
-  justify-content: space-between;
-  height: var(--header-height);
-  border-bottom: 1px solid rgb(202, 199, 199);
-}
-
-.navbar a {
-  /* text-transform: uppercase; */
+.appDisplay .MuiFormHelperText-root {
+  margin-left: 0;
   color: var(--text-color);
-  text-align: center;
-  padding: 20.5px 25px;
-  text-decoration: none;
-  font-size: 20px;
-  border-bottom: 3px solid transparent;
 }
 
-.navbar #map {
-  padding: 14px 25px;
+.scrollBar::-webkit-scrollbar {
+  width: 10px;
 }
 
-.navbar ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.navbar .centerNav {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.navbar .active {
-  border-bottom: 3px solid blue !important;
-  color: blue !important;
+.scrollBar::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background: #c2c9d2;
 }

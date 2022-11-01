@@ -4,7 +4,6 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import ArrowUpwardRoundedIcon from '@mui/icons-material/ArrowUpwardRounded';
 import ArrowDownwardRoundedIcon from '@mui/icons-material/ArrowDownwardRounded';
 import DeleteWatchlist from "./DeleteWatchlist";
-import { useEffect, useState } from "react";
 
 const WatchlistBox = ({ listing, stateChange, setStateChange }) => {
   let listingSold = listing["sold"];
@@ -87,8 +86,15 @@ const WatchlistBox = ({ listing, stateChange, setStateChange }) => {
       >
         <Box sx={{ height: "80%", width: "95%" }}>
           <Box sx={{ height: "80%", width: "100%" }}>
-            <Typography variant="body1" sx={{ fontWeight: "bold" }}>
+            <Typography variant="body1" sx={{ display: "inline-block", fontWeight: "bold" }}>
               {listing["title"]}
+            </Typography>
+            <Typography sx={{ display: "inline-block", color: "red" }}>
+            { (listingSold === "true") && (
+              <>
+                &nbsp;(Sold)
+              </>
+            )}
             </Typography>
             <div sx={{
               display: "flex",

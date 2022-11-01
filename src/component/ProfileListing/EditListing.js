@@ -43,15 +43,14 @@ const EditListing = ({
   setOpen,
   stateChange,
   setStateChange,
+  userData
 }) => {
-  const closeEdit = () => {
-    setOpen(false);
-  };
   const [title, setTitle] = React.useState(listing["title"]);
   const [price, setPrice] = React.useState(listing["price"]);
   const [author, setAuthor] = React.useState(listing["author"]);
   const [isbn, setISBN] = React.useState(listing["isbn"]);
   const [edition, setEdition] = React.useState(listing["edition"]);
+  const [course, setCourse] = React.useState(listing["course"]);
   const [condition, setCondition] = React.useState(listing["condition"]);
   const [description, setDescription] = React.useState(listing["description"]);
   const limit = 250;
@@ -61,8 +60,13 @@ const EditListing = ({
   const [authorError, setAuthorError] = React.useState(false);
   const [isbnError, setISBNError] = React.useState(false);
   const [editionError, setEditionError] = React.useState(false);
+  const [courseError, setCourseError] = React.useState(false);
   const [conditionError, setConditionError] = React.useState(false);
   const [submittedListing, setSubmittedListing] = React.useState(false);
+
+  const closeEdit = () => {
+    setOpen(false);
+  };
 
   const conditionChange = (event) => {
     setCondition(event.target.value);
@@ -98,6 +102,10 @@ const EditListing = ({
       setEditionError(true);
       missing = true;
     }
+    if (course === "") {
+      setCourseError(true);
+      missing = true;
+    }
     if (condition === "") {
       setConditionError(true);
       missing = true;
@@ -114,6 +122,7 @@ const EditListing = ({
         price: price,
         author: author,
         isbn: isbn,
+        course: course,
         edition: edition,
         condition: condition,
         description: description,
@@ -183,6 +192,16 @@ const EditListing = ({
         setEditionError(true);
       }
       setEdition(event.target.value);
+    } else if (event.target.id === "course") {
+      if (event.target.value === "" && submittedListing) {
+          setCourseError(true);
+      } 
+      if (event.target.value.includes(" ")) {
+        event.target.value = event.target.value.slice(0, -1);
+      } else {
+        setCourseError(false);
+      }
+      setCourse(event.target.value)
     } else if (event.target.id === "description") {
       setStringLength(event.target.value.length);
       setDescription(event.target.value);
@@ -323,6 +342,16 @@ const EditListing = ({
                   "& > fieldset": { borderColor: "var(--text-color)" },
                 },
               }}
+            />
+            <TextField
+              id="course"
+              label="Course"
+              value={course}
+              required
+              onChange={changeText}
+              error={courseError}
+              helperText={courseError ? "Please add a course." : ""}
+              inputProps={{ maxLength: 10 }}
             />
             <TextField
               id="condition"
@@ -521,6 +550,16 @@ const EditListing = ({
                       color="var(--text-color)"
                       sx={{ fontWeight: "bold" }}
                     >
+                      Course
+                      <Typography variant="body1" color="var(--text-color)">
+                        {course}
+                      </Typography>
+                    </Typography>
+                    <Typography
+                      variant="h6"
+                      color="var(--text-color)"
+                      sx={{ fontWeight: "bold" }}
+                    >
                       Condition
                       <Typography
                         variant="body1"
@@ -591,7 +630,7 @@ const EditListing = ({
                         src=""
                         id="avatarPic"
                       />
-                      Jeff Wang
+                      {userData['firstName']} {userData['lastName']}
                     </Typography>
                   </CardContent>
                   <Box

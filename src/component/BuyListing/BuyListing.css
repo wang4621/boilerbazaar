@@ -1,4 +1,4 @@
-.buyDisplay .innerLeftBox {
+.MuiDialog-container .innerLeftBox {
     /* border-radius: 10px 0px 0px 10px; */
     border:1px solid rgb(202, 199, 199);
     display: flex;
@@ -6,17 +6,18 @@
     justify-content: center;
 }
 
-.buyDisplay .innerRightBox {
+.MuiDialog-container .innerRightBox {
     display: flex;
     flex-direction: column;
     /* border-radius: 0px 10px 10px 0px; */
     border:1px solid rgb(202, 199, 199);
 }
 
-.buyDisplay .innerBottomBox {
+.MuiDialog-container .innerBottomBox {
     box-shadow: 0 -1px 0 rgb(202, 199, 199);
     display: flex;
-    border-radius: 0px 0px 10px 0px;;
-    justify-content: center;
+    /* border-radius: 0px 0px 10px 0px; */
+    justify-content: space-evenly;
     align-items: center;
+    flex-direction: column;
 }
