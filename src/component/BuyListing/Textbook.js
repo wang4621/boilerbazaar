@@ -1,10 +1,7 @@
 import React, { useState } from "react";
 import {
-  TextField,
-  MenuItem,
   Box,
   Grid,
-  ButtonBase,
   Typography,
 } from "@mui/material";
 import BuyListing from "./BuyListing";

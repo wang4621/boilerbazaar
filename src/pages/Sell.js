@@ -234,7 +234,7 @@ const Sell = ({ userData }) => {
           sx={{
             "& > :not(style)": { m: 1 },
             height: "93%",
-            overflowY: "scroll",
+            overflowY: "auto",
             "& .MuiOutlinedInput-root:hover": {
               "& > fieldset": { borderColor: "var(--text-color)" },
             },

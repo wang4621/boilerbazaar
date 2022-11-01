@@ -1,70 +1,84 @@
-.mapContainer {
+.mapDisplay {
+  display: flex;
+  height: calc(100vh - var(--header-height));
+}
+
+.mapDisplay .MuiButton-root {
+  height: 180px;
+  color: var(--text-color);
+  text-transform: none;
+  font-size: 18px;
+  border-radius: 0px 0px 0px 0px;
+}
+
+/* .mapContainer {
     display:flex;
     background-color: var(--primary-color);
     margin: 5%;
     flex-flow: row wrap;
     align-content: flex-start;
-  }
-  
-  .mapTitle {
+  } */
+
+/* .mapTitle {
     flex-basis: 100%;
     text-align: center;
     padding: 5px;
-  }
-  
-  .mapDivider {
+  } */
+
+/* .mapDivider {
     width: 50%;
     margin: 0 auto;
     margin-bottom: 50px;
-  }
-  
-  .bookstoreNames {
-    padding-left: 50px;
-    padding-bottom: 5px;
-    flex-basis: 100%;
-  }
+  } */
 
-  .hoursText {
-    padding-left: 50px;
+.bookstoreNames {
+  padding-left: 50px;
+  padding-bottom: 5px;
+  flex-basis: 100%;
+}
+
+/* .hoursText {
+  padding-left: 50px;
+  padding-bottom: 100px;
+  padding-right: 50px;
+  flex-grow: 1;
+} */
+
+.googleMap {
+  /* padding-left: 50px; */
+  padding-top: 50px;
+  padding-bottom: 50px;
+  /* padding-right: 50px; */
+  /* flex-grow: 1; */
+}
+
+.bookstoreImages {
+  /* padding-left: 50px;
     padding-bottom: 100px;
-    padding-right: 50px;
-    flex-grow: 1;
-  }
+    padding-right: 50px; */
+  width: 300px;
+  height: 300px;
+}
 
-  .googleMap {
-    padding-left: 50px;
-    padding-bottom: 100px;
-    padding-right: 50px;
-    flex-grow: 2;
-  }
+/* .closestBookstoreButtonContainer {
+  padding-left: 50px;
+  padding-right: 50px;
+  flex-basis: 100%;
+  text-align: center;
+  overflow: auto;
+} */
 
-  .bookstoreImages {
-    padding-left: 50px;
-    padding-bottom: 100px;
-    padding-right: 50px;
-    width: 400px;
-    height: 400px;
-  }
+/* .closestBookstoreButton {
+  width: 350px;
+  height: 50px;
+  font-size: 110%;
+} */
 
- .closestBookstoreButtonContainer {
-    padding-left: 50px;
-    padding-right: 50px;
-    flex-basis: 100%;
-    text-align: center;
-    overflow: auto;
- }
-
- .closestBookstoreButton {
-    width: 350px;
-    height: 50px;
-    font-size: 110%;
- }
-
- .closestBookstoreText {
-    padding-left: 50px;
-    padding-right: 50px;
-    flex-basis: 100%;
-    text-align: center;
-    font-size: 110%;
-    overflow: auto;
- }
+.closestBookstoreText {
+  padding-left: 50px;
+  padding-right: 50px;
+  flex-basis: 100%;
+  text-align: center;
+  font-size: 110%;
+  overflow: auto;
+}

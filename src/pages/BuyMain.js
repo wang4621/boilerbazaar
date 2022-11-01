@@ -1,6 +1,13 @@
 import "./BuyMain.css";
 import React, { useState } from "react";
-import { TextField, MenuItem, Box, Grid } from "@mui/material";
+import {
+  TextField,
+  MenuItem,
+  Box,
+  Grid,
+  CircularProgress,
+  Typography,
+} from "@mui/material";
 import $ from "jquery";
 import { BrowserRouter, Routes, Route, NavLink } from "react-router-dom";
 import Textbook from "../component/BuyListing/Textbook";
@@ -193,6 +200,8 @@ function BuyMain() {
   var listingList = [];
   var originalListingList = [];
   function search() {
+    setLoading(true);
+    setFirst(false)
     const searchFilterValue = document.getElementById("searchFilter").innerText;
     const searchText = document.getElementById("searchBar").value;
     addSearchHistory(searchText);
@@ -216,6 +225,7 @@ function BuyMain() {
       type: "GET",
       success: function (result) {
         console.log(result);
+        setLoading(false);
         let returnedItems = result.Items;
         setTextbooks(result.Items);
         listingList = [];
@@ -253,7 +263,7 @@ function BuyMain() {
         console.log(listingList);
         originalListingList = JSON.parse(JSON.stringify(listingList));
         console.log(originalListingList);
-        repopulateListings();
+        // repopulateListings();
         repopulateFilters();
       },
       error: function (result) {
@@ -400,25 +410,25 @@ function BuyMain() {
       default:
         return;
     }
-    repopulateListings();
+    // repopulateListings();
   }
 
-  function repopulateListings() {
-    //Repopulate listings display
-    const listings = document.getElementById("listings");
-    while (listings.hasChildNodes()) {
-      listings.removeChild(listings.firstChild);
-    }
-    for (const item of listingList) {
-      let newListing = document.createElement("li");
-      let a = document.createElement("a");
-      let text = document.createTextNode(item.toString.trim());
-      a.appendChild(text);
-      a.href = "/buy/listing/" + item.listingID;
-      newListing.appendChild(a);
-      listings.appendChild(newListing);
-    }
-  }
+  //   function repopulateListings() {
+  //     //Repopulate listings display
+  //     const listings = document.getElementById("listings");
+  //     while (listings.hasChildNodes()) {
+  //       listings.removeChild(listings.firstChild);
+  //     }
+  //     for (const item of listingList) {
+  //       let newListing = document.createElement("li");
+  //       let a = document.createElement("a");
+  //       let text = document.createTextNode(item.toString.trim());
+  //       a.appendChild(text);
+  //       a.href = "/buy/listing/" + item.listingID;
+  //       newListing.appendChild(a);
+  //       listings.appendChild(newListing);
+  //     }
+  //   }
 
   function repopulateFilters() {
     //Repopulate filters
@@ -532,7 +542,7 @@ function BuyMain() {
     }
 
     console.log(listingList);
-    repopulateListings();
+    // repopulateListings();
   }
 
   window.onload = function () {
@@ -540,11 +550,20 @@ function BuyMain() {
     getSearchHistory();
     autocomplete(document.getElementById("searchBar"), searchHistory);
   };
-  
+
   const [textbooks, setTextbooks] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [first, setFirst] = useState(true);
 
   return (
-    <Box sx={{ width: "100%", height: "100%", display: 'flex', flexDirection:'row' }}>
+    <Box
+      sx={{
+        width: "100%",
+        height: "100%",
+        display: "flex",
+        flexDirection: "row",
+      }}
+    >
       <Box
         sx={{
           width: "28%",
@@ -637,14 +656,63 @@ function BuyMain() {
           <ul id="listings"></ul>
         </div> */}
       </Box>
-      <Box sx={{width:'72%', height: '100%', display:'flex', justifyContent:'flex-start', overflowY:'auto'}} className="scrollBar">
-        <Grid container spacing={1}>
+      <Box
+        sx={{
+          width: "72%",
+          height: "100%",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "flex-start",
+          overflowY: "auto",
+        }}
+        className="scrollBar"
+      >
+        {loading ? (
+          <Box
+            sx={{
+              width: "100%",
+              height: "100%",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <CircularProgress />
+          </Box>
+        ) : textbooks.length > 0 ? (
+          <Grid
+            container
+            spacing={1}
+            sx={{
+              display: "flex",
+              // justifyContent: "center",
+              alignItems: "flex-start",
+            }}
+          >
             {textbooks.map((textbook) => {
-            return <Textbook textbook={textbook} />;
+              return <Textbook textbook={textbook} />;
             })}
-        </Grid>  
+          </Grid>
+        ) : (
+          <Box
+            sx={{
+              width: "100%",
+              height: "100%",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            {first ? (
+              <Typography variant="h5">
+                To See Textbooks, Start By Searching.
+              </Typography>
+            ) : (
+              <Typography variant="h5">No Textbooks Found</Typography>
+            )}
+          </Box>
+        )}
       </Box>
-      
     </Box>
   );
 }
