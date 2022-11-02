@@ -16,7 +16,7 @@ function About (){
                         <div class="container">
                             <h2>Project Repository</h2>
                             <p>
-                                <IconButton sx={{ ml: 1, transform: 'scale(2)' }} target="_blank" href="https://github.com/wang4621/boilerbazaar" rel="noopener noreferrer">
+                                <IconButton color="inherit" sx={{ ml: 1, transform: 'scale(2)' }} target="_blank" href="https://github.com/wang4621/boilerbazaar" rel="noopener noreferrer">
                                     <GitHubIcon/>
                                 </IconButton>
                             </p>
@@ -33,7 +33,7 @@ function About (){
                             <h2>Jeffrey Wang</h2>
                             <p>Contact Info: wang4621@purdue.edu</p>
                             <p>
-                                <IconButton target="_blank" href="https://github.com/wang4621" rel="noopener noreferrer">
+                                <IconButton color="inherit" target="_blank" href="https://github.com/wang4621" rel="noopener noreferrer">
                                     <GitHubIcon/>
                                 </IconButton>
                             </p>
@@ -51,7 +51,7 @@ function About (){
                             <h2>Michio L Sekiguchi</h2>
                             <p>Contact Info: msekiguc@purdue.edu</p>
                             <p>
-                                <IconButton target="_blank" href="https://github.com/msekiguc" rel="noopener noreferrer">
+                                <IconButton color="inherit" target="_blank" href="https://github.com/msekiguc" rel="noopener noreferrer">
                                     <GitHubIcon/>
                                 </IconButton>
                             </p>
@@ -69,7 +69,7 @@ function About (){
                             <h2>Ryan Doan</h2>
                             <p>Contact Info: doan23@purdue.edu</p>
                             <p>
-                                <IconButton target="_blank" href="https://github.com/ryan-doan" rel="noopener noreferrer">
+                                <IconButton color="inherit" target="_blank" href="https://github.com/ryan-doan" rel="noopener noreferrer">
                                     <GitHubIcon/>
                                 </IconButton>
                             </p>
@@ -87,7 +87,7 @@ function About (){
                             <h2>Xavier Huu Pham</h2>
                             <p>Contact Info: xpham@purdue.edu</p>
                             <p>
-                                <IconButton target="_blank" href="https://github.com/x-pham" rel="noopener noreferrer">
+                                <IconButton color="inherit" target="_blank" href="https://github.com/x-pham" rel="noopener noreferrer">
                                     <GitHubIcon/>
                                 </IconButton>
                             </p>
@@ -105,7 +105,7 @@ function About (){
                             <h2>Shicheng Fang</h2>
                             <p>Contact Info: fang282@purdue.edu</p>
                             <p>
-                                <IconButton target="_blank" href="https://github.com/fsc1118" rel="noopener noreferrer">
+                                <IconButton color="inherit" target="_blank" href="https://github.com/fsc1118" rel="noopener noreferrer">
                                     <GitHubIcon/>
                                 </IconButton>
                             </p>

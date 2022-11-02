@@ -13,13 +13,15 @@
     display: flex;
     flex-direction: column;
     border-right:1px solid rgb(202, 199, 199);
-    border-radius: 0px 0px 0px 20px;
+    /* border-radius: 0px 0px 0px 20px; */
 }
 
 .settingsDisplay .MuiButton-root {
     height: 80px;
     border-radius: 0px 0px 0px 0px;
     color: var(--text-color);
+    text-transform: none;
+    font-size: 16px;
 }
 
 .settingsDisplay .MuiButton-root:hover {
@@ -33,5 +35,5 @@
 .settingsDisplay .profileBoxDisplay {
     display: flex;
     flex-direction: row;
-    height: 93%;
+    height: 100%;
 }

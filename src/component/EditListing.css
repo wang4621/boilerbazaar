@@ -1,32 +1,32 @@
-.sellDisplay input {
+.editDisplay input {
     font-size: 18px;
+    /* border: 2px solid rgb(202, 199, 199); */
     color: var(--text-color);
     /* background-color: var(--secondary-color); */
 }
 
-.sellDisplay label {
+.editDisplay label {
     font-size: 18px;
     color: var(--text-color);
 }
 
-.sellDisplay .MuiTextField-root {
+.editDisplay .MuiTextField-root {
     width: 85%
 }
 
-.sellDisplay {
+.editDisplay {
     display: flex;
     flex-direction: row;
-    height: calc(100vh - var(--header-height));
 }
 
-.sellDisplay .formDisplay {
+.editDisplay .formDisplay {
     display: flex;
     align-items: center;
     justify-content: flex-start;
     flex-direction: column;
 }
 
-.sellDisplay .innerLeftBox {
+.editDisplay .innerLeftBox {
     border-radius: 10px 0px 0px 10px;
     border:1px solid rgb(202, 199, 199);
     display: flex;
@@ -34,14 +34,14 @@
     justify-content: center;
 }
 
-.sellDisplay .innerRightBox {
+.editDisplay .innerRightBox {
     display: flex;
     flex-direction: column;
     border-radius: 0px 10px 10px 0px;
     border:1px solid rgb(202, 199, 199);
 }
 
-.sellDisplay .innerBottomBox {
+.editDisplay .innerBottomBox {
     /* box-shadow: 0 -1px 0 rgb(202, 199, 199); */
     border-top: 1px solid rgb(202, 199, 199);
     display: flex;
@@ -50,33 +50,33 @@
     align-items: center;
 }
 
-.sellDisplay .scrollBar::-webkit-scrollbar {
+.editDisplay .scrollBar::-webkit-scrollbar {
     width: 10px;
 }
 
-.sellDisplay .scrollBar::-webkit-scrollbar-thumb {
+.editDisplay .scrollBar::-webkit-scrollbar-thumb {
     border-radius: 10px;
     background: #c2c9d2;
 }
 
-.sellDisplay .MuiFormHelperText-root {
+.editDisplay .MuiFormHelperText-root {
     margin-left: 0;
     color: var(--text-color);
 }
 
-.sellDisplay .MuiSelect-select {
+.editDisplay .MuiSelect-select {
     color: var(--text-color);
 }
 
-.sellDisplay .MuiInputBase-input {
+.editDisplay .MuiInputBase-input {
     color: var(--text-color);
 }
 
-.sellDisplay .MuiButton-root {
+.editDisplay .MuiButton-root {
     color: var(--text-color) !important;
     border-color: var(--text-color) !important;
 }
 
-.sellDisplay .MuiInputBase-root {
+.editDisplay .MuiInputBase-root {
     background-color: var(--secondary-color);
 }

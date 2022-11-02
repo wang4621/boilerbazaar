@@ -1,0 +1,50 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // Go back to seller.html
+        document.write(`<a href="seller.html">Go back</a>`)
+        // Get parameter from the url
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+
+        // Get info of the seller from url parameter
+
+        const email = urlParams.get('email')
+        const first_name = urlParams.get('first_name')
+        const last_name = urlParams.get('last_name')
+        const prefered_name = urlParams.get('prefered_name')
+        const delivery_preference = urlParams.get('delivery_preference')
+        const major = urlParams.get('major')
+        // Profile to display those info
+        const profile = {
+            email: email,
+            first_name: first_name,
+            last_name: last_name,
+            prefered_name: prefered_name,
+            delivery_preference: delivery_preference
+        }
+
+        // Display the profile
+        document.write(`<h1>Profile of ${profile.prefered_name}</h1>`)
+        // email. Contain mailto:email
+        document.write(`<p>Email: <a href="mailto:${profile.email}">${profile.email}</a></p>`)
+        document.write(`<p>First Name: ${profile.first_name}</p>`)
+        document.write(`<p>Last Name: ${profile.last_name}</p>`)
+        document.write(`<p>Preferred Name: ${profile.prefered_name}</p>`)
+        document.write(`<p>Delivery Preference: ${profile.delivery_preference}</p>`)
+        document.write(`<p>Major: ${major}</p>`)
+
+
+
+    </script>
+</body>
+
+</html>
