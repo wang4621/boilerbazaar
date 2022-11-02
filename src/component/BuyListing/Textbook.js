@@ -68,17 +68,20 @@ const Textbook = ({ textbook }) => {
             }}
           >
             <Box
+              component="img"
               sx={{
                 height: "90%",
                 width: "90%",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
+                // display: "flex",
+                // justifyContent: "center",
+                // alignItems: "center",
                 borderRadius: 5,
-                backgroundColor: "lightgrey",
+                // backgroundColor: "lightgrey",
               }}
+              alt="textbook"
+              src={image}
             >
-              <img src={image} alt="textbook" />
+              {/* <img src={image} alt="textbook" /> */}
             </Box>
           </Box>
           <Box
@@ -99,11 +102,7 @@ const Textbook = ({ textbook }) => {
           </Box>
         </Box>
       </Box>
-      <BuyListing
-        listing={textbook}
-        open={open}
-        setOpen={setOpen}
-      />
+      <BuyListing listing={textbook} open={open} setOpen={setOpen} />
     </Grid>
   );
 };
