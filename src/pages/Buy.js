@@ -7,7 +7,11 @@ import {
   Grid,
   CircularProgress,
   Typography,
+  Input,
+  InputAdornment,
+  IconButton,
 } from "@mui/material";
+import SearchIcon from "@mui/icons-material/Search";
 import $ from "jquery";
 // import { BrowserRouter, Routes, Route, NavLink } from "react-router-dom";
 import Textbook from "../component/BuyListing/Textbook";
@@ -574,15 +578,32 @@ function Buy() {
             flexDirection: "column",
           }}
         >
-          <label>
-            Search By
-            <TextField id="searchFilter" class="searchFilter" select>
-              <MenuItem value="title">Title</MenuItem>
-              <MenuItem value="author">Author</MenuItem>
-              <MenuItem value="isbn">ISBN</MenuItem>
-              <MenuItem value="course">Course</MenuItem>
-            </TextField>
-          </label>
+          {/* <label> */}
+          {/* Search By */}
+          <TextField
+            id="searchFilter"
+            // class="searchFilter"
+            select
+            label="Search By"
+          >
+            <MenuItem value="title">Title</MenuItem>
+            <MenuItem value="author">Author</MenuItem>
+            <MenuItem value="isbn">ISBN</MenuItem>
+            <MenuItem value="course">Course</MenuItem>
+          </TextField>
+          {/* </label> */}
+          <TextField
+            placeholder="Search Textbooks..."
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton>
+                    <SearchIcon />
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
+          />
 
           <div>
             <form id="searchFrm"></form>
