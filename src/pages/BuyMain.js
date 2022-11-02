@@ -5,7 +5,7 @@ import $ from 'jquery';
 import { BrowserRouter, Routes, Route, NavLink } from 'react-router-dom';
 
 var searchHistory = [];
-var user = "doan23@purdue.edu";
+var user = "doan23";
 
 function getSearchHistory() {
     var url = "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/search_history?email=" + user;
@@ -525,11 +525,11 @@ function BuyMain() {
         repopulateListings();
     }
 
-    window.onload = function() {
+    React.useEffect(() => {
         addSearchHistory("test");
         getSearchHistory();
         autocomplete(document.getElementById("searchBar"), searchHistory);
-    }
+    }, []);
     return (
         <div>
         <label>

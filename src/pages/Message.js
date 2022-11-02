@@ -6,17 +6,18 @@ import * as React from 'react';
 
 var contactNames = []
 var index = 0
-var user = "doan23@purdue.edu"
+var user = "doan23"
 var rawData = {}
 
 function getContacts() {
-    var url = "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/conversation?email=" + user
+    var url = "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/conversation?puid=" + user
     $.ajax({
         url: url,
         type: 'GET',
         success: function (result) {
             rawData = result
             contactNames = []
+            console.log(rawData)
             for (const x of rawData['body']) {
                 if (x['user0'] != user) {
                     contactNames.push(x['user0'])
@@ -37,7 +38,7 @@ function populateContacts() {
     //console.log(contactList)
     contactList.innerHTML = "";
     for (var i = 0; i < contactNames.length; i++) {
-        var contact = document.createElement("SPAN");
+        var contact = document.createElement("DIV");
         contact.id = `contact${i}`
         contact.className = "contact"
         contact.innerHTML += `<img src=${blank}></img><Typography label="placeholder">${contactNames[i]}</Typography>`
@@ -69,10 +70,10 @@ function sendMessage() {
         datatype: 'json',
         contentType: 'application/json',
         success: function (result) {
-            console.log(JSON.stringify(result))
+            //console.log(JSON.stringify(result))
         },
         error: function (result) {
-            console.log(JSON.stringify(result));
+            //console.log(JSON.stringify(result));
         }
     });
     //event.preventDefault();
@@ -82,6 +83,7 @@ function changeContacts(id) {
     index = parseInt(id)
     var contactList = document.getElementsByClassName("contactList")[0];
     var children = contactList.children;
+    displayMessages()
     for (var i = 0; i < children.length; i++) {
         if (index == i) {
             children[i].setAttribute("background-color", "lightgray");
@@ -91,17 +93,38 @@ function changeContacts(id) {
     }
 }
 
+function displayMessages() {
+    var messageDisplay = document.getElementsByClassName("chatDisplay")[0];
+    console.log('debug')
+    messageDisplay.innerHTML = "";
+    
+    for (const x of rawData['body'][index]['conversation']) {
+        var date = new Date(x[0]);
+        var sender
+        if (x[1]) {
+            sender = rawData['body'][index]['user1']
+        } else {
+            sender = rawData['body'][index]['user0']
+        }
+        var s = `${sender} (${date.toDateString()} ${date.toTimeString().substring(0, 5)}): ${x[2]}\n`
+        var message = document.createElement("DIV");
+        message.className = "message"
+        message.innerHTML = `<Typography>${s}</Typography>`
+        messageDisplay.appendChild(message);
+    }
+    console.log(messageDisplay)
+}
+
 function Message() {
-    getContacts();
+    React.useEffect(() => {
+        getContacts();
+        console.log(document.getElementsByClassName("chatDisplay")[0]);
+    }, []);
     return (
-        <div class="message">
-            <Box class="contactList">
-                
-            </Box>
+        <div class="page">
+            <Box class="contactList"></Box>
             <Box class="chat">
-                <Box sx={{overflowY: 'scroll'}} class="chatDisplay">
-                    <Typography label="placeholder">placeholder</Typography>
-                </Box>
+                <Box class="chatDisplay"></Box>
                 <Box class="chatInput">
                     <TextField type="text" class="input" id="messageInput"></TextField>
                     <TextField class="send" id="send" onClick={sendMessage} type="submit" value="Send"/>
