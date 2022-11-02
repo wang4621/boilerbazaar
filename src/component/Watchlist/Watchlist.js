@@ -63,7 +63,7 @@ const Watchlist = ({userData}) => {
               }}
             >
                 {loading ? <CircularProgress/> :
-                watchlistListings.length > 0 ? (
+                (watchlistListings.length > 0) && (watchlistListings !== "Error") ? (
                   watchlistListings.map((listing) => {
                     return <WatchlistBox listing={listing} stateChange={stateChange} setStateChange={setStateChange}/>;
                   })
