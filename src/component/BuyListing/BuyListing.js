@@ -16,6 +16,7 @@ import {
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import SendIcon from "@mui/icons-material/Send";
+import CheckIcon from '@mui/icons-material/Check';
 import $ from "jquery";
 import { useNavigate } from "react-router-dom";
 
@@ -57,6 +58,7 @@ import { useNavigate } from "react-router-dom";
 
 const BuyListing = ({ listing, open, setOpen }) => {
   const [sellerData, setSellerData] = useState("");
+  const [addedToWatchlist, setAddedToWatchlist] = useState(false);
 
   const navigate = useNavigate();
 
@@ -80,6 +82,16 @@ const BuyListing = ({ listing, open, setOpen }) => {
       },
     });
   }, [listing]);
+
+  const addToWatchlist = () => {
+    if (addedToWatchlist === true) {
+        
+    }
+    else {
+      setAddedToWatchlist(true);
+    }
+
+  };
 
   return (
     <Dialog fullScreen open={open} onClose={closeBuy}>
@@ -276,6 +288,10 @@ const BuyListing = ({ listing, open, setOpen }) => {
                 : sellerData["preferredName"] + " " + sellerData["lastName"]}
             </Typography>
           </CardContent>
+          { addedToWatchlist
+            ? <Typography sx={{ textAlign: "center" }}>Successfully Added to Watchlist</Typography>
+            : <Button onClick={addToWatchlist}>Add to Watchlist</Button>
+          }
           <Box
             sx={{ height: "15%", backgroundColor: "var(--secondary-color)" }}
             className="innerBottomBox"
