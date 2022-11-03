@@ -15,12 +15,16 @@ import {
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import SendIcon from "@mui/icons-material/Send";
+import CheckIcon from '@mui/icons-material/Check';
 import $ from "jquery";
 import { useNavigate } from "react-router-dom";
 import TextbookImages from "../TextbookImages/TextbookImages";
 
-const BuyListing = ({ listing, open, setOpen }) => {
+const BuyListing = ({ listing, open, setOpen, userData }) => {
   const [sellerData, setSellerData] = useState("");
+  const [addedToWatchlist, setAddedToWatchlist] = useState(false);
+  const [alreadyInWatchlist, setAlreadyInWatchlist] = useState(false);
+
   const navigate = useNavigate();
 
   const closeBuy = () => {
@@ -37,7 +41,6 @@ const BuyListing = ({ listing, open, setOpen }) => {
         listing["sellerID"],
       type: "GET",
       success: function (result) {
-        console.log(result);
         setSellerData(result);
       },
       error: function (result) {
@@ -46,6 +49,32 @@ const BuyListing = ({ listing, open, setOpen }) => {
     });
 
   }, [listing]);
+
+  const addToWatchlist = () => {
+    var jsonData = { puid: userData["puid"], listingID: listing["listingID"] };
+    jsonData = '"' + JSON.stringify(jsonData).replaceAll('"', '\\"') + '"';
+    $.ajax({
+      url: "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/watchlist",
+      type: "PUT",
+      data: jsonData,
+      datatype: "json",
+      contentType: "application/json",
+      success: function (result) {
+        if (result === "Already in Watchlist") {
+          alert("Listing is already in your watchlist!");
+          setAlreadyInWatchlist(true);
+        }
+        setAddedToWatchlist(true);
+      },
+      error: function (result) {
+        console.log(JSON.stringify(result));
+      },
+    });
+  };
+  
+  if (listing["sold"] === "true") {
+    return <div>This item is unavailable</div>
+  }
 
   return (
     <Dialog fullScreen open={open} onClose={closeBuy}>
@@ -216,7 +245,7 @@ const BuyListing = ({ listing, open, setOpen }) => {
               sx={{ fontWeight: "bold", fontSize: 18 }}
             >
               {/* href to profile.html?sellid=result.sellid*/}
-              <a href={"boilerbazaar/profile.html?sellid=" + sellerData["puid"]}>Seller Information</a>
+              <a href={"https://cs307-host.herokuapp.com/profile.html?sellid=" + sellerData["puid"]}>Seller Information</a>
             </Typography>
             <br />
             <Typography
@@ -240,6 +269,10 @@ const BuyListing = ({ listing, open, setOpen }) => {
                 : sellerData["preferredName"] + " " + sellerData["lastName"]}
             </Typography>
           </CardContent>
+          { addedToWatchlist
+            ? alreadyInWatchlist ? <></> : <Typography sx={{ textAlign: "center" }}>Successfully Added to Watchlist</Typography>
+            : <Button onClick={addToWatchlist}>Add to Watchlist</Button>
+          }
           <Box
             sx={{ height: "15%", backgroundColor: "var(--secondary-color)" }}
             className="innerBottomBox"

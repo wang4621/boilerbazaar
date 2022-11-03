@@ -4,7 +4,7 @@ import BuyListing from "./BuyListing";
 import $ from "jquery";
 import { useNavigate } from "react-router-dom";
 
-const Textbook = ({ textbook }) => {
+const Textbook = ({ textbook, userData }) => {
   // console.log(textbook);
   const [open, setOpen] = useState(false);
   const [image, setImage] = useState("");
@@ -118,7 +118,7 @@ const Textbook = ({ textbook }) => {
           </Box>
         </Box>
       </Box>
-      <BuyListing listing={textbook} open={open} setOpen={setOpen} />
+      <BuyListing listing={textbook} open={open} setOpen={setOpen} userData={userData}/>
     </Grid>
   );
 };

@@ -189,7 +189,7 @@ function autocomplete(inp, arr) {
   });
 }
 
-function Buy() {
+const Buy = ({userData}) => {
   //Function to toggle the display of filters and sorting options
   function toggleFilters() {
     const filtersDiv = document.getElementById("filters");
@@ -231,7 +231,14 @@ function Buy() {
         console.log(result);
         setLoading(false);
         let returnedItems = result.Items;
-        setTextbooks(result.Items);
+        const temp = []
+        for (let i = 0; i < returnedItems.length; i++) {
+          if (returnedItems[i].sold === "false") {
+            temp.push(returnedItems[i]);
+          }
+        }
+        returnedItems = temp
+        setTextbooks(temp);
         listingList = [];
         for (let i = 0; i < returnedItems.length; i++) {
           listingList.push({
@@ -260,7 +267,7 @@ function Buy() {
               " Price: " +
               returnedItems[i].price +
               " Description: " +
-              returnedItems[i].description,
+              returnedItems[i].description
           });
         }
 
@@ -714,7 +721,10 @@ function Buy() {
               }}
             >
               {textbooks.map((textbook) => {
-                return <Textbook textbook={textbook} />;
+                return <Textbook 
+                  textbook={textbook}
+                  userData={userData} 
+                />;
               })}
             </Grid>
           ) : (
