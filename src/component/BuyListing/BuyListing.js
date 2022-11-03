@@ -240,6 +240,19 @@ const BuyListing = ({ listing, open, setOpen, userData }) => {
               color="var(--text-color)"
               sx={{ fontWeight: "bold" }}
             >
+              Course
+              <Typography
+                variant="body1"
+                color="var(--text-color)"
+              >
+                {listing["course"]}
+              </Typography>
+            </Typography>
+            <Typography
+              variant="h6"
+              color="var(--text-color)"
+              sx={{ fontWeight: "bold" }}
+            >
               Condition
               <Typography
                 variant="body1"

@@ -54,7 +54,7 @@ const MainPage = ({ username, setAuth }) => {
       root.style.setProperty("--secondary-color", "#323d4d");
       root.style.setProperty("--tertiary-color", "#161B22");
       root.style.setProperty("--text-color", "#FFFFFF");
-      root.style.setProperty("--background-color", "#FFFFFF");
+      root.style.setProperty("--background-color", "#000000");
     } else {
       updateDarkModePreference("light");
       setTheme("bodyLight");
@@ -62,7 +62,7 @@ const MainPage = ({ username, setAuth }) => {
       root.style.setProperty("--secondary-color", "#f5f5f5");
       root.style.setProperty("--tertiary-color", "#DFDFDF");
       root.style.setProperty("--text-color", "#000000");
-      root.style.setProperty("--background-color", "#FFFFFF");
+      root.style.setProperty("--background-color", "rgb(233, 233, 233)");
     }
   };
   //Update dark mode
