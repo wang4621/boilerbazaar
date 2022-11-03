@@ -1,4 +1,4 @@
-import blank from './blank.jpg'
+import blank from '../component/Images/blank.jpg'
 import {Box, TextField, Typography} from '@mui/material';
 import './Message.css';
 import $ from 'jquery';
