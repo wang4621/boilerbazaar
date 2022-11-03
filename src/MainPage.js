@@ -237,7 +237,7 @@ const MainPage = ({username}) => {
       </div>
       <Routes>
         <Route path="/home" element={<Home />} />
-        <Route path="/buy/*" element={<Buy />}>
+        <Route path="/buy/*" element={<Buy userData={userData} />}>
           {/* <Route path="" element={<BuyMain />} /> */}
           {/* <Route path='listing/:id' element={< BuyListing />}/> */}
           {/* <Route path="listing" element={<BuyListing />} /> */}

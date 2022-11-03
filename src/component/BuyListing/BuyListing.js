@@ -56,9 +56,10 @@ import { useNavigate } from "react-router-dom";
 // }
 // export default SingleListing;
 
-const BuyListing = ({ listing, open, setOpen }) => {
+const BuyListing = ({ listing, open, setOpen, userData }) => {
   const [sellerData, setSellerData] = useState("");
   const [addedToWatchlist, setAddedToWatchlist] = useState(false);
+  const [alreadyInWatchlist, setAlreadyInWatchlist] = useState(false);
 
   const navigate = useNavigate();
 
@@ -84,13 +85,25 @@ const BuyListing = ({ listing, open, setOpen }) => {
   }, [listing]);
 
   const addToWatchlist = () => {
-    if (addedToWatchlist === true) {
-        
-    }
-    else {
-      setAddedToWatchlist(true);
-    }
-
+    var jsonData = { puid: userData["puid"], listingID: listing["listingID"] };
+    jsonData = '"' + JSON.stringify(jsonData).replaceAll('"', '\\"') + '"';
+    $.ajax({
+      url: "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/watchlist",
+      type: "PUT",
+      data: jsonData,
+      datatype: "json",
+      contentType: "application/json",
+      success: function (result) {
+        if (result === "Already in Watchlist") {
+          alert("Listing is already in your watchlist!");
+          setAlreadyInWatchlist(true);
+        }
+        setAddedToWatchlist(true);
+      },
+      error: function (result) {
+        console.log(JSON.stringify(result));
+      },
+    });
   };
 
   return (
@@ -289,7 +302,7 @@ const BuyListing = ({ listing, open, setOpen }) => {
             </Typography>
           </CardContent>
           { addedToWatchlist
-            ? <Typography sx={{ textAlign: "center" }}>Successfully Added to Watchlist</Typography>
+            ? alreadyInWatchlist ? <></> : <Typography sx={{ textAlign: "center" }}>Successfully Added to Watchlist</Typography>
             : <Button onClick={addToWatchlist}>Add to Watchlist</Button>
           }
           <Box
