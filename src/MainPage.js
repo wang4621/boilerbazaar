@@ -11,6 +11,8 @@ import Map from "./pages/Map";
 import Listings from "./component/ProfileListing/Listings";
 import Watchlist from "./component/Watchlist/Watchlist";
 import Profile from "./pages/Profile";
+import ViewingHistory from "./component/ViewingHistory/ViewingHistory";
+
 // import BuyListing from "./component/BuyListing/BuyListing";
 // import BuyMain from "./pages/BuyMain";
 import {
@@ -258,6 +260,7 @@ const MainPage = ({ username, setAuth }) => {
           />
           <Route path="listings" element={<Listings userData={userData} />} />
           <Route path="watchlist" element={<Watchlist userData={userData} />} />
+          <Route path="viewingHistory" element={<ViewingHistory userData={userData} />} />
         </Route>
       </Routes>
     </div>
