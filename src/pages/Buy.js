@@ -227,7 +227,14 @@ function Buy() {
         console.log(result);
         setLoading(false);
         let returnedItems = result.Items;
-        setTextbooks(result.Items);
+        const temp = []
+        for (let i = 0; i < returnedItems.length; i++) {
+          if (returnedItems[i].sold === "false") {
+            temp.push(returnedItems[i]);
+          }
+        }
+        returnedItems = temp
+        setTextbooks(temp);
         listingList = [];
         for (let i = 0; i < returnedItems.length; i++) {
           listingList.push({
@@ -256,7 +263,7 @@ function Buy() {
               " Price: " +
               returnedItems[i].price +
               " Description: " +
-              returnedItems[i].description,
+              returnedItems[i].description
           });
         }
 
