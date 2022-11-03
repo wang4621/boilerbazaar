@@ -12,7 +12,6 @@ import {
   AppBar,
   Dialog,
   TextField,
-  InputAdornment,
   Modal,
   List,
   ListItem,
@@ -240,16 +239,6 @@ const BuyListing = ({ listing, open, setOpen, userData }) => {
               color="var(--text-color)"
               sx={{ fontWeight: "bold" }}
             >
-              Course
-              <Typography variant="body1" color="var(--text-color)">
-                {listing["course"]}
-              </Typography>
-            </Typography>
-            <Typography
-              variant="h6"
-              color="var(--text-color)"
-              sx={{ fontWeight: "bold" }}
-            >
               Condition
               <Typography
                 variant="body1"
@@ -349,6 +338,7 @@ const BuyListing = ({ listing, open, setOpen, userData }) => {
                   "https://cs307-host.herokuapp.com/profile.html?sellid=" +
                   sellerData["puid"]
                 }
+                target="_blank"
               >
                 Seller Information
               </a>
@@ -399,19 +389,10 @@ const BuyListing = ({ listing, open, setOpen, userData }) => {
                 alignItems: "center",
               }}
             >
-              <TextField
-                label="Message"
-                sx={{ width: "90%" }}
-                InputProps={{
-                  endAdornment: (
-                    <InputAdornment position="end">
-                      <IconButton sx={{ color: "var(--text-color)" }}>
-                        <SendIcon />
-                      </IconButton>
-                    </InputAdornment>
-                  ),
-                }}
-              />
+              <TextField label="Message" sx={{ width: "80%" }} />
+              <IconButton aria-label="delete" size="large" color="inherit">
+                <SendIcon />
+              </IconButton>
             </Box>
           </Box>
         </Box>
