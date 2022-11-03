@@ -1,8 +1,8 @@
 import { Routes, Route } from "react-router-dom";
-import Login from "./pages/Login"
+import Login from "./pages/Login";
 import React, { useState } from "react";
 import MainPage from "./MainPage";
-import './App.css'
+import "./App.css";
 import ProtectedRoutes from "./component/ProtectedRoutes";
 
 function App() {
@@ -13,9 +13,15 @@ function App() {
   return (
     <div className="appDisplay">
       <Routes>
-        <Route path="/boilerbazaar" element={<Login setAuth={setAuth} setUserName={setUserName}/>}/>
-        <Route element={<ProtectedRoutes auth={auth}/>}>
-          <Route path="/*" element={<MainPage username={username} setAuth={setAuth}/>} />
+        <Route
+          path="/boilerbazaar"
+          element={<Login setAuth={setAuth} setUserName={setUserName} />}
+        />
+        <Route element={<ProtectedRoutes auth={auth} />}>
+          <Route
+            path="/*"
+            element={<MainPage username={username} setAuth={setAuth} />}
+          />
         </Route>
       </Routes>
     </div>
