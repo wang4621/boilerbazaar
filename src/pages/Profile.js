@@ -216,7 +216,7 @@ const Profile = ({ userData, setUserData }) => {
             display="inline"
             id="purchases"
           >
-            5
+            0
           </Typography>
         </Typography>
         <Typography component={"span"} variant="h6" color="var(--text-color)">
