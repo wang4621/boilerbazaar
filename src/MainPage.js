@@ -28,7 +28,7 @@ import Brightness7Icon from "@mui/icons-material/Brightness7";
 import SettingsIcon from "@mui/icons-material/Settings";
 import WatchlistBox from "./component/Watchlist/WatchlistBox";
 
-const MainPage = ({username}) => {
+const MainPage = ({username, setAuth}) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [userData, setUserData] = React.useState("");
   const open = Boolean(anchorEl);
@@ -126,6 +126,11 @@ const MainPage = ({username}) => {
       },
     });
   };
+
+  const logout = () => {
+    setAuth(false);
+    navigate("/boilerbazaar")
+  }
 
   return (
     <div className={`${theme}`}>
@@ -229,6 +234,7 @@ const MainPage = ({username}) => {
               color: "var(--text-color)",
               backgroundColor: "var(--primary-color)",
             }}
+            onClick={logout}
           >
             <ListItemIcon>
               <Logout fontSize="small" sx={{ color: "var(--text-color)" }} />

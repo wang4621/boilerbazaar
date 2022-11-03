@@ -15,7 +15,7 @@ function App() {
       <Routes>
         <Route path="/boilerbazaar" element={<Login setAuth={setAuth} setUserName={setUserName}/>}/>
         <Route element={<ProtectedRoutes auth={auth}/>}>
-          <Route path="/*" element={<MainPage username={username}/>} />
+          <Route path="/*" element={<MainPage username={username} setAuth={setAuth}/>} />
         </Route>
       </Routes>
     </div>
