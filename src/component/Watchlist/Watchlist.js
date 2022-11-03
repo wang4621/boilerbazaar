@@ -30,7 +30,7 @@ const Watchlist = ({userData}) => {
             console.log(JSON.stringify(result));
           },
         });
-      }, [stateChange]);
+      }, [stateChange, userData]);
 
     return (
         <Box

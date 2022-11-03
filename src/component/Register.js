@@ -59,7 +59,7 @@ const Register = ({ open, setOpen, setAuth, setUserName }) => {
     //   missing = true;
     // }
     console.log(email.split('@')[1])
-    if (email === "" || email.split('@')[1] != "purdue.edu" ||  email.split('@')[1] == undefined) {
+    if (email === "" || email.split('@')[1] !== "purdue.edu" ||  email.split('@')[1] === undefined) {
       setEmailError(true);
       missing = true;
     }

@@ -13,10 +13,11 @@ import {
   Grid,
 } from "@mui/material";
 import $ from "jquery";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
 import WarningIcon from "@mui/icons-material/Warning";
 import PreviewImage from "../component/PreviewImage/PreviewImage";
+import PreviewImageSwiper from "../component/PreviewImage/PreviewImageSwiper";
 
 function getBase64(file, i, imagesJson, final) {
   var reader = new FileReader();
@@ -85,7 +86,7 @@ const Sell = ({ userData }) => {
     var sellerID = userData["puid"];
     var images = document.getElementById("images").files;
     console.log(images);
-    console.log(previewImages)
+    console.log(previewImages);
     var missing = false;
     if (imageCount === 0) {
       missing = true;
@@ -122,8 +123,10 @@ const Sell = ({ userData }) => {
     if (!missing) {
       var imagesJson = { listingID: listingID, count: imageCount };
       for (var i = 0; i < imageCount; i++) {
-        getBase64(images[i], i, imagesJson, i === imageCount - 1);
+        // getBase64(images[i], i, imagesJson, i === imageCount - 1);
+        imagesJson["image"+i] = previewImages[i];
       }
+      sendImages(imagesJson);
       var jsonData = {
         listingID: listingID,
         sellerID: sellerID,
@@ -225,13 +228,10 @@ const Sell = ({ userData }) => {
 
   function encodeImageFileAsURL(file) {
     var reader = new FileReader();
-    reader.onloadend = function() {
+    reader.onloadend = function () {
       // console.log('RESULT', reader.result)
-      setPreviewImages((previewImages) => [
-        ...previewImages,
-        reader.result,
-      ]);
-    }
+      setPreviewImages((previewImages) => [...previewImages, reader.result]);
+    };
     reader.readAsDataURL(file);
   }
 
@@ -255,12 +255,17 @@ const Sell = ({ userData }) => {
       if (isImage) {
         for (let j = 0; j < imageLength; j++) {
           // console.log(event.target.files[j])
-          encodeImageFileAsURL(event.target.files[j])
+          encodeImageFileAsURL(event.target.files[j]);
         }
-        setImageCount(imageCount + imageLength);
+        // setImageCount(imageCount + imageLength);
       }
     }
   };
+
+  useEffect(() => { 
+    setImageCount(previewImages.length)
+    console.log(imageCount)
+  }, [previewImages]);
 
   return (
     <div className="sellDisplay">
@@ -344,7 +349,7 @@ const Sell = ({ userData }) => {
               }}
             >
               {previewImages.map((image) => {
-                return <PreviewImage image={image} />;
+                return <PreviewImage image={image} setPreviewImages={setPreviewImages}/>;
               })}
             </Grid>
           </Box>
@@ -553,7 +558,11 @@ const Sell = ({ userData }) => {
                 }}
                 className="innerLeftBox"
               >
-                <Typography variant="h4">Listing Preview</Typography>
+                {previewImages.length === 0 ? (
+                  <Typography variant="h4">Listing Preview</Typography>
+                ) : (
+                  <PreviewImageSwiper images={previewImages} />
+                )}
               </Box>
               <Box
                 sx={{
