@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Box, Grid, Typography } from "@mui/material";
+import { Box, CircularProgress, Grid, Typography } from "@mui/material";
 import BuyListing from "./BuyListing";
 import $ from "jquery";
 import { useNavigate } from "react-router-dom";
@@ -8,6 +8,7 @@ const Textbook = ({ textbook }) => {
   // console.log(textbook);
   const [open, setOpen] = useState(false);
   const [image, setImage] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
@@ -18,14 +19,16 @@ const Textbook = ({ textbook }) => {
 
   useEffect(() => {
     // gets the images for the textbook
+    setLoading(true);
     $.ajax({
       url:
         "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/listing/images?listingID=" +
         textbook["listingID"],
       type: "GET",
       success: function (result) {
-        // console.log(result);
-        setImage(result);
+        console.log(result);
+        setImage(result["body"][0]);
+        setLoading(false);
       },
       error: function (result) {
         console.log(JSON.stringify(result));
@@ -41,7 +44,7 @@ const Textbook = ({ textbook }) => {
     >
       <Box
         sx={{
-          height: 350,
+          height: 380,
           width: "100%",
           cursor: "pointer",
           display: "flex",
@@ -55,12 +58,13 @@ const Textbook = ({ textbook }) => {
             height: "90%",
             width: "90%",
             borderRadius: 5,
-            backgroundColor: "white",
+            backgroundColor: "var(--secondary-color)",
+            boxShadow: 8
           }}
         >
           <Box
             sx={{
-              height: "75%",
+              height: "70%",
               width: "100%",
               display: "flex",
               justifyContent: "center",
@@ -75,35 +79,46 @@ const Textbook = ({ textbook }) => {
                 justifyContent: "center",
                 alignItems: "center",
                 borderRadius: 5,
-                backgroundColor: "lightgrey",
+                backgroundColor: "rgb(32,32,32)",
               }}
             >
-              <img src={image} alt="textbook" />
+              {loading ? (
+                <CircularProgress />
+              ) : (
+                <img src={image} width={"75%"} height={"100%"} alt="textbook" />
+              )}
             </Box>
           </Box>
           <Box
             sx={{
-              height: "25%",
+              height: "30%",
               width: "100%",
               display: "flex",
-              justifyContent: "flex-start",
-              alignItems: "center",
-              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "flex-start",
+              // flexDirection: "column",
             }}
           >
-            <Typography variant="body1" sx={{ fontWeight: "bold" }}>
-              ${textbook["price"]}
-            </Typography>
-            <Typography variant="body1">{textbook["title"]}</Typography>
-            <Typography variant="body1">{textbook["course"]}</Typography>
+            <Box
+              sx={{
+                width: "90%",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+              }}
+            >
+              <Typography variant="body1" sx={{ fontWeight: "bold" }}>
+                ${textbook["price"]}
+              </Typography>
+              <Typography variant="body1" sx={{ textAlign: "center" }}>
+                {textbook["title"]}
+              </Typography>
+              <Typography variant="body1">{textbook["course"]}</Typography>
+            </Box>
           </Box>
         </Box>
       </Box>
-      <BuyListing
-        listing={textbook}
-        open={open}
-        setOpen={setOpen}
-      />
+      <BuyListing listing={textbook} open={open} setOpen={setOpen} />
     </Grid>
   );
 };
