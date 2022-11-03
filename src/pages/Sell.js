@@ -9,6 +9,7 @@ import {
   TextField,
   MenuItem,
   InputAdornment,
+  FormHelperText,
 } from "@mui/material";
 import $ from "jquery";
 import * as React from "react";
@@ -63,6 +64,7 @@ const Sell = ({ userData }) => {
   const [editionError, setEditionError] = React.useState(false);
   const [courseError, setCourseError] = React.useState(false);
   const [conditionError, setConditionError] = React.useState(false);
+  const [imageError, setImageError] = React.useState(false);
   const [submittedListing, setSubmittedListing] = React.useState(false);
 
   const conditionChange = (event) => {
@@ -80,6 +82,10 @@ const Sell = ({ userData }) => {
     var images = document.getElementById("images").files;
     var count = images.length;
     var missing = false;
+    if (count === 0) {
+      missing = true;
+      setImageError(true);
+    }
     if (title === "") {
       setTitleError(true);
       missing = true;
@@ -212,6 +218,10 @@ const Sell = ({ userData }) => {
     }
   };
 
+  const imageUpload = (event) => {
+    console.log(event)
+  }
+
   return (
     <div className="sellDisplay">
       <Box
@@ -230,6 +240,10 @@ const Sell = ({ userData }) => {
         >
           Textbook For Sale
         </Typography>
+        <Divider
+          variant="middle"
+          sx={{ borderBottomColor: "var(--text-color)" }}
+        />
         <Box
           sx={{
             "& > :not(style)": { m: 1 },
@@ -245,10 +259,34 @@ const Sell = ({ userData }) => {
           className="formDisplay scrollBar"
           onSubmit={listTextbook}
         >
-          <Button variant="contained" component="label">
-            Upload Images Here
-            <input id="images" type="file" hidden multiple />
-          </Button>
+          <Box
+            sx={{
+              width: "85%",
+              display: "flex",
+              alignItems: "flex-start",
+              flexDirection: "column",
+            }}
+          >
+            <FormHelperText sx={{ fontSize: "14px", marginLeft: 0 }}>
+              0/5 Images
+            </FormHelperText>
+            <Button
+              variant="contained"
+              component="label"
+              sx={{ width: "100%" }}
+            >
+              Upload Images Here
+              <input id="images" type="file" hidden multiple onChange={imageUpload} />
+            </Button>
+            {/* <FormHelperText>Please upload at least one image</FormHelperText> */}
+            {imageError ? (
+              <FormHelperText error={imageError}>
+                Please upload at least one image
+              </FormHelperText>
+            ) : (
+              ""
+            )}
+          </Box>
           <TextField
             id="title"
             label="Title"
@@ -256,6 +294,9 @@ const Sell = ({ userData }) => {
             onChange={changeText}
             error={titleError}
             helperText={titleError ? "Please add a title." : ""}
+            inputProps={{
+              maxLength: 60,
+            }}
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
@@ -358,7 +399,11 @@ const Sell = ({ userData }) => {
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
-                  {conditionError ? <WarningIcon sx={{ color: "red" }} /> : ""}
+                  {conditionError ? (
+                    <WarningIcon sx={{ color: "red", marginRight: 2 }} />
+                  ) : (
+                    ""
+                  )}
                 </InputAdornment>
               ),
             }}
@@ -447,9 +492,7 @@ const Sell = ({ userData }) => {
                 }}
                 className="innerLeftBox"
               >
-                <Typography variant="h4">
-                  Listing Preview
-                </Typography>
+                <Typography variant="h4">Listing Preview</Typography>
               </Box>
               <Box
                 sx={{
@@ -542,7 +585,8 @@ const Sell = ({ userData }) => {
                     sx={{ fontWeight: "bold" }}
                   >
                     Course
-                    <Typography variant="body1" 
+                    <Typography
+                      variant="body1"
                       // color="var(--text-color)"
                     >
                       {course}

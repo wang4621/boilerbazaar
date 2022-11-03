@@ -1,11 +1,19 @@
 import React from "react";
-import { AppBar, Toolbar, IconButton, Typography, Dialog } from "@mui/material";
+import {
+  AppBar,
+  Toolbar,
+  IconButton,
+  Typography,
+  Dialog,
+  FormHelperText,
+} from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { Avatar, CardContent, Divider, Box, Button } from "@mui/material";
 import { TextField, MenuItem } from "@mui/material";
 import $ from "jquery";
 import { v4 as uuidv4 } from "uuid";
 import "./EditListing.css";
+import TextbookImages from "../TextbookImages/TextbookImages";
 
 function getBase64(file, i, imagesJson, final) {
   var reader = new FileReader();
@@ -43,7 +51,7 @@ const EditListing = ({
   setOpen,
   stateChange,
   setStateChange,
-  userData
+  userData,
 }) => {
   const [title, setTitle] = React.useState(listing["title"]);
   const [price, setPrice] = React.useState(listing["price"]);
@@ -63,6 +71,7 @@ const EditListing = ({
   const [courseError, setCourseError] = React.useState(false);
   const [conditionError, setConditionError] = React.useState(false);
   const [submittedListing, setSubmittedListing] = React.useState(false);
+  const [imageError, setImageError] = React.useState(false);
 
   const closeEdit = () => {
     setOpen(false);
@@ -78,10 +87,14 @@ const EditListing = ({
   const saveTextbook = (event) => {
     setSubmittedListing(true);
     var listingID = uuidv4().toString();
-    var sellerID = "";
+    var sellerID = userData["puid"];
     var images = document.getElementById("images").files;
     var count = images.length;
     var missing = false;
+    if (count === 0) {
+      missing = true;
+      setImageError(true);
+    }
     if (title === "") {
       setTitleError(true);
       missing = true;
@@ -127,7 +140,7 @@ const EditListing = ({
         condition: condition,
         description: description,
       };
-      jsonData = JSON.stringify(jsonData)
+      jsonData = JSON.stringify(jsonData);
       // TODO: Change ajax call and send the correct values
       $.ajax({
         url: "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/listing",
@@ -137,7 +150,7 @@ const EditListing = ({
         contentType: "application/json",
         success: function (result) {
           console.log(JSON.stringify(result));
-          setStateChange(!stateChange)
+          setStateChange(!stateChange);
         },
         error: function (result) {
           console.log(JSON.stringify(result));
@@ -194,23 +207,27 @@ const EditListing = ({
       setEdition(event.target.value);
     } else if (event.target.id === "course") {
       if (event.target.value === "" && submittedListing) {
-          setCourseError(true);
-      } 
+        setCourseError(true);
+      }
       if (event.target.value.includes(" ")) {
         event.target.value = event.target.value.slice(0, -1);
       } else {
         setCourseError(false);
       }
-      setCourse(event.target.value)
+      setCourse(event.target.value);
     } else if (event.target.id === "description") {
       setStringLength(event.target.value.length);
       setDescription(event.target.value);
     }
   };
 
+  const imageUpload = (event) => {
+    console.log(event);
+  };
+
   return (
     <Dialog fullScreen open={open} onClose={closeEdit}>
-      <AppBar sx={{ position: "relative", height: "8%" }}>
+      <AppBar sx={{ position: "relative", height: "7%" }}>
         <Toolbar>
           <IconButton
             edge="start"
@@ -230,7 +247,7 @@ const EditListing = ({
         </Toolbar>
       </AppBar>
       <Box
-        sx={{ height: "92%", backgroundColor: "var(--background-color)" }}
+        sx={{ height: "93%", backgroundColor: "var(--background-color)" }}
         className="editDisplay"
       >
         <Box
@@ -266,10 +283,40 @@ const EditListing = ({
             className="formDisplay scrollBar"
             onSubmit={saveTextbook}
           >
-            <Button variant="contained" component="label">
-              Upload Images Here
-              <input id="images" type="file" hidden multiple />
-            </Button>
+            <Box
+              sx={{
+                width: "85%",
+                display: "flex",
+                alignItems: "flex-start",
+                flexDirection: "column",
+              }}
+            >
+              <FormHelperText sx={{ fontSize: "14px", marginLeft: 0 }}>
+                0/5 Images
+              </FormHelperText>
+              <Button
+                variant="contained"
+                component="label"
+                sx={{ width: "100%" }}
+              >
+                Upload Images Here
+                <input
+                  id="images"
+                  type="file"
+                  hidden
+                  multiple
+                  onChange={imageUpload}
+                />
+              </Button>
+              {/* <FormHelperText>Please upload at least one image</FormHelperText> */}
+              {imageError ? (
+                <FormHelperText error={imageError}>
+                  Please upload at least one image
+                </FormHelperText>
+              ) : (
+                ""
+              )}
+            </Box>
             <TextField
               id="title"
               label="Title"
@@ -395,7 +442,7 @@ const EditListing = ({
               sx={{
                 "& .MuiOutlinedInput-root:hover": {
                   "& > fieldset": { borderColor: "var(--text-color)" },
-                }
+                },
               }}
             />
           </Box>
@@ -407,6 +454,7 @@ const EditListing = ({
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
+            backgroundColor: "var(--background-color)",
           }}
         >
           <Box
@@ -456,9 +504,7 @@ const EditListing = ({
                   }}
                   className="innerLeftBox"
                 >
-                  <Typography variant="h4" color="var(--text-color)">
-                    Listing Preview
-                  </Typography>
+                  <TextbookImages listing={listing} />
                 </Box>
                 <Box
                   sx={{
@@ -482,7 +528,7 @@ const EditListing = ({
                       variant="h5"
                       color="var(--text-color)"
                       sx={{ fontWeight: "bold" }}
-                    // id="previewTitle"
+                      // id="previewTitle"
                     >
                       {title === "" ? "Title" : title}
                     </Typography>
@@ -490,7 +536,7 @@ const EditListing = ({
                       variant="h6"
                       color="var(--text-color)"
                       sx={{ fontWeight: "bold" }}
-                    // id="previewPrice"
+                      // id="previewPrice"
                     >
                       {price === "" ? "Price" : "$" + price}
                     </Typography>
@@ -512,7 +558,7 @@ const EditListing = ({
                       <Typography
                         variant="body1"
                         color="var(--text-color)"
-                      // id="previewAuthor"
+                        // id="previewAuthor"
                       >
                         {author}
                       </Typography>
@@ -526,7 +572,7 @@ const EditListing = ({
                       <Typography
                         variant="body1"
                         color="var(--text-color)"
-                      // id="previewISBN"
+                        // id="previewISBN"
                       >
                         {isbn}
                       </Typography>
@@ -540,7 +586,7 @@ const EditListing = ({
                       <Typography
                         variant="body1"
                         color="var(--text-color)"
-                      // id="previewEdition"
+                        // id="previewEdition"
                       >
                         {edition}
                       </Typography>
@@ -564,7 +610,7 @@ const EditListing = ({
                       <Typography
                         variant="body1"
                         color="var(--text-color)"
-                      // id="previewCondition"
+                        // id="previewCondition"
                       >
                         {condition}
                       </Typography>
@@ -579,7 +625,7 @@ const EditListing = ({
                       <Typography
                         variant="body1"
                         color="var(--text-color)"
-                      // id="previewDescription"
+                        // id="previewDescription"
                       >
                         {description}
                       </Typography>
@@ -630,7 +676,7 @@ const EditListing = ({
                         src=""
                         id="avatarPic"
                       />
-                      {userData['firstName']} {userData['lastName']}
+                      {userData["firstName"]} {userData["lastName"]}
                     </Typography>
                   </CardContent>
                   <Box

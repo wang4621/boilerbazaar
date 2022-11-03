@@ -14,7 +14,7 @@ import WarningIcon from "@mui/icons-material/Warning";
 import $ from "jquery";
 import LoadingButton from "@mui/lab/LoadingButton";
 
-const Register = ({ open, setOpen, setAuth }) => {
+const Register = ({ open, setOpen, setAuth, setUserName }) => {
   const navigate = useNavigate();
   const [passwordError, setPasswordError] = useState(false);
   const [password, setPassword] = useState("");
@@ -23,23 +23,23 @@ const Register = ({ open, setOpen, setAuth }) => {
   const [firstNameError, setFirstNameError] = useState(false);
   const [lastName, setLastName] = useState("");
   const [lastNameError, setLastNameError] = useState(false);
-  const [puid, setPUID] = useState("");
-  const [puidError, setPUIDError] = useState(false);
+  // const [puid, setPUID] = useState("");
+  // const [puidError, setPUIDError] = useState(false);
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const changeInput = (event) => {
-    if (event.target.id === "puid") {
-      if (isNaN(event.target.value)) {
-        event.target.value = event.target.value.slice(0, -1);
-      }
-      if (event.target.value !== "") {
-        setPUIDError(false);
-      }
-      setPUID(event.target.value);
-    }
-  };
+  // const changeInput = (event) => {
+  //   if (event.target.id === "puid") {
+  //     if (isNaN(event.target.value)) {
+  //       event.target.value = event.target.value.slice(0, -1);
+  //     }
+  //     if (event.target.value !== "") {
+  //       setPUIDError(false);
+  //     }
+  //     setPUID(event.target.value);
+  //   }
+  // };
 
   const createAccount = () => {
     console.log(password);
@@ -54,11 +54,12 @@ const Register = ({ open, setOpen, setAuth }) => {
       setLastNameError(true);
       missing = true;
     }
-    if (puid === "") {
-      setPUIDError(true);
-      missing = true;
-    }
-    if (email === "") {
+    // if (puid === "") {
+    //   setPUIDError(true);
+    //   missing = true;
+    // }
+    console.log(email.split('@')[1])
+    if (email === "" || email.split('@')[1] != "purdue.edu" ||  email.split('@')[1] == undefined) {
       setEmailError(true);
       missing = true;
     }
@@ -73,9 +74,13 @@ const Register = ({ open, setOpen, setAuth }) => {
 
     if (!missing) {
       setOpen(false);
+      var puid = email.split('@')[0];
+      setUserName(puid);
       var jsonData = {
         firstName: firstName,
         lastName: lastName,
+        puid: puid,
+        password: password
       };
       jsonData = '"' + JSON.stringify(jsonData).replaceAll('"', '\\"') + '"';
       $.ajax({
@@ -86,10 +91,10 @@ const Register = ({ open, setOpen, setAuth }) => {
         contentType: "application/json",
         success: function (result) {
           console.log(JSON.stringify(result));
-          setOpen(false);
           setLoading(false);
           setAuth(true);
           navigate("/home");
+          setOpen(false);
         },
         error: function (result) {
           console.log(JSON.stringify(result));
@@ -172,7 +177,7 @@ const Register = ({ open, setOpen, setAuth }) => {
           id="email"
           onChange={(e) => setEmail(e.target.value)}
         />
-        <TextField
+        {/* <TextField
           margin="dense"
           label="PUID"
           fullWidth
@@ -189,7 +194,7 @@ const Register = ({ open, setOpen, setAuth }) => {
             ),
           }}
           onChange={changeInput}
-        />
+        /> */}
         <TextField
           margin="dense"
           label="Password"

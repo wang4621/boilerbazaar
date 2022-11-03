@@ -9,7 +9,7 @@ import Buy from "./pages/Buy";
 import About from "./pages/About";
 import Map from "./pages/Map";
 import Listings from "./component/ProfileListing/Listings";
-import Watchlist from "./component/Watchlist/Watchlist"
+import Watchlist from "./component/Watchlist/Watchlist";
 import Profile from "./pages/Profile";
 // import BuyListing from "./component/BuyListing/BuyListing";
 // import BuyMain from "./pages/BuyMain";
@@ -28,7 +28,7 @@ import Brightness7Icon from "@mui/icons-material/Brightness7";
 import SettingsIcon from "@mui/icons-material/Settings";
 import WatchlistBox from "./component/Watchlist/WatchlistBox";
 
-const MainPage = ({username}) => {
+const MainPage = ({ username, setAuth }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [userData, setUserData] = React.useState("");
   const open = Boolean(anchorEl);
@@ -53,6 +53,7 @@ const MainPage = ({username}) => {
       root.style.setProperty("--secondary-color", "#323d4d");
       root.style.setProperty("--tertiary-color", "#161B22");
       root.style.setProperty("--text-color", "#FFFFFF");
+      root.style.setProperty("--background-color", "#FFFFFF");
     } else {
       updateDarkModePreference("light");
       setTheme("bodyLight");
@@ -60,6 +61,7 @@ const MainPage = ({username}) => {
       root.style.setProperty("--secondary-color", "#f5f5f5");
       root.style.setProperty("--tertiary-color", "#DFDFDF");
       root.style.setProperty("--text-color", "#000000");
+      root.style.setProperty("--background-color", "#FFFFFF");
     }
   };
   //Update dark mode
@@ -74,11 +76,13 @@ const MainPage = ({username}) => {
       @todo: remove console output
     **/
     $.ajax({
-      url: "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/profile?puid=" + username,
+      url:
+        "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/profile?puid=" +
+        username,
       type: "GET",
       success: function (result) {
         // localStorage.setItem('userData', JSON.stringify(result))
-        console.log(result)
+        console.log(result);
         setUserData(result);
         if (result.darkModePreference === "dark") {
           setTheme("bodyDark");
@@ -123,6 +127,11 @@ const MainPage = ({username}) => {
         console.log(JSON.stringify(result));
       },
     });
+  };
+
+  const logout = () => {
+    setAuth(false);
+    navigate("/boilerbazaar");
   };
 
   return (
@@ -227,6 +236,7 @@ const MainPage = ({username}) => {
               color: "var(--text-color)",
               backgroundColor: "var(--primary-color)",
             }}
+            onClick={logout}
           >
             <ListItemIcon>
               <Logout fontSize="small" sx={{ color: "var(--text-color)" }} />
@@ -237,11 +247,7 @@ const MainPage = ({username}) => {
       </div>
       <Routes>
         <Route path="/home" element={<Home />} />
-        <Route path="/buy/*" element={<Buy userData={userData} />}>
-          {/* <Route path="" element={<BuyMain />} /> */}
-          {/* <Route path='listing/:id' element={< BuyListing />}/> */}
-          {/* <Route path="listing" element={<BuyListing />} /> */}
-        </Route>
+        <Route path="/buy/*" element={<Buy />}></Route>
         <Route path="/sell" element={<Sell userData={userData} />} />
         <Route path="/about" element={<About />} />
         <Route path="/map" element={<Map />} />

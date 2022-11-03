@@ -12,49 +12,13 @@ import {
   AppBar,
   Dialog,
   TextField,
-  Link
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import SendIcon from "@mui/icons-material/Send";
 import CheckIcon from '@mui/icons-material/Check';
 import $ from "jquery";
 import { useNavigate } from "react-router-dom";
-
-// import './SingleListing.css'
-// import * as React from 'react';
-// import $ from 'jquery';
-
-// import { Avatar, CardHeader, Rating, Divider, Box, Typography, TextField, MenuItem } from '@mui/material';
-// import { link, NavLink, useParams } from "react-router-dom";
-// function SingleListing() {
-//     let params = useParams();
-//     let id = params.id;
-//     const searchUrl = "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/listing?listingID=" + id;
-//     $.ajax({
-//         url: searchUrl,
-//         type: 'GET',
-//         success: function (result) {
-//             //console.log(result.Items[0].toString.trim())
-//             let returnedItems = result.Items;
-//             let listingList = [];
-//             for (let i = 0; i < returnedItems.length; i++) {
-//                 listingList.push({"listingID": returnedItems[i].listingID, "title": returnedItems[i].title, "author": returnedItems[i].author, "isbn": returnedItems[i].isbn, "edition": returnedItems[i].edition, "condition": returnedItems[i].condition, "price": returnedItems[i].price, "description": returnedItems[i].description, "toString": "Title: " + returnedItems[i].title + " Author: " + returnedItems[i].author + " ISBN: " + returnedItems[i].isbn + " Edition: " + returnedItems[i].edition + " Condition: " + returnedItems[i].condition + " Price: " + returnedItems[i].price + " Description: " + returnedItems[i].description});
-//             }
-//             document.getElementById("listingText").innerHTML = listingList[0].toString;
-//         },
-//         error: function (result) {
-//             alert(JSON.stringify(result));
-//         }
-//     });
-//     return (
-//         <div className="listingDisplay">
-//             <Typography id="listingText" variant="h6" color="black">
-
-//             </Typography>
-//         </div>
-//     )
-// }
-// export default SingleListing;
+import TextbookImages from "../TextbookImages/TextbookImages";
 
 const BuyListing = ({ listing, open, setOpen, userData }) => {
   const [sellerData, setSellerData] = useState("");
@@ -69,6 +33,8 @@ const BuyListing = ({ listing, open, setOpen, userData }) => {
   };
 
   useEffect(() => {
+    // console.log(listing)
+    // setLoading(true)
     $.ajax({
       url:
         "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/profile?puid=" +
@@ -81,6 +47,7 @@ const BuyListing = ({ listing, open, setOpen, userData }) => {
         console.log(JSON.stringify(result));
       },
     });
+
   }, [listing]);
 
   const addToWatchlist = () => {
@@ -111,7 +78,7 @@ const BuyListing = ({ listing, open, setOpen, userData }) => {
 
   return (
     <Dialog fullScreen open={open} onClose={closeBuy}>
-      <AppBar sx={{ position: "relative", height: "8%" }}>
+      <AppBar sx={{ position: "relative", height: "7%" }}>
         <Toolbar>
           <IconButton
             edge="start"
@@ -132,7 +99,7 @@ const BuyListing = ({ listing, open, setOpen, userData }) => {
       </AppBar>
       <Box
         sx={{
-          height: "92%",
+          height: "93%",
           width: "100%",
           display: "flex",
           flexDirection: "row",
@@ -146,9 +113,7 @@ const BuyListing = ({ listing, open, setOpen, userData }) => {
           }}
           className="innerLeftBox"
         >
-          <Typography variant="h4" color="var(--text-color)">
-            Listing Preview
-          </Typography>
+          <TextbookImages listing={listing}/>
         </Box>
         <Box
           sx={{
