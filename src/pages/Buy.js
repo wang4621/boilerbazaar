@@ -1,5 +1,6 @@
 import "./Buy.css";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+
 import {
   TextField,
   MenuItem,
@@ -398,29 +399,32 @@ const Buy = ({userData}) => {
   }
 
   function sortListings() {
+    setLoading(true);
     const sortingMode = document.getElementById("sorting").innerText;
+    let sorted;
     switch (sortingMode) {
       case "Title - Ascending":
-        listingList.sort(compareByTitleA);
+        sorted = [...textbooks].sort(compareByTitleA);
         break;
       case "Title - Descending":
-        listingList.sort(compareByTitleD);
+        sorted = [...textbooks].sort(compareByTitleD);
         break;
       case "Author - Ascending":
-        listingList.sort(compareByAuthorA);
+        sorted = [...textbooks].sort(compareByAuthorA);
         break;
       case "Author - Descending":
-        listingList.sort(compareByAuthorD);
+        sorted = [...textbooks].sort(compareByAuthorD);
         break;
       case "Price - Ascending":
-        listingList.sort(compareByPriceA);
+        sorted = [...textbooks].sort(compareByPriceA);
         break;
       case "Price - Descending":
-        listingList.sort(compareByPriceD);
+        sorted = [...textbooks].sort(compareByPriceD);
         break;
       default:
         return;
     }
+    setTextbooks(sorted);
     // repopulateListings();
   }
 
@@ -565,6 +569,10 @@ const Buy = ({userData}) => {
   const [textbooks, setTextbooks] = useState([]);
   const [loading, setLoading] = useState(false);
   const [first, setFirst] = useState(true);
+
+  useEffect(() => {
+    setLoading(false);
+  }, [textbooks]);
 
   return (
     <div className="buyDisplay">
