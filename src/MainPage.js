@@ -247,7 +247,7 @@ const MainPage = ({ username, setAuth }) => {
       </div>
       <Routes>
         <Route path="/home" element={<Home />} />
-        <Route path="/buy/*" element={<Buy />}></Route>
+        <Route path="/buy/*" element={<Buy userData={userData}/>}></Route>
         <Route path="/sell" element={<Sell userData={userData} />} />
         <Route path="/about" element={<About />} />
         <Route path="/map" element={<Map />} />
