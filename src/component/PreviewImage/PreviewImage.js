@@ -2,14 +2,18 @@ import React from "react";
 import { Grid, IconButton } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 
-const PreviewImage = ({ image, setPreviewImages }) => {
-  const deleteImage = (event) => {
-    console.log(event);
-    // setPreviewImages();
+const PreviewImage = ({ image, index, previewImages, setPreviewImages }) => {
+  // console.log(index)
+  const deleteImage = (index) => {
+    console.log(index)
+    // console.log(image)
+    const tempImages = [...previewImages];
+    tempImages.splice(index, 1);
+    setPreviewImages(tempImages);
   };
 
   return (
-    <Grid item m={1} xs={5} sx={{ position: "relative" }}>
+    <Grid item m={1} xs={5} sx={{ position: "relative" }} key={index}>
       <IconButton
         sx={{
           position: "absolute",
@@ -21,7 +25,7 @@ const PreviewImage = ({ image, setPreviewImages }) => {
             bgcolor: "var(--background-color)",
           },
         }}
-        onClick={deleteImage}
+        onClick={() => deleteImage(index)}
       >
         <CloseIcon />
       </IconButton>
