@@ -9,7 +9,7 @@ import Buy from "./pages/Buy";
 import About from "./pages/About";
 import Map from "./pages/Map";
 import Listings from "./component/ProfileListing/Listings";
-import Watchlist from "./component/Watchlist/Watchlist"
+import Watchlist from "./component/Watchlist/Watchlist";
 import Profile from "./pages/Profile";
 // import BuyListing from "./component/BuyListing/BuyListing";
 // import BuyMain from "./pages/BuyMain";
@@ -28,7 +28,7 @@ import Brightness7Icon from "@mui/icons-material/Brightness7";
 import SettingsIcon from "@mui/icons-material/Settings";
 import WatchlistBox from "./component/Watchlist/WatchlistBox";
 
-const MainPage = ({username, setAuth}) => {
+const MainPage = ({ username, setAuth }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [userData, setUserData] = React.useState("");
   const open = Boolean(anchorEl);
@@ -76,11 +76,13 @@ const MainPage = ({username, setAuth}) => {
       @todo: remove console output
     **/
     $.ajax({
-      url: "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/profile?puid=" + username,
+      url:
+        "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/profile?puid=" +
+        username,
       type: "GET",
       success: function (result) {
         // localStorage.setItem('userData', JSON.stringify(result))
-        console.log(result)
+        console.log(result);
         setUserData(result);
         if (result.darkModePreference === "dark") {
           setTheme("bodyDark");
@@ -129,8 +131,8 @@ const MainPage = ({username, setAuth}) => {
 
   const logout = () => {
     setAuth(false);
-    navigate("/boilerbazaar")
-  }
+    navigate("/boilerbazaar");
+  };
 
   return (
     <div className={`${theme}`}>
@@ -245,11 +247,7 @@ const MainPage = ({username, setAuth}) => {
       </div>
       <Routes>
         <Route path="/home" element={<Home />} />
-        <Route path="/buy/*" element={<Buy />}>
-          {/* <Route path="" element={<BuyMain />} /> */}
-          {/* <Route path='listing/:id' element={< BuyListing />}/> */}
-          {/* <Route path="listing" element={<BuyListing />} /> */}
-        </Route>
+        <Route path="/buy/*" element={<Buy />}></Route>
         <Route path="/sell" element={<Sell userData={userData} />} />
         <Route path="/about" element={<About />} />
         <Route path="/map" element={<Map />} />
