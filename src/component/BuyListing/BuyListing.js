@@ -12,6 +12,10 @@ import {
   AppBar,
   Dialog,
   TextField,
+  Modal, 
+  List, 
+  ListItem, 
+  ListItemText
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import SendIcon from "@mui/icons-material/Send";
@@ -19,8 +23,37 @@ import CheckIcon from '@mui/icons-material/Check';
 import $ from "jquery";
 import { useNavigate } from "react-router-dom";
 import TextbookImages from "../TextbookImages/TextbookImages";
+import InsertLinkIcon from '@mui/icons-material/InsertLink';
+import EmailIcon from '@mui/icons-material/Email';
+import FacebookIcon from '@mui/icons-material/Facebook';
+
+
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: 'background.paper',
+  boxShadow: 24,
+  p: 4,
+};
+
+
+
+function copyLink() {
+  navigator.clipboard.writeText(window.location.href);
+  alert("Copied to Clipboard");
+
+}
 
 const BuyListing = ({ listing, open, setOpen, userData }) => {
+
+  const [openShare, setOpenShare] = React.useState(false);
+  const handleOpenShare = () => setOpenShare(true);
+  const handleCloseShare = () => setOpenShare(false);
+  const address = window.location.href;
+
   const [sellerData, setSellerData] = useState("");
   const [addedToWatchlist, setAddedToWatchlist] = useState(false);
   const [alreadyInWatchlist, setAlreadyInWatchlist] = useState(false);
@@ -71,14 +104,14 @@ const BuyListing = ({ listing, open, setOpen, userData }) => {
       },
     });
   };
-  
+
   if (listing["sold"] === "true") {
     return <div>This item is unavailable</div>
   }
 
   return (
     <Dialog fullScreen open={open} onClose={closeBuy}>
-      <AppBar sx={{ position: "relative", height: "8%", display:'flex', justifyContent:'center'}}>
+      <AppBar sx={{ position: "relative", height: "8%", display: 'flex', justifyContent: 'center' }}>
         <Toolbar>
           <IconButton
             edge="start"
@@ -113,7 +146,7 @@ const BuyListing = ({ listing, open, setOpen, userData }) => {
           }}
           className="innerLeftBox"
         >
-          <TextbookImages listing={listing}/>
+          <TextbookImages listing={listing} />
         </Box>
         <Box
           sx={{
@@ -230,6 +263,41 @@ const BuyListing = ({ listing, open, setOpen, userData }) => {
               </Typography>
             </Typography>
             <br />
+            <Button onClick={handleOpenShare}>Share</Button>
+            <Modal
+              open={openShare}
+              onClose={handleCloseShare}
+
+            >
+              <Box sx={style}>
+                <Typography id="modal-modal-title" variant="h6" component="h2">
+                  Share Options
+                </Typography>
+                <List>
+                  <ListItem>
+                    <IconButton color="inherit" target="_blank" onClick={copyLink} rel="noopener noreferrer">
+                      <InsertLinkIcon />
+                    </IconButton>
+                    <ListItemText primary="Copy Link" />
+                  </ListItem>
+                  <ListItem>
+                    <IconButton color="inherit" target="_blank" href={"mailto:?subject=Check out this textbook listing&body=Link to textbook: " + address} rel="noopener noreferrer">
+                      <EmailIcon />
+                    </IconButton>
+                    <ListItemText primary="Email" />
+                  </ListItem>
+                  <ListItem>
+                    <div id="fb-root"></div>
+                    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v15.0" nonce="eGYQgFrV"></script>
+                    <div data-href={address}></div>
+                    <IconButton color="inherit" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A3000%2Fbuy%2Flisting%2F707647ad-bb0a-41ee-b899-0fbef8c6269c&amp;src=sdkpreparse" >
+                      <FacebookIcon />
+                    </IconButton>
+                    <ListItemText primary="Facebook" />
+                  </ListItem>
+                </List>
+              </Box>
+            </Modal>
             <br />
           </CardContent>
           <Divider
@@ -269,7 +337,7 @@ const BuyListing = ({ listing, open, setOpen, userData }) => {
                 : sellerData["preferredName"] + " " + sellerData["lastName"]}
             </Typography>
           </CardContent>
-          { addedToWatchlist
+          {addedToWatchlist
             ? alreadyInWatchlist ? <></> : <Typography sx={{ textAlign: "center" }}>Successfully Added to Watchlist</Typography>
             : <Button onClick={addToWatchlist}>Add to Watchlist</Button>
           }
