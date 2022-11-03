@@ -53,6 +53,7 @@ const MainPage = ({username}) => {
       root.style.setProperty("--secondary-color", "#323d4d");
       root.style.setProperty("--tertiary-color", "#161B22");
       root.style.setProperty("--text-color", "#FFFFFF");
+      root.style.setProperty("--background-color", "#FFFFFF");
     } else {
       updateDarkModePreference("light");
       setTheme("bodyLight");
@@ -60,6 +61,7 @@ const MainPage = ({username}) => {
       root.style.setProperty("--secondary-color", "#f5f5f5");
       root.style.setProperty("--tertiary-color", "#DFDFDF");
       root.style.setProperty("--text-color", "#000000");
+      root.style.setProperty("--background-color", "#FFFFFF");
     }
   };
   //Update dark mode
