@@ -12,7 +12,7 @@ import "./Profile.css";
 import $ from "jquery";
 
 const Profile = ({ userData, setUserData }) => {
-  console.log(userData);
+  console.log(userData)
   const [isDisabled, setDisabled] = React.useState(true);
   const [value, setValue] = React.useState("Edit");
   // let profileData = JSON.parse(localStorage.getItem('userData'));
@@ -32,25 +32,26 @@ const Profile = ({ userData, setUserData }) => {
   );
   // const [major, setMajor] = React.useState(profileData['major']);
   const [major, setMajor] = React.useState(userData["major"]);
+  const sales = React.useState(userData["sell"]);
 
-  const preferredMeetingChange = (event) => {
-    setPreferredMeeting(event.target.value);
-  };
+  // const preferredMeetingChange = (event) => {
+  //   setPreferredMeeting(event.target.value);
+  // };
 
-  const majorChange = (event) => {
-    setMajor(event.target.value);
-  };
+  // const majorChange = (event) => {
+  //   setMajor(event.target.value);
+  // };
 
-  const preferredNameChange = (event) => {
-    setPreferredName(event.target.value);
-  };
+  // const preferredNameChange = (event) => {
+  //   setPreferredName(event.target.value);
+  // };
 
-  let name;
-  if (preferredName === "") {
-    name = firstName + " " + lastName;
-  } else {
-    name = preferredName + " " + lastName;
-  }
+  // let name;
+  // if (preferredName === "") {
+  //   name = firstName + " " + lastName;
+  // } else {
+  //   name = preferredName + " " + lastName;
+  // }
 
   const editOrSaveProfile = (event) => {
     setDisabled(!isDisabled);
@@ -122,6 +123,7 @@ const Profile = ({ userData, setUserData }) => {
           onSubmit={editOrSaveProfile}
           id="profileForm"
         >
+          <TextField id="puid" label="Login Username" disabled value={puid} />
           <TextField
             id="firstName"
             label="First Name"
@@ -133,7 +135,7 @@ const Profile = ({ userData, setUserData }) => {
             label="Preferred Name"
             disabled={isDisabled}
             value={preferredName}
-            onChange={preferredNameChange}
+            onChange={(e)=>setPreferredName(e.target.value.charAt(0).toUpperCase() + e.target.value.slice(1))}
             sx={{
               "& .MuiOutlinedInput-root:hover": {
                 "& > fieldset": { borderColor: "var(--text-color)" },
@@ -147,13 +149,12 @@ const Profile = ({ userData, setUserData }) => {
             disabled
             value={lastName}
           />
-          <TextField id="puid" label="PUID" disabled value={puid} />
           <TextField
             id="major"
             label="Major"
             disabled={isDisabled}
             value={major}
-            onChange={majorChange}
+            onChange={(e)=>setMajor(e.target.value)}
             sx={{
               "& .MuiOutlinedInput-root:hover": {
                 "& > fieldset": { borderColor: "var(--text-color)" },
@@ -166,7 +167,7 @@ const Profile = ({ userData, setUserData }) => {
             select
             value={preferredMeeting}
             disabled={isDisabled}
-            onChange={preferredMeetingChange}
+            onChange={(e)=>setPreferredMeeting(e.target.value)}
             sx={{
               "& .MuiOutlinedInput-root:hover": {
                 "& > fieldset": { borderColor: "var(--text-color)" },
@@ -196,13 +197,13 @@ const Profile = ({ userData, setUserData }) => {
           color="var(--text-color)"
           sx={{ textAlign: "center" }}
         >
-          {name}
+          {preferredName === '' ? firstName + ' ' + lastName : preferredName + ' ' + lastName}
         </Typography>
         <br />
-        <Typography variant="h6" color="var(--text-color)">
+        {/* <Typography variant="h6" color="var(--text-color)">
           Rating
-        </Typography>
-        <Rating name="read-only" readOnly size="large" />
+        </Typography> */}
+        <Rating name="read-only" readOnly size="large"/>
         <br />
         <br />
         <Typography component={"span"} variant="h6" color="var(--text-color)">
@@ -228,7 +229,7 @@ const Profile = ({ userData, setUserData }) => {
             display="inline"
             id="sales"
           >
-            1
+            {sales}
           </Typography>
         </Typography>
       </Box>

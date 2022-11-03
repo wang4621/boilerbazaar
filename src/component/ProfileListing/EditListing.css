@@ -17,6 +17,7 @@
 .editDisplay {
     display: flex;
     flex-direction: row;
+    background-color: var(--background-color)
 }
 
 .editDisplay .formDisplay {
@@ -50,14 +51,14 @@
     align-items: center;
 }
 
-.editDisplay .scrollBar::-webkit-scrollbar {
+/* .editDisplay .scrollBar::-webkit-scrollbar {
     width: 10px;
 }
 
 .editDisplay .scrollBar::-webkit-scrollbar-thumb {
     border-radius: 10px;
     background: #c2c9d2;
-}
+} */
 
 .editDisplay .MuiFormHelperText-root {
     margin-left: 0;
@@ -79,4 +80,8 @@
 
 .editDisplay .MuiInputBase-root {
     background-color: var(--secondary-color);
+}
+
+.editDisplay .swiper-slide {
+    border-radius: 10px 0px 0px 10px;
 }

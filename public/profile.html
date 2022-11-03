@@ -9,41 +9,56 @@
 
 <body>
     <script>
-        // Go back to seller.html
-        document.write(`<a href="seller.html">Go back</a>`)
+
         // Get parameter from the url
         const queryString = window.location.search;
         const urlParams = new URLSearchParams(queryString);
 
-        // Get info of the seller from url parameter
+        // Get sellid of  seller from url parameter
+        const sellid = urlParams.get('sellid')
+        // Get info of the seller
+        const url = "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/profile"
+        fetch(url, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                "puid": sellid
+            })
+        })
+            .then(response => response.json())
+            .then((data) => {
+                data = data.body
+                // convert data to JSON
+                data = JSON.parse(data)
+                const major = data.major
+                const lastName = data.lastName
+                const firstName = data.firstName
+                const preferredName = data.preferredName
+                const preferredMeeting = data.preferredMeeting
+                const numberOfSells = data.sell
+                // Display the info of the seller as a profile page
+                document.body.innerHTML = `
+                <h1>Profile of ${preferredName}</h1>
+                <div>
+                    <p>Major: ${major}</p>
+                    <p>Last Name: ${lastName}</p>
+                    <p>First Name: ${firstName}</p>
+                    <p>Preferred Name: ${preferredName}</p>
+                    <p>Preferred Meeting: ${preferredMeeting}</p>
+                    <p>Number of sells: ${numberOfSells}</p>
+                </div>
+                `
+            })
 
-        const email = urlParams.get('email')
-        const first_name = urlParams.get('first_name')
-        const last_name = urlParams.get('last_name')
-        const prefered_name = urlParams.get('prefered_name')
-        const delivery_preference = urlParams.get('delivery_preference')
-        const major = urlParams.get('major')
-        // Profile to display those info
-        const profile = {
-            email: email,
-            first_name: first_name,
-            last_name: last_name,
-            prefered_name: prefered_name,
-            delivery_preference: delivery_preference
-        }
-
-        // Display the profile
-        document.write(`<h1>Profile of ${profile.prefered_name}</h1>`)
-        // email. Contain mailto:email
-        document.write(`<p>Email: <a href="mailto:${profile.email}">${profile.email}</a></p>`)
-        document.write(`<p>First Name: ${profile.first_name}</p>`)
-        document.write(`<p>Last Name: ${profile.last_name}</p>`)
-        document.write(`<p>Preferred Name: ${profile.prefered_name}</p>`)
-        document.write(`<p>Delivery Preference: ${profile.delivery_preference}</p>`)
-        document.write(`<p>Major: ${major}</p>`)
-
-
-
+        // Add a button to go back to previous page
+        const button = document.createElement("button");
+        button.innerHTML = "Back";
+        button.addEventListener("click", () => {
+            window.history.back();
+        });
+        document.body.appendChild(button);
     </script>
 </body>
 

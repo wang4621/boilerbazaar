@@ -8,10 +8,13 @@ import {
   Button,
   TextField,
   MenuItem,
+  InputAdornment,
+  FormHelperText,
 } from "@mui/material";
 import $ from "jquery";
-import * as React from "react";
+import React, { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
+import WarningIcon from "@mui/icons-material/Warning";
 
 function getBase64(file, i, imagesJson, final) {
   var reader = new FileReader();
@@ -43,25 +46,27 @@ function sendImages(imagesJson) {
   });
 }
 
-function Sell() {
-  const [title, setTitle] = React.useState("");
-  const [price, setPrice] = React.useState("");
-  const [author, setAuthor] = React.useState("");
-  const [isbn, setISBN] = React.useState("");
-  const [edition, setEdition] = React.useState("");
-  const [condition, setCondition] = React.useState("");
-  const [description, setDescription] = React.useState("");
-  const [course, setCourse] = React.useState("");
+const Sell = ({ userData }) => {
+  const [title, setTitle] = useState("");
+  const [price, setPrice] = useState("");
+  const [author, setAuthor] = useState("");
+  const [isbn, setISBN] = useState("");
+  const [edition, setEdition] = useState("");
+  const [condition, setCondition] = useState("");
+  const [description, setDescription] = useState("");
+  const [course, setCourse] = useState("");
   const limit = 250;
-  const [getStringLength, setStringLength] = React.useState(0);
-  const [titleError, setTitleError] = React.useState(false);
-  const [priceError, setPriceError] = React.useState(false);
-  const [authorError, setAuthorError] = React.useState(false);
-  const [isbnError, setISBNError] = React.useState(false);
-  const [editionError, setEditionError] = React.useState(false);
-  const [courseError, setCourseError] = React.useState(false);
-  const [conditionError, setConditionError] = React.useState(false);
-  const [submittedListing, setSubmittedListing] = React.useState(false);
+  const [getStringLength, setStringLength] = useState(0);
+  const [titleError, setTitleError] = useState(false);
+  const [priceError, setPriceError] = useState(false);
+  const [authorError, setAuthorError] = useState(false);
+  const [isbnError, setISBNError] = useState(false);
+  const [editionError, setEditionError] = useState(false);
+  const [courseError, setCourseError] = useState(false);
+  const [conditionError, setConditionError] = useState(false);
+  const [imageError, setImageError] = useState(false);
+  const [submittedListing, setSubmittedListing] = useState(false);
+  const [imageCount, setImageCount] = useState(0)
 
   const conditionChange = (event) => {
     setCondition(event.target.value);
@@ -74,16 +79,14 @@ function Sell() {
   const listTextbook = (event) => {
     setSubmittedListing(true);
     var listingID = uuidv4().toString();
-    var sellerID = "";
-    // var title = document.getElementById("title").value;
-    // var price = document.getElementById("price").value.substring(1);
-    // var author = document.getElementById("author").value;
-    // var isbn = document.getElementById("isbn").value;
-    // var edition = document.getElementById("edition").value;
-    // var description = document.getElementById("description").value;
+    var sellerID = userData["puid"];
     var images = document.getElementById("images").files;
-    var count = images.length;
+    console.log(images)
     var missing = false;
+    if (imageCount === 0) {
+      missing = true;
+      setImageError(true);
+    }
     if (title === "") {
       setTitleError(true);
       missing = true;
@@ -104,14 +107,18 @@ function Sell() {
       setEditionError(true);
       missing = true;
     }
+    if (course === "") {
+      setCourseError(true);
+      missing = true;
+    }
     if (condition === "") {
       setConditionError(true);
       missing = true;
     }
     if (!missing) {
-      var imagesJson = { listingID: listingID, count: count };
-      for (var i = 0; i < count; i++) {
-        getBase64(images[i], i, imagesJson, i === count - 1);
+      var imagesJson = { listingID: listingID, count: imageCount };
+      for (var i = 0; i < imageCount; i++) {
+        getBase64(images[i], i, imagesJson, i === imageCount - 1);
       }
       var jsonData = {
         listingID: listingID,
@@ -142,24 +149,6 @@ function Sell() {
     }
     event.preventDefault();
   };
-
-  // //Prevent spaces in course field
-  // const handleCourse = (event) => {
-  //   var value = event.target.value;
-  //   if (event.target.value === "") {
-  //     if (submittedListing) {
-  //       setCourseError(true);
-  //     }
-  //     event.target.value = "";
-  //     document.getElementById("previewCourse").innerText = "Course";
-  //   } else if (value.includes(" ")) {
-  //     event.target.value = event.target.value.slice(0, -1);
-  //   } else {
-  //     event.target.value = value;
-  //     setCourseError(false);
-  //     document.getElementById("previewCourse").innerText = value;
-  //   }
-  // };
 
   const changeText = (event) => {
     if (event.target.id === "title") {
@@ -215,20 +204,35 @@ function Sell() {
       setEdition(event.target.value);
     } else if (event.target.id === "course") {
       if (event.target.value === "" && submittedListing) {
-          setCourseError(true);
-      } 
+        setCourseError(true);
+      }
       if (event.target.value.includes(" ")) {
         event.target.value = event.target.value.slice(0, -1);
       } else {
         setCourseError(false);
       }
-      setCourse(event.target.value)
+      setCourse(event.target.value);
     } else if (event.target.id === "description") {
       setStringLength(event.target.value.length);
       // document.getElementById("previewDescription").innerText = event.target.value;
       setDescription(event.target.value);
     }
   };
+
+  const imageUpload = (event) => {
+    console.log(event)
+    let imageLength = event.target.files.length
+    let isImage = true;
+    for (let imageFile in event.target.files) {
+      let extension = imageFile.name.slice((imageFile.name.lastIndexOf(".") - 1 >>> 0) + 2)
+      if (extension !== "jpg" && extension !== "png") {
+        isImage = false;
+      }
+    }
+    if (isImage) {
+      setImageCount(imageCount + imageLength)
+    }
+  }
 
   return (
     <div className="sellDisplay">
@@ -248,11 +252,18 @@ function Sell() {
         >
           Textbook For Sale
         </Typography>
+        <Divider
+          variant="middle"
+          sx={{ borderBottomColor: "var(--text-color)" }}
+        />
         <Box
           sx={{
             "& > :not(style)": { m: 1 },
             height: "93%",
-            overflowY: "scroll",
+            overflowY: "auto",
+            "& .MuiOutlinedInput-root:hover": {
+              "& > fieldset": { borderColor: "var(--text-color)" },
+            },
           }}
           component="form"
           noValidate
@@ -260,10 +271,35 @@ function Sell() {
           className="formDisplay scrollBar"
           onSubmit={listTextbook}
         >
-          <Button variant="contained" component="label">
-            Upload Images Here
-            <input id="images" type="file" hidden multiple />
-          </Button>
+          <Box
+            sx={{
+              width: "85%",
+              display: "flex",
+              alignItems: "flex-start",
+              flexDirection: "column",
+            }}
+          >
+            <FormHelperText sx={{ fontSize: "14px", marginLeft: 0 }}>
+              {imageCount}/5 Images
+            </FormHelperText>
+            <Button
+              variant="contained"
+              component="label"
+              disabled={imageCount === 5 ? true : false}
+              sx={{ width: "100%" }}
+            >
+              Upload Images Here
+              <input id="images" type="file" hidden multiple onChange={imageUpload} accept="image/*"/>
+            </Button>
+            {/* <FormHelperText>Please upload at least one image</FormHelperText> */}
+            {imageError ? (
+              <FormHelperText error={imageError}>
+                Please upload at least one image
+              </FormHelperText>
+            ) : (
+              ""
+            )}
+          </Box>
           <TextField
             id="title"
             label="Title"
@@ -271,10 +307,15 @@ function Sell() {
             onChange={changeText}
             error={titleError}
             helperText={titleError ? "Please add a title." : ""}
-            sx={{
-              "& .MuiOutlinedInput-root:hover": {
-                "& > fieldset": { borderColor: "var(--text-color)" },
-              },
+            inputProps={{
+              maxLength: 60,
+            }}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  {titleError ? <WarningIcon sx={{ color: "red" }} /> : ""}
+                </InputAdornment>
+              ),
             }}
           />
           <TextField
@@ -284,11 +325,15 @@ function Sell() {
             onChange={changeText}
             error={priceError}
             helperText={priceError ? "Please add a price." : ""}
-            inputProps={{ maxLength: 3 }}
-            sx={{
-              "& .MuiOutlinedInput-root:hover": {
-                "& > fieldset": { borderColor: "var(--text-color)" },
-              },
+            inputProps={{
+              maxLength: 3,
+            }}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  {priceError ? <WarningIcon sx={{ color: "red" }} /> : ""}
+                </InputAdornment>
+              ),
             }}
           />
           <TextField
@@ -298,10 +343,12 @@ function Sell() {
             onChange={changeText}
             error={authorError}
             helperText={authorError ? "Please add an author." : ""}
-            sx={{
-              "& .MuiOutlinedInput-root:hover": {
-                "& > fieldset": { borderColor: "var(--text-color)" },
-              },
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  {authorError ? <WarningIcon sx={{ color: "red" }} /> : ""}
+                </InputAdornment>
+              ),
             }}
           />
           <TextField
@@ -312,10 +359,12 @@ function Sell() {
             error={isbnError}
             helperText={isbnError ? "Please add an ISBN." : ""}
             inputProps={{ maxLength: 13 }}
-            sx={{
-              "& .MuiOutlinedInput-root:hover": {
-                "& > fieldset": { borderColor: "var(--text-color)" },
-              },
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  {isbnError ? <WarningIcon sx={{ color: "red" }} /> : ""}
+                </InputAdornment>
+              ),
             }}
           />
           <TextField
@@ -326,10 +375,12 @@ function Sell() {
             error={editionError}
             helperText={editionError ? "Please add an edition." : ""}
             inputProps={{ maxLength: 2 }}
-            sx={{
-              "& .MuiOutlinedInput-root:hover": {
-                "& > fieldset": { borderColor: "var(--text-color)" },
-              },
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  {editionError ? <WarningIcon sx={{ color: "red" }} /> : ""}
+                </InputAdornment>
+              ),
             }}
           />
           <TextField
@@ -340,6 +391,13 @@ function Sell() {
             error={courseError}
             helperText={courseError ? "Please add a course." : ""}
             inputProps={{ maxLength: 10 }}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  {courseError ? <WarningIcon sx={{ color: "red" }} /> : ""}
+                </InputAdornment>
+              ),
+            }}
           />
           <TextField
             id="condition"
@@ -351,12 +409,17 @@ function Sell() {
             onChange={conditionChange}
             error={conditionError}
             helperText={conditionError ? "Please select a condition" : ""}
-            sx={{
-              "& .MuiOutlinedInput-root:hover": {
-                "& > fieldset": { borderColor: "var(--text-color)" },
-              },
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  {conditionError ? (
+                    <WarningIcon sx={{ color: "red", marginRight: 2 }} />
+                  ) : (
+                    ""
+                  )}
+                </InputAdornment>
+              ),
             }}
-            // sx={{ backgroundColor: "var(--secondary-color)" }}
           >
             <MenuItem value="New">New</MenuItem>
             <MenuItem value="Used - Like New">Used - Like New</MenuItem>
@@ -371,21 +434,21 @@ function Sell() {
             onChange={changeText}
             inputProps={{ maxLength: limit }}
             helperText={`${getStringLength}/${limit}`}
-            sx={{
-              "& .MuiOutlinedInput-root:hover": {
-                "& > fieldset": { borderColor: "var(--text-color)" },
-              },
-            }}
+            // sx={{
+            //   "& .MuiOutlinedInput-root:hover": {
+            //     "& > fieldset": { borderColor: "var(--text-color)" },
+            //   },
+            // }}
           />
           <TextField
             id="list"
             type="submit"
             value="List"
-            sx={{
-              "& .MuiOutlinedInput-root:hover": {
-                "& > fieldset": { borderColor: "var(--text-color)" },
-              },
-            }}
+            // sx={{
+            //   "& .MuiOutlinedInput-root:hover": {
+            //     "& > fieldset": { borderColor: "var(--text-color)" },
+            //   },
+            // }}
           />
         </Box>
       </Box>
@@ -412,6 +475,7 @@ function Sell() {
           {/* <CardHeader title="Preview" sx={{height: '7%', marginLeft:'1%'}}/> */}
           <Typography
             variant="h6"
+            component={"span"}
             sx={{ fontWeight: "bold", padding: "10px", marginLeft: "1.5%" }}
           >
             Preview
@@ -441,9 +505,7 @@ function Sell() {
                 }}
                 className="innerLeftBox"
               >
-                <Typography variant="h4" color="var(--text-color)">
-                  Listing Preview
-                </Typography>
+                <Typography variant="h4">Listing Preview</Typography>
               </Box>
               <Box
                 sx={{
@@ -465,7 +527,7 @@ function Sell() {
                 >
                   <Typography
                     variant="h5"
-                    color="var(--text-color)"
+                    // color="var(--text-color)"
                     sx={{ fontWeight: "bold" }}
                     // id="previewTitle"
                   >
@@ -473,7 +535,7 @@ function Sell() {
                   </Typography>
                   <Typography
                     variant="h6"
-                    color="var(--text-color)"
+                    // color="var(--text-color)"
                     sx={{ fontWeight: "bold" }}
                     // id="previewPrice"
                   >
@@ -482,7 +544,7 @@ function Sell() {
                   <br />
                   <Typography
                     variant="h6"
-                    color="var(--text-color)"
+                    // color="var(--text-color)"
                     sx={{ fontWeight: "bold" }}
                   >
                     Details
@@ -490,13 +552,13 @@ function Sell() {
                   <br />
                   <Typography
                     variant="h6"
-                    color="var(--text-color)"
+                    // color="var(--text-color)"
                     sx={{ fontWeight: "bold" }}
                   >
                     Author
                     <Typography
                       variant="body1"
-                      color="var(--text-color)"
+                      // color="var(--text-color)"
                       // id="previewAuthor"
                     >
                       {author}
@@ -504,13 +566,13 @@ function Sell() {
                   </Typography>
                   <Typography
                     variant="h6"
-                    color="var(--text-color)"
+                    // color="var(--text-color)"
                     sx={{ fontWeight: "bold" }}
                   >
                     ISBN
                     <Typography
                       variant="body1"
-                      color="var(--text-color)"
+                      // color="var(--text-color)"
                       // id="previewISBN"
                     >
                       {isbn}
@@ -518,13 +580,13 @@ function Sell() {
                   </Typography>
                   <Typography
                     variant="h6"
-                    color="var(--text-color)"
+                    // color="var(--text-color)"
                     sx={{ fontWeight: "bold" }}
                   >
                     Edition
                     <Typography
                       variant="body1"
-                      color="var(--text-color)"
+                      // color="var(--text-color)"
                       // id="previewEdition"
                     >
                       {edition}
@@ -532,23 +594,26 @@ function Sell() {
                   </Typography>
                   <Typography
                     variant="h6"
-                    color="var(--text-color)"
+                    // color="var(--text-color)"
                     sx={{ fontWeight: "bold" }}
                   >
                     Course
-                    <Typography variant="body1" color="var(--text-color)">
+                    <Typography
+                      variant="body1"
+                      // color="var(--text-color)"
+                    >
                       {course}
                     </Typography>
                   </Typography>
                   <Typography
                     variant="h6"
-                    color="var(--text-color)"
+                    // color="var(--text-color)"
                     sx={{ fontWeight: "bold" }}
                   >
                     Condition
                     <Typography
                       variant="body1"
-                      color="var(--text-color)"
+                      // color="var(--text-color)"
                       // id="previewCondition"
                     >
                       {condition}
@@ -557,13 +622,13 @@ function Sell() {
                   <br />
                   <Typography
                     variant="h6"
-                    color="var(--text-color)"
+                    // color="var(--text-color)"
                     sx={{ fontWeight: "bold" }}
                   >
                     Description
                     <Typography
                       variant="body1"
-                      color="var(--text-color)"
+                      // color="var(--text-color)"
                       // id="previewDescription"
                     >
                       {description}
@@ -585,7 +650,7 @@ function Sell() {
                 >
                   <Typography
                     variant="body1"
-                    color="var(--text-color)"
+                    // color="var(--text-color)"
                     sx={{ fontWeight: "bold", fontSize: 18 }}
                   >
                     Seller Information
@@ -601,21 +666,23 @@ function Sell() {
                   <br />
                   <Typography
                     variant="body1"
-                    color="var(--text-color)"
+                    // color="var(--text-color)"
                     sx={{
                       display: "flex",
-                      justifyContent: "space-between",
+                      // justifyContent: "space-between",
                       alignItems: "center",
                     }}
                     id="avatarName"
                   >
                     <Avatar
-                      sx={{ width: 40, height: 40 }}
+                      sx={{ width: 40, height: 40, marginRight: 2 }}
                       alt=""
                       src=""
                       id="avatarPic"
                     />
-                    Jeff Wang
+                    {userData["preferredName"] === ""
+                      ? userData["firstName"] + " " + userData["lastName"]
+                      : userData["preferredName"] + " " + userData["lastName"]}
                   </Typography>
                 </CardContent>
                 <Box
@@ -643,6 +710,6 @@ function Sell() {
       </Box>
     </div>
   );
-}
+};
 
 export default Sell;

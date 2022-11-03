@@ -1,18 +1,13 @@
-import {
-  Divider,
-  Box,
-  Typography,
-  CircularProgress 
-} from "@mui/material";
+import { Divider, Box, Typography, CircularProgress, Grid } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import $ from "jquery";
-import ListingBox from "../component/ListingBox.js";
+import ListingBox from "./ListingBox.js";
 
-function Listings() {
-//   const [listedTextbooks, setListedTextbooks] = useState(<CircularProgress />);
-    const [listedTextbooks, setListedTextbooks] = useState([]);
-    const [stateChange, setStateChange] = useState(false);
-    const [loading, setLoading] = useState(true);
+const Listings = ({ userData }) => {
+  //   const [listedTextbooks, setListedTextbooks] = useState(<CircularProgress />);
+  const [listedTextbooks, setListedTextbooks] = useState([]);
+  const [stateChange, setStateChange] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     // get user textbook listings
@@ -20,7 +15,7 @@ function Listings() {
     $.ajax({
       url:
         "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/userlisting?puid=" +
-        JSON.parse(localStorage.getItem("userData"))["puid"],
+        userData["puid"],
       type: "GET",
       success: function (result) {
         setLoading(false);
@@ -55,18 +50,38 @@ function Listings() {
       </Box>
       <Box
         sx={{
-          height: "94%",
+          height: "92%",
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          overflow: "scroll",
+          overflowY: "auto",
+          justifyContent: "flex-start",
         }}
+        className="scrollBar"
       >
-        {loading ? <CircularProgress/> : 
-        listedTextbooks.length > 0 ? (
-          listedTextbooks.map((textbook) => {
-            return <ListingBox listing={textbook} stateChange={stateChange} setStateChange={setStateChange}/>;
-          })
+        {loading ? (
+          <CircularProgress />
+        ) : listedTextbooks.length > 0 ? (
+          <Grid
+            container
+            spacing={3}
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              // alignItems: "flex-start",
+            }}
+          >
+            {listedTextbooks.map((textbook) => {
+              return (
+                <ListingBox
+                  listing={textbook}
+                  stateChange={stateChange}
+                  setStateChange={setStateChange}
+                  userData={userData}
+                />
+              );
+            })}
+          </Grid>
         ) : (
           <Typography variant="h6" sx={{ padding: "10px" }}>
             No Listings
@@ -75,6 +90,6 @@ function Listings() {
       </Box>
     </Box>
   );
-}
+};
 
 export default Listings;
