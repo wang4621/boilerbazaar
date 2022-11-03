@@ -36,7 +36,7 @@ const Listings = ({ userData }) => {
         flexDirection: "column",
       }}
     >
-      <Box sx={{ height: "6.5%" }}>
+      <Box sx={{ height: "8%" }}>
         <Typography
           variant="h6"
           sx={{ fontWeight: "bold", textAlign: "center", padding: "10px" }}
@@ -50,7 +50,7 @@ const Listings = ({ userData }) => {
       </Box>
       <Box
         sx={{
-          height: "93.5%",
+          height: "92%",
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
@@ -64,7 +64,7 @@ const Listings = ({ userData }) => {
         ) : listedTextbooks.length > 0 ? (
           <Grid
             container
-            spacing={2}
+            spacing={3}
             sx={{
               display: "flex",
               justifyContent: "center",

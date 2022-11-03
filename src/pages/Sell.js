@@ -82,7 +82,7 @@ const Sell = ({ userData }) => {
     var images = document.getElementById("images").files;
     var count = images.length;
     var missing = false;
-    if (count == 0) {
+    if (count === 0) {
       missing = true;
       setImageError(true);
     }
@@ -218,6 +218,10 @@ const Sell = ({ userData }) => {
     }
   };
 
+  const imageUpload = (event) => {
+    console.log(event)
+  }
+
   return (
     <div className="sellDisplay">
       <Box
@@ -272,7 +276,7 @@ const Sell = ({ userData }) => {
               sx={{ width: "100%" }}
             >
               Upload Images Here
-              <input id="images" type="file" hidden multiple />
+              <input id="images" type="file" hidden multiple onChange={imageUpload} />
             </Button>
             {/* <FormHelperText>Please upload at least one image</FormHelperText> */}
             {imageError ? (

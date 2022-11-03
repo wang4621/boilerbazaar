@@ -203,7 +203,7 @@ const Profile = ({ userData, setUserData }) => {
         {/* <Typography variant="h6" color="var(--text-color)">
           Rating
         </Typography> */}
-        <Rating name="read-only" readOnly size="large" />
+        <Rating name="read-only" readOnly size="large"/>
         <br />
         <br />
         <Typography component={"span"} variant="h6" color="var(--text-color)">

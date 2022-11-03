@@ -130,7 +130,7 @@ const ListingBox = ({ listing, stateChange, setStateChange, userData }) => {
             {loading ? (
               <CircularProgress />
             ) : (
-              <img src={image} height={"100%"} width={"80%"} alt="textbook" />
+              <img src={image} height={"100%"} width={"70%"} alt="textbook" />
             )}
           </Box>
         </Box>
