@@ -21,3 +21,18 @@
     align-items: center;
     flex-direction: column;
 }
+
+.swiper {
+    height: 100%;
+    width: 100%;
+}
+
+.swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: rgb(32,32,32);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* border-radius: 10px 10px 10px 10px; */
+  }
