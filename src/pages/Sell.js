@@ -221,14 +221,21 @@ const Sell = ({ userData }) => {
 
   const imageUpload = (event) => {
     console.log(event)
+    event.preventDefault()
     let imageLength = event.target.files.length
     let isImage = true;
-    for (let imageFile in event.target.files) {
-      let extension = imageFile.name.slice((imageFile.name.lastIndexOf(".") - 1 >>> 0) + 2)
-      if (extension !== "jpg" && extension !== "png") {
+    for (let i = 0; i < imageLength; i++) {
+      // console.log(event.target.files[i].type.split('/')[1])
+      let extension = event.target.files[i].type.split('/')[1]
+      if (extension === "jpeg" || extension === "png") {
+        isImage = true;
+      } else {
         isImage = false;
+        break;
       }
     }
+    var images = document.getElementById("images").files;
+    console.log(images)
     if (isImage) {
       setImageCount(imageCount + imageLength)
     }
