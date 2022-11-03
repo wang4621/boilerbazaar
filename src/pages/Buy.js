@@ -1,5 +1,6 @@
 import "./Buy.css";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+
 import {
   TextField,
   MenuItem,
@@ -239,6 +240,7 @@ const Buy = ({userData}) => {
         }
         // returnedItems = temp
         setTextbooks(parsedTextbook);
+        setOriginalTextbooks(parsedTextbook);
         // listingList = [];
         // for (let i = 0; i < returnedItems.length; i++) {
         //   listingList.push({
@@ -275,7 +277,7 @@ const Buy = ({userData}) => {
         // originalListingList = JSON.parse(JSON.stringify(listingList));
         // console.log(originalListingList);
         // repopulateListings();
-        repopulateFilters();
+        //repopulateFilters();
       },
       error: function (result) {
         console.log(JSON.stringify(result));
@@ -398,29 +400,32 @@ const Buy = ({userData}) => {
   }
 
   function sortListings() {
+    setLoading(true);
     const sortingMode = document.getElementById("sorting").innerText;
+    let sorted;
     switch (sortingMode) {
       case "Title - Ascending":
-        listingList.sort(compareByTitleA);
+        sorted = [...textbooks].sort(compareByTitleA);
         break;
       case "Title - Descending":
-        listingList.sort(compareByTitleD);
+        sorted = [...textbooks].sort(compareByTitleD);
         break;
       case "Author - Ascending":
-        listingList.sort(compareByAuthorA);
+        sorted = [...textbooks].sort(compareByAuthorA);
         break;
       case "Author - Descending":
-        listingList.sort(compareByAuthorD);
+        sorted = [...textbooks].sort(compareByAuthorD);
         break;
       case "Price - Ascending":
-        listingList.sort(compareByPriceA);
+        sorted = [...textbooks].sort(compareByPriceA);
         break;
       case "Price - Descending":
-        listingList.sort(compareByPriceD);
+        sorted = [...textbooks].sort(compareByPriceD);
         break;
       default:
         return;
     }
+    setTextbooks(sorted);
     // repopulateListings();
   }
 
@@ -457,7 +462,7 @@ const Buy = ({userData}) => {
     filters.appendChild(noFilter);
 
     let addedEditions = [];
-    for (const item of originalListingList) {
+    for (const item of originalTextbooks) {
       if (item.edition !== undefined) {
         if (!addedEditions.includes(item.edition)) {
           addedEditions.push(item.edition);
@@ -484,7 +489,7 @@ const Buy = ({userData}) => {
     filters.appendChild(noFilter);
 
     let addedConditions = [];
-    for (const item of originalListingList) {
+    for (const item of originalTextbooks) {
       if (item.condition !== undefined) {
         if (!addedConditions.includes(item.condition)) {
           addedConditions.push(item.condition);
@@ -511,7 +516,7 @@ const Buy = ({userData}) => {
     filters.appendChild(noFilter);
 
     let addedCourses = [];
-    for (const item of originalListingList) {
+    for (const item of originalTextbooks) {
       if (item.course !== undefined) {
         if (!addedCourses.includes(item.course)) {
           addedCourses.push(item.course);
@@ -534,23 +539,31 @@ const Buy = ({userData}) => {
     let conditionFilter = document.getElementById("conditionFilter").value;
 
     listingList = JSON.parse(JSON.stringify(originalListingList));
+    let filtered = originalTextbooks;
 
     if (editionFilter != "none") {
+      filtered = [...filtered].filter(function (value, index, arr) {
+        return value.edition == editionFilter;
+      });
+      /*
       listingList = listingList.filter(function (value, index, arr) {
         return value.edition == editionFilter;
       });
+      */
     }
     if (conditionFilter != "none") {
-      listingList = listingList.filter(function (value, index, arr) {
+      filtered = [...filtered].filter(function (value, index, arr) {
         return value.condition == conditionFilter;
       });
     }
 
     if (courseFilter != "none") {
-      listingList = listingList.filter(function (value, index, arr) {
+      filtered = [...filtered].filter(function (value, index, arr) {
         return value.course == courseFilter;
       });
     }
+
+    setTextbooks(filtered);
 
     console.log(listingList);
     // repopulateListings();
@@ -565,7 +578,15 @@ const Buy = ({userData}) => {
   const [textbooks, setTextbooks] = useState([]);
   const [loading, setLoading] = useState(false);
   const [first, setFirst] = useState(true);
+  const [originalTextbooks, setOriginalTextbooks] = useState([]);
 
+  useEffect(() => {
+    setLoading(false);
+  }, [textbooks]);
+
+  useEffect(() => {
+    repopulateFilters();
+  }, [originalTextbooks]);
   return (
     <div className="buyDisplay">
       <Box
