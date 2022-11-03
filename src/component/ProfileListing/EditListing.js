@@ -293,7 +293,7 @@ const EditListing = ({
 
   useEffect(() => { 
     setImageCount(previewImages.length)
-    console.log(imageCount)
+    // console.log(imageCount)
   }, [previewImages]);
 
   return (
