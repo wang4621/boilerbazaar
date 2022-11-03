@@ -231,49 +231,49 @@ const Buy = ({userData}) => {
         console.log(result);
         setLoading(false);
         let returnedItems = result.Items;
-        const temp = []
+        let parsedTextbook = []
         for (let i = 0; i < returnedItems.length; i++) {
-          if (returnedItems[i].sold === "false") {
-            temp.push(returnedItems[i]);
+          if (returnedItems[i].sold === "false" && returnedItems[i].sellerID != userData['puid']) {
+            parsedTextbook.push(returnedItems[i]);
           }
         }
-        returnedItems = temp
-        setTextbooks(temp);
-        listingList = [];
-        for (let i = 0; i < returnedItems.length; i++) {
-          listingList.push({
-            listingID: returnedItems[i].listingID,
-            title: returnedItems[i].title,
-            author: returnedItems[i].author,
-            isbn: returnedItems[i].isbn,
-            edition: returnedItems[i].edition,
-            course: returnedItems[i].course,
-            condition: returnedItems[i].condition,
-            price: returnedItems[i].price,
-            description: returnedItems[i].description,
-            toString:
-              "Title: " +
-              returnedItems[i].title +
-              " Author: " +
-              returnedItems[i].author +
-              " ISBN: " +
-              returnedItems[i].isbn +
-              " Edition: " +
-              returnedItems[i].edition +
-              " Course: " +
-              returnedItems[i].course +
-              " Condition: " +
-              returnedItems[i].condition +
-              " Price: " +
-              returnedItems[i].price +
-              " Description: " +
-              returnedItems[i].description
-          });
-        }
+        // returnedItems = temp
+        setTextbooks(parsedTextbook);
+        // listingList = [];
+        // for (let i = 0; i < returnedItems.length; i++) {
+        //   listingList.push({
+        //     listingID: returnedItems[i].listingID,
+        //     title: returnedItems[i].title,
+        //     author: returnedItems[i].author,
+        //     isbn: returnedItems[i].isbn,
+        //     edition: returnedItems[i].edition,
+        //     course: returnedItems[i].course,
+        //     condition: returnedItems[i].condition,
+        //     price: returnedItems[i].price,
+        //     description: returnedItems[i].description,
+        //     toString:
+        //       "Title: " +
+        //       returnedItems[i].title +
+        //       " Author: " +
+        //       returnedItems[i].author +
+        //       " ISBN: " +
+        //       returnedItems[i].isbn +
+        //       " Edition: " +
+        //       returnedItems[i].edition +
+        //       " Course: " +
+        //       returnedItems[i].course +
+        //       " Condition: " +
+        //       returnedItems[i].condition +
+        //       " Price: " +
+        //       returnedItems[i].price +
+        //       " Description: " +
+        //       returnedItems[i].description
+        //   });
+        // }
 
-        console.log(listingList);
-        originalListingList = JSON.parse(JSON.stringify(listingList));
-        console.log(originalListingList);
+        // console.log(listingList);
+        // originalListingList = JSON.parse(JSON.stringify(listingList));
+        // console.log(originalListingList);
         // repopulateListings();
         repopulateFilters();
       },
