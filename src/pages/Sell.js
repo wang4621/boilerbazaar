@@ -12,7 +12,7 @@ import {
   FormHelperText,
 } from "@mui/material";
 import $ from "jquery";
-import * as React from "react";
+import React, { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import WarningIcon from "@mui/icons-material/Warning";
 
@@ -47,25 +47,26 @@ function sendImages(imagesJson) {
 }
 
 const Sell = ({ userData }) => {
-  const [title, setTitle] = React.useState("");
-  const [price, setPrice] = React.useState("");
-  const [author, setAuthor] = React.useState("");
-  const [isbn, setISBN] = React.useState("");
-  const [edition, setEdition] = React.useState("");
-  const [condition, setCondition] = React.useState("");
-  const [description, setDescription] = React.useState("");
-  const [course, setCourse] = React.useState("");
+  const [title, setTitle] = useState("");
+  const [price, setPrice] = useState("");
+  const [author, setAuthor] = useState("");
+  const [isbn, setISBN] = useState("");
+  const [edition, setEdition] = useState("");
+  const [condition, setCondition] = useState("");
+  const [description, setDescription] = useState("");
+  const [course, setCourse] = useState("");
   const limit = 250;
-  const [getStringLength, setStringLength] = React.useState(0);
-  const [titleError, setTitleError] = React.useState(false);
-  const [priceError, setPriceError] = React.useState(false);
-  const [authorError, setAuthorError] = React.useState(false);
-  const [isbnError, setISBNError] = React.useState(false);
-  const [editionError, setEditionError] = React.useState(false);
-  const [courseError, setCourseError] = React.useState(false);
-  const [conditionError, setConditionError] = React.useState(false);
-  const [imageError, setImageError] = React.useState(false);
-  const [submittedListing, setSubmittedListing] = React.useState(false);
+  const [getStringLength, setStringLength] = useState(0);
+  const [titleError, setTitleError] = useState(false);
+  const [priceError, setPriceError] = useState(false);
+  const [authorError, setAuthorError] = useState(false);
+  const [isbnError, setISBNError] = useState(false);
+  const [editionError, setEditionError] = useState(false);
+  const [courseError, setCourseError] = useState(false);
+  const [conditionError, setConditionError] = useState(false);
+  const [imageError, setImageError] = useState(false);
+  const [submittedListing, setSubmittedListing] = useState(false);
+  const [imageCount, setImageCount] = useState(0)
 
   const conditionChange = (event) => {
     setCondition(event.target.value);
@@ -80,9 +81,9 @@ const Sell = ({ userData }) => {
     var listingID = uuidv4().toString();
     var sellerID = userData["puid"];
     var images = document.getElementById("images").files;
-    var count = images.length;
+    console.log(images)
     var missing = false;
-    if (count === 0) {
+    if (imageCount === 0) {
       missing = true;
       setImageError(true);
     }
@@ -115,9 +116,9 @@ const Sell = ({ userData }) => {
       missing = true;
     }
     if (!missing) {
-      var imagesJson = { listingID: listingID, count: count };
-      for (var i = 0; i < count; i++) {
-        getBase64(images[i], i, imagesJson, i === count - 1);
+      var imagesJson = { listingID: listingID, count: imageCount };
+      for (var i = 0; i < imageCount; i++) {
+        getBase64(images[i], i, imagesJson, i === imageCount - 1);
       }
       var jsonData = {
         listingID: listingID,
@@ -220,6 +221,17 @@ const Sell = ({ userData }) => {
 
   const imageUpload = (event) => {
     console.log(event)
+    let imageLength = event.target.files.length
+    let isImage = true;
+    for (let imageFile in event.target.files) {
+      let extension = imageFile.name.slice((imageFile.name.lastIndexOf(".") - 1 >>> 0) + 2)
+      if (extension !== "jpg" && extension !== "png") {
+        isImage = false;
+      }
+    }
+    if (isImage) {
+      setImageCount(imageCount + imageLength)
+    }
   }
 
   return (
@@ -268,15 +280,16 @@ const Sell = ({ userData }) => {
             }}
           >
             <FormHelperText sx={{ fontSize: "14px", marginLeft: 0 }}>
-              0/5 Images
+              {imageCount}/5 Images
             </FormHelperText>
             <Button
               variant="contained"
               component="label"
+              disabled={imageCount === 5 ? true : false}
               sx={{ width: "100%" }}
             >
               Upload Images Here
-              <input id="images" type="file" hidden multiple onChange={imageUpload} />
+              <input id="images" type="file" hidden multiple onChange={imageUpload} accept="image/*"/>
             </Button>
             {/* <FormHelperText>Please upload at least one image</FormHelperText> */}
             {imageError ? (
