@@ -34,7 +34,8 @@ const TextbookImages = ({ listing }) => {
         console.log(JSON.stringify(result));
       },
     });
-  }, []);
+  }, [listing]);
+  
   return (
     <Swiper
       navigation={true}

@@ -12,43 +12,39 @@ import {
   AppBar,
   Dialog,
   TextField,
-  Modal, 
-  List, 
-  ListItem, 
-  ListItemText
+  Modal,
+  List,
+  ListItem,
+  ListItemText,
+  InputAdornment
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import SendIcon from "@mui/icons-material/Send";
-import CheckIcon from '@mui/icons-material/Check';
+import CheckIcon from "@mui/icons-material/Check";
 import $ from "jquery";
 import { useNavigate } from "react-router-dom";
 import TextbookImages from "../TextbookImages/TextbookImages";
-import InsertLinkIcon from '@mui/icons-material/InsertLink';
-import EmailIcon from '@mui/icons-material/Email';
-import FacebookIcon from '@mui/icons-material/Facebook';
-
+import InsertLinkIcon from "@mui/icons-material/InsertLink";
+import EmailIcon from "@mui/icons-material/Email";
+import FacebookIcon from "@mui/icons-material/Facebook";
 
 const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
   width: 400,
-  bgcolor: 'background.paper',
+  bgcolor: "background.paper",
   boxShadow: 24,
   p: 4,
 };
 
-
-
 function copyLink() {
   navigator.clipboard.writeText(window.location.href);
   alert("Copied to Clipboard");
-
 }
 
 const BuyListing = ({ listing, open, setOpen, userData }) => {
-
   const [openShare, setOpenShare] = React.useState(false);
   const handleOpenShare = () => setOpenShare(true);
   const handleCloseShare = () => setOpenShare(false);
@@ -81,7 +77,6 @@ const BuyListing = ({ listing, open, setOpen, userData }) => {
         console.log(JSON.stringify(result));
       },
     });
-
   }, [listing]);
 
   const addToWatchlist = () => {
@@ -107,7 +102,7 @@ const BuyListing = ({ listing, open, setOpen, userData }) => {
   };
 
   if (listing["sold"] === "true") {
-    return <div>This item is unavailable</div>
+    return <div>This item is unavailable</div>;
   }
 
 
@@ -153,7 +148,14 @@ const BuyListing = ({ listing, open, setOpen, userData }) => {
 
   return (
     <Dialog fullScreen open={open} onClose={closeBuy}>
-      <AppBar sx={{ position: "relative", height: "8%", display: 'flex', justifyContent: 'center' }}>
+      <AppBar
+        sx={{
+          position: "relative",
+          height: "8%",
+          display: "flex",
+          justifyContent: "center",
+        }}
+      >
         <Toolbar>
           <IconButton
             edge="start"
@@ -280,6 +282,19 @@ const BuyListing = ({ listing, open, setOpen, userData }) => {
               color="var(--text-color)"
               sx={{ fontWeight: "bold" }}
             >
+              Course
+              <Typography
+                variant="body1"
+                color="var(--text-color)"
+              >
+                {listing["course"]}
+              </Typography>
+            </Typography>
+            <Typography
+              variant="h6"
+              color="var(--text-color)"
+              sx={{ fontWeight: "bold" }}
+            >
               Condition
               <Typography
                 variant="body1"
@@ -320,33 +335,52 @@ const BuyListing = ({ listing, open, setOpen, userData }) => {
             </Typography>
             <br />
             <Button onClick={handleOpenShare}>Share</Button>
-            <Modal
-              open={openShare}
-              onClose={handleCloseShare}
-
-            >
+            <Modal open={openShare} onClose={handleCloseShare}>
               <Box sx={style}>
                 <Typography id="modal-modal-title" variant="h6" component="h2">
                   Share Options
                 </Typography>
                 <List>
                   <ListItem>
-                    <IconButton color="inherit" target="_blank" onClick={copyLink} rel="noopener noreferrer">
+                    <IconButton
+                      color="inherit"
+                      target="_blank"
+                      onClick={copyLink}
+                      rel="noopener noreferrer"
+                    >
                       <InsertLinkIcon />
                     </IconButton>
                     <ListItemText primary="Copy Link" />
                   </ListItem>
                   <ListItem>
-                    <IconButton color="inherit" target="_blank" href={"mailto:?subject=Check out this textbook listing&body=Link to textbook: " + address} rel="noopener noreferrer">
+                    <IconButton
+                      color="inherit"
+                      target="_blank"
+                      href={
+                        "mailto:?subject=Check out this textbook listing&body=Link to textbook: " +
+                        address
+                      }
+                      rel="noopener noreferrer"
+                    >
                       <EmailIcon />
                     </IconButton>
                     <ListItemText primary="Email" />
                   </ListItem>
                   <ListItem>
                     <div id="fb-root"></div>
-                    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v15.0" nonce="eGYQgFrV"></script>
+                    <script
+                      async
+                      defer
+                      crossorigin="anonymous"
+                      src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v15.0"
+                      nonce="eGYQgFrV"
+                    ></script>
                     <div data-href={address}></div>
-                    <IconButton color="inherit" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A3000%2Fbuy%2Flisting%2F707647ad-bb0a-41ee-b899-0fbef8c6269c&amp;src=sdkpreparse" >
+                    <IconButton
+                      color="inherit"
+                      target="_blank"
+                      href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A3000%2Fbuy%2Flisting%2F707647ad-bb0a-41ee-b899-0fbef8c6269c&amp;src=sdkpreparse"
+                    >
                       <FacebookIcon />
                     </IconButton>
                     <ListItemText primary="Facebook" />
@@ -369,7 +403,15 @@ const BuyListing = ({ listing, open, setOpen, userData }) => {
               sx={{ fontWeight: "bold", fontSize: 18 }}
             >
               {/* href to profile.html?sellid=result.sellid*/}
-              <a href={"https://cs307-host.herokuapp.com/profile.html?sellid=" + sellerData["puid"]}>Seller Information</a>
+              <a
+                href={
+                  "https://cs307-host.herokuapp.com/profile.html?sellid=" +
+                  sellerData["puid"]
+                }
+                target="_blank"
+              >
+                Seller Information
+              </a>
             </Typography>
             <br />
             <Typography
@@ -393,10 +435,17 @@ const BuyListing = ({ listing, open, setOpen, userData }) => {
                 : sellerData["preferredName"] + " " + sellerData["lastName"]}
             </Typography>
           </CardContent>
-          {addedToWatchlist
-            ? alreadyInWatchlist ? <></> : <Typography sx={{ textAlign: "center" }}>Successfully Added to Watchlist</Typography>
-            : <Button onClick={addToWatchlist}>Add to Watchlist</Button>
-          }
+          {addedToWatchlist ? (
+            alreadyInWatchlist ? (
+              <></>
+            ) : (
+              <Typography sx={{ textAlign: "center" }}>
+                Successfully Added to Watchlist
+              </Typography>
+            )
+          ) : (
+            <Button onClick={addToWatchlist}>Add to Watchlist</Button>
+          )}
           <Box
             sx={{ height: "15%", backgroundColor: "var(--secondary-color)" }}
             className="innerBottomBox"
@@ -410,10 +459,19 @@ const BuyListing = ({ listing, open, setOpen, userData }) => {
                 alignItems: "center",
               }}
             >
-              <TextField label="Message" sx={{ width: "80%" }} />
-              <IconButton aria-label="delete" size="large" color="inherit">
-                <SendIcon />
-              </IconButton>
+              <TextField
+                label="Message"
+                sx={{ width: "90%" }}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton sx={{ color: "var(--text-color)" }}>
+                        <SendIcon />
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
+              />
             </Box>
           </Box>
         </Box>

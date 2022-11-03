@@ -46,7 +46,7 @@
     /* box-shadow: 0 -1px 0 rgb(202, 199, 199); */
     border-top: 1px solid rgb(202, 199, 199);
     display: flex;
-    border-radius: 0px 0px 10px 0px;;
+    border-radius: 0px 0px 10px 0px;
     justify-content: center;
     align-items: center;
 }

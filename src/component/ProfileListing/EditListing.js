@@ -141,7 +141,6 @@ const EditListing = ({
         description: description,
       };
       jsonData = JSON.stringify(jsonData);
-      // TODO: Change ajax call and send the correct values
       $.ajax({
         url: "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/listing",
         type: "POST",
@@ -227,7 +226,14 @@ const EditListing = ({
 
   return (
     <Dialog fullScreen open={open} onClose={closeEdit}>
-      <AppBar sx={{ position: "relative", height: "8%", display:'flex', justifyContent:'center'}}>
+      <AppBar
+        sx={{
+          position: "relative",
+          height: "8%",
+          display: "flex",
+          justifyContent: "center",
+        }}
+      >
         <Toolbar>
           <IconButton
             edge="start"
@@ -271,6 +277,10 @@ const EditListing = ({
           >
             Textbook For Sale
           </Typography>
+          <Divider
+            variant="middle"
+            sx={{ borderBottomColor: "var(--text-color)" }}
+          />
           <Box
             sx={{
               "& > :not(style)": { m: 1 },
@@ -676,7 +686,11 @@ const EditListing = ({
                         src=""
                         id="avatarPic"
                       />
-                      {userData["firstName"]} {userData["lastName"]}
+                      {userData["preferredName"] === ""
+                        ? userData["firstName"] + " " + userData["lastName"]
+                        : userData["preferredName"] +
+                          " " +
+                          userData["lastName"]}
                     </Typography>
                   </CardContent>
                   <Box

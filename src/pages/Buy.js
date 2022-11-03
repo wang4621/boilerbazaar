@@ -600,18 +600,19 @@ const Buy = ({userData}) => {
           </TextField>
           {/* </label> */}
           <TextField
+            id="searchBar"
             placeholder="Search Textbooks..."
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
-                  <IconButton>
+                  <IconButton onClick={search}>
                     <SearchIcon />
                   </IconButton>
                 </InputAdornment>
               ),
             }}
           />
-
+          {/*
           <div>
             <form id="searchFrm"></form>
             <input
@@ -621,6 +622,7 @@ const Buy = ({userData}) => {
             ></input>
             <input id="searchBtn" type="submit" onClick={search}></input>
           </div>
+          */}
 
           <button id="filtersButton" onClick={toggleFilters}>
             Filters and Sorting
