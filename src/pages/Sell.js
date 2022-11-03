@@ -264,7 +264,7 @@ const Sell = ({ userData }) => {
 
   useEffect(() => { 
     setImageCount(previewImages.length)
-    console.log(imageCount)
+    // console.log(imageCount)
   }, [previewImages]);
 
   return (
@@ -348,8 +348,8 @@ const Sell = ({ userData }) => {
                 // alignItems: "flex-start",
               }}
             >
-              {previewImages.map((image) => {
-                return <PreviewImage image={image} setPreviewImages={setPreviewImages}/>;
+              {previewImages.map((image, index) => {
+                return <PreviewImage image={image} index={index} previewImages={previewImages} setPreviewImages={setPreviewImages}/>;
               })}
             </Grid>
           </Box>
