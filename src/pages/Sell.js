@@ -10,11 +10,14 @@ import {
   MenuItem,
   InputAdornment,
   FormHelperText,
+  Grid,
 } from "@mui/material";
 import $ from "jquery";
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
 import WarningIcon from "@mui/icons-material/Warning";
+import PreviewImage from "../component/PreviewImage/PreviewImage";
+import PreviewImageSwiper from "../component/PreviewImage/PreviewImageSwiper";
 
 function getBase64(file, i, imagesJson, final) {
   var reader = new FileReader();
@@ -66,7 +69,8 @@ const Sell = ({ userData }) => {
   const [conditionError, setConditionError] = useState(false);
   const [imageError, setImageError] = useState(false);
   const [submittedListing, setSubmittedListing] = useState(false);
-  const [imageCount, setImageCount] = useState(0)
+  const [imageCount, setImageCount] = useState(0);
+  const [previewImages, setPreviewImages] = useState([]);
 
   const conditionChange = (event) => {
     setCondition(event.target.value);
@@ -81,7 +85,8 @@ const Sell = ({ userData }) => {
     var listingID = uuidv4().toString();
     var sellerID = userData["puid"];
     var images = document.getElementById("images").files;
-    console.log(images)
+    console.log(images);
+    console.log(previewImages);
     var missing = false;
     if (imageCount === 0) {
       missing = true;
@@ -118,8 +123,10 @@ const Sell = ({ userData }) => {
     if (!missing) {
       var imagesJson = { listingID: listingID, count: imageCount };
       for (var i = 0; i < imageCount; i++) {
-        getBase64(images[i], i, imagesJson, i === imageCount - 1);
+        // getBase64(images[i], i, imagesJson, i === imageCount - 1);
+        imagesJson["image"+i] = previewImages[i];
       }
+      sendImages(imagesJson);
       var jsonData = {
         listingID: listingID,
         sellerID: sellerID,
@@ -219,27 +226,46 @@ const Sell = ({ userData }) => {
     }
   };
 
+  function encodeImageFileAsURL(file) {
+    var reader = new FileReader();
+    reader.onloadend = function () {
+      // console.log('RESULT', reader.result)
+      setPreviewImages((previewImages) => [...previewImages, reader.result]);
+    };
+    reader.readAsDataURL(file);
+  }
+
   const imageUpload = (event) => {
-    console.log(event)
-    event.preventDefault()
-    let imageLength = event.target.files.length
-    let isImage = true;
-    for (let i = 0; i < imageLength; i++) {
-      // console.log(event.target.files[i].type.split('/')[1])
-      let extension = event.target.files[i].type.split('/')[1]
-      if (extension === "jpeg" || extension === "png") {
-        isImage = true;
-      } else {
-        isImage = false;
-        break;
+    console.log(event);
+    let imageLength = event.target.files.length;
+    if (imageLength + imageCount <= 5) {
+      let isImage = true;
+      for (let i = 0; i < imageLength; i++) {
+        // console.log(event.target.files[i].type.split('/')[1])
+        let extension = event.target.files[i].type.split("/")[1];
+        if (extension === "jpeg" || extension === "png") {
+          isImage = true;
+          setImageError(false);
+        } else {
+          isImage = false;
+          setImageError(true);
+          break;
+        }
+      }
+      if (isImage) {
+        for (let j = 0; j < imageLength; j++) {
+          // console.log(event.target.files[j])
+          encodeImageFileAsURL(event.target.files[j]);
+        }
+        // setImageCount(imageCount + imageLength);
       }
     }
-    var images = document.getElementById("images").files;
-    console.log(images)
-    if (isImage) {
-      setImageCount(imageCount + imageLength)
-    }
-  }
+  };
+
+  useEffect(() => { 
+    setImageCount(previewImages.length)
+    console.log(imageCount)
+  }, [previewImages]);
 
   return (
     <div className="sellDisplay">
@@ -296,16 +322,36 @@ const Sell = ({ userData }) => {
               sx={{ width: "100%" }}
             >
               Upload Images Here
-              <input id="images" type="file" hidden multiple onChange={imageUpload} accept="image/*"/>
+              <input
+                id="images"
+                type="file"
+                hidden
+                multiple
+                onChange={imageUpload}
+                accept="image/*"
+              />
             </Button>
             {/* <FormHelperText>Please upload at least one image</FormHelperText> */}
             {imageError ? (
               <FormHelperText error={imageError}>
-                Please upload at least one image
+                Please upload an image
               </FormHelperText>
             ) : (
               ""
             )}
+            <Grid
+              container
+              spacing={1}
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                // alignItems: "flex-start",
+              }}
+            >
+              {previewImages.map((image) => {
+                return <PreviewImage image={image} setPreviewImages={setPreviewImages}/>;
+              })}
+            </Grid>
           </Box>
           <TextField
             id="title"
@@ -512,7 +558,11 @@ const Sell = ({ userData }) => {
                 }}
                 className="innerLeftBox"
               >
-                <Typography variant="h4">Listing Preview</Typography>
+                {previewImages.length === 0 ? (
+                  <Typography variant="h4">Listing Preview</Typography>
+                ) : (
+                  <PreviewImageSwiper images={previewImages} />
+                )}
               </Box>
               <Box
                 sx={{
