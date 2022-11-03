@@ -7,6 +7,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import DeleteListing from "./DeleteListing";
 import EditListing from "./EditListing";
 import $ from "jquery";
+import LoadingButton from '@mui/lab/LoadingButton';
 
 const ListingBox = ({ listing, stateChange, setStateChange, userData }) => {
   let listingSold = listing["sold"];
@@ -17,6 +18,7 @@ const ListingBox = ({ listing, stateChange, setStateChange, userData }) => {
   const [sold, setSold] = useState(listingSold);
   const [image, setImage] = useState("");
   const [loading, setLoading] = useState(false);
+  const [markLoading, setMarkLoading] = useState(false);
 
   const openDelete = () => {
     setDeleteOpen(true);
@@ -28,6 +30,7 @@ const ListingBox = ({ listing, stateChange, setStateChange, userData }) => {
 
   // on button click for "Mark as Sold" and "Mark as Available"
   const changeTextAndIcon = (event) => {
+    setMarkLoading(true)
     if (event.target.innerText === "Mark as Sold") {
       // send ajax to update, on success - setSold
       $.ajax({
@@ -39,6 +42,7 @@ const ListingBox = ({ listing, stateChange, setStateChange, userData }) => {
         success: function (result) {
           console.log(JSON.stringify(result));
           setSold("true");
+          setMarkLoading(false)
           // setStateChange(!stateChange)
         },
         error: function (result) {
@@ -56,6 +60,7 @@ const ListingBox = ({ listing, stateChange, setStateChange, userData }) => {
         success: function (result) {
           console.log(JSON.stringify(result));
           setSold("false");
+          setMarkLoading(false)
           // setStateChange(!stateChange)
         },
         error: function (result) {
@@ -180,8 +185,10 @@ const ListingBox = ({ listing, stateChange, setStateChange, userData }) => {
                 justifyContent: "space-between",
               }}
             >
-              <Button
+              <LoadingButton
                 variant="contained"
+                loading={markLoading}
+                disabled={markLoading}
                 startIcon={sold === "true" ? <CheckIcon /> : <CloseIcon />}
                 sx={{
                   height: "100% !important",
@@ -191,7 +198,7 @@ const ListingBox = ({ listing, stateChange, setStateChange, userData }) => {
                 onClick={changeTextAndIcon}
               >
                 {sold === "true" ? "Mark as Available" : "Mark as Sold"}
-              </Button>
+              </LoadingButton>
               <Button
                 variant="contained"
                 startIcon={<EditIcon />}
