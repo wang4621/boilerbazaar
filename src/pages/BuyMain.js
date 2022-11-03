@@ -13,7 +13,7 @@ import { BrowserRouter, Routes, Route, NavLink } from "react-router-dom";
 import Textbook from "../component/BuyListing/Textbook";
 
 var searchHistory = [];
-var user = "doan23@purdue.edu";
+var user = "doan23";
 
 function getSearchHistory() {
   var url =
