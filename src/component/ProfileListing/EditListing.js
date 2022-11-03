@@ -687,7 +687,9 @@ const EditListing = ({
                         src=""
                         id="avatarPic"
                       />
-                      {userData["firstName"]} {userData["lastName"]}
+                      {userData["preferredName"] === ""
+                      ? userData["firstName"] + " " + userData["lastName"]
+                      : userData["preferredName"] + " " + userData["lastName"]}
                     </Typography>
                   </CardContent>
                   <Box
