@@ -12,10 +12,11 @@ import {
   AppBar,
   Dialog,
   TextField,
+  InputAdornment
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import SendIcon from "@mui/icons-material/Send";
-import CheckIcon from '@mui/icons-material/Check';
+import CheckIcon from "@mui/icons-material/Check";
 import $ from "jquery";
 import { useNavigate } from "react-router-dom";
 import TextbookImages from "../TextbookImages/TextbookImages";
@@ -47,7 +48,6 @@ const BuyListing = ({ listing, open, setOpen, userData }) => {
         console.log(JSON.stringify(result));
       },
     });
-
   }, [listing]);
 
   const addToWatchlist = () => {
@@ -71,14 +71,21 @@ const BuyListing = ({ listing, open, setOpen, userData }) => {
       },
     });
   };
-  
+
   if (listing["sold"] === "true") {
-    return <div>This item is unavailable</div>
+    return <div>This item is unavailable</div>;
   }
 
   return (
     <Dialog fullScreen open={open} onClose={closeBuy}>
-      <AppBar sx={{ position: "relative", height: "8%", display:'flex', justifyContent:'center'}}>
+      <AppBar
+        sx={{
+          position: "relative",
+          height: "8%",
+          display: "flex",
+          justifyContent: "center",
+        }}
+      >
         <Toolbar>
           <IconButton
             edge="start"
@@ -113,7 +120,7 @@ const BuyListing = ({ listing, open, setOpen, userData }) => {
           }}
           className="innerLeftBox"
         >
-          <TextbookImages listing={listing}/>
+          <TextbookImages listing={listing} />
         </Box>
         <Box
           sx={{
@@ -205,6 +212,16 @@ const BuyListing = ({ listing, open, setOpen, userData }) => {
               color="var(--text-color)"
               sx={{ fontWeight: "bold" }}
             >
+              Course
+              <Typography variant="body1" color="var(--text-color)">
+                {listing["course"]}
+              </Typography>
+            </Typography>
+            <Typography
+              variant="h6"
+              color="var(--text-color)"
+              sx={{ fontWeight: "bold" }}
+            >
               Condition
               <Typography
                 variant="body1"
@@ -245,7 +262,14 @@ const BuyListing = ({ listing, open, setOpen, userData }) => {
               sx={{ fontWeight: "bold", fontSize: 18 }}
             >
               {/* href to profile.html?sellid=result.sellid*/}
-              <a href={"https://cs307-host.herokuapp.com/profile.html?sellid=" + sellerData["puid"]}>Seller Information</a>
+              <a
+                href={
+                  "https://cs307-host.herokuapp.com/profile.html?sellid=" +
+                  sellerData["puid"]
+                }
+              >
+                Seller Information
+              </a>
             </Typography>
             <br />
             <Typography
@@ -269,10 +293,17 @@ const BuyListing = ({ listing, open, setOpen, userData }) => {
                 : sellerData["preferredName"] + " " + sellerData["lastName"]}
             </Typography>
           </CardContent>
-          { addedToWatchlist
-            ? alreadyInWatchlist ? <></> : <Typography sx={{ textAlign: "center" }}>Successfully Added to Watchlist</Typography>
-            : <Button onClick={addToWatchlist}>Add to Watchlist</Button>
-          }
+          {addedToWatchlist ? (
+            alreadyInWatchlist ? (
+              <></>
+            ) : (
+              <Typography sx={{ textAlign: "center" }}>
+                Successfully Added to Watchlist
+              </Typography>
+            )
+          ) : (
+            <Button onClick={addToWatchlist}>Add to Watchlist</Button>
+          )}
           <Box
             sx={{ height: "15%", backgroundColor: "var(--secondary-color)" }}
             className="innerBottomBox"
@@ -286,10 +317,15 @@ const BuyListing = ({ listing, open, setOpen, userData }) => {
                 alignItems: "center",
               }}
             >
-              <TextField label="Message" sx={{ width: "80%" }} />
-              <IconButton aria-label="delete" size="large" color="inherit">
-                <SendIcon />
-              </IconButton>
+              <TextField label="Message" sx={{ width: "90%" }} InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton sx={{color:'var(--text-color)'}}>
+                  <SendIcon />
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}/>
             </Box>
           </Box>
         </Box>

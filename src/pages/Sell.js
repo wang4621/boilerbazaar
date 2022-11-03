@@ -344,7 +344,7 @@ const Sell = ({ userData }) => {
               spacing={1}
               sx={{
                 display: "flex",
-                justifyContent: "center",
+                justifyContent: "flex-start",
                 // alignItems: "flex-start",
               }}
             >

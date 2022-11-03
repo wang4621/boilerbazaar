@@ -10,7 +10,7 @@ const PreviewImage = ({ image, setPreviewImages }) => {
 
   return (
     <Grid item m={1} xs={5} sx={{ position: "relative" }}>
-      <IconButton sx={{ position: "absolute", zIndex: 1, top: 0 }} onClick={deleteImage}>
+      <IconButton sx={{ position: "absolute", zIndex: 1, top: 0, color:"var(--text-color)", backgroundColor:"var(--background-color)"}} onClick={deleteImage}>
         <CloseIcon />
       </IconButton>
       <img src={image} height={"100%"} width={"100%"} alt="preview" />
