@@ -78,7 +78,7 @@ const BuyListing = ({ listing, open, setOpen, userData }) => {
 
   return (
     <Dialog fullScreen open={open} onClose={closeBuy}>
-      <AppBar sx={{ position: "relative", height: "7%" }}>
+      <AppBar sx={{ position: "relative", height: "8%", display:'flex', justifyContent:'center'}}>
         <Toolbar>
           <IconButton
             edge="start"
@@ -99,7 +99,7 @@ const BuyListing = ({ listing, open, setOpen, userData }) => {
       </AppBar>
       <Box
         sx={{
-          height: "93%",
+          height: "92%",
           width: "100%",
           display: "flex",
           flexDirection: "row",

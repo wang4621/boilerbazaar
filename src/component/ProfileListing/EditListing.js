@@ -227,7 +227,7 @@ const EditListing = ({
 
   return (
     <Dialog fullScreen open={open} onClose={closeEdit}>
-      <AppBar sx={{ position: "relative", height: "7%" }}>
+      <AppBar sx={{ position: "relative", height: "8%", display:'flex', justifyContent:'center'}}>
         <Toolbar>
           <IconButton
             edge="start"
@@ -247,7 +247,7 @@ const EditListing = ({
         </Toolbar>
       </AppBar>
       <Box
-        sx={{ height: "93%", backgroundColor: "var(--background-color)" }}
+        sx={{ height: "92%", backgroundColor: "var(--background-color)" }}
         className="editDisplay"
       >
         <Box

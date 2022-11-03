@@ -89,6 +89,7 @@ const ListingBox = ({ listing, stateChange, setStateChange, userData }) => {
   return (
     <Grid
       item
+      m={2}
       xs={12}
       sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
     >
