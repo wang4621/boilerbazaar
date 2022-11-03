@@ -16,6 +16,7 @@ import {
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import SendIcon from "@mui/icons-material/Send";
+import CheckIcon from '@mui/icons-material/Check';
 import $ from "jquery";
 import { useNavigate } from "react-router-dom";
 
@@ -55,8 +56,10 @@ import { useNavigate } from "react-router-dom";
 // }
 // export default SingleListing;
 
-const BuyListing = ({ listing, open, setOpen }) => {
+const BuyListing = ({ listing, open, setOpen, userData }) => {
   const [sellerData, setSellerData] = useState("");
+  const [addedToWatchlist, setAddedToWatchlist] = useState(false);
+  const [alreadyInWatchlist, setAlreadyInWatchlist] = useState(false);
 
   const navigate = useNavigate();
 
@@ -79,9 +82,33 @@ const BuyListing = ({ listing, open, setOpen }) => {
       },
     });
   }, [listing]);
+
+  const addToWatchlist = () => {
+    var jsonData = { puid: userData["puid"], listingID: listing["listingID"] };
+    jsonData = '"' + JSON.stringify(jsonData).replaceAll('"', '\\"') + '"';
+    $.ajax({
+      url: "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/watchlist",
+      type: "PUT",
+      data: jsonData,
+      datatype: "json",
+      contentType: "application/json",
+      success: function (result) {
+        if (result === "Already in Watchlist") {
+          alert("Listing is already in your watchlist!");
+          setAlreadyInWatchlist(true);
+        }
+        setAddedToWatchlist(true);
+      },
+      error: function (result) {
+        console.log(JSON.stringify(result));
+      },
+    });
+  };
+  
   if (listing["sold"] === "true") {
     return <div>This item is unavailable</div>
   }
+
   return (
     <Dialog fullScreen open={open} onClose={closeBuy}>
       <AppBar sx={{ position: "relative", height: "8%" }}>
@@ -277,6 +304,10 @@ const BuyListing = ({ listing, open, setOpen }) => {
                 : sellerData["preferredName"] + " " + sellerData["lastName"]}
             </Typography>
           </CardContent>
+          { addedToWatchlist
+            ? alreadyInWatchlist ? <></> : <Typography sx={{ textAlign: "center" }}>Successfully Added to Watchlist</Typography>
+            : <Button onClick={addToWatchlist}>Add to Watchlist</Button>
+          }
           <Box
             sx={{ height: "15%", backgroundColor: "var(--secondary-color)" }}
             className="innerBottomBox"

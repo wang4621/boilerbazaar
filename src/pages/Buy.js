@@ -185,7 +185,7 @@ function autocomplete(inp, arr) {
   });
 }
 
-function Buy() {
+const Buy = ({userData}) => {
   //Function to toggle the display of filters and sorting options
   function toggleFilters() {
     const filtersDiv = document.getElementById("filters");
@@ -700,7 +700,10 @@ function Buy() {
               }}
             >
               {textbooks.map((textbook) => {
-                return <Textbook textbook={textbook} />;
+                return <Textbook 
+                  textbook={textbook}
+                  userData={userData} 
+                />;
               })}
             </Grid>
           ) : (
