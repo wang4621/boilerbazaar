@@ -9,13 +9,7 @@
 
 <body>
     <script>
-        // Add a button to go back to previous page
-        const button = document.createElement("button");
-        button.innerHTML = "Back";
-        button.addEventListener("click", () => {
-            window.history.back();
-        });
-        document.body.appendChild(button);
+
         // Get parameter from the url
         const queryString = window.location.search;
         const urlParams = new URLSearchParams(queryString);
@@ -56,10 +50,15 @@
                     <p>Number of sells: ${numberOfSells}</p>
                 </div>
                 `
-
             })
 
-
+        // Add a button to go back to previous page
+        const button = document.createElement("button");
+        button.innerHTML = "Back";
+        button.addEventListener("click", () => {
+            window.history.back();
+        });
+        document.body.appendChild(button);
     </script>
 </body>
 

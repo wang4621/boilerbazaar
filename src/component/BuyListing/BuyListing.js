@@ -75,7 +75,6 @@ const BuyListing = ({ listing, open, setOpen, userData }) => {
         listing["sellerID"],
       type: "GET",
       success: function (result) {
-        console.log(result);
         setSellerData(result);
       },
       error: function (result) {
@@ -105,6 +104,10 @@ const BuyListing = ({ listing, open, setOpen, userData }) => {
       },
     });
   };
+  
+  if (listing["sold"] === "true") {
+    return <div>This item is unavailable</div>
+  }
 
   return (
     <Dialog fullScreen open={open} onClose={closeBuy}>
@@ -277,7 +280,7 @@ const BuyListing = ({ listing, open, setOpen, userData }) => {
               sx={{ fontWeight: "bold", fontSize: 18 }}
             >
               {/* href to profile.html?sellid=result.sellid*/}
-              <a href={"boilerbazaar/profile.html?sellid=" + sellerData["puid"]}>Seller Information</a>
+              <a href={"https://cs307-host.herokuapp.com/profile.html?sellid=" + sellerData["puid"]}>Seller Information</a>
             </Typography>
             <br />
             <Typography

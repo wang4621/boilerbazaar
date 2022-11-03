@@ -24,7 +24,8 @@ const Textbook = ({ textbook, userData }) => {
         textbook["listingID"],
       type: "GET",
       success: function (result) {
-        // console.log(result);
+        console.log(1)
+        console.log(result);
         setImage(result);
       },
       error: function (result) {
@@ -96,9 +97,11 @@ const Textbook = ({ textbook, userData }) => {
             </Typography>
             <Typography variant="body1">{textbook["title"]}</Typography>
             <Typography variant="body1">{textbook["course"]}</Typography>
+            <Typography variant="body1">{"Available"}</Typography>
           </Box>
         </Box>
       </Box>
+
       <BuyListing
         listing={textbook}
         open={open}
