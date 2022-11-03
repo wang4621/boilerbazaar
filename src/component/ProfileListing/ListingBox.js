@@ -51,7 +51,7 @@ const ListingBox = ({ listing, stateChange, setStateChange, userData }) => {
         url:
           "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/userlisting?listingID=" +
           listingId +
-          "&sold=true",
+          "&sold=false",
         type: "PUT",
         success: function (result) {
           console.log(JSON.stringify(result));
