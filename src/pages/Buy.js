@@ -539,23 +539,31 @@ const Buy = ({userData}) => {
     let conditionFilter = document.getElementById("conditionFilter").value;
 
     listingList = JSON.parse(JSON.stringify(originalListingList));
+    let filtered = originalTextbooks;
 
     if (editionFilter != "none") {
+      filtered = [...filtered].filter(function (value, index, arr) {
+        return value.edition == editionFilter;
+      });
+      /*
       listingList = listingList.filter(function (value, index, arr) {
         return value.edition == editionFilter;
       });
+      */
     }
     if (conditionFilter != "none") {
-      listingList = listingList.filter(function (value, index, arr) {
+      filtered = [...filtered].filter(function (value, index, arr) {
         return value.condition == conditionFilter;
       });
     }
 
     if (courseFilter != "none") {
-      listingList = listingList.filter(function (value, index, arr) {
+      filtered = [...filtered].filter(function (value, index, arr) {
         return value.course == courseFilter;
       });
     }
+
+    setTextbooks(filtered);
 
     console.log(listingList);
     // repopulateListings();
