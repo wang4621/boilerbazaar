@@ -138,7 +138,7 @@ const Login = ({setAuth, setUserName}) => {
           Sign Up
         </Button>
       </Box>
-      <Register open={open} setOpen={setOpen} setAuth={setAuth}/>
+      <Register open={open} setOpen={setOpen} setAuth={setAuth} setUserName={setUserName}/>
     </Box>
   );
 };
