@@ -240,6 +240,7 @@ const Buy = ({userData}) => {
         }
         // returnedItems = temp
         setTextbooks(parsedTextbook);
+        setOriginalTextbooks(parsedTextbook);
         // listingList = [];
         // for (let i = 0; i < returnedItems.length; i++) {
         //   listingList.push({
@@ -276,7 +277,7 @@ const Buy = ({userData}) => {
         // originalListingList = JSON.parse(JSON.stringify(listingList));
         // console.log(originalListingList);
         // repopulateListings();
-        repopulateFilters();
+        //repopulateFilters();
       },
       error: function (result) {
         console.log(JSON.stringify(result));
@@ -461,7 +462,7 @@ const Buy = ({userData}) => {
     filters.appendChild(noFilter);
 
     let addedEditions = [];
-    for (const item of originalListingList) {
+    for (const item of originalTextbooks) {
       if (item.edition !== undefined) {
         if (!addedEditions.includes(item.edition)) {
           addedEditions.push(item.edition);
@@ -488,7 +489,7 @@ const Buy = ({userData}) => {
     filters.appendChild(noFilter);
 
     let addedConditions = [];
-    for (const item of originalListingList) {
+    for (const item of originalTextbooks) {
       if (item.condition !== undefined) {
         if (!addedConditions.includes(item.condition)) {
           addedConditions.push(item.condition);
@@ -515,7 +516,7 @@ const Buy = ({userData}) => {
     filters.appendChild(noFilter);
 
     let addedCourses = [];
-    for (const item of originalListingList) {
+    for (const item of originalTextbooks) {
       if (item.course !== undefined) {
         if (!addedCourses.includes(item.course)) {
           addedCourses.push(item.course);
@@ -569,11 +570,15 @@ const Buy = ({userData}) => {
   const [textbooks, setTextbooks] = useState([]);
   const [loading, setLoading] = useState(false);
   const [first, setFirst] = useState(true);
+  const [originalTextbooks, setOriginalTextbooks] = useState([]);
 
   useEffect(() => {
     setLoading(false);
   }, [textbooks]);
 
+  useEffect(() => {
+    repopulateFilters();
+  }, [originalTextbooks]);
   return (
     <div className="buyDisplay">
       <Box
