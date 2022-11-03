@@ -227,7 +227,14 @@ const EditListing = ({
 
   return (
     <Dialog fullScreen open={open} onClose={closeEdit}>
-      <AppBar sx={{ position: "relative", height: "8%", display:'flex', justifyContent:'center'}}>
+      <AppBar
+        sx={{
+          position: "relative",
+          height: "8%",
+          display: "flex",
+          justifyContent: "center",
+        }}
+      >
         <Toolbar>
           <IconButton
             edge="start"
@@ -271,6 +278,10 @@ const EditListing = ({
           >
             Textbook For Sale
           </Typography>
+          <Divider
+            variant="middle"
+            sx={{ borderBottomColor: "var(--text-color)" }}
+          />
           <Box
             sx={{
               "& > :not(style)": { m: 1 },
