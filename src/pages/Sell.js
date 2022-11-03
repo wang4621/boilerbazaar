@@ -290,6 +290,9 @@ const Sell = ({ userData }) => {
             onChange={changeText}
             error={titleError}
             helperText={titleError ? "Please add a title." : ""}
+            inputProps={{
+              maxLength: 60,
+            }}
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">

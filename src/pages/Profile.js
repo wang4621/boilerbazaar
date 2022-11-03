@@ -12,7 +12,6 @@ import "./Profile.css";
 import $ from "jquery";
 
 const Profile = ({ userData, setUserData }) => {
-
   console.log(userData)
   const [isDisabled, setDisabled] = React.useState(true);
   const [value, setValue] = React.useState("Edit");
@@ -33,6 +32,7 @@ const Profile = ({ userData, setUserData }) => {
   );
   // const [major, setMajor] = React.useState(profileData['major']);
   const [major, setMajor] = React.useState(userData["major"]);
+  const sales = React.useState(userData["sell"]);
 
   // const preferredMeetingChange = (event) => {
   //   setPreferredMeeting(event.target.value);
@@ -61,7 +61,7 @@ const Profile = ({ userData, setUserData }) => {
       // save new values into local storage
       var jsonData = {
         puid: puid,
-        // preferredName: preferredName,
+        preferredName: preferredName,
         major: major,
         preferredMeeting: preferredMeeting,
         firstName: firstName,
@@ -123,6 +123,7 @@ const Profile = ({ userData, setUserData }) => {
           onSubmit={editOrSaveProfile}
           id="profileForm"
         >
+          <TextField id="puid" label="Login Username" disabled value={puid} />
           <TextField
             id="firstName"
             label="First Name"
@@ -148,7 +149,6 @@ const Profile = ({ userData, setUserData }) => {
             disabled
             value={lastName}
           />
-          <TextField id="puid" label="PUID" disabled value={puid} />
           <TextField
             id="major"
             label="Major"
@@ -229,7 +229,7 @@ const Profile = ({ userData, setUserData }) => {
             display="inline"
             id="sales"
           >
-            1
+            {sales}
           </Typography>
         </Typography>
       </Box>
