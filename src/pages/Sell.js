@@ -86,7 +86,7 @@ const Sell = ({ userData }) => {
     var sellerID = userData["puid"];
     // var images = document.getElementById("images").files;
     // console.log(images);
-    console.log(previewImages);
+    // console.log(previewImages);
     var missing = false;
     if (imageCount === 0) {
       missing = true;
@@ -126,6 +126,7 @@ const Sell = ({ userData }) => {
         // getBase64(images[i], i, imagesJson, i === imageCount - 1);
         imagesJson["image" + i] = previewImages[i];
       }
+      imagesJson = '"' + JSON.stringify(imagesJson).replaceAll('"', '\\"') + '"';
       sendImages(imagesJson);
       var jsonData = {
         listingID: listingID,

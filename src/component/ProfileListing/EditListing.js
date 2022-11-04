@@ -32,22 +32,6 @@ import PreviewImageSwiper from "../PreviewImage/PreviewImageSwiper";
 //   };
 // }
 
-function sendImages(imagesJson) {
-  $.ajax({
-    url: "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/listing/images",
-    type: "PUT",
-    data: imagesJson,
-    datatype: "json",
-    contentType: "application/json",
-    success: function (result) {
-      console.log(JSON.stringify(result));
-    },
-    error: function (result) {
-      console.log(JSON.stringify(result));
-    },
-  });
-}
-
 const EditListing = ({
   listing,
   open,
@@ -90,6 +74,25 @@ const EditListing = ({
       setConditionError(false);
     }
   };
+
+  console.log(listing['listingID'])
+
+  function sendImages(imagesJson) {
+    $.ajax({
+      url: "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/listing/images",
+      type: "PUT",
+      data: imagesJson,
+      datatype: "json",
+      contentType: "application/json",
+      success: function (result) {
+        console.log(JSON.stringify(result));
+        setStateChange(!stateChange);
+      },
+      error: function (result) {
+        console.log(JSON.stringify(result));
+      },
+    });
+  }
 
   const saveTextbook = (event) => {
     setSubmittedListing(true);
@@ -136,7 +139,8 @@ const EditListing = ({
         // getBase64(images[i], i, imagesJson, i === imageCount - 1);
         imagesJson["image" + i] = previewImages[i];
       }
-      sendImages(imagesJson);
+      console.log(imagesJson)
+      imagesJson = '"' + JSON.stringify(imagesJson).replaceAll('"', '\\"') + '"';
       var jsonData = {
         listingID: listingID,
         sellerID: sellerID,
@@ -159,7 +163,7 @@ const EditListing = ({
         contentType: "application/json",
         success: function (result) {
           console.log(JSON.stringify(result));
-          setStateChange(!stateChange);
+          sendImages(imagesJson);
         },
         error: function (result) {
           console.log(JSON.stringify(result));
