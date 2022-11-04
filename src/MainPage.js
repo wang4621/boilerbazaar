@@ -141,7 +141,7 @@ const MainPage = ({ username, setAuth }) => {
     <div className={`${theme}`}>
       <div className="navbar">
         <img src={logo} height={70} alt="logo" style={{ float: "left" }}></img>
-        <ul className="centerNav" style={{ marginRight: "10%" }}>
+        <ul className="centerNav" style={{ marginRight: "0%" }}>
           <NavLink activeclassname="active" to="/home">
             Home
           </NavLink>
