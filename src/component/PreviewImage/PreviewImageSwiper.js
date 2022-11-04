@@ -18,7 +18,7 @@ const PreviewImageSwiper = ({ images }) => {
       {images.map((image) => {
         return (
           <SwiperSlide>
-            <img src={image} height={"100%"} width={"90%"} alt="textbook" />
+            <img src={image} height={"100%"} width={"80%"} alt="textbook" />
           </SwiperSlide>
         );
       })}

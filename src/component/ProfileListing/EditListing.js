@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   AppBar,
   Toolbar,
@@ -6,44 +6,31 @@ import {
   Typography,
   Dialog,
   FormHelperText,
+  Grid,
+  CircularProgress,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { Avatar, CardContent, Divider, Box, Button } from "@mui/material";
 import { TextField, MenuItem } from "@mui/material";
 import $ from "jquery";
-import { v4 as uuidv4 } from "uuid";
+// import { v4 as uuidv4 } from "uuid";
 import "./EditListing.css";
-import TextbookImages from "../TextbookImages/TextbookImages";
+import PreviewImage from "../PreviewImage/PreviewImage";
+import PreviewImageSwiper from "../PreviewImage/PreviewImageSwiper";
 
-function getBase64(file, i, imagesJson, final) {
-  var reader = new FileReader();
-  reader.readAsDataURL(file);
-  reader.onload = function () {
-    imagesJson["image" + i] = reader.result;
-    if (final) {
-      imagesJson =
-        '"' + JSON.stringify(imagesJson).replaceAll('"', '\\"') + '"';
-      console.log(imagesJson);
-      sendImages(imagesJson);
-    }
-  };
-}
-
-function sendImages(imagesJson) {
-  $.ajax({
-    url: "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/listing/images",
-    type: "PUT",
-    data: imagesJson,
-    datatype: "json",
-    contentType: "application/json",
-    success: function (result) {
-      console.log(JSON.stringify(result));
-    },
-    error: function (result) {
-      console.log(JSON.stringify(result));
-    },
-  });
-}
+// function getBase64(file, i, imagesJson, final) {
+//   var reader = new FileReader();
+//   reader.readAsDataURL(file);
+//   reader.onload = function () {
+//     imagesJson["image" + i] = reader.result;
+//     if (final) {
+//       imagesJson =
+//         '"' + JSON.stringify(imagesJson).replaceAll('"', '\\"') + '"';
+//       console.log(imagesJson);
+//       sendImages(imagesJson);
+//     }
+//   };
+// }
 
 const EditListing = ({
   listing,
@@ -72,9 +59,13 @@ const EditListing = ({
   const [conditionError, setConditionError] = React.useState(false);
   const [submittedListing, setSubmittedListing] = React.useState(false);
   const [imageError, setImageError] = React.useState(false);
+  const [imageCount, setImageCount] = useState(0);
+  const [loading, setLoading] = useState(false);
+  const [previewImages, setPreviewImages] = useState([]);
 
   const closeEdit = () => {
     setOpen(false);
+    setStateChange(!stateChange)
   };
 
   const conditionChange = (event) => {
@@ -84,14 +75,31 @@ const EditListing = ({
     }
   };
 
+  function sendImages(imagesJson) {
+    $.ajax({
+      url: "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/listing/images",
+      type: "PUT",
+      data: imagesJson,
+      datatype: "json",
+      contentType: "application/json",
+      success: function (result) {
+        console.log(JSON.stringify(result));
+        setStateChange(!stateChange);
+      },
+      error: function (result) {
+        console.log(JSON.stringify(result));
+      },
+    });
+  }
+
   const saveTextbook = (event) => {
     setSubmittedListing(true);
-    var listingID = uuidv4().toString();
+    var listingID = listing["listingID"];
     var sellerID = userData["puid"];
-    var images = document.getElementById("images").files;
-    var count = images.length;
+    // var images = document.getElementById("images").files;
+    // var count = images.length;
     var missing = false;
-    if (count === 0) {
+    if (imageCount === 0) {
       missing = true;
       setImageError(true);
     }
@@ -124,10 +132,13 @@ const EditListing = ({
       missing = true;
     }
     if (!missing) {
-      var imagesJson = { listingID: listingID, count: count };
-      for (var i = 0; i < count; i++) {
-        getBase64(images[i], i, imagesJson, i === count - 1);
+      var imagesJson = { listingID: listingID, count: imageCount };
+      for (var i = 0; i < imageCount; i++) {
+        // getBase64(images[i], i, imagesJson, i === imageCount - 1);
+        imagesJson["image" + i] = previewImages[i];
       }
+      console.log(imagesJson)
+      imagesJson = '"' + JSON.stringify(imagesJson).replaceAll('"', '\\"') + '"';
       var jsonData = {
         listingID: listingID,
         sellerID: sellerID,
@@ -141,7 +152,7 @@ const EditListing = ({
         description: description,
       };
       jsonData = JSON.stringify(jsonData);
-      // TODO: Change ajax call and send the correct values
+      
       $.ajax({
         url: "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/listing",
         type: "POST",
@@ -150,7 +161,7 @@ const EditListing = ({
         contentType: "application/json",
         success: function (result) {
           console.log(JSON.stringify(result));
-          setStateChange(!stateChange);
+          sendImages(imagesJson);
         },
         error: function (result) {
           console.log(JSON.stringify(result));
@@ -221,9 +232,71 @@ const EditListing = ({
     }
   };
 
+  function encodeImageFileAsURL(file) {
+    var reader = new FileReader();
+    reader.onloadend = function () {
+      // console.log('RESULT', reader.result)
+      setPreviewImages((previewImages) => [...previewImages, reader.result]);
+    };
+    reader.readAsDataURL(file);
+  }
+
   const imageUpload = (event) => {
-    console.log(event);
+    let imageLength = event.target.files.length;
+    if (imageLength + imageCount <= 5) {
+      let isImage = true;
+      for (let i = 0; i < imageLength; i++) {
+        // console.log(event.target.files[i].type.split('/')[1])
+        let extension = event.target.files[i].type.split("/")[1];
+        if (extension === "jpeg" || extension === "png") {
+          isImage = true;
+          setImageError(false);
+        } else {
+          isImage = false;
+          setImageError(true);
+          break;
+        }
+      }
+      if (isImage) {
+        for (let j = 0; j < imageLength; j++) {
+          // console.log(event.target.files[j])
+          encodeImageFileAsURL(event.target.files[j]);
+        }
+        // setImageCount(imageCount + imageLength);
+      }
+    }
   };
+
+  useEffect(() => {
+    // gets the images for the textbook
+    setLoading(true);
+    $.ajax({
+      url:
+        "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/listing/images?listingID=" +
+        listing["listingID"],
+      type: "GET",
+      success: function (result) {
+        console.log(result);
+        let resultImages = [];
+        for (let key in result["body"]) {
+          if (!isNaN(key)) {
+            resultImages.push(result["body"][key]);
+          }
+        }
+        setPreviewImages(resultImages);
+        setImageCount(resultImages.length);
+        setLoading(false);
+      },
+      error: function (result) {
+        console.log(JSON.stringify(result));
+      },
+    });
+  }, [listing]);
+
+  useEffect(() => {
+    setImageCount(previewImages.length);
+    // console.log(imageCount)
+  }, [previewImages]);
 
   return (
     <Dialog fullScreen open={open} onClose={closeEdit}>
@@ -300,10 +373,11 @@ const EditListing = ({
                 display: "flex",
                 alignItems: "flex-start",
                 flexDirection: "column",
+                paddingBottom:1
               }}
             >
               <FormHelperText sx={{ fontSize: "14px", marginLeft: 0 }}>
-                0/5 Images
+                {imageCount}/5 Images
               </FormHelperText>
               <Button
                 variant="contained"
@@ -317,16 +391,37 @@ const EditListing = ({
                   hidden
                   multiple
                   onChange={imageUpload}
+                  accept="image/*"
                 />
               </Button>
               {/* <FormHelperText>Please upload at least one image</FormHelperText> */}
               {imageError ? (
                 <FormHelperText error={imageError}>
-                  Please upload at least one image
+                  Please upload an image
                 </FormHelperText>
               ) : (
                 ""
               )}
+              <Grid
+                container
+                spacing={1}
+                sx={{
+                  display: "flex",
+                  justifyContent: "flex-start",
+                  // alignItems: "flex-start",
+                }}
+              >
+                {previewImages.map((image, index) => {
+                  return (
+                    <PreviewImage
+                      image={image}
+                      index={index}
+                      previewImages={previewImages}
+                      setPreviewImages={setPreviewImages}
+                    />
+                  );
+                })}
+              </Grid>
             </Box>
             <TextField
               id="title"
@@ -515,7 +610,15 @@ const EditListing = ({
                   }}
                   className="innerLeftBox"
                 >
-                  <TextbookImages listing={listing} />
+                  {previewImages.length === 0 ? (
+                    loading ? (
+                      <CircularProgress />
+                    ) : (
+                      <Typography variant="h4">Listing Preview</Typography>
+                    )
+                  ) : (
+                    <PreviewImageSwiper images={previewImages} />
+                  )}
                 </Box>
                 <Box
                   sx={{
@@ -688,8 +791,10 @@ const EditListing = ({
                         id="avatarPic"
                       />
                       {userData["preferredName"] === ""
-                      ? userData["firstName"] + " " + userData["lastName"]
-                      : userData["preferredName"] + " " + userData["lastName"]}
+                        ? userData["firstName"] + " " + userData["lastName"]
+                        : userData["preferredName"] +
+                          " " +
+                          userData["lastName"]}
                     </Typography>
                   </CardContent>
                   <Box
