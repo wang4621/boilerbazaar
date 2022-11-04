@@ -9,6 +9,7 @@ function App() {
   const [auth, setAuth] = useState(false);
   const [username, setUserName] = useState("");
   // console.log(auth)
+  console.log(localStorage.getItem('auth'))
 
   return (
     <div className="appDisplay">
