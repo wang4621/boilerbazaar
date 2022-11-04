@@ -7,6 +7,7 @@ import {
   Dialog,
   FormHelperText,
   Grid,
+  CircularProgress,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { Avatar, CardContent, Divider, Box, Button } from "@mui/material";
@@ -607,7 +608,11 @@ const EditListing = ({
                   className="innerLeftBox"
                 >
                   {previewImages.length === 0 ? (
-                    <Typography variant="h4">Listing Preview</Typography>
+                    loading ? (
+                      <CircularProgress />
+                    ) : (
+                      <Typography variant="h4">Listing Preview</Typography>
+                    )
                   ) : (
                     <PreviewImageSwiper images={previewImages} />
                   )}
