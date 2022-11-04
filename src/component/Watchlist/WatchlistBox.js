@@ -164,6 +164,9 @@ const WatchlistBox = ({ listing, stateChange, setStateChange }) => {
             <Typography variant="body2">
               Previous Price: ${listing["previousPrice"]}
             </Typography>
+            <Typography variant="body2">
+              Course: {listing["course"]}
+            </Typography>
           </Box>
           <Box
             sx={{
