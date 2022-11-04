@@ -15,6 +15,45 @@ const Textbook = ({ textbook, userData }) => {
   const openListing = () => {
     setOpen(true);
     navigate("/buy/" + textbook["listingID"]);
+    var views = parseInt(textbook["currentViews"]) + 1
+
+  //update views
+  var viewJsonData = {
+    listingID: textbook["listingID"],
+    currentViews: views
+  };
+  viewJsonData = '"' + JSON.stringify(viewJsonData).replaceAll('"', '\\"') + '"';
+  $.ajax({
+    url: "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/views",
+    type: "PUT",
+    data: viewJsonData,
+    datatype: "json",
+    contentType: "application/json",
+    success: function (result) {
+      console.log(JSON.stringify(result));
+    },
+    error: function (result) {
+      console.log(JSON.stringify(result));
+    },
+  });
+
+ 
+  
+  //add to viewingHistory
+  var historyJsonData = { puid: userData["puid"], listingID: textbook["listingID"] };
+  historyJsonData = '"' + JSON.stringify(historyJsonData).replaceAll('"', '\\"') + '"';
+    $.ajax({
+      url: "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/viewinghistory",
+      type: "PUT",
+      data: historyJsonData,
+      datatype: "json",
+      contentType: "application/json",
+      success: function (result) {
+      },
+      error: function (result) {
+        console.log(JSON.stringify(result));
+      },
+    });
   };
 
   useEffect(() => {

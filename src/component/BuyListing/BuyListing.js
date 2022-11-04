@@ -132,45 +132,7 @@ const BuyListing = ({ listing, open, setOpen, userData }) => {
   }
 
 
-  var views = parseInt(listing["currentViews"]) + 1
-
-  //update views
-  var jsonData = {
-    listingID: listing["listingID"],
-    currentViews: views
-  };
-  jsonData = '"' + JSON.stringify(jsonData).replaceAll('"', '\\"') + '"';
-  $.ajax({
-    url: "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/views",
-    type: "PUT",
-    data: jsonData,
-    datatype: "json",
-    contentType: "application/json",
-    success: function (result) {
-      console.log(JSON.stringify(result));
-    },
-    error: function (result) {
-      console.log(JSON.stringify(result));
-    },
-  });
-
- 
   
-  //add to viewingHistory
-  var jsonData = { puid: userData["puid"], listingID: listing["listingID"] };
-    jsonData = '"' + JSON.stringify(jsonData).replaceAll('"', '\\"') + '"';
-    $.ajax({
-      url: "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/viewinghistory",
-      type: "PUT",
-      data: jsonData,
-      datatype: "json",
-      contentType: "application/json",
-      success: function (result) {
-      },
-      error: function (result) {
-        console.log(JSON.stringify(result));
-      },
-    });
 
   return (
     <Dialog fullScreen open={open} onClose={closeBuy}>
