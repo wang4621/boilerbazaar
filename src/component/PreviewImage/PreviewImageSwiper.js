@@ -15,9 +15,9 @@ const PreviewImageSwiper = ({ images }) => {
         type: "fraction",
       }}
     >
-      {images.map((image, index) => {
+      {images.map((image) => {
         return (
-          <SwiperSlide key={index}>
+          <SwiperSlide>
             <img src={image} height={"100%"} width={"80%"} alt="textbook" />
           </SwiperSlide>
         );

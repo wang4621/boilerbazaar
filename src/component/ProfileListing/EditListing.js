@@ -15,7 +15,6 @@ import { TextField, MenuItem } from "@mui/material";
 import $ from "jquery";
 // import { v4 as uuidv4 } from "uuid";
 import "./EditListing.css";
-import TextbookImages from "../TextbookImages/TextbookImages";
 import PreviewImage from "../PreviewImage/PreviewImage";
 import PreviewImageSwiper from "../PreviewImage/PreviewImageSwiper";
 
@@ -82,6 +81,7 @@ const EditListing = ({
 
   const closeEdit = () => {
     setOpen(false);
+    setStateChange(!stateChange)
   };
 
   const conditionChange = (event) => {
@@ -150,7 +150,7 @@ const EditListing = ({
         description: description,
       };
       jsonData = JSON.stringify(jsonData);
-      // TODO: Change ajax call and send the correct values
+      
       $.ajax({
         url: "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/listing",
         type: "POST",
@@ -371,6 +371,7 @@ const EditListing = ({
                 display: "flex",
                 alignItems: "flex-start",
                 flexDirection: "column",
+                paddingBottom:1
               }}
             >
               <FormHelperText sx={{ fontSize: "14px", marginLeft: 0 }}>
@@ -394,7 +395,7 @@ const EditListing = ({
               {/* <FormHelperText>Please upload at least one image</FormHelperText> */}
               {imageError ? (
                 <FormHelperText error={imageError}>
-                  Please upload at least one image
+                  Please upload an image
                 </FormHelperText>
               ) : (
                 ""

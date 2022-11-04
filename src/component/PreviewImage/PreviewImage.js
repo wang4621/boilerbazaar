@@ -13,7 +13,7 @@ const PreviewImage = ({ image, index, previewImages, setPreviewImages }) => {
   };
 
   return (
-    <Grid item m={1} xs={5} sx={{ position: "relative" }} key={index}>
+    <Grid item m={1} xs={5} sx={{ position: "relative", height: 150 }} key={index}>
       <IconButton
         sx={{
           position: "absolute",
