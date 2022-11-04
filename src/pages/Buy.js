@@ -1,6 +1,5 @@
 import "./Buy.css";
 import React, { useEffect, useState } from "react";
-
 import {
   TextField,
   MenuItem,
@@ -8,7 +7,6 @@ import {
   Grid,
   CircularProgress,
   Typography,
-  Input,
   InputAdornment,
   IconButton,
 } from "@mui/material";
@@ -16,6 +14,8 @@ import SearchIcon from "@mui/icons-material/Search";
 import $ from "jquery";
 // import { BrowserRouter, Routes, Route, NavLink } from "react-router-dom";
 import Textbook from "../component/BuyListing/Textbook";
+import { useLocation } from "react-router-dom";
+import SharedListing from "../component/BuyListing/SharedListing";
 
 var searchHistory = [];
 var user = "doan23@purdue.edu";
@@ -579,6 +579,10 @@ const Buy = ({userData}) => {
   const [loading, setLoading] = useState(false);
   const [first, setFirst] = useState(true);
   const [originalTextbooks, setOriginalTextbooks] = useState([]);
+  const [open, setOpen] = useState(false);
+  const [listingID, setListingID] = useState("");
+  const location = useLocation();
+  // console.log('pathname', location.pathname.split('/')[2]);
 
   useEffect(() => {
     setLoading(false);
@@ -587,6 +591,16 @@ const Buy = ({userData}) => {
   useEffect(() => {
     repopulateFilters();
   }, [originalTextbooks]);
+
+  useEffect(() => {
+    if (location.pathname.split('/')[2] != undefined && location.pathname.split('/').length === 3) {
+      setOpen(true);
+      setListingID(location.pathname.split('/')[2])
+    }
+  }, []);
+
+  
+
   return (
     <div className="buyDisplay">
       <Box
@@ -771,6 +785,7 @@ const Buy = ({userData}) => {
           )}
         </Box>
       </Box>
+      <SharedListing listingID={listingID} open={open} setOpen={setOpen} userData={userData}/>
     </div>
   );
 }

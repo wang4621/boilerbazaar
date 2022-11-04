@@ -30,6 +30,7 @@ import Brightness4Icon from "@mui/icons-material/Brightness4";
 import Brightness7Icon from "@mui/icons-material/Brightness7";
 import SettingsIcon from "@mui/icons-material/Settings";
 import WatchlistBox from "./component/Watchlist/WatchlistBox";
+import BuyListing from "./component/BuyListing/BuyListing";
 
 const MainPage = ({ username, setAuth }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -253,7 +254,7 @@ const MainPage = ({ username, setAuth }) => {
       </div>
       <Routes>
         <Route path="/home" element={<Home />} />
-        <Route path="/buy/*" element={<Buy userData={userData}/>}></Route>
+        <Route path="/buy/*" element={<Buy userData={userData}/>}/>
         <Route path="/sell" element={<Sell userData={userData} />} />
         <Route path="/message" element={<Message userData={userData}/>} />
         <Route path="/about" element={<About />} />

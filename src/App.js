@@ -6,7 +6,7 @@ import "./App.css";
 import ProtectedRoutes from "./component/ProtectedRoutes";
 
 function App() {
-  const [auth, setAuth] = useState(false);
+  const [auth, setAuth] = useState(true);
   const [username, setUserName] = useState("");
   // console.log(auth)
   console.log(localStorage.getItem('auth'))

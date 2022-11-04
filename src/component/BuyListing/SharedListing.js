@@ -16,13 +16,11 @@ import {
   List,
   ListItem,
   ListItemText,
-  InputAdornment
+  InputAdornment,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import SendIcon from "@mui/icons-material/Send";
-// import CheckIcon from "@mui/icons-material/Check";
 import $ from "jquery";
-import { useNavigate } from "react-router-dom";
 import TextbookImages from "../TextbookImages/TextbookImages";
 import InsertLinkIcon from "@mui/icons-material/InsertLink";
 import EmailIcon from "@mui/icons-material/Email";
@@ -39,141 +37,76 @@ const style = {
   p: 4,
 };
 
-var user0
-var user1
-
-function newConversation() {
-  var message = document.getElementById("message").value
-  var jsonDict = {"user0": user0, "user1": user1, "message": message}
-  var jsonData = "\""+JSON.stringify(jsonDict).replaceAll('"', '\\"')+"\""
-  console.log(jsonData)
-  $.ajax({
-      url: 'https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/conversation/new',
-      type: 'PUT',
-      data: jsonData,
-      datatype: 'json',
-      contentType: 'application/json',
-      success: function (result) {
-        console.log(JSON.stringify(result))
-      },
-      error: function (result) {
-        console.log(JSON.stringify(result));
-      }
-  });
-}
-
-function copyLink() {
-  navigator.clipboard.writeText(window.location.href);
-  alert("Copied to Clipboard");
-}
-
-const BuyListing = ({ listing, open, setOpen, userData }) => {
+const SharedListing = ({ listingID, open, setOpen, userData }) => {
+  console.log(listingID);
   const [openShare, setOpenShare] = React.useState(false);
   const handleOpenShare = () => setOpenShare(true);
   const handleCloseShare = () => setOpenShare(false);
   const address = window.location.href;
 
   const [sellerData, setSellerData] = useState("");
+  const [listing, setListing] = useState("");
   const [addedToWatchlist, setAddedToWatchlist] = useState(false);
   const [alreadyInWatchlist, setAlreadyInWatchlist] = useState(false);
 
-  const navigate = useNavigate();
-
-  user0 = userData["puid"]
-  user1 = sellerData["puid"]
-
-  const closeBuy = () => {
+  const closeShare = () => {
     setOpen(false);
-    navigate("/buy");
   };
 
+  const addToWatchlist = () => {};
+
+  const newConversation = () => {};
 
   useEffect(() => {
-    // console.log(listing)
-    // setLoading(true)
     $.ajax({
       url:
-        "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/profile?puid=" +
-        listing["sellerID"],
+        "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/listing/shared?listingID=" +
+        listingID,
       type: "GET",
       success: function (result) {
-        setSellerData(result);
+        console.log(result);
+        setListing(result);
+        // setSellerData(result);
       },
       error: function (result) {
         console.log(JSON.stringify(result));
       },
     });
-  }, [listing]);
+  }, []);
 
-  const addToWatchlist = () => {
-    var jsonData = { puid: userData["puid"], listingID: listing["listingID"] };
-    jsonData = '"' + JSON.stringify(jsonData).replaceAll('"', '\\"') + '"';
-    $.ajax({
-      url: "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/watchlist",
-      type: "PUT",
-      data: jsonData,
-      datatype: "json",
-      contentType: "application/json",
-      success: function (result) {
-        if (result === "Already in Watchlist") {
-          alert("Listing is already in your watchlist!");
-          setAlreadyInWatchlist(true);
-        }
-        setAddedToWatchlist(true);
-      },
-      error: function (result) {
-        console.log(JSON.stringify(result));
-      },
-    });
-  };
+  //   if (listing["sold"] === "true") {
+  //     return <div>This item is unavailable</div>;
+  //   }
 
-  if (listing["sold"] === "true") {
-    return <div>This item is unavailable</div>;
-  }
-
-
-  var views = parseInt(listing["currentViews"]) + 1
+  //   var views = parseInt(listing["currentViews"]) + 1;
 
   //update views
-  var jsonData = {
-    listingID: listing["listingID"],
-    currentViews: views
-  };
-  jsonData = '"' + JSON.stringify(jsonData).replaceAll('"', '\\"') + '"';
-  $.ajax({
-    url: "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/views",
-    type: "PUT",
-    data: jsonData,
-    datatype: "json",
-    contentType: "application/json",
-    success: function (result) {
-      console.log(JSON.stringify(result));
-    },
-    error: function (result) {
-      console.log(JSON.stringify(result));
-    },
-  });
+  //   var jsonData = {
+  //     listingID: listing["listingID"],
+  //     currentViews: views,
+  //   };
+  //   jsonData = '"' + JSON.stringify(jsonData).replaceAll('"', '\\"') + '"';
+  //   $.ajax({
+  //     url: "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/views",
+  //     type: "PUT",
+  //     data: jsonData,
+  //     datatype: "json",
+  //     contentType: "application/json",
+  //     success: function (result) {
+  //       console.log(JSON.stringify(result));
+  //     },
+  //     error: function (result) {
+  //       console.log(JSON.stringify(result));
+  //     },
+  //   });
 
- 
-  
-  //add to viewingHistory
-  var jsonData = { puid: userData["puid"], listingID: listing["listingID"] };
-    jsonData = '"' + JSON.stringify(jsonData).replaceAll('"', '\\"') + '"';
-    $.ajax({
-      url: "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/viewinghistory",
-      type: "PUT",
-      data: jsonData,
-      datatype: "json",
-      contentType: "application/json",
-      success: function (result) {
-      },
-      error: function (result) {
-        console.log(JSON.stringify(result));
-      },
-    });
+  function copyLink() {
+    navigator.clipboard.writeText(window.location.href);
+    alert("Copied to Clipboard");
+  }
 
   return (
-    <Dialog fullScreen open={open} onClose={closeBuy}>
+    <Dialog fullScreen open={open} onClose={closeShare}>
       <AppBar
         sx={{
           position: "relative",
@@ -186,7 +119,7 @@ const BuyListing = ({ listing, open, setOpen, userData }) => {
           <IconButton
             edge="start"
             color="inherit"
-            onClick={closeBuy}
+            onClick={closeShare}
             aria-label="close"
           >
             <CloseIcon />
@@ -309,10 +242,7 @@ const BuyListing = ({ listing, open, setOpen, userData }) => {
               sx={{ fontWeight: "bold" }}
             >
               Course
-              <Typography
-                variant="body1"
-                color="var(--text-color)"
-              >
+              <Typography variant="body1" color="var(--text-color)">
                 {listing["course"]}
               </Typography>
             </Typography>
@@ -351,11 +281,7 @@ const BuyListing = ({ listing, open, setOpen, userData }) => {
               color="var(--text-color)"
               sx={{ fontWeight: "light" }}
             >
-              <Typography
-                variant="body1"
-                color="var(--text-color)"
-                id="views"
-              >
+              <Typography variant="body1" color="var(--text-color)" id="views">
                 {listing["currentViews"]} views
               </Typography>
             </Typography>
@@ -486,13 +412,16 @@ const BuyListing = ({ listing, open, setOpen, userData }) => {
               }}
             >
               <TextField
-                id='message'
+                id="message"
                 label="Message"
                 sx={{ width: "90%" }}
                 InputProps={{
                   endAdornment: (
                     <InputAdornment position="end">
-                      <IconButton sx={{ color: "var(--text-color)" }} onClick={newConversation}>
+                      <IconButton
+                        sx={{ color: "var(--text-color)" }}
+                        onClick={newConversation}
+                      >
                         <SendIcon />
                       </IconButton>
                     </InputAdornment>
@@ -507,4 +436,4 @@ const BuyListing = ({ listing, open, setOpen, userData }) => {
   );
 };
 
-export default BuyListing;
+export default SharedListing;
