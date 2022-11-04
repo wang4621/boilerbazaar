@@ -39,7 +39,28 @@ const style = {
   p: 4,
 };
 
+var user0
+var user1
 
+function newConversation() {
+  var message = document.getElementById("message").value
+  var jsonDict = {"user0": user0, "user1": user1, "message": message}
+  var jsonData = "\""+JSON.stringify(jsonDict).replaceAll('"', '\\"')+"\""
+  console.log(jsonData)
+  $.ajax({
+      url: 'https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/conversation/new',
+      type: 'PUT',
+      data: jsonData,
+      datatype: 'json',
+      contentType: 'application/json',
+      success: function (result) {
+        console.log(JSON.stringify(result))
+      },
+      error: function (result) {
+        console.log(JSON.stringify(result));
+      }
+  });
+}
 
 function copyLink() {
   navigator.clipboard.writeText(window.location.href);
@@ -48,7 +69,6 @@ function copyLink() {
 }
 
 const BuyListing = ({ listing, open, setOpen, userData }) => {
-
   const [openShare, setOpenShare] = React.useState(false);
   const handleOpenShare = () => setOpenShare(true);
   const handleCloseShare = () => setOpenShare(false);
@@ -59,6 +79,9 @@ const BuyListing = ({ listing, open, setOpen, userData }) => {
   const [alreadyInWatchlist, setAlreadyInWatchlist] = useState(false);
 
   const navigate = useNavigate();
+
+  user0 = userData["puid"]
+  user1 = sellerData["puid"]
 
   const closeBuy = () => {
     setOpen(false);
@@ -354,8 +377,8 @@ const BuyListing = ({ listing, open, setOpen, userData }) => {
                 alignItems: "center",
               }}
             >
-              <TextField label="Message" sx={{ width: "80%" }} />
-              <IconButton aria-label="delete" size="large" color="inherit">
+              <TextField id="message" label="Message" sx={{ width: "80%" }} />
+              <IconButton aria-label="delete" size="large" color="inherit" onClick={newConversation}>
                 <SendIcon />
               </IconButton>
             </Box>
