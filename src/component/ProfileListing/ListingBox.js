@@ -166,7 +166,7 @@ const ListingBox = ({ listing, stateChange, setStateChange, userData }) => {
                 {listing["title"]}
               </Typography>
               <Typography variant="body1">${listing["price"]}</Typography>
-              <Typography variant="body2">0 clicks on listing</Typography>
+              <Typography variant="body2">{listing['currentViews']} clicks on listing</Typography>
               <Typography variant="body2">
                 Listed on {listing["timeListed"]}
               </Typography>
