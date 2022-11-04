@@ -3,11 +3,17 @@ import {Box, TextField, Typography} from '@mui/material';
 import './Message.css';
 import $ from 'jquery';
 import * as React from 'react';
+import { ConstructionOutlined } from '@mui/icons-material';
 
 var contactNames = []
 var index = 0
-var user = "doan23"
 var rawData = {}
+var user
+
+var intervalId = window.setInterval(function(){
+    getContacts()
+    console.log("updating")
+  }, 5000);
 
 function getContacts() {
     var url = "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/conversation?puid=" + user
@@ -17,7 +23,7 @@ function getContacts() {
         success: function (result) {
             rawData = result
             contactNames = []
-            console.log(rawData)
+            //console.log(rawData)
             for (const x of rawData['body']) {
                 if (x['user0'] != user) {
                     contactNames.push(x['user0'])
@@ -28,7 +34,7 @@ function getContacts() {
             populateContacts()
         },
         error: function (result) {
-            console.log(JSON.stringify(result));
+            //console.log(JSON.stringify(result));
         }
     });
 }
@@ -47,20 +53,18 @@ function populateContacts() {
         });
         contactList.appendChild(contact);
     }
-    changeContacts(0)
+    changeContacts(index)
 }
 
 function sendMessage() {
-    var input = document.getElementById("messageInput").value;
-    if (input.length == 0) {
+    var message = document.getElementById("messageInput").value;
+    if (message.length == 0) {
         return;
     }
     var data = rawData['body'][index];
-    var message = [];
-    message.push(Date.now());
-    message.push(data['user1'] == user);
-    message.push(input);
-    var jsonDict = {"id": data['id'], "message": message}
+    //console.log(data['user1'])
+    var sender = data['user1'] == user
+    var jsonDict = {"id": data['id'], "sender": sender, "message": message}
     var jsonData = "\""+JSON.stringify(jsonDict).replaceAll('"', '\\"')+"\""
     console.log(jsonData)
     $.ajax({
@@ -70,7 +74,8 @@ function sendMessage() {
         datatype: 'json',
         contentType: 'application/json',
         success: function (result) {
-            //console.log(JSON.stringify(result))
+            console.log(JSON.stringify(result))
+            getContacts();
         },
         error: function (result) {
             //console.log(JSON.stringify(result));
@@ -95,7 +100,7 @@ function changeContacts(id) {
 
 function displayMessages() {
     var messageDisplay = document.getElementsByClassName("chatDisplay")[0];
-    console.log('debug')
+    //console.log('debug')
     messageDisplay.innerHTML = "";
     
     for (const x of rawData['body'][index]['conversation']) {
@@ -115,10 +120,11 @@ function displayMessages() {
     console.log(messageDisplay)
 }
 
-function Message() {
+const Message = ({ userData }) => {
+    user = userData["puid"];
+    //console.log(user)
     React.useEffect(() => {
         getContacts();
-        console.log(document.getElementsByClassName("chatDisplay")[0]);
     }, []);
     return (
         <div class="page">
