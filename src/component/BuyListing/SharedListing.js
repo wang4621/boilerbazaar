@@ -17,6 +17,7 @@ import {
   ListItem,
   ListItemText,
   InputAdornment,
+  CircularProgress,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import SendIcon from "@mui/icons-material/Send";
@@ -38,7 +39,7 @@ const style = {
   p: 4,
 };
 
-const SharedListing = ({ listingID, open, setOpen, userData }) => {
+const SharedListing = ({ listingID, open, setOpen }) => {
   const [openShare, setOpenShare] = React.useState(false);
   const handleOpenShare = () => setOpenShare(true);
   const handleCloseShare = () => setOpenShare(false);
@@ -62,6 +63,7 @@ const SharedListing = ({ listingID, open, setOpen, userData }) => {
     // var jsonData = {listingID: listingID}
     // jsonData=JSON.stringify(jsonData)
     // console.log(jsonData)
+    console.log(listingID)
     $.ajax({
       url:
         "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/listing/shared?listingID=" +
@@ -82,8 +84,7 @@ const SharedListing = ({ listingID, open, setOpen, userData }) => {
   }, [listingID]);
 
   useEffect(() => {
-    // console.log(listing)
-    // setLoading(true)
+    //seller information
     $.ajax({
       url:
         "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/profile?puid=" +
@@ -173,7 +174,7 @@ const SharedListing = ({ listingID, open, setOpen, userData }) => {
           }}
           className="innerLeftBox"
         >
-          <TextbookImages listing={listing} />
+          {listing !== "" ? <TextbookImages listing={listing}/> : <CircularProgress/>}
         </Box>
         <Box
           sx={{

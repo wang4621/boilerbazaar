@@ -599,8 +599,6 @@ const Buy = ({userData}) => {
     }
   }, []);
 
-  
-
   return (
     <div className="buyDisplay">
       <Box
@@ -785,7 +783,7 @@ const Buy = ({userData}) => {
           )}
         </Box>
       </Box>
-      <SharedListing listingID={listingId} open={open} setOpen={setOpen} userData={userData}/>
+      {listingId !== '' ? <SharedListing listingID={listingId} open={open} setOpen={setOpen}/>: ""}
     </div>
   );
 }
