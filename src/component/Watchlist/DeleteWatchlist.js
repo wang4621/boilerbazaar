@@ -14,7 +14,8 @@ const DeleteWatchlist = ({
   open,
   setOpen,
   stateChange,
-  setStateChange
+  setStateChange,
+  userData
 }) => {
   
   const deleteClose = () => {
@@ -26,7 +27,7 @@ const DeleteWatchlist = ({
     $.ajax({
       url:
         "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/watchlist?puid=" +
-        JSON.parse(localStorage.getItem("userData"))["puid"] + "&listingID=" + listingId,
+        userData["puid"] + "&listingID=" + listingId,
       type: "DELETE",
       success: function (result) {
         console.log(JSON.stringify(result));

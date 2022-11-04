@@ -6,7 +6,7 @@ import ArrowDownwardRoundedIcon from "@mui/icons-material/ArrowDownwardRounded";
 import DeleteWatchlist from "./DeleteWatchlist";
 import $ from "jquery";
 
-const WatchlistBox = ({ listing, stateChange, setStateChange }) => {
+const WatchlistBox = ({ listing, stateChange, setStateChange, userData }) => {
   let listingSold = listing["sold"];
   let listingId = listing["listingID"];
 
@@ -198,6 +198,7 @@ const WatchlistBox = ({ listing, stateChange, setStateChange }) => {
         setOpen={setDeleteOpen}
         stateChange={stateChange}
         setStateChange={setStateChange}
+        userData={userData}
       />
     </Box>
   );
