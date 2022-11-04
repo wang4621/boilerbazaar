@@ -8,6 +8,7 @@ const ViewingHistoryBox = ({ listing, stateChange, setStateChange, userData }) =
   const [image, setImage] = useState("");
   const [loading, setLoading] = useState(false);
 
+ 
   useEffect(() => {
     // gets the images for the textbook
     // console.log(listing["listingID"])
@@ -108,10 +109,13 @@ const ViewingHistoryBox = ({ listing, stateChange, setStateChange, userData }) =
                 {listing["title"]}
               </Typography>
               <Typography variant="body1">${listing["price"]}</Typography>
-              <Typography variant="body2">0 clicks on listing</Typography>
               <Typography variant="body2">
-                Listed on {listing["timeListed"]}
+                Listed by {listing["sellerID"]}
               </Typography>
+              <Typography variant="body1">{listing["course"]}</Typography>
+              <Typography variant="body1" id="sold">{}</Typography>
+
+
             </Box>
             <Box
               sx={{
