@@ -37,8 +37,7 @@ const style = {
   p: 4,
 };
 
-const SharedListing = ({ listingID, open, setOpen, userData }) => {
-  console.log(listingID);
+const SharedListing = ({ listingId, open, setOpen, userData }) => {
   const [openShare, setOpenShare] = React.useState(false);
   const handleOpenShare = () => setOpenShare(true);
   const handleCloseShare = () => setOpenShare(false);
@@ -58,10 +57,13 @@ const SharedListing = ({ listingID, open, setOpen, userData }) => {
   const newConversation = () => {};
 
   useEffect(() => {
+    var jsonData = {listingID: listingId}
+    jsonData=JSON.stringify(jsonData)
     $.ajax({
-      url:
-        "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/listing/shared?listingID=" +
-        listingID,
+      url: "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/listing/shared",
+      data: jsonData,
+      datatype: "json",
+      contentType: "application/json",
       type: "GET",
       success: function (result) {
         console.log(result);

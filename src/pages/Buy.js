@@ -580,7 +580,7 @@ const Buy = ({userData}) => {
   const [first, setFirst] = useState(true);
   const [originalTextbooks, setOriginalTextbooks] = useState([]);
   const [open, setOpen] = useState(false);
-  const [listingID, setListingID] = useState("");
+  const [listingId, setListingId] = useState("");
   const location = useLocation();
   // console.log('pathname', location.pathname.split('/')[2]);
 
@@ -595,7 +595,7 @@ const Buy = ({userData}) => {
   useEffect(() => {
     if (location.pathname.split('/')[2] != undefined && location.pathname.split('/').length === 3) {
       setOpen(true);
-      setListingID(location.pathname.split('/')[2])
+      setListingId(location.pathname.split('/')[2])
     }
   }, []);
 
@@ -785,7 +785,7 @@ const Buy = ({userData}) => {
           )}
         </Box>
       </Box>
-      <SharedListing listingID={listingID} open={open} setOpen={setOpen} userData={userData}/>
+      <SharedListing listingID={listingId} open={open} setOpen={setOpen} userData={userData}/>
     </div>
   );
 }
