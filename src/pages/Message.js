@@ -10,11 +10,6 @@ var index = 0
 var rawData = {}
 var user
 
-var intervalId = window.setInterval(function(){
-    getContacts()
-    console.log("updating")
-  }, 5000);
-
 function getContacts() {
     var url = "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/conversation?puid=" + user
     $.ajax({
@@ -66,7 +61,7 @@ function sendMessage() {
     var sender = data['user1'] == user
     var jsonDict = {"id": data['id'], "sender": sender, "message": message}
     var jsonData = "\""+JSON.stringify(jsonDict).replaceAll('"', '\\"')+"\""
-    console.log(jsonData)
+    //console.log(jsonData)
     $.ajax({
         url: 'https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/conversation',
         type: 'PUT',
@@ -134,6 +129,7 @@ const Message = ({ userData }) => {
                 <Box class="chatInput">
                     <TextField type="text" class="input" id="messageInput"></TextField>
                     <TextField class="send" id="send" onClick={sendMessage} type="submit" value="Send"/>
+                    <TextField class="refresh" id="refresh" onClick={getContacts} type="submit" value="Refresh"/>
                 </Box>
             </Box>
         </div>

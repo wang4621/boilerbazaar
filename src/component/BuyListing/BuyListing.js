@@ -486,6 +486,7 @@ const BuyListing = ({ listing, open, setOpen, userData }) => {
               }}
             >
               <TextField
+                id='message'
                 label="Message"
                 sx={{ width: "90%" }}
                 InputProps={{

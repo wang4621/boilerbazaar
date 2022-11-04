@@ -55,7 +55,11 @@
 }
 
 .send {
-    width: 30%;
+    width: 15%;
+}
+
+.refresh {
+    width: 15%;
 }
 
 .send * {
