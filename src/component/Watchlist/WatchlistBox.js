@@ -122,10 +122,11 @@ const WatchlistBox = ({ listing, stateChange, setStateChange }) => {
             <Typography sx={{ display: "inline-block", color: "red" }}>
               {listingSold === "true" && <>&nbsp;(Sold)</>}
             </Typography>
-            <div
+            <Box
               sx={{
                 display: "flex",
                 flexDirection: "row",
+                alignItems:'center'
               }}
               id="priceDiv"
             >
@@ -159,7 +160,7 @@ const WatchlistBox = ({ listing, stateChange, setStateChange }) => {
                   %
                 </>
               )}
-            </div>
+            </Box>
             <Typography variant="body2">
               Previous Price: ${listing["previousPrice"]}
             </Typography>
