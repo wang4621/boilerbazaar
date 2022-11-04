@@ -491,7 +491,7 @@ const BuyListing = ({ listing, open, setOpen, userData }) => {
                 InputProps={{
                   endAdornment: (
                     <InputAdornment position="end">
-                      <IconButton sx={{ color: "var(--text-color)" }} onClick={newConversation>
+                      <IconButton sx={{ color: "var(--text-color)" }} onClick={newConversation}>
                         <SendIcon />
                       </IconButton>
                     </InputAdornment>
