@@ -25,6 +25,7 @@ import TextbookImages from "../TextbookImages/TextbookImages";
 import InsertLinkIcon from "@mui/icons-material/InsertLink";
 import EmailIcon from "@mui/icons-material/Email";
 import FacebookIcon from "@mui/icons-material/Facebook";
+import { useNavigate } from "react-router-dom";
 
 const style = {
   position: "absolute",
@@ -37,12 +38,12 @@ const style = {
   p: 4,
 };
 
-const SharedListing = ({ listingId, open, setOpen, userData }) => {
+const SharedListing = ({ listingID, open, setOpen, userData }) => {
   const [openShare, setOpenShare] = React.useState(false);
   const handleOpenShare = () => setOpenShare(true);
   const handleCloseShare = () => setOpenShare(false);
   const address = window.location.href;
-
+  const navigate = useNavigate();
   const [sellerData, setSellerData] = useState("");
   const [listing, setListing] = useState("");
   const [addedToWatchlist, setAddedToWatchlist] = useState(false);
@@ -50,6 +51,7 @@ const SharedListing = ({ listingId, open, setOpen, userData }) => {
 
   const closeShare = () => {
     setOpen(false);
+    navigate("/buy");
   };
 
   const addToWatchlist = () => {};
@@ -57,13 +59,14 @@ const SharedListing = ({ listingId, open, setOpen, userData }) => {
   const newConversation = () => {};
 
   useEffect(() => {
-    var jsonData = {listingID: listingId}
-    jsonData=JSON.stringify(jsonData)
+    // var jsonData = {listingID: listingID}
+    // jsonData=JSON.stringify(jsonData)
+    // console.log(jsonData)
     $.ajax({
-      url: "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/listing/shared",
-      data: jsonData,
-      datatype: "json",
-      contentType: "application/json",
+      url: "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/listing/shared?listingID=" + listingID,
+      // data: jsonData,
+      // datatype: "json",
+      // contentType: "application/json",
       type: "GET",
       success: function (result) {
         console.log(result);
@@ -74,7 +77,24 @@ const SharedListing = ({ listingId, open, setOpen, userData }) => {
         console.log(JSON.stringify(result));
       },
     });
-  }, []);
+  }, [listingID]);
+
+  useEffect(() => {
+    // console.log(listing)
+    // setLoading(true)
+    $.ajax({
+      url:
+        "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/profile?puid=" +
+        listing["sellerID"],
+      type: "GET",
+      success: function (result) {
+        setSellerData(result);
+      },
+      error: function (result) {
+        console.log(JSON.stringify(result));
+      },
+    });
+  }, [listing]);
 
   //   if (listing["sold"] === "true") {
   //     return <div>This item is unavailable</div>;
