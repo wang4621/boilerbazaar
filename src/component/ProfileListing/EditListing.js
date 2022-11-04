@@ -17,6 +17,7 @@ import $ from "jquery";
 import "./EditListing.css";
 import PreviewImage from "../PreviewImage/PreviewImage";
 import PreviewImageSwiper from "../PreviewImage/PreviewImageSwiper";
+import LoadingButton from '@mui/lab/LoadingButton';
 
 // function getBase64(file, i, imagesJson, final) {
 //   var reader = new FileReader();
@@ -62,6 +63,7 @@ const EditListing = ({
   const [imageCount, setImageCount] = useState(0);
   const [loading, setLoading] = useState(false);
   const [previewImages, setPreviewImages] = useState([]);
+  const [saveLoading, setSaveLoading] = useState(false);
 
   const closeEdit = () => {
     setOpen(false);
@@ -85,6 +87,8 @@ const EditListing = ({
       success: function (result) {
         console.log(JSON.stringify(result));
         setStateChange(!stateChange);
+        setOpen(false);
+        setSaveLoading(false);
       },
       error: function (result) {
         console.log(JSON.stringify(result));
@@ -94,6 +98,7 @@ const EditListing = ({
 
   const saveTextbook = (event) => {
     setSubmittedListing(true);
+    setSaveLoading(true);
     var listingID = listing["listingID"];
     var sellerID = userData["puid"];
     // var images = document.getElementById("images").files;
@@ -541,16 +546,21 @@ const EditListing = ({
                 },
               }}
             />
-            <TextField
-              id="list"
+            <LoadingButton
               type="submit"
-              value="Save"
+              loading={saveLoading}
+              disabled={saveLoading}
+              variant="contained"
               sx={{
                 "& .MuiOutlinedInput-root:hover": {
                   "& > fieldset": { borderColor: "var(--text-color)" },
                 },
+                width: '85%',
+                fontSize: 16
               }}
-            />
+            >
+              Save
+            </LoadingButton>
           </Box>
         </Box>
         <Box
