@@ -39,6 +39,7 @@ const Login = ({setAuth, setUserName}) => {
           if (result === "Success") {
             setAuth(true);
             setUserName(username)
+            localStorage.setItem("user", username)
             navigate("/home");
           } else {
             setError(true)

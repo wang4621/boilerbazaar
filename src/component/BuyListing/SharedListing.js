@@ -63,7 +63,9 @@ const SharedListing = ({ listingID, open, setOpen, userData }) => {
     // jsonData=JSON.stringify(jsonData)
     // console.log(jsonData)
     $.ajax({
-      url: "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/listing/shared?listingID=" + listingID,
+      url:
+        "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/listing/shared?listingID=" +
+        listingID,
       // data: jsonData,
       // datatype: "json",
       // contentType: "application/json",
@@ -264,7 +266,10 @@ const SharedListing = ({ listingID, open, setOpen, userData }) => {
               sx={{ fontWeight: "bold" }}
             >
               Course
-              <Typography variant="body1" color="var(--text-color)">
+              <Typography
+                variant="body1"
+                color="var(--text-color)"
+              >
                 {listing["course"]}
               </Typography>
             </Typography>
@@ -303,7 +308,11 @@ const SharedListing = ({ listingID, open, setOpen, userData }) => {
               color="var(--text-color)"
               sx={{ fontWeight: "light" }}
             >
-              <Typography variant="body1" color="var(--text-color)" id="views">
+              <Typography
+                variant="body1"
+                color="var(--text-color)"
+                id="views"
+              >
                 {listing["currentViews"]} views
               </Typography>
             </Typography>
@@ -311,7 +320,11 @@ const SharedListing = ({ listingID, open, setOpen, userData }) => {
             <Button onClick={handleOpenShare}>Share</Button>
             <Modal open={openShare} onClose={handleCloseShare}>
               <Box sx={style}>
-                <Typography id="modal-modal-title" variant="h6" component="h2">
+                <Typography
+                  id="modal-modal-title"
+                  variant="h6"
+                  component="h2"
+                >
                   Share Options
                 </Typography>
                 <List>

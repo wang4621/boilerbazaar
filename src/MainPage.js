@@ -135,6 +135,7 @@ const MainPage = ({ username, setAuth }) => {
 
   const logout = () => {
     setAuth(false);
+    localStorage.clear()
     navigate("/boilerbazaar");
   };
 

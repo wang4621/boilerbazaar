@@ -99,7 +99,7 @@ function autocomplete(inp, arr) {
     /*create a DIV element that will contain the items (values):*/
     a = document.createElement("DIV");
     a.setAttribute("id", this.id + "autocomplete-list");
-    a.setAttribute("class", "autocomplete-items");
+    a.setAttribute("className", "autocomplete-items");
     /*append the DIV element as a child of the autocomplete container:*/
     this.parentNode.appendChild(a);
     /*for each item in the array...*/
@@ -161,15 +161,15 @@ function autocomplete(inp, arr) {
   function addActive(x) {
     /*a function to classify an item as "active":*/
     if (!x) return false;
-    /*start by removing the "active" class on all items:*/
+    /*start by removing the "active" className on all items:*/
     removeActive(x);
     if (currentFocus >= x.length) currentFocus = 0;
     if (currentFocus < 0) currentFocus = x.length - 1;
-    /*add class "autocomplete-active":*/
+    /*add className "autocomplete-active":*/
     x[currentFocus].classList.add("autocomplete-active");
   }
   function removeActive(x) {
-    /*a function to remove the "active" class from all autocomplete items:*/
+    /*a function to remove the "active" className from all autocomplete items:*/
     for (var i = 0; i < x.length; i++) {
       x[i].classList.remove("autocomplete-active");
     }
@@ -624,7 +624,7 @@ const Buy = ({userData}) => {
           {/* Search By */}
           <TextField
             id="searchFilter"
-            // class="searchFilter"
+            // className="searchFilter"
             select
             label="Search By"
           >
@@ -662,41 +662,41 @@ const Buy = ({userData}) => {
           <button id="filtersButton" onClick={toggleFilters}>
             Filters and Sorting
           </button>
-          <div class="filters" id="filters">
-            <div class="filterCheckboxes">
-              <div class="filterDiv">
-                <label class="filterLabel">Course</label>
+          <div className="filters" id="filters">
+            <div className="filterCheckboxes">
+              <div className="filterDiv">
+                <label className="filterLabel">Course</label>
                 <select
                   multiple
                   size="4"
                   id="courseFilter"
-                  class="filterSelector"
+                  className="filterSelector"
                 >
                   <option value="none" selected="selected">
                     No filter
                   </option>
                 </select>
               </div>
-              <div class="filterDiv">
-                <label class="filterLabel">Edition</label>
+              <div className="filterDiv">
+                <label className="filterLabel">Edition</label>
                 <select
                   multiple
                   size="4"
                   id="editionFilter"
-                  class="filterSelector"
+                  className="filterSelector"
                 >
                   <option value="none" selected="selected">
                     No filter
                   </option>
                 </select>
               </div>
-              <div class="filterDiv">
-                <label class="filterLabel">Condition</label>
+              <div className="filterDiv">
+                <label className="filterLabel">Condition</label>
                 <select
                   multiple
                   size="4"
                   id="conditionFilter"
-                  class="filterSelector"
+                  className="filterSelector"
                 >
                   <option value="none" selected="selected">
                     No filter
@@ -707,7 +707,7 @@ const Buy = ({userData}) => {
             <button onClick={filterListings}>Filter</button>
             <label>
               Sort by
-              <TextField id="sorting" name="sorting" class="sorting" select>
+              <TextField id="sorting" name="sorting" className="sorting" select>
                 <MenuItem value="titleAscending">Title - Ascending</MenuItem>
                 <MenuItem value="titleDescending">Title - Descending</MenuItem>
                 <MenuItem value="authorAscending">Author - Ascending</MenuItem>

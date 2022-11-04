@@ -48,9 +48,9 @@ const TextbookImages = ({ listing }) => {
       {loading ? (
         <CircularProgress />
       ) : (
-        images.map((image) => {
+        images.map((image, index) => {
           return (
-            <SwiperSlide>
+            <SwiperSlide key={index}>
               <img src={image} height={"100%"} width={"70%"} alt="textbook" />
             </SwiperSlide>
           );
