@@ -75,8 +75,6 @@ const EditListing = ({
     }
   };
 
-  console.log(listing['listingID'])
-
   function sendImages(imagesJson) {
     $.ajax({
       url: "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/listing/images",
