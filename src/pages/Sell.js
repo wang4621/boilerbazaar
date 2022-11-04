@@ -19,19 +19,19 @@ import WarningIcon from "@mui/icons-material/Warning";
 import PreviewImage from "../component/PreviewImage/PreviewImage";
 import PreviewImageSwiper from "../component/PreviewImage/PreviewImageSwiper";
 
-function getBase64(file, i, imagesJson, final) {
-  var reader = new FileReader();
-  reader.readAsDataURL(file);
-  reader.onload = function () {
-    imagesJson["image" + i] = reader.result;
-    if (final) {
-      imagesJson =
-        '"' + JSON.stringify(imagesJson).replaceAll('"', '\\"') + '"';
-      console.log(imagesJson);
-      sendImages(imagesJson);
-    }
-  };
-}
+// function getBase64(file, i, imagesJson, final) {
+//   var reader = new FileReader();
+//   reader.readAsDataURL(file);
+//   reader.onload = function () {
+//     imagesJson["image" + i] = reader.result;
+//     if (final) {
+//       imagesJson =
+//         '"' + JSON.stringify(imagesJson).replaceAll('"', '\\"') + '"';
+//       console.log(imagesJson);
+//       sendImages(imagesJson);
+//     }
+//   };
+// }
 
 function sendImages(imagesJson) {
   $.ajax({
@@ -84,8 +84,8 @@ const Sell = ({ userData }) => {
     setSubmittedListing(true);
     var listingID = uuidv4().toString();
     var sellerID = userData["puid"];
-    var images = document.getElementById("images").files;
-    console.log(images);
+    // var images = document.getElementById("images").files;
+    // console.log(images);
     console.log(previewImages);
     var missing = false;
     if (imageCount === 0) {
@@ -124,7 +124,7 @@ const Sell = ({ userData }) => {
       var imagesJson = { listingID: listingID, count: imageCount };
       for (var i = 0; i < imageCount; i++) {
         // getBase64(images[i], i, imagesJson, i === imageCount - 1);
-        imagesJson["image"+i] = previewImages[i];
+        imagesJson["image" + i] = previewImages[i];
       }
       sendImages(imagesJson);
       var jsonData = {
@@ -262,8 +262,8 @@ const Sell = ({ userData }) => {
     }
   };
 
-  useEffect(() => { 
-    setImageCount(previewImages.length)
+  useEffect(() => {
+    setImageCount(previewImages.length);
     // console.log(imageCount)
   }, [previewImages]);
 
@@ -349,7 +349,14 @@ const Sell = ({ userData }) => {
               }}
             >
               {previewImages.map((image, index) => {
-                return <PreviewImage image={image} index={index} previewImages={previewImages} setPreviewImages={setPreviewImages}/>;
+                return (
+                  <PreviewImage
+                    image={image}
+                    index={index}
+                    previewImages={previewImages}
+                    setPreviewImages={setPreviewImages}
+                  />
+                );
               })}
             </Grid>
           </Box>

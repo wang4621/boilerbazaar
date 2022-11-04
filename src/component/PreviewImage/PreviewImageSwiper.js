@@ -5,10 +5,9 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { Navigation, Pagination } from "swiper";
 
-const PreviewImageSwiper = ({ images, index }) => {
+const PreviewImageSwiper = ({ images }) => {
   return (
     <Swiper
-    key={index}
       navigation={true}
       modules={[Pagination, Navigation]}
       centeredSlides={true}
@@ -19,7 +18,7 @@ const PreviewImageSwiper = ({ images, index }) => {
       {images.map((image, index) => {
         return (
           <SwiperSlide key={index}>
-            <img src={image} height={"100%"} width={"90%"} alt="textbook" />
+            <img src={image} height={"100%"} width={"80%"} alt="textbook" />
           </SwiperSlide>
         );
       })}
