@@ -29,8 +29,7 @@ import $ from "jquery";
 import Brightness4Icon from "@mui/icons-material/Brightness4";
 import Brightness7Icon from "@mui/icons-material/Brightness7";
 import SettingsIcon from "@mui/icons-material/Settings";
-import WatchlistBox from "./component/Watchlist/WatchlistBox";
-import BuyListing from "./component/BuyListing/BuyListing";
+import MissingRoute from "./component/MissingRoute";
 
 const MainPage = ({ username, setAuth }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -269,6 +268,7 @@ const MainPage = ({ username, setAuth }) => {
           <Route path="watchlist" element={<Watchlist userData={userData} />} />
           <Route path="viewingHistory" element={<ViewingHistory userData={userData} />} />
         </Route>
+        <Route path="*" element={<MissingRoute/>}/>
       </Routes>
     </div>
   );
