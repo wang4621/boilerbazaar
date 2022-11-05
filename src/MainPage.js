@@ -13,6 +13,7 @@ import Listings from "./component/ProfileListing/Listings";
 import Watchlist from "./component/Watchlist/Watchlist";
 import Profile from "./pages/Profile";
 import ViewingHistory from "./component/ViewingHistory/ViewingHistory";
+import SharedListing from "./component/BuyListing/SharedListing";
 import {
   Avatar,
   Menu,
@@ -251,8 +252,8 @@ const MainPage = ({ username, setAuth }) => {
       </div>
       <Routes>
         <Route path="/home" element={<Home />} />
-        <Route exact path="/buy/*" element={<Buy userData={userData}/>}>
-          {/* <Route path="/buy/:id" element={<SharedListing/>}/> */}
+        <Route exact path="/buy" element={<Buy userData={userData}/>}>
+          <Route path=":id" element={<SharedListing/>}/>
         </Route>
         <Route path="/sell" element={<Sell userData={userData} />} />
         <Route path="/message" element={<Message userData={userData}/>} />
