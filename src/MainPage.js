@@ -1,7 +1,7 @@
 import { TbMap2 } from "react-icons/tb";
 import "./MainPage.css";
 import logo from "./component/Images/logo.png";
-import { Routes, Route, NavLink, useNavigate } from "react-router-dom";
+import { Routes, Route, NavLink, useNavigate, Navigate } from "react-router-dom";
 import Settings from "./pages/Settings";
 import Home from "./pages/Home";
 import Sell from "./pages/Sell";
@@ -13,9 +13,7 @@ import Listings from "./component/ProfileListing/Listings";
 import Watchlist from "./component/Watchlist/Watchlist";
 import Profile from "./pages/Profile";
 import ViewingHistory from "./component/ViewingHistory/ViewingHistory";
-
-// import BuyListing from "./component/BuyListing/BuyListing";
-// import BuyMain from "./pages/BuyMain";
+import SharedListing from "./component/BuyListing/SharedListing";
 import {
   Avatar,
   Menu,
@@ -254,7 +252,9 @@ const MainPage = ({ username, setAuth }) => {
       </div>
       <Routes>
         <Route path="/home" element={<Home />} />
-        <Route path="/buy/*" element={<Buy userData={userData}/>}/>
+        <Route exact path="/buy" element={<Buy userData={userData}/>}>
+          <Route path=":id" element={<SharedListing/>}/>
+        </Route>
         <Route path="/sell" element={<Sell userData={userData} />} />
         <Route path="/message" element={<Message userData={userData}/>} />
         <Route path="/about" element={<About />} />
@@ -268,7 +268,8 @@ const MainPage = ({ username, setAuth }) => {
           <Route path="watchlist" element={<Watchlist userData={userData} />} />
           <Route path="viewingHistory" element={<ViewingHistory userData={userData} />} />
         </Route>
-        <Route path="*" element={<MissingRoute/>}/>
+        <Route path="*" element={<Navigate to="/404" replace />}/>
+        <Route path="/404" element={<MissingRoute/>}/>
       </Routes>
     </div>
   );

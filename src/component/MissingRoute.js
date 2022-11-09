@@ -1,8 +1,9 @@
-import React from 'react'
-import { Navigate } from 'react-router-dom';
+import React from "react";
 
 const MissingRoute = () => {
-    return < Navigate to={{pathname: '/404'}} / >
+  return (
+    <div>MissingRoute</div>
+  )
 }
 
 export default MissingRoute

@@ -34,7 +34,8 @@ const ListingBox = ({ listing, stateChange, setStateChange, userData }) => {
         url:
           "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/userlisting?listingID=" +
           listingId +
-          "&sold=true",
+          "&sold=true&puid=" +
+          userData["puid"],
         type: "PUT",
         success: function (result) {
           console.log(JSON.stringify(result));
@@ -51,7 +52,8 @@ const ListingBox = ({ listing, stateChange, setStateChange, userData }) => {
         url:
           "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/userlisting?listingID=" +
           listingId +
-          "&sold=false",
+          "&sold=false&puid=" +
+          userData["puid"],
         type: "PUT",
         success: function (result) {
           console.log(JSON.stringify(result));
@@ -166,7 +168,9 @@ const ListingBox = ({ listing, stateChange, setStateChange, userData }) => {
                 {listing["title"]}
               </Typography>
               <Typography variant="body1">${listing["price"]}</Typography>
-              <Typography variant="body2">{listing['currentViews']} clicks on listing</Typography>
+              <Typography variant="body2">
+                {listing["currentViews"]} clicks on listing
+              </Typography>
               <Typography variant="body2">
                 Listed on {listing["timeListed"]}
               </Typography>
