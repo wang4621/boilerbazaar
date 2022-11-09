@@ -7,6 +7,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import DeleteListing from "./DeleteListing";
 import EditListing from "./EditListing";
 import $ from "jquery";
+import BuyerRatingPrompt from "../Rating/BuyerRatingPrompt";
 
 const ListingBox = ({ listing, stateChange, setStateChange, userData }) => {
   let listingSold = listing["sold"];
@@ -17,6 +18,7 @@ const ListingBox = ({ listing, stateChange, setStateChange, userData }) => {
   const [sold, setSold] = useState(listingSold);
   const [image, setImage] = useState("");
   const [loading, setLoading] = useState(false);
+  const [ratingOpen, setRatingOpen] = useState(false);
 
   const openDelete = () => {
     setDeleteOpen(true);
@@ -39,6 +41,7 @@ const ListingBox = ({ listing, stateChange, setStateChange, userData }) => {
         type: "PUT",
         success: function (result) {
           console.log(JSON.stringify(result));
+          setRatingOpen(true)
           setSold("true");
           // setStateChange(!stateChange)
         },
@@ -239,6 +242,7 @@ const ListingBox = ({ listing, stateChange, setStateChange, userData }) => {
           setStateChange={setStateChange}
           userData={userData}
         />
+        <BuyerRatingPrompt open={ratingOpen} setOpen={setRatingOpen}/>
       </Box>
     </Grid>
   );

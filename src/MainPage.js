@@ -28,6 +28,7 @@ import Brightness4Icon from "@mui/icons-material/Brightness4";
 import Brightness7Icon from "@mui/icons-material/Brightness7";
 import SettingsIcon from "@mui/icons-material/Settings";
 import MissingRoute from "./component/MissingRoute";
+import Ratings from "./component/Rating/Ratings";
 
 const MainPage = ({ username, setAuth }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -267,6 +268,7 @@ const MainPage = ({ username, setAuth }) => {
           <Route path="listings" element={<Listings userData={userData} />} />
           <Route path="watchlist" element={<Watchlist userData={userData} />} />
           <Route path="viewingHistory" element={<ViewingHistory userData={userData} />} />
+          <Route path="ratings" element={<Ratings userData={userData}/>} />
         </Route>
         <Route path="*" element={<Navigate to="/404" replace />}/>
         <Route path="/404" element={<MissingRoute/>}/>
