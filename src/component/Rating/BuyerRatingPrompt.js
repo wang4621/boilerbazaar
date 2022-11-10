@@ -24,8 +24,9 @@ const BuyerRatingPrompt = ({
   setSoldLoading,
 }) => {
   const steps = ["Select Buyer", "Rating and Review"];
-  const [activeStep, setActiveStep] = React.useState(0);
+  const [activeStep, setActiveStep] = useState(0);
   const [loading, setLoading] = useState(false);
+  const [buyer, setBuyer] = useState("");
 
   const handleExit = () => {
     setOpen(false);
@@ -64,6 +65,7 @@ const BuyerRatingPrompt = ({
                 setOpen={setOpen}
                 setSoldLoading={setSoldLoading}
                 setActiveStep={setActiveStep}
+                setBuyer={setBuyer}
               />
             ) : (
               <RatingAndReview
@@ -71,6 +73,7 @@ const BuyerRatingPrompt = ({
                 puid={puid}
                 setSold={setSold}
                 setActiveStep={setActiveStep}
+                buyer={buyer}
               />
             )}
           </React.Fragment>

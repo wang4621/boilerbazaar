@@ -8,7 +8,7 @@ import {
 import $ from "jquery";
 import LoadingButton from "@mui/lab/LoadingButton";
 
-const RatingAndReview = ({listingID, puid, setSold, setActiveStep}) => {
+const RatingAndReview = ({listingID, puid, setSold, setActiveStep, buyer}) => {
   const [stringLength, setStringLength] = useState(0);
   const [review, setReview] = useState("");
   const [loading, setLoading] = useState(false);
@@ -24,6 +24,8 @@ const RatingAndReview = ({listingID, puid, setSold, setActiveStep}) => {
 
   const handleSubmit = () => {
     setLoading(true);
+    // send in review and rating
+    // update number of sales and mark as sold
     $.ajax({
       url:
         "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/userlisting?listingID=" +

@@ -10,7 +10,7 @@ import {
   Button,
 } from "@mui/material";
 
-const SelectBuyer = ({ setOpen, setSoldLoading, setActiveStep }) => {
+const SelectBuyer = ({ setOpen, setSoldLoading, setActiveStep, setBuyer }) => {
   const [value, setValue] = React.useState("");
   const [error, setError] = useState(false);
 
@@ -23,6 +23,7 @@ const SelectBuyer = ({ setOpen, setSoldLoading, setActiveStep }) => {
     if (value === "") {
         setError(true)
     } else {
+        setBuyer(value);
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
     }
   };
