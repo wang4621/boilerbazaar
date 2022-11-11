@@ -239,6 +239,8 @@ const ListingBox = ({ listing, stateChange, setStateChange, userData }) => {
           setOpen={setRatingOpen}
           setSold={setSold}
           setSoldLoading={setSoldLoading}
+          stateChange={stateChange}
+          setStateChange={setStateChange}
         />
       </Box>
     </Grid>

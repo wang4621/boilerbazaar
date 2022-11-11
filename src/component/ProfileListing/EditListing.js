@@ -37,8 +37,8 @@ const EditListing = ({
   listing,
   open,
   setOpen,
-  stateChange,
-  setStateChange,
+  // stateChange,
+  // setStateChange,
   userData,
 }) => {
   const [title, setTitle] = React.useState(listing["title"]);
@@ -67,7 +67,7 @@ const EditListing = ({
 
   const closeEdit = () => {
     setOpen(false);
-    setStateChange(!stateChange)
+    // setStateChange(!stateChange)
   };
 
   const conditionChange = (event) => {
@@ -86,7 +86,7 @@ const EditListing = ({
       contentType: "application/json",
       success: function (result) {
         console.log(JSON.stringify(result));
-        setStateChange(!stateChange);
+        // setStateChange(!stateChange);
         setOpen(false);
         setSaveLoading(false);
       },

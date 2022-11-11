@@ -29,6 +29,7 @@ import Brightness7Icon from "@mui/icons-material/Brightness7";
 import SettingsIcon from "@mui/icons-material/Settings";
 import MissingRoute from "./component/MissingRoute";
 import Ratings from "./component/Rating/Ratings";
+import SellerRatingPrompt from "./component/Rating/SellerRatingPrompt";
 
 const MainPage = ({ username, setAuth }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -251,6 +252,7 @@ const MainPage = ({ username, setAuth }) => {
           </MenuItem>
         </Menu>
       </div>
+      {/* <SellerRatingPrompt/> */}
       <Routes>
         <Route path="/home" element={<Home />} />
         <Route exact path="/buy" element={<Buy userData={userData}/>}>
