@@ -13,7 +13,7 @@ import {
 import $ from "jquery";
 import LoadingButton from "@mui/lab/LoadingButton";
 import SelectBuyer from "./SelectBuyer";
-import RatingAndReview from "./RatingAndReview";
+import RatingAndReviewBuyer from "./RatingAndReviewBuyer";
 
 const BuyerRatingPrompt = ({
   listingID,
@@ -22,6 +22,8 @@ const BuyerRatingPrompt = ({
   setOpen,
   setSold,
   setSoldLoading,
+  stateChange, 
+  setStateChange
 }) => {
   const steps = ["Select Buyer", "Rating and Review"];
   const [activeStep, setActiveStep] = useState(0);
@@ -31,6 +33,8 @@ const BuyerRatingPrompt = ({
   const handleExit = () => {
     setOpen(false);
     setSoldLoading(false);
+    setSold("true");
+    // setStateChange(!stateChange)
   };
 
   return (
@@ -68,7 +72,7 @@ const BuyerRatingPrompt = ({
                 setBuyer={setBuyer}
               />
             ) : (
-              <RatingAndReview
+              <RatingAndReviewBuyer
                 listingID={listingID}
                 puid={puid}
                 setSold={setSold}

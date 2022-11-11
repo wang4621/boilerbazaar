@@ -1,14 +1,34 @@
-import React, {useEffect, useState} from 'react'
-import { Divider, Box, Typography, CircularProgress, Grid } from "@mui/material";
+import React, { useEffect, useState } from "react";
+import {
+  Divider,
+  Box,
+  Typography,
+  CircularProgress,
+  Grid,
+} from "@mui/material";
 import $ from "jquery";
 
-const Ratings = ({userData}) => {
+const Ratings = ({ userData }) => {
   const [loading, setLoading] = useState(false);
   const [ratings, setRatings] = useState([]);
 
   useEffect(() => {
     // get user rating
-  }, []);
+    setLoading(true);
+    $.ajax({
+      url:
+        "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/rating?puid=" +
+        userData["puid"],
+      type: "GET",
+      success: function (result) {
+        setLoading(false);
+        setRatings(result);
+      },
+      error: function (result) {
+        console.log(JSON.stringify(result));
+      },
+    });
+  }, [userData]);
 
   return (
     <Box
@@ -19,7 +39,7 @@ const Ratings = ({userData}) => {
         flexDirection: "column",
       }}
     >
-      <Box sx={{ height: "8%"}}>
+      <Box sx={{ height: "8%" }}>
         <Typography
           variant="h6"
           sx={{ fontWeight: "bold", textAlign: "center", padding: "10px" }}
@@ -54,10 +74,8 @@ const Ratings = ({userData}) => {
               // alignItems: "flex-start",
             }}
           >
-            {ratings.map((textbook) => {
-              return (
-                <div>Hi</div>
-              );
+            {ratings.map((rating) => {
+              return <div>Hi</div>;
             })}
           </Grid>
         ) : (
@@ -67,7 +85,7 @@ const Ratings = ({userData}) => {
         )}
       </Box>
     </Box>
-  )
-}
+  );
+};
 
-export default Ratings
+export default Ratings;

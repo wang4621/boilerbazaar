@@ -9,6 +9,7 @@ import {
   FormHelperText,
   Button,
 } from "@mui/material";
+import WarningIcon from "@mui/icons-material/Warning";
 
 const SelectBuyer = ({ setOpen, setSoldLoading, setActiveStep, setBuyer }) => {
   const [value, setValue] = React.useState("");
@@ -21,10 +22,12 @@ const SelectBuyer = ({ setOpen, setSoldLoading, setActiveStep, setBuyer }) => {
 
   const handleNext = () => {
     if (value === "") {
-        setError(true)
+      setError(true);
+    } else if (value === "elsewhere") {
+      setActiveStep(2);
     } else {
-        setBuyer(value);
-        setActiveStep((prevActiveStep) => prevActiveStep + 1);
+      setBuyer(value);
+      setActiveStep((prevActiveStep) => prevActiveStep + 1);
     }
   };
 
@@ -62,7 +65,7 @@ const SelectBuyer = ({ setOpen, setSoldLoading, setActiveStep, setBuyer }) => {
                 control={<Radio />}
                 label="xpham"
               />
-              <FormControlLabel
+              {/* <FormControlLabel
                 value="fang282"
                 control={<Radio />}
                 label="fang282"
@@ -71,7 +74,7 @@ const SelectBuyer = ({ setOpen, setSoldLoading, setActiveStep, setBuyer }) => {
                 value="doan23"
                 control={<Radio />}
                 label="doan23"
-              />
+              /> */}
               <FormControlLabel
                 value="elsewhere"
                 control={<Radio />}
@@ -79,7 +82,10 @@ const SelectBuyer = ({ setOpen, setSoldLoading, setActiveStep, setBuyer }) => {
               />
             </RadioGroup>
           </Box>
-          <FormHelperText sx={{ fontSize: "14px", marginLeft: 0 }} error={error}>
+          <FormHelperText
+            sx={{ fontSize: "14px", marginLeft: 0 }}
+            error={error}
+          >
             {error ? "Please select a buyer." : ""}
           </FormHelperText>
         </FormControl>
