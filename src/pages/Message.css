@@ -42,6 +42,14 @@
 }
 
 .chatInput {
+    height: 10%;
+    display: flex;
+    flex-direction: row;
+}
+
+.options {
+    justify-content: flex-end;
+    height: 10%;
     display: flex;
     flex-direction: row;
 }
@@ -62,14 +70,22 @@
     width: 15%;
 }
 
+.block {
+    width: 15%;
+}
+
 .send * {
     width: 100%;
 }
 
 .chatDisplay {
     overflow: auto;
-    height: 80%;
+    height: 70%;
     /* display: flex; */
     flex-direction: column;
     /* justify-content: flex-end; */
+}
+
+.blockedMessage {
+    color: red;
 }

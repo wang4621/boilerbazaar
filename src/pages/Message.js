@@ -18,7 +18,7 @@ function getContacts() {
         success: function (result) {
             rawData = result
             contactNames = []
-            //console.log(rawData)
+            console.log(rawData)
             for (const x of rawData['body']) {
                 if (x['user0'] != user) {
                     contactNames.push(x['user0'])
@@ -52,6 +52,10 @@ function populateContacts() {
 }
 
 function sendMessage() {
+    if (rawData['body'][index]['blocked']) {
+        alert("Cannot send message. You have blocked (or was blocked by) this user.")
+        return
+    }
     var message = document.getElementById("messageInput").value;
     if (message.length == 0) {
         return;
@@ -95,7 +99,7 @@ function changeContacts(id) {
 
 function displayMessages() {
     var messageDisplay = document.getElementsByClassName("chatDisplay")[0];
-    //console.log('debug')
+    console.log('debug')
     messageDisplay.innerHTML = "";
     
     for (const x of rawData['body'][index]['conversation']) {
@@ -112,24 +116,58 @@ function displayMessages() {
         message.innerHTML = `<Typography>${s}</Typography>`
         messageDisplay.appendChild(message);
     }
+
+    console.log(rawData['body'][index]['blocked'])
+    if (rawData['body'][index]['blocked']) {
+        var message = document.createElement("DIV");
+        message.className = "blockedMessage"
+        message.innerHTML = `<Typography>Displaying past messages. You have blocked (or was blocked by) this user.</Typography>`
+        messageDisplay.appendChild(message);
+    }
+
     console.log(messageDisplay)
 }
 
+function block() {
+    if (!window.confirm(`Do you want to block ${contactNames[index]}?`)) {
+        return;
+    }
+    var jsonData = {"user": user, "blockUser": contactNames[index]}
+    var jsonData = "\""+JSON.stringify(jsonData).replaceAll('"', '\\"')+"\""
+    //console.log(jsonData)
+    $.ajax({
+        url: 'https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/block',
+        type: 'PUT',
+        data: jsonData,
+        datatype: 'json',
+        contentType: 'application/json',
+        success: function (result) {
+            console.log(JSON.stringify(result))
+        },
+        error: function (result) {
+            //console.log(JSON.stringify(result));
+        }
+    });
+}
+
 const Message = ({ userData }) => {
-    user = userData["puid"];
-    //console.log(user)
     React.useEffect(() => {
+        user = userData["puid"];
+        console.log(user);
         getContacts();
-    }, []);
+    }, [userData]);
     return (
         <div class="page">
             <Box class="contactList"></Box>
             <Box class="chat">
+                <Box class="options">
+                    <TextField class="refresh" id="refresh" onClick={getContacts} type="submit" value="Refresh"/>
+                    <TextField class="block" id="block" onClick={block} type="submit" value="Block"/>
+                </Box>
                 <Box class="chatDisplay"></Box>
                 <Box class="chatInput">
                     <TextField type="text" class="input" id="messageInput"></TextField>
                     <TextField class="send" id="send" onClick={sendMessage} type="submit" value="Send"/>
-                    <TextField class="refresh" id="refresh" onClick={getContacts} type="submit" value="Refresh"/>
                 </Box>
             </Box>
         </div>
