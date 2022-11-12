@@ -12,7 +12,6 @@ import "./Profile.css";
 import $ from "jquery";
 
 const Profile = ({ userData, setUserData }) => {
-  console.log(userData);
   const [isDisabled, setDisabled] = useState(true);
   const [value, setValue] = useState("Edit");
   const [firstName, setFirstName] = useState("");
@@ -21,9 +20,13 @@ const Profile = ({ userData, setUserData }) => {
   const [preferredMeeting, setPreferredMeeting] = useState("");
   const [preferredName, setPreferredName] = useState("");
   const [major, setMajor] = useState("");
-  const [sales, setSales] = useState("");
+  const [sales, setSales] = useState("0");
+  const [rating, setRating] = useState(0);
+  const [ratingLength, setRatingLength] = useState(0);
+  const [purchases, setPurchases] = useState("0")
 
   useEffect(() => {
+    console.log(userData)
     setFirstName(userData.firstName);
     setLastName(userData.lastName);
     setPuid(userData.puid);
@@ -31,6 +34,17 @@ const Profile = ({ userData, setUserData }) => {
     setPreferredName(userData.preferredName);
     setMajor(userData.major);
     setSales(userData.sell);
+    setPurchases(userData.purchases)
+    let sum = 0;
+    if (userData.rating !== undefined) {
+      for (let i = 0; i < userData.rating.length; i++) {
+        sum += parseInt(userData.rating[i]);
+      }
+      if (userData.rating.length !== 0) {
+        setRating(sum / userData.rating.length);
+        setRatingLength(userData.rating.length);
+      }
+    }
   }, [userData]);
 
   const editOrSaveProfile = (event) => {
@@ -46,7 +60,7 @@ const Profile = ({ userData, setUserData }) => {
         preferredMeeting: preferredMeeting,
         firstName: firstName,
         lastName: lastName,
-        sell: sales
+        sell: sales,
       };
       // localStorage.setItem('userData', JSON.stringify(jsonData));
       setUserData(jsonData);
@@ -190,7 +204,11 @@ const Profile = ({ userData, setUserData }) => {
         {/* <Typography variant="h6" color="var(--text-color)">
           Rating
         </Typography> */}
-        <Rating name="read-only" readOnly size="large" />
+
+        <Typography variant="h6" color="var(--text-color)" sx={{display:'flex', justifyContent:'center'}}>
+          <Rating name="read-only" readOnly size="large" value={rating} sx={{mr: 1}}/>
+          {ratingLength === 0 ? "" : "(" + ratingLength + ")"}
+        </Typography>
         <br />
         <br />
         <Typography component={"span"} variant="h6" color="var(--text-color)">
@@ -203,7 +221,7 @@ const Profile = ({ userData, setUserData }) => {
             display="inline"
             id="purchases"
           >
-            0
+            {purchases}
           </Typography>
         </Typography>
         <Typography component={"span"} variant="h6" color="var(--text-color)">
