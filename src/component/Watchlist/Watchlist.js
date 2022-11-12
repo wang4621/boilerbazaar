@@ -2,7 +2,8 @@ import {
     Divider, 
     Box,
     Typography,
-    CircularProgress  
+    CircularProgress,
+    Button  
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import $ from "jquery";
@@ -44,6 +45,10 @@ const Watchlist = ({userData}) => {
         });
       }, [stateChange, userData]);
 
+    const askForNotifications = () => {
+      Notification.requestPermission();
+    };
+
     return (
         <Box
           sx={{
@@ -77,6 +82,9 @@ const Watchlist = ({userData}) => {
                 {loading ? <CircularProgress/> :
                 ((watchlistListings.length > 0) || (newWatchlistListings.length > 0)) && (watchlistListings !== "Error") ? (
                   <>
+                    {(Notification.permission !== "granted") ?
+                    (<Button onClick={askForNotifications}>Click Me To Enable Desktop Notifications</Button>) : (<></>)
+                    }
                     {(newWatchlistListings.length > 0) ?
                     (<>
                     <Typography
