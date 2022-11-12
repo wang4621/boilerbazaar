@@ -17,53 +17,40 @@ import $ from "jquery";
 import "./EditListing.css";
 import PreviewImage from "../PreviewImage/PreviewImage";
 import PreviewImageSwiper from "../PreviewImage/PreviewImageSwiper";
-import LoadingButton from '@mui/lab/LoadingButton';
-
-// function getBase64(file, i, imagesJson, final) {
-//   var reader = new FileReader();
-//   reader.readAsDataURL(file);
-//   reader.onload = function () {
-//     imagesJson["image" + i] = reader.result;
-//     if (final) {
-//       imagesJson =
-//         '"' + JSON.stringify(imagesJson).replaceAll('"', '\\"') + '"';
-//       console.log(imagesJson);
-//       sendImages(imagesJson);
-//     }
-//   };
-// }
+import LoadingButton from "@mui/lab/LoadingButton";
 
 const EditListing = ({
   listing,
   open,
   setOpen,
-  // stateChange,
-  // setStateChange,
   userData,
+  setListingTitle,
+  setListingPrice,
 }) => {
-  const [title, setTitle] = React.useState(listing["title"]);
-  const [price, setPrice] = React.useState(listing["price"]);
-  const [author, setAuthor] = React.useState(listing["author"]);
-  const [isbn, setISBN] = React.useState(listing["isbn"]);
-  const [edition, setEdition] = React.useState(listing["edition"]);
-  const [course, setCourse] = React.useState(listing["course"]);
-  const [condition, setCondition] = React.useState(listing["condition"]);
-  const [description, setDescription] = React.useState(listing["description"]);
+  const [title, setTitle] = useState(listing["title"]);
+  const [price, setPrice] = useState(listing["price"]);
+  const [author, setAuthor] = useState(listing["author"]);
+  const [isbn, setISBN] = useState(listing["isbn"]);
+  const [edition, setEdition] = useState(listing["edition"]);
+  const [course, setCourse] = useState(listing["course"]);
+  const [condition, setCondition] = useState(listing["condition"]);
+  const [description, setDescription] = useState(listing["description"]);
   const limit = 250;
-  const [getStringLength, setStringLength] = React.useState(0);
-  const [titleError, setTitleError] = React.useState(false);
-  const [priceError, setPriceError] = React.useState(false);
-  const [authorError, setAuthorError] = React.useState(false);
-  const [isbnError, setISBNError] = React.useState(false);
-  const [editionError, setEditionError] = React.useState(false);
-  const [courseError, setCourseError] = React.useState(false);
-  const [conditionError, setConditionError] = React.useState(false);
-  const [submittedListing, setSubmittedListing] = React.useState(false);
-  const [imageError, setImageError] = React.useState(false);
+  const [getStringLength, setStringLength] = useState(0);
+  const [titleError, setTitleError] = useState(false);
+  const [priceError, setPriceError] = useState(false);
+  const [authorError, setAuthorError] = useState(false);
+  const [isbnError, setISBNError] = useState(false);
+  const [editionError, setEditionError] = useState(false);
+  const [courseError, setCourseError] = useState(false);
+  const [conditionError, setConditionError] = useState(false);
+  const [submittedListing, setSubmittedListing] = useState(false);
+  const [imageError, setImageError] = useState(false);
   const [imageCount, setImageCount] = useState(0);
   const [loading, setLoading] = useState(false);
   const [previewImages, setPreviewImages] = useState([]);
   const [saveLoading, setSaveLoading] = useState(false);
+  const [listingChange, setListingChange] = useState(false);
 
   const closeEdit = () => {
     setOpen(false);
@@ -142,8 +129,9 @@ const EditListing = ({
         // getBase64(images[i], i, imagesJson, i === imageCount - 1);
         imagesJson["image" + i] = previewImages[i];
       }
-      console.log(imagesJson)
-      imagesJson = '"' + JSON.stringify(imagesJson).replaceAll('"', '\\"') + '"';
+      // console.log(imagesJson)
+      imagesJson =
+        '"' + JSON.stringify(imagesJson).replaceAll('"', '\\"') + '"';
       var jsonData = {
         listingID: listingID,
         sellerID: sellerID,
@@ -157,7 +145,8 @@ const EditListing = ({
         description: description,
       };
       jsonData = JSON.stringify(jsonData);
-      
+      setListingTitle(title);
+      setListingPrice(price);
       $.ajax({
         url: "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/listing",
         type: "POST",
@@ -177,6 +166,7 @@ const EditListing = ({
   };
 
   const changeText = (event) => {
+    setListingChange(true);
     if (event.target.id === "title") {
       if (event.target.value === "" && submittedListing) {
         setTitleError(true);
@@ -267,6 +257,7 @@ const EditListing = ({
           // console.log(event.target.files[j])
           encodeImageFileAsURL(event.target.files[j]);
         }
+        setListingChange(true);
         // setImageCount(imageCount + imageLength);
       }
     }
@@ -275,13 +266,14 @@ const EditListing = ({
   useEffect(() => {
     // gets the images for the textbook
     setLoading(true);
+    setListingChange(false);
     $.ajax({
       url:
         "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/listing/images?listingID=" +
         listing["listingID"],
       type: "GET",
       success: function (result) {
-        console.log(result);
+        // console.log(result);
         let resultImages = [];
         for (let key in result["body"]) {
           if (!isNaN(key)) {
@@ -304,7 +296,12 @@ const EditListing = ({
   }, [previewImages]);
 
   return (
-    <Dialog fullScreen open={open} onClose={closeEdit}>
+    <Dialog
+      fullScreen
+      open={open}
+      onClose={closeEdit}
+      key={listing["listingID"]}
+    >
       <AppBar
         sx={{
           position: "relative",
@@ -378,7 +375,7 @@ const EditListing = ({
                 display: "flex",
                 alignItems: "flex-start",
                 flexDirection: "column",
-                paddingBottom:1
+                paddingBottom: 1,
               }}
             >
               <FormHelperText sx={{ fontSize: "14px", marginLeft: 0 }}>
@@ -549,14 +546,15 @@ const EditListing = ({
             <LoadingButton
               type="submit"
               loading={saveLoading}
-              disabled={saveLoading}
+              // disabled={saveLoading}
+              disabled={!listingChange ? true : saveLoading ? true : false}
               variant="contained"
               sx={{
                 "& .MuiOutlinedInput-root:hover": {
                   "& > fieldset": { borderColor: "var(--text-color)" },
                 },
-                width: '85%',
-                fontSize: 16
+                width: "85%",
+                fontSize: 16,
               }}
             >
               Save
@@ -786,16 +784,16 @@ const EditListing = ({
                     <br />
                     <Typography
                       variant="body1"
-                      color="var(--text-color)"
+                      // color="var(--text-color)"
                       sx={{
                         display: "flex",
-                        justifyContent: "space-between",
+                        // justifyContent: "space-between",
                         alignItems: "center",
                       }}
                       id="avatarName"
                     >
                       <Avatar
-                        sx={{ width: 40, height: 40 }}
+                        sx={{ width: 40, height: 40, marginRight: 2 }}
                         alt=""
                         src=""
                         id="avatarPic"

@@ -21,6 +21,8 @@ const ListingBox = ({ listing, stateChange, setStateChange, userData }) => {
   const [loading, setLoading] = useState(false);
   const [ratingOpen, setRatingOpen] = useState(false);
   const [soldLoading, setSoldLoading] = useState(false);
+  const [title, setTitle] = useState("");
+  const [price, setPrice] = useState("");
 
   const openDelete = () => {
     setDeleteOpen(true);
@@ -62,6 +64,8 @@ const ListingBox = ({ listing, stateChange, setStateChange, userData }) => {
     // gets the images for the textbook
     // console.log(listing["listingID"])
     setLoading(true);
+    setPrice(listing['price']);
+    setTitle(listing['title'])
     $.ajax({
       url:
         "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/listing/images?listingID=" +
@@ -82,6 +86,7 @@ const ListingBox = ({ listing, stateChange, setStateChange, userData }) => {
   return (
     <Grid
       item
+      key={listingId}
       m={2}
       xs={12}
       sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
@@ -156,9 +161,9 @@ const ListingBox = ({ listing, stateChange, setStateChange, userData }) => {
               }}
             >
               <Typography variant="body1" sx={{ fontWeight: "bold" }}>
-                {listing["title"]}
+                {title}
               </Typography>
-              <Typography variant="body1">${listing["price"]}</Typography>
+              <Typography variant="body1">${price}</Typography>
               <Typography variant="body2">
                 {listing["currentViews"]} clicks on listing
               </Typography>
@@ -228,9 +233,9 @@ const ListingBox = ({ listing, stateChange, setStateChange, userData }) => {
           listing={listing}
           open={editOpen}
           setOpen={setEditOpen}
-          stateChange={stateChange}
-          setStateChange={setStateChange}
           userData={userData}
+          setListingTitle={setTitle}
+          setListingPrice={setPrice}
         />
         <BuyerRatingPrompt
           listingID={listingId}
@@ -239,8 +244,6 @@ const ListingBox = ({ listing, stateChange, setStateChange, userData }) => {
           setOpen={setRatingOpen}
           setSold={setSold}
           setSoldLoading={setSoldLoading}
-          stateChange={stateChange}
-          setStateChange={setStateChange}
         />
       </Box>
     </Grid>
