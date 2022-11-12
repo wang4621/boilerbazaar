@@ -10,6 +10,7 @@ import WatchlistBox from "./WatchlistBox.js";
 
 const Watchlist = ({userData}) => {
     const [watchlistListings, setWatchlistListings] = useState([]);
+    const [newWatchlistListings, setNewWatchlistListings] = useState([]);
     const [stateChange, setStateChange] = useState(false);
     const [loading, setLoading] = useState(true);
     /**
@@ -20,11 +21,22 @@ const Watchlist = ({userData}) => {
         $.ajax({
           url:
             "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/watchlist?puid=" +
-            userData["puid"],
+            userData["puid"] + "&viewed=true",
           type: "GET",
           success: function (result) {
             setLoading(false);
-            setWatchlistListings(result);
+            let newListings = [];
+            let oldListings = [];
+            for (let i = 0; i < result.length; i++) {
+              if (result[i]['viewed'] === true) {
+                oldListings.push(result[i]);
+              }
+              else {
+                newListings.push(result[i]);
+              }
+            }
+            setWatchlistListings(oldListings);
+            setNewWatchlistListings(newListings);
           },
           error: function (result) {
             console.log(JSON.stringify(result));
@@ -63,10 +75,26 @@ const Watchlist = ({userData}) => {
               }}
             >
                 {loading ? <CircularProgress/> :
-                (watchlistListings.length > 0) && (watchlistListings !== "Error") ? (
-                  watchlistListings.map((listing) => {
-                    return <WatchlistBox listing={listing} stateChange={stateChange} setStateChange={setStateChange} userData={userData} />;
-                  })
+                ((watchlistListings.length > 0) || (newWatchlistListings.length > 0)) && (watchlistListings !== "Error") ? (
+                  <>
+                    {(newWatchlistListings.length > 0) ?
+                    (<>
+                    <Typography
+                      variant="h7"
+                      sx={{ fontWeight: "bold", textAlign: "center", padding: "10px" }}
+                      >
+                        New
+                      </Typography>
+                      {newWatchlistListings.map((listing) => {
+                        return <WatchlistBox listing={listing} stateChange={stateChange} setStateChange={setStateChange} userData={userData} />;
+                      })}
+                      <Divider variant="middle" sx={{ width:"85%", borderBottomColor: "var(--text-color)", margin: "20px" }} />
+                      </>) : (<></>)
+                    }
+                    {watchlistListings.map((listing) => {
+                      return <WatchlistBox listing={listing} stateChange={stateChange} setStateChange={setStateChange} userData={userData} />;
+                    })}
+                  </>
                 ) : ( 
                 <Typography variant="h6" sx={{ padding: "10px" }}>
                     No Listings in Watchlist
