@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Button,
   Dialog,
@@ -10,8 +10,6 @@ import {
   Box,
   Typography,
 } from "@mui/material";
-import $ from "jquery";
-import LoadingButton from "@mui/lab/LoadingButton";
 import SelectBuyer from "./SelectBuyer";
 import RatingAndReviewBuyer from "./RatingAndReviewBuyer";
 
@@ -22,21 +20,23 @@ const BuyerRatingPrompt = ({
   setOpen,
   setSold,
   setSoldLoading,
-  stateChange, 
-  setStateChange
 }) => {
   const steps = ["Select Buyer", "Rating and Review"];
   const [activeStep, setActiveStep] = useState(0);
-  const [loading, setLoading] = useState(false);
   const [buyer, setBuyer] = useState("");
 
   const handleExit = () => {
     setOpen(false);
     setSoldLoading(false);
     setSold("true");
-    // setStateChange(!stateChange)
   };
 
+  useEffect(() => {
+    if (open) {
+      setActiveStep(0);
+    }
+  }, [open])
+  
   return (
     <Dialog open={open}>
       <DialogTitle>{"Rating and Review of Buyer"}</DialogTitle>

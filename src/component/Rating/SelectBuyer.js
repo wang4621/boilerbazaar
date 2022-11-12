@@ -9,7 +9,6 @@ import {
   FormHelperText,
   Button,
 } from "@mui/material";
-import WarningIcon from "@mui/icons-material/Warning";
 
 const SelectBuyer = ({ setOpen, setSoldLoading, setActiveStep, setBuyer }) => {
   const [value, setValue] = React.useState("");

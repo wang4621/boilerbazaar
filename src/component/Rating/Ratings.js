@@ -7,6 +7,7 @@ import {
   Grid,
 } from "@mui/material";
 import $ from "jquery";
+import RatingBox from "./RatingBox";
 
 const Ratings = ({ userData }) => {
   const [loading, setLoading] = useState(false);
@@ -21,8 +22,15 @@ const Ratings = ({ userData }) => {
         userData["puid"],
       type: "GET",
       success: function (result) {
+        // console.log(result);
+        let userRating = [];
+        for (let i = 0; i < result.length; i++) {
+          if (result[i]["buyerReview"] !== "") {
+            userRating.push(result[i]);
+          }
+        }
         setLoading(false);
-        setRatings(result);
+        setRatings(userRating);
       },
       error: function (result) {
         console.log(JSON.stringify(result));
@@ -75,7 +83,7 @@ const Ratings = ({ userData }) => {
             }}
           >
             {ratings.map((rating) => {
-              return <div>Hi</div>;
+              return <RatingBox rating={rating}/>;
             })}
           </Grid>
         ) : (
