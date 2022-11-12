@@ -131,7 +131,7 @@ const MainPage = ({ username, setAuth }) => {
     });
   };
 
-  //Check for price changes
+  //Check for price changes and display desktop notification
   useEffect(() => {
     if (!initialPriceChangeChecked.current && userData !== "") {
       $.ajax({
@@ -140,7 +140,16 @@ const MainPage = ({ username, setAuth }) => {
           userData["puid"] + "&viewed=false",
         type: "GET",
         success: function (result) {
-         console.log(result);
+          console.log(result);
+          let notViewedChanges = 0;
+          for (let i = 0; i < result.length; i++) {
+            if (result[i]['viewed'] === false) {
+              notViewedChanges++;
+            }
+          }
+          if (notViewedChanges > 0) {
+            new Notification('You have ' + notViewedChanges + ' new price changes in your Watchlist!');
+          }
        },
         error: function (result) {
           console.log(JSON.stringify(result));
