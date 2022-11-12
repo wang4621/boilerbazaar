@@ -22,7 +22,7 @@ import {
   ListItemIcon,
 } from "@mui/material";
 import Logout from "@mui/icons-material/Logout";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import $ from "jquery";
 import Brightness4Icon from "@mui/icons-material/Brightness4";
 import Brightness7Icon from "@mui/icons-material/Brightness7";
@@ -32,6 +32,7 @@ import MissingRoute from "./component/MissingRoute";
 const MainPage = ({ username, setAuth }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [userData, setUserData] = React.useState("");
+  const initialPriceChangeChecked = useRef(false);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -130,7 +131,27 @@ const MainPage = ({ username, setAuth }) => {
     });
   };
 
+  //Check for price changes
+  useEffect(() => {
+    if (!initialPriceChangeChecked.current && userData !== "") {
+      $.ajax({
+       url:
+         "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/watchlist?puid=" +
+          userData["puid"] + "&viewed=false",
+        type: "GET",
+        success: function (result) {
+         console.log(result);
+       },
+        error: function (result) {
+          console.log(JSON.stringify(result));
+        },
+      });
+      initialPriceChangeChecked.current = true;
+    }
+  }, [userData]);
+
   const logout = () => {
+    initialPriceChangeChecked.current = false;
     setAuth(false);
     localStorage.clear()
     navigate("/boilerbazaar");
