@@ -83,7 +83,6 @@ const MainPage = ({ username, setAuth }) => {
         username,
       type: "GET",
       success: function (result) {
-        // localStorage.setItem('userData', JSON.stringify(result))
         console.log(result);
         setUserData(result);
         if (result.darkModePreference === "dark") {
@@ -140,7 +139,6 @@ const MainPage = ({ username, setAuth }) => {
           userData["puid"] + "&viewed=false",
         type: "GET",
         success: function (result) {
-          console.log(result);
           let notViewedChanges = 0;
           let priceChangeTitles = [];
           for (let i = 0; i < result.length; i++) {
