@@ -142,13 +142,28 @@ const MainPage = ({ username, setAuth }) => {
         success: function (result) {
           console.log(result);
           let notViewedChanges = 0;
+          let priceChangeTitles = [];
           for (let i = 0; i < result.length; i++) {
             if (result[i]['viewed'] === false) {
+              if (priceChangeTitles.length < 10) {
+                let title;
+                if (result[i]['title'].length > 40) {
+                  title = result[i]['title'].substring(0,40) + "...";
+                }
+                else {
+                  title = result[i]['title'];
+                }
+                priceChangeTitles.push(title);
+              }
+              if (priceChangeTitles.length === 10) {
+                priceChangeTitles.push("...and more!")
+              }
               notViewedChanges++;
             }
           }
           if (notViewedChanges > 0) {
-            new Notification('You have ' + notViewedChanges + ' new price changes in your Watchlist!');
+            let notification = new Notification('You have ' + notViewedChanges + ' new price changes in your Watchlist!', { body: priceChangeTitles.join('\n'), icon: logo, badge: logo});
+            setTimeout(function() { notification.close() }, 10000);
           }
        },
         error: function (result) {
