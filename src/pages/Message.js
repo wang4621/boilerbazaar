@@ -4,6 +4,7 @@ import './Message.css';
 import $ from 'jquery';
 import * as React from 'react';
 import { ConstructionOutlined } from '@mui/icons-material';
+import { display } from '@mui/system';
 
 var contactNames = []
 var index = 0
@@ -116,22 +117,34 @@ function displayMessages() {
         message.innerHTML = `<Typography>${s}</Typography>`
         messageDisplay.appendChild(message);
     }
-
-    console.log(rawData['body'][index]['blocked'])
+    var block = document.getElementById("block");
     if (rawData['body'][index]['blocked']) {
         var message = document.createElement("DIV");
         message.className = "blockedMessage"
         message.innerHTML = `<Typography>Displaying past messages. You have blocked (or was blocked by) this user.</Typography>`
         messageDisplay.appendChild(message);
+        block.value = "Unblock";
+    } else {
+        block.value = "Block";
     }
 
-    console.log(messageDisplay)
+    //console.log(messageDisplay)
 }
 
 function block() {
-    if (!window.confirm(`Do you want to block ${contactNames[index]}?`)) {
-        return;
+    var block = document.getElementById("block");
+    if (rawData['body'][index]['blocked']) {
+        if (!window.confirm(`Do you want to unblock ${contactNames[index]}?`)) {
+            block.value = "Unblock"
+            return;
+        }
+    } else {
+        if (!window.confirm(`Do you want to block ${contactNames[index]}?`)) {
+            block.value = "Block"
+            return;
+        }
     }
+    rawData['body'][index]['blocked'] = !rawData['body'][index]['blocked']
     var jsonData = {"user": user, "blockUser": contactNames[index]}
     var jsonData = "\""+JSON.stringify(jsonData).replaceAll('"', '\\"')+"\""
     //console.log(jsonData)
@@ -153,7 +166,7 @@ function block() {
 const Message = ({ userData }) => {
     React.useEffect(() => {
         user = userData["puid"];
-        console.log(user);
+        console.log(userData);
         getContacts();
     }, [userData]);
     return (
@@ -162,7 +175,7 @@ const Message = ({ userData }) => {
             <Box class="chat">
                 <Box class="options">
                     <TextField class="refresh" id="refresh" onClick={getContacts} type="submit" value="Refresh"/>
-                    <TextField class="block" id="block" onClick={block} type="submit" value="Block"/>
+                    <TextField class="block" id="block" onClick={block} type="button" value="Block"/>
                 </Box>
                 <Box class="chatDisplay"></Box>
                 <Box class="chatInput">
