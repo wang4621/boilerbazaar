@@ -14,6 +14,8 @@ const Watchlist = ({userData}) => {
     const [newWatchlistListings, setNewWatchlistListings] = useState([]);
     const [stateChange, setStateChange] = useState(false);
     const [loading, setLoading] = useState(true);
+    const [showEnableNotifications, setShowEnableNotifications] = useState(true);
+    const [disableInstructions, setDisableInstructions] = useState(false);
     /**
       @todo: add actual ajax request and update loading
     **/
@@ -47,6 +49,16 @@ const Watchlist = ({userData}) => {
 
     const askForNotifications = () => {
       Notification.requestPermission();
+      setShowEnableNotifications(false);
+    };
+
+    const changeDisableInstructions = () => {
+      if (disableInstructions) {
+        setDisableInstructions(false);
+      }
+      else {
+        setDisableInstructions(true);
+      }
     };
 
     return (
@@ -82,8 +94,25 @@ const Watchlist = ({userData}) => {
                 {loading ? <CircularProgress/> :
                 ((watchlistListings.length > 0) || (newWatchlistListings.length > 0)) && (watchlistListings !== "Error") ? (
                   <>
-                    {(Notification.permission !== "granted") ?
-                    (<Button onClick={askForNotifications}>Click Me To Enable Desktop Notifications</Button>) : (<></>)
+                    {((Notification.permission !== "granted") && (showEnableNotifications)) ?
+                    (<Button onClick={askForNotifications}>Opt in to Desktop Notifications</Button>) : (
+                    <>
+                      <Button onClick={changeDisableInstructions}>How to Opt Out of Desktop Notifications</Button>
+                      {disableInstructions ?
+                      (<>
+                      <div style={{
+                                    display: "flex",
+                                    flexDirection: "column"
+                      }}>
+                        <Typography variant="h6">Choose your web browser</Typography>
+                        <a href="https://support.google.com/chrome/answer/3220216?hl=en&co=GENIE.Platform%3DDesktop" target="_blank">Chrome</a>
+                        <a href="https://support.mozilla.org/en-US/kb/push-notifications-firefox" target="_blank">Firefox</a>
+                        <a href="https://support.apple.com/guide/safari/customize-website-notifications-sfri40734/mac" target="_blank">Safari</a>
+                        <a href="https://support.microsoft.com/en-us/microsoft-edge/manage-website-notifications-in-microsoft-edge-0c555609-5bf2-479d-a59d-fb30a0b80b2b" target="_blank">Microsoft Edge</a>
+                      </div>
+                      </>)
+                      : <></>}
+                    </>)
                     }
                     {(newWatchlistListings.length > 0) ?
                     (<>
