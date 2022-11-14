@@ -70,6 +70,7 @@ const BuyerRatingPrompt = ({
                 setSoldLoading={setSoldLoading}
                 setActiveStep={setActiveStep}
                 setBuyer={setBuyer}
+                puid={puid}
               />
             ) : (
               <RatingAndReviewBuyer
