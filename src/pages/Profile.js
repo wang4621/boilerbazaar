@@ -6,10 +6,15 @@ import {
   Typography,
   TextField,
   MenuItem,
+  FormHelperText,
+  Button,
+  Grid,
 } from "@mui/material";
 import React, { useState, useEffect } from "react";
 import "./Profile.css";
 import $ from "jquery";
+import PreviewImage from "../component/PreviewImage/PreviewImage";
+import PreviewImageSwiper from "../component/PreviewImage/PreviewImageSwiper";
 
 const Profile = ({ userData, setUserData }) => {
   console.log(userData);
@@ -22,6 +27,11 @@ const Profile = ({ userData, setUserData }) => {
   const [preferredName, setPreferredName] = useState("");
   const [major, setMajor] = useState("");
   const [sales, setSales] = useState("");
+  const [imageCount, setImageCount] = useState(0);
+  const [imageError, setImageError] = useState(false);
+  const [previewImage, setPreviewImage] = useState([]);
+
+
 
   useEffect(() => {
     setFirstName(userData.firstName);
@@ -38,6 +48,12 @@ const Profile = ({ userData, setUserData }) => {
     if (value === "Edit") {
       setValue("Save");
     } else if (value === "Save") {
+      var imageJson = { puid: userData.puid };
+      
+      imageJson["image"] = previewImage;
+      imageJson = '"' + JSON.stringify(imageJson).replaceAll('"', '\\"') + '"';
+      //sendImage(imageJson);
+
       // save new values into local storage
       var jsonData = {
         puid: puid,
@@ -69,6 +85,76 @@ const Profile = ({ userData, setUserData }) => {
     }
     event.preventDefault();
   };
+
+
+  function encodeImageFileAsURL(file) {
+    var reader = new FileReader();
+    reader.onloadend = function () {
+      // console.log('RESULT', reader.result)
+      setPreviewImage((previewImage) => [...previewImage, reader.result]);
+    };
+    reader.readAsDataURL(file);
+  }
+
+  // const imageUpload = (event) => {
+  //   console.log(event);
+  //   let imageLength = event.target.files.length;
+  //   if (imageLength + imageCount <= 5) {
+  //     let isImage = true;
+  //     for (let i = 0; i < imageLength; i++) {
+  //       // console.log(event.target.files[i].type.split('/')[1])
+  //       let extension = event.target.files[i].type.split("/")[1];
+  //       if (extension === "jpeg" || extension === "png") {
+  //         isImage = true;
+  //         setImageError(false);
+  //       } else {
+  //         isImage = false;
+  //         setImageError(true);
+  //         break;
+  //       }
+  //     }
+  //     if (isImage) {
+  //       for (let j = 0; j < imageLength; j++) {
+  //         // console.log(event.target.files[j])
+  //         encodeImageFileAsURL(event.target.files[j]);
+  //       }
+  //       // setImageCount(imageCount + imageLength);
+  //     }
+  //   }
+  // };
+  const imageUpload = (event) => {
+    console.log(event);
+    let isImage = true;
+      // console.log(event.target.files[i].type.split('/')[1])
+      let extension = event.target.file.type.split("/")[1];
+      if (extension === "jpeg" || extension === "png") {
+        isImage = true;
+        setImageError(false);
+      } else {
+        isImage = false;
+        setImageError(true);
+      }
+      if (isImage) {
+        encodeImageFileAsURL(event.target.file);
+        // setImageCount(imageCount + imageLength);
+      }
+  };
+
+  function sendImage(imageJson) {
+    $.ajax({
+      url: "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/profile/image",
+      type: "PUT",
+      data: imageJson,
+      datatype: "json",
+      contentType: "application/json",
+      success: function (result) {
+        console.log(JSON.stringify(result));
+      },
+      error: function (result) {
+        console.log(JSON.stringify(result));
+      },
+    });
+  }
 
   return (
     <Box className="profileDisplay">
@@ -104,6 +190,61 @@ const Profile = ({ userData, setUserData }) => {
           onSubmit={editOrSaveProfile}
           id="profileForm"
         >
+          <Box
+            sx={{
+              width: "85%",
+              display: "flex",
+              alignItems: "flex-start",
+              flexDirection: "column",
+            }}
+          >
+            
+            <Button
+              variant="contained"
+              component="label"
+              disabled={isDisabled}
+              sx={{ width: "100%" }}
+            >
+              Change Profile Picture
+              <input
+                id="images"
+                type="file"
+                hidden
+                single
+                onChange={imageUpload}
+                accept="image/*"
+                
+              />
+            </Button>
+            {/* <FormHelperText>Please upload at least one image</FormHelperText> */}
+            {imageError ? (
+              <FormHelperText error={imageError}>
+                Please upload an image
+              </FormHelperText>
+            ) : (
+              ""
+            )}
+            <Grid
+              container
+              spacing={1}
+              sx={{
+                display: "flex",
+                justifyContent: "flex-start",
+                // alignItems: "flex-start",
+              }}
+            >
+              {previewImage.map((image, index) => {
+                return (
+                  <PreviewImage
+                    image={image}
+                    index={index}
+                    previewImages={previewImage}
+                    setPreviewImages={setPreviewImage}
+                  />
+                );
+              })}
+            </Grid>
+          </Box>
           <TextField id="puid" label="Login Username" disabled value={puid} />
           <TextField
             id="firstName"
@@ -176,7 +317,11 @@ const Profile = ({ userData, setUserData }) => {
         }}
         className="ratingBox"
       >
-        <Avatar sx={{ width: 128, height: 128 }} />
+        <Avatar alt={preferredName === ""
+            ? firstName + " " + lastName
+            : preferredName + " " + lastName}
+            src="/static/images/avatar/1.jpg"
+            sx={{ width: 128, height: 128 }} />
         <Typography
           variant="h6"
           color="var(--text-color)"
