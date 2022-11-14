@@ -206,7 +206,7 @@ const Profile = ({ userData, setUserData }) => {
         </Typography> */}
 
         <Typography variant="h6" color="var(--text-color)" sx={{display:'flex', justifyContent:'center'}}>
-          <Rating name="read-only" readOnly size="large" value={rating} sx={{mr: 1}}/>
+          <Rating name="read-only" readOnly size="large" value={rating} precision={0.5} sx={{mr: 1}}/>
           {ratingLength === 0 ? "" : "(" + ratingLength + ")"}
         </Typography>
         <br />

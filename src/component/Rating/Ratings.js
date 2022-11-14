@@ -22,11 +22,24 @@ const Ratings = ({ userData }) => {
         userData["puid"],
       type: "GET",
       success: function (result) {
-        // console.log(result);
+        console.log(result);
         let userRating = [];
         for (let i = 0; i < result.length; i++) {
-          if (result[i]["buyerReview"] !== "") {
-            userRating.push(result[i]);
+          let ratingData = {};
+          if (userData.puid === result[i].buyerID) {
+            ratingData['id'] = result[i].id;
+            ratingData['reviewer'] = result[i].sellerID
+            ratingData['rating'] = result[i].sellerRatingofBuyer;
+            ratingData['review'] = result[i].sellerReviewofBuyer;
+            userRating.push(ratingData)
+          } else if (userData.puid === result[i].sellerID) {
+            if (result[i].buyerReviewOfSeller !== '') {
+              ratingData['id'] = result[i].id;
+              ratingData['reviewer'] = result[i].buyerID
+              ratingData['rating'] = result[i].buyerRatingofSeller;
+              ratingData['review'] = result[i].buyerReviewOfSeller;
+              userRating.push(ratingData)
+            }
           }
         }
         setLoading(false);
@@ -63,10 +76,9 @@ const Ratings = ({ userData }) => {
         sx={{
           height: "92%",
           display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
+          alignItems: "flex-start",
           overflowY: "auto",
-          justifyContent: "flex-start",
+          justifyContent: "center",
         }}
         className="scrollBar"
       >
@@ -75,11 +87,11 @@ const Ratings = ({ userData }) => {
         ) : ratings.length > 0 ? (
           <Grid
             container
-            // spacing={0}
+            spacing={2}
             sx={{
               display: "flex",
-              justifyContent: "center",
-              // alignItems: "flex-start",
+              // justifyContent: "flex-start",
+              // alignItems:"flex-start"
             }}
           >
             {ratings.map((rating) => {
