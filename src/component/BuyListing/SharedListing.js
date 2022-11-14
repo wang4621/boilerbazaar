@@ -26,7 +26,7 @@ import TextbookImages from "../TextbookImages/TextbookImages";
 import InsertLinkIcon from "@mui/icons-material/InsertLink";
 import EmailIcon from "@mui/icons-material/Email";
 import FacebookIcon from "@mui/icons-material/Facebook";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const style = {
   position: "absolute",
@@ -39,7 +39,7 @@ const style = {
   p: 4,
 };
 
-const SharedListing = ({ listingID, open, setOpen }) => {
+const SharedListing = ({ open, setOpen }) => {
   const [openShare, setOpenShare] = React.useState(false);
   const handleOpenShare = () => setOpenShare(true);
   const handleCloseShare = () => setOpenShare(false);
@@ -49,6 +49,7 @@ const SharedListing = ({ listingID, open, setOpen }) => {
   const [listing, setListing] = useState("");
   const [addedToWatchlist, setAddedToWatchlist] = useState(false);
   const [alreadyInWatchlist, setAlreadyInWatchlist] = useState(false);
+  const params = useParams();
 
   const closeShare = () => {
     setOpen(false);
@@ -60,28 +61,28 @@ const SharedListing = ({ listingID, open, setOpen }) => {
   const newConversation = () => {};
 
   useEffect(() => {
-    // var jsonData = {listingID: listingID}
-    // jsonData=JSON.stringify(jsonData)
-    // console.log(jsonData)
-    console.log(listingID)
     $.ajax({
       url:
         "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/listing/shared?listingID=" +
-        listingID,
+        params.id,
       // data: jsonData,
       // datatype: "json",
       // contentType: "application/json",
       type: "GET",
       success: function (result) {
         console.log(result);
+        if (result === "Error") {
+          navigate("/404")
+        }
         setListing(result);
         // setSellerData(result);
       },
       error: function (result) {
         console.log(JSON.stringify(result));
+        navigate("/404")
       },
     });
-  }, [listingID]);
+  }, []);
 
   useEffect(() => {
     //seller information

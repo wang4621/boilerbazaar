@@ -15,10 +15,10 @@ function App() {
   useEffect(() => {
     const loggedInUser = localStorage.getItem("user");
     if (loggedInUser) {
-        console.log("here")
+        // console.log("here")
       setAuth(true);
       setUserName(loggedInUser);
-      console.log(location)
+      // console.log(location)
       if (location.pathname === "/boilerbazaar") {
         navigate("/home")
       } else {
