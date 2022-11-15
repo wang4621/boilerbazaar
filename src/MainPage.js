@@ -1,14 +1,20 @@
 import { TbMap2 } from "react-icons/tb";
 import "./MainPage.css";
 import logo from "./component/Images/logo.png";
-import { Routes, Route, NavLink, useNavigate, Navigate } from "react-router-dom";
+import {
+  Routes,
+  Route,
+  NavLink,
+  useNavigate,
+  Navigate,
+} from "react-router-dom";
 import Settings from "./pages/Settings";
 import Home from "./pages/Home";
 import Sell from "./pages/Sell";
 import Buy from "./pages/Buy";
 import About from "./pages/About";
 import Map from "./pages/Map";
-import Message from "./pages/Message"
+import Message from "./pages/Message";
 import Listings from "./component/ProfileListing/Listings";
 import Watchlist from "./component/Watchlist/Watchlist";
 import Profile from "./pages/Profile";
@@ -32,22 +38,28 @@ import Ratings from "./component/Rating/Ratings";
 import SellerRatingPrompt from "./component/Rating/SellerRatingPrompt";
 
 const MainPage = ({ username, setAuth }) => {
+  console.log(username)
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [userData, setUserData] = React.useState("");
   const open = Boolean(anchorEl);
+  const [theme, setTheme] = useState("bodyLight");
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
+
   const handleClose = () => {
     setAnchorEl(null);
   };
+
   const navigate = useNavigate();
+
   const toSettings = () => {
     navigate("/settings/profile");
   };
+
   let root = document.documentElement;
   //Code for dark mode
-  const [theme, setTheme] = useState("bodyLight");
   const toggleTheme = () => {
     if (theme === "bodyLight") {
       updateDarkModePreference("dark");
@@ -67,6 +79,7 @@ const MainPage = ({ username, setAuth }) => {
       root.style.setProperty("--background-color", "rgb(233, 233, 233)");
     }
   };
+
   //Update dark mode
   useEffect(() => {
     document.body.className = theme;
@@ -134,7 +147,7 @@ const MainPage = ({ username, setAuth }) => {
 
   const logout = () => {
     setAuth(false);
-    localStorage.clear()
+    localStorage.clear();
     navigate("/boilerbazaar");
   };
 
@@ -254,12 +267,12 @@ const MainPage = ({ username, setAuth }) => {
       </div>
       {/* <SellerRatingPrompt/> */}
       <Routes>
-        <Route path="/home" element={<Home />} />
-        <Route exact path="/buy" element={<Buy userData={userData}/>}>
-          <Route path=":id" element={<SharedListing/>}/>
+        <Route path="/home" element={<Home userData={userData}/>} />
+        <Route exact path="/buy" element={<Buy userData={userData} />}>
+          <Route path=":id" element={<SharedListing />} />
         </Route>
         <Route path="/sell" element={<Sell userData={userData} />} />
-        <Route path="/message" element={<Message userData={userData}/>} />
+        <Route path="/message" element={<Message userData={userData} />} />
         <Route path="/about" element={<About />} />
         <Route path="/map" element={<Map />} />
         <Route path="/settings" element={<Settings />}>
@@ -269,11 +282,14 @@ const MainPage = ({ username, setAuth }) => {
           />
           <Route path="listings" element={<Listings userData={userData} />} />
           <Route path="watchlist" element={<Watchlist userData={userData} />} />
-          <Route path="viewingHistory" element={<ViewingHistory userData={userData} />} />
-          <Route path="ratings" element={<Ratings userData={userData}/>} />
+          <Route
+            path="viewingHistory"
+            element={<ViewingHistory userData={userData} />}
+          />
+          <Route path="ratings" element={<Ratings userData={userData} />} />
         </Route>
-        <Route path="*" element={<Navigate to="/404" replace />}/>
-        <Route path="/404" element={<MissingRoute/>}/>
+        <Route path="*" element={<Navigate to="/404" replace />} />
+        <Route path="/404" element={<MissingRoute />} />
       </Routes>
     </div>
   );
