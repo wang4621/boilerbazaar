@@ -44,21 +44,21 @@ var user1
 
 function newConversation() {
   var message = document.getElementById("message").value
-  var jsonDict = {"user0": user0, "user1": user1, "message": message}
-  var jsonData = "\""+JSON.stringify(jsonDict).replaceAll('"', '\\"')+"\""
+  var jsonDict = { "user0": user0, "user1": user1, "message": message }
+  var jsonData = "\"" + JSON.stringify(jsonDict).replaceAll('"', '\\"') + "\""
   console.log(jsonData)
   $.ajax({
-      url: 'https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/conversation/new',
-      type: 'PUT',
-      data: jsonData,
-      datatype: 'json',
-      contentType: 'application/json',
-      success: function (result) {
-        console.log(JSON.stringify(result))
-      },
-      error: function (result) {
-        console.log(JSON.stringify(result));
-      }
+    url: 'https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/conversation/new',
+    type: 'PUT',
+    data: jsonData,
+    datatype: 'json',
+    contentType: 'application/json',
+    success: function (result) {
+      console.log(JSON.stringify(result))
+    },
+    error: function (result) {
+      console.log(JSON.stringify(result));
+    }
   });
 }
 
@@ -76,9 +76,20 @@ const BuyListing = ({ listing, open, setOpen, userData }) => {
   const [sellerData, setSellerData] = useState("");
   const [addedToWatchlist, setAddedToWatchlist] = useState(false);
   const [alreadyInWatchlist, setAlreadyInWatchlist] = useState(false);
-
+  const [ebayPrice, setEbayPrice] = useState("Finding...")
+  const [ebayUrl, setUrl] = useState("*")
   const navigate = useNavigate();
+  const url = `http://localhost:8080/ebay?isbn=${listing.isbn}`
 
+  fetch(url).then((response) => {
+    return response.json()
+  }).then((data) => {
+    setEbayPrice(data.price)
+    setUrl(data.url)
+  }).catch((err) => {
+    console.log(err)
+    setEbayPrice("Unable to find")
+  })
   user0 = userData["puid"]
   user1 = sellerData["puid"]
 
@@ -132,7 +143,7 @@ const BuyListing = ({ listing, open, setOpen, userData }) => {
   }
 
 
-  
+
 
   return (
     <Dialog fullScreen open={open} onClose={closeBuy}>
@@ -400,6 +411,8 @@ const BuyListing = ({ listing, open, setOpen, userData }) => {
               >
                 Seller Information
               </a>
+              <br />
+              <a href={ebayUrl} target="blank">{`Price in ebay: ${ebayPrice}$`}</a>
             </Typography>
             <br />
             <Typography
