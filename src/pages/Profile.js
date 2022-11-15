@@ -23,10 +23,10 @@ const Profile = ({ userData, setUserData }) => {
   const [sales, setSales] = useState("0");
   const [rating, setRating] = useState(0);
   const [ratingLength, setRatingLength] = useState(0);
-  const [purchases, setPurchases] = useState("0")
+  const [purchases, setPurchases] = useState("0");
 
   useEffect(() => {
-    console.log(userData)
+    console.log(userData);
     setFirstName(userData.firstName);
     setLastName(userData.lastName);
     setPuid(userData.puid);
@@ -34,7 +34,7 @@ const Profile = ({ userData, setUserData }) => {
     setPreferredName(userData.preferredName);
     setMajor(userData.major);
     setSales(userData.sell);
-    setPurchases(userData.purchases)
+    setPurchases(userData.purchases);
     let sum = 0;
     if (userData.rating !== undefined) {
       for (let i = 0; i < userData.rating.length; i++) {
@@ -173,11 +173,9 @@ const Profile = ({ userData, setUserData }) => {
               },
             }}
           >
-            <MenuItem value="None">None</MenuItem>
+            <MenuItem value="Anywhere">Anywhere</MenuItem>
             <MenuItem value="Public">Public</MenuItem>
-            <MenuItem value="In front of house/apt">
-              In front of house/apt
-            </MenuItem>
+            <MenuItem value="Home">Home</MenuItem>
           </TextField>
           <TextField type="submit" value={value} />
         </Box>
@@ -205,8 +203,19 @@ const Profile = ({ userData, setUserData }) => {
           Rating
         </Typography> */}
 
-        <Typography variant="h6" color="var(--text-color)" sx={{display:'flex', justifyContent:'center'}}>
-          <Rating name="read-only" readOnly size="large" value={rating} precision={0.5} sx={{mr: 1}}/>
+        <Typography
+          variant="h6"
+          color="var(--text-color)"
+          sx={{ display: "flex", justifyContent: "center" }}
+        >
+          <Rating
+            name="read-only"
+            readOnly
+            size="large"
+            value={rating}
+            precision={0.5}
+            sx={{ mr: 1 }}
+          />
           {ratingLength === 0 ? "" : "(" + ratingLength + ")"}
         </Typography>
         <br />
