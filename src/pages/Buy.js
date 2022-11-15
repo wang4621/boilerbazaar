@@ -9,6 +9,7 @@ import {
   Typography,
   InputAdornment,
   IconButton,
+  Button,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import $ from "jquery";
@@ -190,7 +191,7 @@ function autocomplete(inp, arr) {
   });
 }
 
-const Buy = ({userData}) => {
+const Buy = ({ userData }) => {
   //Function to toggle the display of filters and sorting options
   function toggleFilters() {
     const filtersDiv = document.getElementById("filters");
@@ -232,9 +233,12 @@ const Buy = ({userData}) => {
         console.log(result);
         setLoading(false);
         let returnedItems = result.Items;
-        let parsedTextbook = []
+        let parsedTextbook = [];
         for (let i = 0; i < returnedItems.length; i++) {
-          if (returnedItems[i].sold === "false" && returnedItems[i].sellerID != userData['puid']) {
+          if (
+            returnedItems[i].sold === "false" &&
+            returnedItems[i].sellerID != userData["puid"]
+          ) {
             parsedTextbook.push(returnedItems[i]);
           }
         }
@@ -593,9 +597,12 @@ const Buy = ({userData}) => {
   }, [originalTextbooks]);
 
   useEffect(() => {
-    if (location.pathname.split('/')[2] != undefined && location.pathname.split('/').length === 3) {
+    if (
+      location.pathname.split("/")[2] != undefined &&
+      location.pathname.split("/").length === 3
+    ) {
       setOpen(true);
-      setListingId(location.pathname.split('/')[2])
+      setListingId(location.pathname.split("/")[2]);
     }
   }, []);
 
@@ -616,6 +623,7 @@ const Buy = ({userData}) => {
             backgroundColor: "var(--primary-color)",
             display: "flex",
             flexDirection: "column",
+            alignItems: "center",
           }}
         >
           {/* <label> */}
@@ -625,6 +633,7 @@ const Buy = ({userData}) => {
             // className="searchFilter"
             select
             label="Search By"
+            sx={{ mt: 2 }}
           >
             <MenuItem value="title">Title</MenuItem>
             <MenuItem value="author">Author</MenuItem>
@@ -644,6 +653,7 @@ const Buy = ({userData}) => {
                 </InputAdornment>
               ),
             }}
+            sx={{ mb: 2 }}
           />
           {/*
           <div>
@@ -657,9 +667,14 @@ const Buy = ({userData}) => {
           </div>
           */}
 
-          <button id="filtersButton" onClick={toggleFilters}>
+          <Button
+            id="filtersButton"
+            variant="contained"
+            onClick={toggleFilters}
+            sx={{ width: "85%" }}
+          >
             Filters and Sorting
-          </button>
+          </Button>
           <div className="filters" id="filters">
             <div className="filterCheckboxes">
               <div className="filterDiv">
@@ -703,20 +718,22 @@ const Buy = ({userData}) => {
               </div>
             </div>
             <button onClick={filterListings}>Filter</button>
-            <label>
-              Sort by
-              <TextField id="sorting" name="sorting" className="sorting" select>
-                <MenuItem value="titleAscending">Title - Ascending</MenuItem>
-                <MenuItem value="titleDescending">Title - Descending</MenuItem>
-                <MenuItem value="authorAscending">Author - Ascending</MenuItem>
-                <MenuItem value="authorDescending">
-                  Author - Descending
-                </MenuItem>
-                <MenuItem value="priceAscending">Price - Ascending</MenuItem>
-                <MenuItem value="priceDescending">Price - Descending</MenuItem>
-              </TextField>
-              <button onClick={sortListings}>Sort</button>
-            </label>
+            <TextField
+              id="sorting"
+              name="sorting"
+              className="sorting"
+              select
+              label="Sort By"
+              onChange={{sortListings}}
+            >
+              <MenuItem value="titleAscending">Title - Ascending</MenuItem>
+              <MenuItem value="titleDescending">Title - Descending</MenuItem>
+              <MenuItem value="authorAscending">Author - Ascending</MenuItem>
+              <MenuItem value="authorDescending">Author - Descending</MenuItem>
+              <MenuItem value="priceAscending">Price - Ascending</MenuItem>
+              <MenuItem value="priceDescending">Price - Descending</MenuItem>
+            </TextField>
+            {/* <button onClick={sortListings}>Sort</button> */}
           </div>
           {/* <div>
           <ul id="listings"></ul>
@@ -756,10 +773,7 @@ const Buy = ({userData}) => {
               }}
             >
               {textbooks.map((textbook) => {
-                return <Textbook 
-                  textbook={textbook}
-                  userData={userData} 
-                />;
+                return <Textbook textbook={textbook} userData={userData} />;
               })}
             </Grid>
           ) : (
@@ -783,9 +797,13 @@ const Buy = ({userData}) => {
           )}
         </Box>
       </Box>
-      {listingId !== '' ? <SharedListing listingID={listingId} open={open} setOpen={setOpen}/>: ""}
+      {listingId !== "" ? (
+        <SharedListing listingID={listingId} open={open} setOpen={setOpen} />
+      ) : (
+        ""
+      )}
     </div>
   );
-}
+};
 
 export default Buy;
