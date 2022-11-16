@@ -36,6 +36,7 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import MissingRoute from "./component/MissingRoute";
 import Ratings from "./component/Rating/Ratings";
 import SellerRatingPrompt from "./component/Rating/SellerRatingPrompt";
+import RatingstoGive from "./component/Rating/RatingstoGive";
 
 const MainPage = ({ username, setAuth }) => {
   console.log(username)
@@ -287,6 +288,7 @@ const MainPage = ({ username, setAuth }) => {
             element={<ViewingHistory userData={userData} />}
           />
           <Route path="ratings" element={<Ratings userData={userData} />} />
+          <Route path="giveRatings" element={<RatingstoGive userData={userData} />} />
         </Route>
         <Route path="*" element={<Navigate to="/404" replace />} />
         <Route path="/404" element={<MissingRoute />} />
