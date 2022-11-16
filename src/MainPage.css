@@ -34,6 +34,6 @@
 }
 
 .navbar .active {
-  border-bottom: 3px solid blue !important;
-  color: blue !important;
+  border-bottom: 3px solid rgb(0, 132, 255) !important;
+  color: rgb(0, 132, 255) !important;
 }
