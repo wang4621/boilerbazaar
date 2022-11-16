@@ -84,7 +84,7 @@ const Ratings = ({ userData }) => {
         className="scrollBar"
       >
         {loading ? (
-          <CircularProgress />
+          <CircularProgress mt={2}/>
         ) : ratings.length > 0 ? (
           <Grid
             container
