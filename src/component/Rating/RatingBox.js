@@ -1,33 +1,32 @@
 import React from "react";
-import { Box, Grid, Rating, Typography } from "@mui/material";
+import { Box, CardContent, Grid, Rating, Typography } from "@mui/material";
 
 const RatingBox = ({ rating }) => {
-  console.log(rating)
+  console.log(rating);
   return (
     <Grid
       item
       key={rating.id}
-      // m={2}
+      mt={2}
       xs={4}
       sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
     >
       <Box
         sx={{
           width: "80%",
-          height: 150,
+          height: 200,
           display: "flex",
+          flexDirection: "column",
           backgroundColor: "var(--secondary-color)",
           borderRadius: 5,
           boxShadow: 8,
         }}
       >
-        <Typography variant="h6">
-          {rating.reviewer}
-        </Typography>
-        <Rating value={parseInt(rating.rating)}/>
-        <Typography variant="h6">
-          {rating.review}
-        </Typography>
+        <CardContent>
+          <Typography variant="h6">{rating.reviewer}</Typography>
+          <Rating readOnly value={parseInt(rating.rating)}/>
+          <Typography variant="body1">{rating.review}</Typography>
+        </CardContent>
       </Box>
     </Grid>
   );

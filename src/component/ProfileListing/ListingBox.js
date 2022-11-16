@@ -24,13 +24,13 @@ const ListingBox = ({ listing, stateChange, setStateChange, userData }) => {
   const [title, setTitle] = useState("");
   const [price, setPrice] = useState("");
 
-  const openDelete = () => {
-    setDeleteOpen(true);
-  };
+  // const openDelete = () => {
+  //   setDeleteOpen(true);
+  // };
 
-  const openEdit = () => {
-    setEditOpen(true);
-  };
+  // const openEdit = () => {
+  //   setEditOpen(true);
+  // };
 
   // on button click for "Mark as Sold" and "Mark as Available"
   const changeTextAndIcon = (event) => {
@@ -203,7 +203,8 @@ const ListingBox = ({ listing, stateChange, setStateChange, userData }) => {
                   borderRadius: "5px !important",
                 }}
                 disabled={sold === "true" ? true : false}
-                onClick={openEdit}
+                // onClick={openEdit}
+                onClick={()=>setEditOpen(true)}
               >
                 Edit Listing
               </Button>
@@ -215,7 +216,8 @@ const ListingBox = ({ listing, stateChange, setStateChange, userData }) => {
                   width: "30%",
                   borderRadius: "5px !important",
                 }}
-                onClick={openDelete}
+                // onClick={openDelete}
+                onClick={()=>setDeleteOpen(true)}
               >
                 Delete Listing
               </Button>

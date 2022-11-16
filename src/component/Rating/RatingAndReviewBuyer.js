@@ -6,7 +6,7 @@ import LoadingButton from "@mui/lab/LoadingButton";
 const RatingAndReviewBuyer = ({
   listingID,
   puid,
-  setSold,
+  // setSold,
   setActiveStep,
   buyer,
 }) => {
