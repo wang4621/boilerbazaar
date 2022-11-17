@@ -11,7 +11,9 @@ soup = BeautifulSoup(response.text, 'html.parser')
 # Find the minimum price and url of the product
 price = soup.find_all('span', class_='s-item__price')
 url = soup.find_all('a', class_='s-item__link')
-
+if len(price) == 0 or len(url) == 0:
+    print('{}')
+    exit()
 # Get the minimum price
 min_price = 0x3f3f3f3f
 min_url = ""

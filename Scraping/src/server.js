@@ -13,7 +13,7 @@ const server = http.createServer((req, res) => {
         const path = "../script/ebay.py"
         const result = require('child_process').execSync(`python ${path} ${isbn}`).toString()
         // Send result
-        res.writeHead(200, { 'Content-Type': 'application/json' })
+        res.writeHead(200, { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' })
         res.end(result)
     } else if (url == "/google") {
         // Get url parameters
@@ -23,7 +23,7 @@ const server = http.createServer((req, res) => {
         const path = "../script/googlePlay.py"
         const result = require('child_process').execSync(`python ${path} ${isbn}`).toString()
         // Send result
-        res.writeHead(200, { 'Content-Type': 'application/json' })
+        res.writeHead(200, { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' })
         res.end(result)
     } else if (url === "/google") {
         // Get url parameters

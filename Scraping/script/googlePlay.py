@@ -18,12 +18,21 @@ soup = BeautifulSoup(page.content, "html.parser")
 # Url is in the a tag under a div tag with class "WsMG1c nnK0zc"
 
 # Get the price under the span tag
-price = soup.find("span", class_="VfPpfd VixbEe").text
+price = soup.find("span", class_="VfPpfd VixbEe")
+if price == None:
+    print('{}')
+    exit()
+price = price.text
+
 # Eliminate the dollar sign
 price = price.replace("$", "")
 # Get url which is in the a <a> with class "Si6A0c.ZD8Cqc"
 
-url = soup.find("a", class_="Si6A0c ZD8Cqc").get("href")
+url = soup.find("a", class_="Si6A0c ZD8Cqc")
+if url == None:
+    print('{}')
+    exit()
+url = url["href"]
 url = "https://play.google.com" + url
 # Print the price and url
 print('{"price": "' + price + '", "url": "' + url + '"}')
