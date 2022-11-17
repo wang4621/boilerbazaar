@@ -43,23 +43,23 @@ var user0
 var user1
 
 function newConversation() {
-    var message = document.getElementById("message").value
-    var jsonDict = { "user0": user0, "user1": user1, "message": message }
-    var jsonData = "\"" + JSON.stringify(jsonDict).replaceAll('"', '\\"') + "\""
-    console.log(jsonData)
-    $.ajax({
-        url: 'https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/conversation/new',
-        type: 'PUT',
-        data: jsonData,
-        datatype: 'json',
-        contentType: 'application/json',
-        success: function (result) {
-            console.log(JSON.stringify(result))
-        },
-        error: function (result) {
-            console.log(JSON.stringify(result));
-        }
-    });
+  var message = document.getElementById("message").value
+  var jsonDict = { "user0": user0, "user1": user1, "message": message }
+  var jsonData = "\"" + JSON.stringify(jsonDict).replaceAll('"', '\\"') + "\""
+  console.log(jsonData)
+  $.ajax({
+    url: 'https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/conversation/new',
+    type: 'PUT',
+    data: jsonData,
+    datatype: 'json',
+    contentType: 'application/json',
+    success: function (result) {
+      console.log(JSON.stringify(result))
+    },
+    error: function (result) {
+      console.log(JSON.stringify(result));
+    }
+  });
 }
 
 function copyLink() {
@@ -68,33 +68,30 @@ function copyLink() {
 }
 
 const BuyListing = ({ listing, open, setOpen, userData }) => {
-    const [openShare, setOpenShare] = React.useState(false);
-    const handleOpenShare = () => setOpenShare(true);
-    const handleCloseShare = () => setOpenShare(false);
-    const address = window.location.href;
+  const [openShare, setOpenShare] = React.useState(false);
+  const handleOpenShare = () => setOpenShare(true);
+  const handleCloseShare = () => setOpenShare(false);
+  const address = window.location.href;
 
-    const [sellerData, setSellerData] = useState("");
-    const [addedToWatchlist, setAddedToWatchlist] = useState(false);
-    const [alreadyInWatchlist, setAlreadyInWatchlist] = useState(false);
-    const [ebayPrice, setEbayPrice] = useState("Finding...")
-    const [ebayUrl, setUrl] = useState("*")
-    const navigate = useNavigate();
-    fetch(`https://localhost:8080/ebay?isbn=${listing.isbn}`).then((response) => {
-        return response.json()
-    }).then((data) => {
-        setEbayPrice(data.price)
-        setUrl(data.url)
-    }).catch((err) => {
-        console.log(err)
-        setEbayPrice("Unable to find")
-    })
-    user0 = userData["puid"]
-    user1 = sellerData["puid"]
+  const [sellerData, setSellerData] = useState("");
+  const [addedToWatchlist, setAddedToWatchlist] = useState(false);
+  const [alreadyInWatchlist, setAlreadyInWatchlist] = useState(false);
+  const [ebayPrice, setEbayPrice] = useState("Finding...")
+  const [ebayUrl, setUrl] = useState("*")
+  const navigate = useNavigate();
+  const url = `http://localhost:8080/ebay?isbn=${listing.isbn}`
 
-    const closeBuy = () => {
-        setOpen(false);
-        navigate("/buy");
-    };
+  fetch(url).then((response) => {
+    return response.json()
+  }).then((data) => {
+    setEbayPrice(data.price)
+    setUrl(data.url)
+  }).catch((err) => {
+    console.log(err)
+    setEbayPrice("Unable to find")
+  })
+  user0 = userData["puid"]
+  user1 = sellerData["puid"]
 
 
     useEffect(() => {
@@ -142,6 +139,10 @@ const BuyListing = ({ listing, open, setOpen, userData }) => {
 
 
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> ef657679e13101fd303f33c7aa36f435531ea5bf
 
     return (
         <Dialog fullScreen open={open} onClose={closeBuy}>
@@ -409,6 +410,7 @@ const BuyListing = ({ listing, open, setOpen, userData }) => {
                             >
                                 Seller Information
               </a>
+<<<<<<< HEAD
                             <br />
                             <a href={ebayUrl}>{`Price in ebay: ${ebayPrice}$`}</a>
                         </Typography>
@@ -475,6 +477,71 @@ const BuyListing = ({ listing, open, setOpen, userData }) => {
                         </Box>
                     </Box>
                 </Box>
+=======
+              <br />
+              <a href={ebayUrl} target="blank">{`Price in ebay: ${ebayPrice}$`}</a>
+            </Typography>
+            <br />
+            <Typography
+              variant="body1"
+              color="var(--text-color)"
+              sx={{
+                display: "flex",
+                // justifyContent: "space-between",
+                alignItems: "center",
+              }}
+              id="avatarName"
+            >
+              <Avatar
+                sx={{ width: 40, height: 40, marginRight: 2 }}
+                alt=""
+                src=""
+                id="avatarPic"
+              />
+              {sellerData["preferredName"] === ""
+                ? sellerData["firstName"] + " " + sellerData["lastName"]
+                : sellerData["preferredName"] + " " + sellerData["lastName"]}
+            </Typography>
+          </CardContent>
+          {addedToWatchlist ? (
+            alreadyInWatchlist ? (
+              <></>
+            ) : (
+              <Typography sx={{ textAlign: "center" }}>
+                Successfully Added to Watchlist
+              </Typography>
+            )
+          ) : (
+            <Button onClick={addToWatchlist}>Add to Watchlist</Button>
+          )}
+          <Box
+            sx={{ height: "15%", backgroundColor: "var(--secondary-color)" }}
+            className="innerBottomBox"
+          >
+            <Typography variant="body1">Send Message to the Seller</Typography>
+            <Box
+              sx={{
+                width: "100%",
+                display: "flex",
+                justifyContent: "space-evenly",
+                alignItems: "center",
+              }}
+            >
+              <TextField
+                id='message'
+                label="Message"
+                sx={{ width: "90%" }}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton sx={{ color: "var(--text-color)" }} onClick={newConversation}>
+                        <SendIcon />
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
+              />
+>>>>>>> ef657679e13101fd303f33c7aa36f435531ea5bf
             </Box>
         </Dialog>
     );
