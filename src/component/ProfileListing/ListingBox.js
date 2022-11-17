@@ -120,35 +120,6 @@ const ListingBox = ({ listing, stateChange, setStateChange, userData }) => {
                     <Box
                         sx={{
                             height: "80%",
-                            width: "80%",
-                            backgroundColor: "rgb(32,32,32)",
-                            // backgroundColor: "lightgrey",
-                            // borderColor:'black',
-                            borderRadius: 5,
-                            display: "flex",
-                            justifyContent: "center",
-                            alignItems: "center",
-                        }}
-                    >
-                        {loading ? (
-                            <CircularProgress />
-                        ) : (
-                            <img src={image} height={"100%"} width={"70%"} alt="textbook" />
-                        )}
-                    </Box>
-                </Box>
-                <Box
-                    sx={{
-                        height: "100%",
-                        width: "75%",
-                        display: "flex",
-                        justifyContent: "flex-start",
-                        alignItems: "center",
-                    }}
-                >
-                    <Box
-                        sx={{
-                            height: "80%",
                             width: "95%",
                             display: "flex",
                             flexDirection: "column",
@@ -170,7 +141,7 @@ const ListingBox = ({ listing, stateChange, setStateChange, userData }) => {
                             <Typography variant="body1">${listing["price"]}</Typography>
                             <Typography variant="body2">
                                 {listing["currentViews"]} clicks on listing
-                            </Typography>
+              </Typography>
                             <Typography variant="body2">
                                 Listed on {listing["timeListed"]}
                             </Typography>
@@ -208,7 +179,7 @@ const ListingBox = ({ listing, stateChange, setStateChange, userData }) => {
                                 onClick={openEdit}
                             >
                                 Edit Listing
-                            </Button>
+              </Button>
                             <Button
                                 variant="contained"
                                 startIcon={<DeleteIcon />}
@@ -220,7 +191,7 @@ const ListingBox = ({ listing, stateChange, setStateChange, userData }) => {
                                 onClick={openDelete}
                             >
                                 Delete Listing
-                            </Button>
+              </Button>
                         </Box>
                     </Box>
                 </Box>

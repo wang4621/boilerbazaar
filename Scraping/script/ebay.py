@@ -5,6 +5,7 @@ from bs4 import BeautifulSoup
 import sys
 args = sys.argv
 url = 'https://www.ebay.com/sch/i.html?_nkw=' + args[1]
+
 response = requests.get(url)
 soup = BeautifulSoup(response.text, 'html.parser')
 # Find the minimum price and url of the product

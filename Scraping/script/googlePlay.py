@@ -26,4 +26,4 @@ price = price.replace("$", "")
 url = soup.find("a", class_="Si6A0c ZD8Cqc").get("href")
 url = "https://play.google.com" + url
 # Print the price and url
-print('{"price": "' + price + '", "url": "' + url + '"}') 
+print('{"price": "' + price + '", "url": "' + url + '"}')
