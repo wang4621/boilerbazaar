@@ -120,38 +120,6 @@ const ListingBox = ({ listing, stateChange, setStateChange, userData }) => {
                     <Box
                         sx={{
                             height: "80%",
-<<<<<<< HEAD
-=======
-                            width: "80%",
-                            backgroundColor: "rgb(32,32,32)",
-                            // backgroundColor: "lightgrey",
-                            // borderColor:'black',
-                            borderRadius: 5,
-                            display: "flex",
-                            justifyContent: "center",
-                            alignItems: "center",
-                        }}
-                    >
-                        {loading ? (
-                            <CircularProgress />
-                        ) : (
-                            <img src={image} height={"100%"} width={"70%"} alt="textbook" />
-                        )}
-                    </Box>
-                </Box>
-                <Box
-                    sx={{
-                        height: "100%",
-                        width: "75%",
-                        display: "flex",
-                        justifyContent: "flex-start",
-                        alignItems: "center",
-                    }}
-                >
-                    <Box
-                        sx={{
-                            height: "80%",
->>>>>>> ef657679e13101fd303f33c7aa36f435531ea5bf
                             width: "95%",
                             display: "flex",
                             flexDirection: "column",
@@ -173,11 +141,7 @@ const ListingBox = ({ listing, stateChange, setStateChange, userData }) => {
                             <Typography variant="body1">${listing["price"]}</Typography>
                             <Typography variant="body2">
                                 {listing["currentViews"]} clicks on listing
-<<<<<<< HEAD
               </Typography>
-=======
-                            </Typography>
->>>>>>> ef657679e13101fd303f33c7aa36f435531ea5bf
                             <Typography variant="body2">
                                 Listed on {listing["timeListed"]}
                             </Typography>
@@ -215,11 +179,7 @@ const ListingBox = ({ listing, stateChange, setStateChange, userData }) => {
                                 onClick={openEdit}
                             >
                                 Edit Listing
-<<<<<<< HEAD
               </Button>
-=======
-                            </Button>
->>>>>>> ef657679e13101fd303f33c7aa36f435531ea5bf
                             <Button
                                 variant="contained"
                                 startIcon={<DeleteIcon />}
@@ -231,11 +191,7 @@ const ListingBox = ({ listing, stateChange, setStateChange, userData }) => {
                                 onClick={openDelete}
                             >
                                 Delete Listing
-<<<<<<< HEAD
               </Button>
-=======
-                            </Button>
->>>>>>> ef657679e13101fd303f33c7aa36f435531ea5bf
                         </Box>
                     </Box>
                 </Box>
