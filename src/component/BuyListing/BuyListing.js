@@ -77,11 +77,13 @@ const BuyListing = ({ listing, open, setOpen, userData }) => {
   const [addedToWatchlist, setAddedToWatchlist] = useState(false);
   const [alreadyInWatchlist, setAlreadyInWatchlist] = useState(false);
   const [ebayPrice, setEbayPrice] = useState("Finding...")
+  const [googlePrice, setGooglePrice] = useState("Finding...")
   const [ebayUrl, setUrl] = useState("*")
+  const [googleUrl, setGoogleUrl] = useState("*")
   const navigate = useNavigate();
-  const url = `http://localhost:8080/ebay?isbn=${listing.isbn}`
-
-  fetch(url).then((response) => {
+  const urlEbay = `http://localhost:8080/ebay?isbn=${listing.isbn}`
+  const urlGoogle = `http://localhost:8080/google?isbn=${listing.isbn}`
+  fetch(urlEbay).then((response) => {
     return response.json()
   }).then((data) => {
     setEbayPrice(data.price)
@@ -90,6 +92,16 @@ const BuyListing = ({ listing, open, setOpen, userData }) => {
     console.log(err)
     setEbayPrice("Unable to find")
   })
+  fetch(urlGoogle).then((response) => {
+    return response.json()
+  }).then((data) => {
+    setGooglePrice(data.price)
+    setGoogleUrl(data.url)
+  }).catch((err) => {
+    console.log(err)
+    setGooglePrice("Unable to find")
+  })
+
   user0 = userData["puid"]
   user1 = sellerData["puid"]
 
@@ -413,6 +425,7 @@ const BuyListing = ({ listing, open, setOpen, userData }) => {
               </a>
               <br />
               <a href={ebayUrl} target="blank">{`Price in ebay: ${ebayPrice}$`}</a>
+              <a href={googleUrl} target="blank">{`Price in google play: ${googlePrice}$`}</a>
             </Typography>
             <br />
             <Typography
