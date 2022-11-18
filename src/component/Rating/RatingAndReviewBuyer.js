@@ -4,7 +4,7 @@ import $ from "jquery";
 import LoadingButton from "@mui/lab/LoadingButton";
 
 const RatingAndReviewBuyer = ({
-  listingID,
+  listing,
   puid,
   // setSold,
   setActiveStep,
@@ -35,7 +35,7 @@ const RatingAndReviewBuyer = ({
         // update number of sales and mark as sold
         url:
           "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/userlisting?listingID=" +
-          listingID +
+          listing.listingID +
           "&sold=true&puid=" +
           puid,
         type: "PUT",
@@ -46,6 +46,8 @@ const RatingAndReviewBuyer = ({
             sellerID: puid,
             sellerRating: rating,
             sellerReview: review,
+            listingID: listing.listingID,
+            listingTitle: listing.title
           };
           jsonData = JSON.stringify(jsonData);
           $.ajax({

@@ -240,7 +240,7 @@ const ListingBox = ({ listing, stateChange, setStateChange, userData }) => {
           setListingPrice={setPrice}
         />
         <BuyerRatingPrompt
-          listingID={listingId}
+          listing={listing}
           puid={userData["puid"]}
           open={ratingOpen}
           setOpen={setRatingOpen}

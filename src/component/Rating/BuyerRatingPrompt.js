@@ -14,7 +14,7 @@ import SelectBuyer from "./SelectBuyer";
 import RatingAndReviewBuyer from "./RatingAndReviewBuyer";
 
 const BuyerRatingPrompt = ({
-  listingID,
+  listing,
   puid,
   open,
   setOpen,
@@ -74,7 +74,7 @@ const BuyerRatingPrompt = ({
               />
             ) : (
               <RatingAndReviewBuyer
-                listingID={listingID}
+                listing={listing}
                 puid={puid}
                 setSold={setSold}
                 setActiveStep={setActiveStep}

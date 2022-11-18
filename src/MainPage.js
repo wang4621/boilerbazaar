@@ -35,11 +35,10 @@ import Brightness7Icon from "@mui/icons-material/Brightness7";
 import SettingsIcon from "@mui/icons-material/Settings";
 import MissingRoute from "./component/MissingRoute";
 import Ratings from "./component/Rating/Ratings";
-import SellerRatingPrompt from "./component/Rating/SellerRatingPrompt";
+// import SellerRatingPrompt from "./component/Rating/SellerRatingPrompt";
 import RatingstoGive from "./component/Rating/RatingstoGive";
 
 const MainPage = ({ username, setAuth }) => {
-  console.log(username)
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [userData, setUserData] = React.useState("");
   const open = Boolean(anchorEl);

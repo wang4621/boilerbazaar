@@ -52,7 +52,6 @@ const Profile = ({ userData, setUserData }) => {
     if (value === "Edit") {
       setValue("Save");
     } else if (value === "Save") {
-      // save new values into local storage
       var jsonData = {
         puid: puid,
         preferredName: preferredName,
@@ -61,6 +60,8 @@ const Profile = ({ userData, setUserData }) => {
         firstName: firstName,
         lastName: lastName,
         sell: sales,
+        purchases: purchases,
+        rating: userData.rating
       };
       // localStorage.setItem('userData', JSON.stringify(jsonData));
       setUserData(jsonData);
