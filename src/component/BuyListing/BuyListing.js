@@ -444,10 +444,6 @@ const BuyListing = ({ listing, open, setOpen, userData }) => {
               >
                 Seller Information
               </a>
-              <br />
-              <a href={ebayUrl} target="blank">{`Price in ebay: ${ebayPrice}`}</a>
-              <br />
-              <a href={googleUrl} target="blank">{`Price in google play: ${googlePrice}`}</a>
             </Typography>
             <br />
             <Typography
@@ -552,6 +548,40 @@ const BuyListing = ({ listing, open, setOpen, userData }) => {
               variant="middle"
               sx={{ borderBottomColor: "var(--text-color)" }}
             />
+            <CardContent
+            sx={{
+              wordBreak: "break-word",
+              overflowY: "auto",
+              height: "35%",
+              display: "flex",
+              flexDirection: "column",
+            }}
+            className="scrollBar"
+            >
+            <Typography
+                variant="h6"
+                color="var(--text-color)"
+                textAlign= "center"
+                sx={{ fontWeight: "bold" }}
+              >
+                Other Websites
+              </Typography>
+            <Typography
+              variant="body1"
+              color="var(--text-color)"
+              m={2}
+              sx={{ fontWeight: "bold" }}
+            >
+              <a href={ebayUrl} target="blank">{`Price in ebay:`}</a>
+              <br />
+              <a href={ebayUrl} target="blank">{`${ebayPrice}`}</a>
+              <br />
+              <br />
+              <a href={googleUrl} target="blank">{`Price in google play:`}</a>
+              <br />
+              <a href={googleUrl} target="blank">{`${googlePrice}`}</a>
+            </Typography>
+            </CardContent>
         </Box>
       </Box>
     </Dialog>
