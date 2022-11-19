@@ -186,7 +186,7 @@ const SharedListing = ({ open, setOpen }) => {
       >
         <Box
           sx={{
-            width: "70%",
+            width: "55%",
             height: "100%",
             backgroundColor: "var(--tertiary-color)",
           }}
