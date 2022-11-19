@@ -27,6 +27,7 @@ import TextbookImages from "../TextbookImages/TextbookImages";
 import InsertLinkIcon from "@mui/icons-material/InsertLink";
 import EmailIcon from "@mui/icons-material/Email";
 import FacebookIcon from "@mui/icons-material/Facebook";
+import RelatedTextbook from "./RelatedTextbook.js";
 
 const style = {
   position: "absolute",
@@ -73,6 +74,7 @@ const BuyListing = ({ listing, open, setOpen, userData }) => {
   const handleCloseShare = () => setOpenShare(false);
   const address = window.location.href;
 
+  const [relatedTextbooks, setRelatedTextbooks] = useState([]);
   const [sellerData, setSellerData] = useState("");
   const [addedToWatchlist, setAddedToWatchlist] = useState(false);
   const [alreadyInWatchlist, setAlreadyInWatchlist] = useState(false);
@@ -125,6 +127,21 @@ const BuyListing = ({ listing, open, setOpen, userData }) => {
       type: "GET",
       success: function (result) {
         setSellerData(result);
+      },
+      error: function (result) {
+        console.log(JSON.stringify(result));
+      },
+    });
+  }, [listing]);
+
+  useEffect(() => {
+    $.ajax({
+      url:
+        "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/textbook?listingID=" +
+        listing["listingID"],
+      type: "GET",
+      success: function (result) {
+        setRelatedTextbooks(result);
       },
       error: function (result) {
         console.log(JSON.stringify(result));
@@ -199,7 +216,7 @@ const BuyListing = ({ listing, open, setOpen, userData }) => {
       >
         <Box
           sx={{
-            width: "70%",
+            width: "55%",
             height: "100%",
             backgroundColor: "var(--tertiary-color)",
           }}
@@ -427,10 +444,6 @@ const BuyListing = ({ listing, open, setOpen, userData }) => {
               >
                 Seller Information
               </a>
-              <br />
-              <a href={ebayUrl} target="blank">{`Price in ebay: ${ebayPrice}`}</a>
-              <br />
-              <a href={googleUrl} target="blank">{`Price in google play: ${googlePrice}`}</a>
             </Typography>
             <br />
             <Typography
@@ -494,6 +507,81 @@ const BuyListing = ({ listing, open, setOpen, userData }) => {
               />
             </Box>
           </Box>
+        </Box>
+        <Box
+          sx={{
+            width: "15%",
+            height: "100%",
+            backgroundColor: "var(--secondary-color)",
+          }}
+          className="rightmostBox"
+        >
+          <CardContent
+            sx={{
+              wordBreak: "break-word",
+              overflowY: "auto",
+              height: "62.5%",
+              display: "flex",
+              flexDirection: "column",
+            }}
+            className="scrollBar"
+          >
+            <Typography
+                variant="h6"
+                color="var(--text-color)"
+                textAlign= "center"
+                sx={{ fontWeight: "bold" }}
+              >
+                Related Textbooks
+              </Typography>
+              {relatedTextbooks.length > 0? (
+                <>
+                  {relatedTextbooks.map((listing) => {
+                    return <RelatedTextbook listing={listing} />;
+                  })}
+                </>
+              ) : (
+                <></>
+              )}
+            </CardContent>
+            <Divider
+              variant="middle"
+              sx={{ borderBottomColor: "var(--text-color)" }}
+            />
+            <CardContent
+            sx={{
+              wordBreak: "break-word",
+              overflowY: "auto",
+              height: "35%",
+              display: "flex",
+              flexDirection: "column",
+            }}
+            className="scrollBar"
+            >
+            <Typography
+                variant="h6"
+                color="var(--text-color)"
+                textAlign= "center"
+                sx={{ fontWeight: "bold" }}
+              >
+                Other Websites
+              </Typography>
+            <Typography
+              variant="body1"
+              color="var(--text-color)"
+              m={2}
+              sx={{ fontWeight: "bold" }}
+            >
+              <a href={ebayUrl} target="blank">{`Price in ebay:`}</a>
+              <br />
+              <a href={ebayUrl} target="blank">{`${ebayPrice}`}</a>
+              <br />
+              <br />
+              <a href={googleUrl} target="blank">{`Price in google play:`}</a>
+              <br />
+              <a href={googleUrl} target="blank">{`${googlePrice}`}</a>
+            </Typography>
+            </CardContent>
         </Box>
       </Box>
     </Dialog>
