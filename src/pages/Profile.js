@@ -27,7 +27,6 @@ const Profile = ({ userData, setUserData }) => {
   const [preferredName, setPreferredName] = useState("");
   const [major, setMajor] = useState("");
   const [sales, setSales] = useState("");
-  const [imageCount, setImageCount] = useState(0);
   const [imageError, setImageError] = useState(false);
   const [previewImage, setPreviewImage] = useState([]);
 
@@ -125,8 +124,9 @@ const Profile = ({ userData, setUserData }) => {
   const imageUpload = (event) => {
     console.log(event);
     let isImage = true;
-      // console.log(event.target.files[i].type.split('/')[1])
-      let extension = event.target.file.type.split("/")[1];
+      console.log(event.target.files[0].type.split("/")[1])
+      let extension = event.target.files[0].type.split("/")[1];
+
       if (extension === "jpeg" || extension === "png") {
         isImage = true;
         setImageError(false);
@@ -135,7 +135,9 @@ const Profile = ({ userData, setUserData }) => {
         setImageError(true);
       }
       if (isImage) {
-        encodeImageFileAsURL(event.target.file);
+        console.log(event.target.files[0])
+
+        encodeImageFileAsURL(event.target.files[0]);
         // setImageCount(imageCount + imageLength);
       }
   };
@@ -320,7 +322,7 @@ const Profile = ({ userData, setUserData }) => {
         <Avatar alt={preferredName === ""
             ? firstName + " " + lastName
             : preferredName + " " + lastName}
-            src="/static/images/avatar/1.jpg"
+            src={previewImage}
             sx={{ width: 128, height: 128 }} />
         <Typography
           variant="h6"
