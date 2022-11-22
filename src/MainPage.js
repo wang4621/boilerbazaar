@@ -36,7 +36,7 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import MissingRoute from "./component/MissingRoute";
 import Ratings from "./component/Rating/Ratings";
 // import SellerRatingPrompt from "./component/Rating/SellerRatingPrompt";
-import RatingstoGive from "./component/Rating/RatingstoGive";
+// import RatingstoGive from "./component/Rating/RatingstoGive";
 
 const MainPage = ({ username, setAuth }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
