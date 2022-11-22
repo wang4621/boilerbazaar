@@ -287,7 +287,7 @@ const MainPage = ({ username, setAuth }) => {
             element={<ViewingHistory userData={userData} />}
           />
           <Route path="ratings" element={<Ratings userData={userData} />} />
-          <Route path="giveRatings" element={<RatingstoGive userData={userData} />} />
+          {/* <Route path="giveRatings" element={<RatingstoGive userData={userData} />} /> */}
         </Route>
         <Route path="*" element={<Navigate to="/404" replace />} />
         <Route path="/404" element={<MissingRoute />} />

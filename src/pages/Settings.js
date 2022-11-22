@@ -18,7 +18,7 @@ function Settings() {
                         <Button activeClassName="active" component={NavLink} to="watchlist">Watchlist</Button>
                         <Button activeClassName="active" component={NavLink} to="viewingHistory">Viewing History</Button>
                         <Button activeClassName="active" component={NavLink} to="ratings">Ratings</Button>
-                        <Button activeClassName="active" component={NavLink} to="giveRatings">Ratings to Give</Button>
+                        {/* <Button activeClassName="active" component={NavLink} to="giveRatings">Ratings to Give</Button> */}
                     </Box>
                     {/* when adding route to profile, make sure that when creating the new page that the width of the box is 85% */}
                     <Outlet/>
