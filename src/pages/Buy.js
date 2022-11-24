@@ -213,16 +213,16 @@ const Buy = ({userData}) => {
     console.log("filter: " + searchFilterValue);
     var searchParams = "";
     if (searchFilterValue === "Title") {
-      searchParams = "title=" + searchText;
+      searchParams = "&title=" + searchText;
     } else if (searchFilterValue === "Author") {
-      searchParams = "author=" + searchText;
+      searchParams = "&author=" + searchText;
     } else if (searchFilterValue === "ISBN") {
-      searchParams = "isbn=" + searchText;
+      searchParams = "&isbn=" + searchText;
     } else if (searchFilterValue === "Course") {
-      searchParams = "course=" + searchText;
+      searchParams = "&course=" + searchText;
     }
     const searchUrl =
-      "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/listing?" +
+      "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/listing?user=doan23" +
       searchParams;
     console.log(searchUrl);
     $.ajax({

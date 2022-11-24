@@ -1,0 +1,14 @@
+.blockedUser img {
+    width:auto;
+    height:auto;
+    max-width: 50px;
+    max-height: 50px;
+}
+.blockedUser span {
+    display: inline-block;
+    width: 60%;
+}
+
+.blockedList {
+    width: 70%;
+}

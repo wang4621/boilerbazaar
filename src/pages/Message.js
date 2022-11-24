@@ -127,7 +127,6 @@ function displayMessages() {
     } else {
         block.value = "Block";
     }
-
     //console.log(messageDisplay)
 }
 
@@ -135,12 +134,10 @@ function block() {
     var block = document.getElementById("block");
     if (rawData['body'][index]['blocked']) {
         if (!window.confirm(`Do you want to unblock ${contactNames[index]}?`)) {
-            block.value = "Unblock"
             return;
         }
     } else {
         if (!window.confirm(`Do you want to block ${contactNames[index]}?`)) {
-            block.value = "Block"
             return;
         }
     }
@@ -175,7 +172,7 @@ const Message = ({ userData }) => {
             <Box class="chat">
                 <Box class="options">
                     <TextField class="refresh" id="refresh" onClick={getContacts} type="submit" value="Refresh"/>
-                    <TextField class="block" id="block" onClick={block} type="button" value="Block"/>
+                    <TextField class="block" id="block" onClick={block} type="button" value="Blocked"/>
                 </Box>
                 <Box class="chatDisplay"></Box>
                 <Box class="chatInput">

@@ -14,7 +14,7 @@ import Watchlist from "./component/Watchlist/Watchlist";
 import Profile from "./pages/Profile";
 import ViewingHistory from "./component/ViewingHistory/ViewingHistory";
 import SharedListing from "./component/BuyListing/SharedListing";
-import blockedUsers from "./component/BlockedUsers/blockedUsers"
+import BlockedUsers from "./component/BlockedUsers/BlockedUsers";
 import {
   Avatar,
   Menu,
@@ -268,7 +268,7 @@ const MainPage = ({ username, setAuth }) => {
           <Route path="listings" element={<Listings userData={userData} />} />
           <Route path="watchlist" element={<Watchlist userData={userData} />} />
           <Route path="viewingHistory" element={<ViewingHistory userData={userData} />} />
-          <Route path="blockedUsers" element={<blockedUsers userData={userData} />} />
+          <Route path="blockedUsers" element={<BlockedUsers userData={userData} />} />
         </Route>
         <Route path="*" element={<Navigate to="/404" replace />}/>
         <Route path="/404" element={<MissingRoute/>}/>
