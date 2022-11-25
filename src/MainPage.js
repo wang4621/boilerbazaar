@@ -28,6 +28,7 @@ import Brightness4Icon from "@mui/icons-material/Brightness4";
 import Brightness7Icon from "@mui/icons-material/Brightness7";
 import SettingsIcon from "@mui/icons-material/Settings";
 import MissingRoute from "./component/MissingRoute";
+import { Find } from "./pages/find";
 
 const MainPage = ({ username, setAuth }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -134,8 +135,8 @@ const MainPage = ({ username, setAuth }) => {
   useEffect(() => {
     if (!initialPriceChangeChecked.current && userData !== "") {
       $.ajax({
-       url:
-         "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/watchlist?puid=" +
+        url:
+          "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/watchlist?puid=" +
           userData["puid"] + "&viewed=false",
         type: "GET",
         success: function (result) {
@@ -146,7 +147,7 @@ const MainPage = ({ username, setAuth }) => {
               if (priceChangeTitles.length < 10) {
                 let title;
                 if (result[i]['title'].length > 40) {
-                  title = result[i]['title'].substring(0,40) + "...";
+                  title = result[i]['title'].substring(0, 40) + "...";
                 }
                 else {
                   title = result[i]['title'];
@@ -160,10 +161,10 @@ const MainPage = ({ username, setAuth }) => {
             }
           }
           if (notViewedChanges > 0) {
-            let notification = new Notification('You have ' + notViewedChanges + ' new price changes in your Watchlist!', { body: priceChangeTitles.join('\n'), icon: logo, badge: logo});
-            setTimeout(function() { notification.close() }, 10000);
+            let notification = new Notification('You have ' + notViewedChanges + ' new price changes in your Watchlist!', { body: priceChangeTitles.join('\n'), icon: logo, badge: logo });
+            setTimeout(function () { notification.close() }, 10000);
           }
-       },
+        },
         error: function (result) {
           console.log(JSON.stringify(result));
         },
@@ -295,11 +296,11 @@ const MainPage = ({ username, setAuth }) => {
       </div>
       <Routes>
         <Route path="/home" element={<Home />} />
-        <Route exact path="/buy" element={<Buy userData={userData}/>}>
-          <Route path=":id" element={<SharedListing/>}/>
+        <Route exact path="/buy" element={<Buy userData={userData} />}>
+          <Route path=":id" element={<SharedListing />} />
         </Route>
         <Route path="/sell" element={<Sell userData={userData} />} />
-        <Route path="/message" element={<Message userData={userData}/>} />
+        <Route path="/message" element={<Message userData={userData} />} />
         <Route path="/about" element={<About />} />
         <Route path="/map" element={<Map />} />
         <Route path="/settings" element={<Settings />}>
@@ -311,8 +312,9 @@ const MainPage = ({ username, setAuth }) => {
           <Route path="watchlist" element={<Watchlist userData={userData} />} />
           <Route path="viewingHistory" element={<ViewingHistory userData={userData} />} />
         </Route>
-        <Route path="*" element={<Navigate to="/404" replace />}/>
-        <Route path="/404" element={<MissingRoute/>}/>
+        <Route path="/find/:id" element={<Find />} />
+        <Route path="*" element={<Navigate to="/404" replace />} />
+        <Route path="/404" element={<MissingRoute />} />
       </Routes>
     </div>
   );
