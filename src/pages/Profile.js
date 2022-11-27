@@ -35,16 +35,45 @@ const Profile = ({ userData, setUserData }) => {
     setMajor(userData.major);
     setSales(userData.sell);
     setPurchases(userData.purchases);
-    let sum = 0;
-    if (userData.rating !== undefined) {
-      for (let i = 0; i < userData.rating.length; i++) {
-        sum += parseInt(userData.rating[i]);
-      }
-      if (userData.rating.length !== 0) {
-        setRating(sum / userData.rating.length);
-        setRatingLength(userData.rating.length);
-      }
-    }
+    // let sum = 0;
+    // if (userData.rating !== undefined) {
+    //   for (let i = 0; i < userData.rating.length; i++) {
+    //     sum += parseInt(userData.rating[i]);
+    //   }
+    //   if (userData.rating.length !== 0) {
+    //     setRating(sum / userData.rating.length);
+    //     setRatingLength(userData.rating.length);
+    //   }
+    // }
+    $.ajax({
+      url:
+        "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/rating?puid=" +
+        userData["puid"],
+      type: "GET",
+      success: function (result) {
+        console.log(result);
+        let userRating = [];
+        let sum = 0;
+        for (let i = 0; i < result.length; i++) {
+          if (userData.puid === result[i].buyerID) {
+            sum += parseInt(result[i].sellerRatingofBuyer);
+            userRating.push(result[i].sellerRatingofBuyer)
+          } else if (userData.puid === result[i].sellerID) {
+            if (result[i].buyerReviewOfSeller !== '') {
+              sum += parseInt(result[i].buyerRatingofSeller);
+              userRating.push(result[i].buyerRatingofSeller)
+            }
+          }
+        }
+        if (userRating.length !== 0) {
+          setRating(sum / userRating.length);
+          setRatingLength(userRating.length);
+        }
+      },
+      error: function (result) {
+        console.log(JSON.stringify(result));
+      },
+    });
   }, [userData]);
 
   const editOrSaveProfile = (event) => {
@@ -61,7 +90,7 @@ const Profile = ({ userData, setUserData }) => {
         lastName: lastName,
         sell: sales,
         purchases: purchases,
-        rating: userData.rating
+        rating: userData.rating,
       };
       // localStorage.setItem('userData', JSON.stringify(jsonData));
       setUserData(jsonData);

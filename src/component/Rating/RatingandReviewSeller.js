@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Button, Rating, TextField, Box, FormHelperText } from "@mui/material";
 import $ from "jquery";
 import LoadingButton from "@mui/lab/LoadingButton";
@@ -10,20 +10,11 @@ const RatingandReviewSeller = ({ stepData, setActiveStep, setOpen }) => {
   const [rating, setRating] = useState(0);
   const [error, setError] = useState(false);
 
-  // useEffect(() => {
-  //   setReview("");
-  //   setRating(0);
-  // }, [activeStep]);
-
   const changeDescription = (event) => {
     setError(false);
     setStringLength(event.target.value.length);
     setReview(event.target.value);
   };
-
-  // const handleBack = () => {
-  //   setActiveStep((prevActiveStep) => prevActiveStep - 1);
-  // };
 
   const handleSubmit = () => {
     // console.log(stepData[activeStep])
@@ -36,26 +27,25 @@ const RatingandReviewSeller = ({ stepData, setActiveStep, setOpen }) => {
         id: stepData.id,
         buyerRating: rating,
         buyerReview: review,
+        sellerID: stepData.sellerID,
       };
       jsonData = JSON.stringify(jsonData);
-      // $.ajax({
-      //   // send rating to database
-      //   url: "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/rating/buyer",
-      //   type: "PUT",
-      //   data: jsonData,
-      //   datatype: "json",
-      //   contentType: "application/json",
-      //   success: function (result) {
-      //     console.log(JSON.stringify(result));
-      //     setLoading(false);
-      //     setActiveStep((prevActiveStep) => prevActiveStep + 1);
-      //   },
-      //   error: function (result) {
-      //     console.log(JSON.stringify(result));
-      //   },
-      // });
-      setLoading(false);
-      setActiveStep((prevActiveStep) => prevActiveStep + 1);
+      $.ajax({
+        // send rating to database
+        url: "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/rating/buyer",
+        type: "PUT",
+        data: jsonData,
+        datatype: "json",
+        contentType: "application/json",
+        success: function (result) {
+          console.log(JSON.stringify(result));
+          setLoading(false);
+          setActiveStep((prevActiveStep) => prevActiveStep + 1);
+        },
+        error: function (result) {
+          console.log(JSON.stringify(result));
+        },
+      });
     }
   };
 
