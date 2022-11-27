@@ -1,3 +1,8 @@
+.aboutDisplay {
+  display: flex;
+  height: calc(100vh - var(--header-height));
+}
+
 body {
   font-family: Arial, Helvetica, sans-serif;
   margin: 0;
