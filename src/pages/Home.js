@@ -64,169 +64,173 @@ const Home = ({ userData }) => {
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "flex-start",
-          height: "20%",
+          height: "40%",
         }}
       >
-        <h1
-          style={{
-            textAlign: "center",
-            // marginTop: "20px",
-          }}
-        >
-          Welcome to BoilerBazaar
-        </h1>
-        <br />
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            if (userInput === "") {
-              alert("Please enter a search term!");
-              return;
-            }
-            if (!isNameSelected && !isIdSelected) {
-              alert("Please select a search type!");
-              return;
-            }
-            if (isIdSelected) {
-              fetch(urlForID, {
-                method: "POST",
-                body: JSON.stringify({
-                  puid: userInput,
-                }),
-              })
-                .then((response) => {
-                  return response.json();
-                })
-                .then((data) => {
-                  if (data.statusCode === 404) {
-                    alert("No user found!");
-                    setSearchResult([]);
-                    return;
-                  }
-                  setSearchResult([
-                    // turn data from string to object
-                    JSON.parse(data.body),
-                  ]);
-                })
-                .catch((error) => {
-                  console.log(error);
-                });
-            } else {
-              fetch(urlForName, {
-                method: "POST",
-                body: JSON.stringify({
-                  name: userInput,
-                }),
-              })
-                .then((response) => {
-                  return response.json();
-                })
-                .then((data) => {
-                  if (data.statusCode === 404) {
-                    alert("No user found!");
-                    setSearchResult([]);
-                    return;
-                  }
-                  console.log(data);
-                  setSearchResult([JSON.parse(data.body)]);
-                })
-                .catch((error) => {
-                  console.log(error);
-                });
-            }
-          }}
-        >
-          {/* Search either id or name */}
-          {/* Search field should take an entire */}
-          <TextField
-            placeholder="Search for Users"
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton type="submit">
-                    <SearchIcon />
-                  </IconButton>
-                </InputAdornment>
-              ),
+        <Box sx={{ height: "70%", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
+          <h1
+            style={{
+              textAlign: "center",
+              // marginTop: "20px",
             }}
-            onInput={(e) => {
-              setUserInput(e.target.value);
+          >
+            Welcome to BoilerBazaar
+          </h1>
+          <br />
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              if (userInput === "") {
+                alert("Please enter a search term!");
+                return;
+              }
+              if (!isNameSelected && !isIdSelected) {
+                alert("Please select a search type!");
+                return;
+              }
+              if (isIdSelected) {
+                fetch(urlForID, {
+                  method: "POST",
+                  body: JSON.stringify({
+                    puid: userInput,
+                  }),
+                })
+                  .then((response) => {
+                    return response.json();
+                  })
+                  .then((data) => {
+                    if (data.statusCode === 404) {
+                      alert("No user found!");
+                      setSearchResult([]);
+                      return;
+                    }
+                    setSearchResult([
+                      // turn data from string to object
+                      JSON.parse(data.body),
+                    ]);
+                  })
+                  .catch((error) => {
+                    console.log(error);
+                  });
+              } else {
+                fetch(urlForName, {
+                  method: "POST",
+                  body: JSON.stringify({
+                    name: userInput,
+                  }),
+                })
+                  .then((response) => {
+                    return response.json();
+                  })
+                  .then((data) => {
+                    if (data.statusCode === 404) {
+                      alert("No user found!");
+                      setSearchResult([]);
+                      return;
+                    }
+                    console.log(data);
+                    setSearchResult([JSON.parse(data.body)]);
+                  })
+                  .catch((error) => {
+                    console.log(error);
+                  });
+              }
             }}
-            sx={{ mb: 2, width: "100%" }}
-          />
-          {/* <input
+          >
+            {/* Search either id or name */}
+            {/* Search field should take an entire */}
+            <TextField
+              placeholder="Search for Users"
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton type="submit">
+                      <SearchIcon />
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
+              onInput={(e) => {
+                setUserInput(e.target.value);
+              }}
+              sx={{ mb: 1 }}
+            />
+            {/* <input
             type="text"
             placeholder="Search"
             onInput={(e) => {
               setUserInput(e.target.value);
             }}
           /> */}
-          {/* Newline */}
-          <br />
-          <input
-            type="radio"
-            name="search"
-            value="id"
-            onClick={() => {
-              setIsIdSelected(true);
-              setIsNameSelected(false);
-            }}
-          />
-          <label htmlFor="id">ID</label>
-          <input
-            type="radio"
-            name="search"
-            value="name"
-            onClick={() => {
-              setIsNameSelected(true);
-              setIsIdSelected(false);
-            }}
-          />
-          <label htmlFor="name">Name</label>
-          <br />
-          {/* <button type="submit">Search</button> */}
-        </form>
-        <br />
-      </Box>
-      {/* A table to display search result */}
-      {searchResult.length > 0 && (
-        <Box
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-            height: "20%",
-          }}
-        >
-          <table>
-            <thead>
-              <tr>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Major</th>
-                <th>ID</th>
-                <th>preferredName</th>
-              </tr>
-            </thead>
-            <tbody>
-              {searchResult.map((item) => {
-                return (
-                  <tr>
-                    <td>{item.firstName}</td>
-                    <td>{item.lastName}</td>
-                    <td>{item.major}</td>
-                    <td>
-                      <a href={`/find/${item.puid}`}>{item.puid}</a>
-                    </td>
-                    <td>{item.preferredName}</td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
+            {/* Newline */}
+            <br />
+            <input
+              type="radio"
+              name="search"
+              value="id"
+              onClick={() => {
+                setIsIdSelected(true);
+                setIsNameSelected(false);
+              }}
+            />
+            <label htmlFor="id">ID</label>
+            <input
+              type="radio"
+              name="search"
+              value="name"
+              onClick={() => {
+                setIsNameSelected(true);
+                setIsIdSelected(false);
+              }}
+            />
+            <label htmlFor="name">Name</label>
+            <br />
+            {/* <button type="submit">Search</button> */}
+          </form>
         </Box>
-      )}
+        {/* <br /> */}
+        {/* A table to display search result */}
+        {searchResult.length > 0 && (
+          <Box
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+              maxHeight: "30%",
+              overflowY: "auto",
+            }}
+            className="scrollBar"
+          >
+            <table>
+              <thead>
+                <tr>
+                  <th>First Name</th>
+                  <th>Last Name</th>
+                  <th>Major</th>
+                  <th>ID</th>
+                  <th>preferredName</th>
+                </tr>
+              </thead>
+              <tbody>
+                {searchResult.map((item) => {
+                  return (
+                    <tr>
+                      <td>{item.firstName}</td>
+                      <td>{item.lastName}</td>
+                      <td>{item.major}</td>
+                      <td>
+                        <a href={`/find/${item.puid}`}>{item.puid}</a>
+                      </td>
+                      <td>{item.preferredName}</td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </Box>
+        )}
+      </Box>
       <Box sx={{ display: "flex", height: "60%", flexDirection: "row" }}>
         <Box
           sx={{
