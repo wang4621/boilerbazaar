@@ -667,24 +667,14 @@ const Buy = ({ userData }) => {
           </div>
           */}
 
-          <Button
-            id="filtersButton"
-            variant="contained"
-            onClick={toggleFilters}
-            sx={{ width: "85%" }}
-          >
+          <Button id="filtersButton" variant="contained" onClick={toggleFilters} sx={{ width: "85%" }}>
             Filters and Sorting
           </Button>
-          <div className="filters" id="filters">
-            <div className="filterCheckboxes">
+          <Box className="filters" id="filters" sx={{ display: "flex", flexDirection: "column", width: '100%'}}>
+            <Box className="filterCheckboxes" sx={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
               <div className="filterDiv">
                 <label className="filterLabel">Course</label>
-                <select
-                  multiple
-                  size="4"
-                  id="courseFilter"
-                  className="filterSelector"
-                >
+                <select multiple size="4" id="courseFilter" className="filterSelector">
                   <option value="none" selected="selected">
                     No filter
                   </option>
@@ -692,12 +682,7 @@ const Buy = ({ userData }) => {
               </div>
               <div className="filterDiv">
                 <label className="filterLabel">Edition</label>
-                <select
-                  multiple
-                  size="4"
-                  id="editionFilter"
-                  className="filterSelector"
-                >
+                <select multiple size="4" id="editionFilter" className="filterSelector">
                   <option value="none" selected="selected">
                     No filter
                   </option>
@@ -705,27 +690,15 @@ const Buy = ({ userData }) => {
               </div>
               <div className="filterDiv">
                 <label className="filterLabel">Condition</label>
-                <select
-                  multiple
-                  size="4"
-                  id="conditionFilter"
-                  className="filterSelector"
-                >
+                <select multiple size="4" id="conditionFilter" className="filterSelector">
                   <option value="none" selected="selected">
                     No filter
                   </option>
                 </select>
               </div>
-            </div>
-            <button onClick={filterListings}>Filter</button>
-            <TextField
-              id="sorting"
-              name="sorting"
-              className="sorting"
-              select
-              label="Sort By"
-              onChange={{sortListings}}
-            >
+            </Box>
+            <Button variant="outlined" sx={{width: '85%', mb: 2, mt: 2}} onClick={filterListings}>Filter</Button>
+            <TextField id="sorting" name="sorting" className="sorting" select label="Sort By" onChange={{ sortListings }} sx={{width:'85%'}}>
               <MenuItem value="titleAscending">Title - Ascending</MenuItem>
               <MenuItem value="titleDescending">Title - Descending</MenuItem>
               <MenuItem value="authorAscending">Author - Ascending</MenuItem>
@@ -734,7 +707,7 @@ const Buy = ({ userData }) => {
               <MenuItem value="priceDescending">Price - Descending</MenuItem>
             </TextField>
             {/* <button onClick={sortListings}>Sort</button> */}
-          </div>
+          </Box>
           {/* <div>
           <ul id="listings"></ul>
         </div> */}
@@ -786,22 +759,12 @@ const Buy = ({ userData }) => {
                 alignItems: "center",
               }}
             >
-              {first ? (
-                <Typography variant="h5">
-                  To See Textbooks, Start By Searching.
-                </Typography>
-              ) : (
-                <Typography variant="h5">No Textbooks Found</Typography>
-              )}
+              {first ? <Typography variant="h5">To See Textbooks, Start By Searching.</Typography> : <Typography variant="h5">No Textbooks Found</Typography>}
             </Box>
           )}
         </Box>
       </Box>
-      {listingId !== "" ? (
-        <SharedListing listingID={listingId} open={open} setOpen={setOpen} />
-      ) : (
-        ""
-      )}
+      {listingId !== "" ? <SharedListing listingID={listingId} open={open} setOpen={setOpen} /> : ""}
     </div>
   );
 };
