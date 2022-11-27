@@ -67,6 +67,28 @@ function copyLink() {
   alert("Copied to Clipboard");
 }
 
+function block() {
+  if (!window.confirm(`Do you want to unblock ${user1}?`)) {
+      return;
+  }
+  var jsonData = {"user": user0, "blockUser": user1}
+  var jsonData = "\""+JSON.stringify(jsonData).replaceAll('"', '\\"')+"\""
+  //console.log(jsonData)
+  $.ajax({
+      url: 'https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/block',
+      type: 'PUT',
+      data: jsonData,
+      datatype: 'json',
+      contentType: 'application/json',
+      success: function (result) {
+          console.log(JSON.stringify(result));
+      },
+      error: function (result) {
+          //console.log(JSON.stringify(result));
+      }
+  });
+}
+
 const BuyListing = ({ listing, open, setOpen, userData }) => {
   const [openShare, setOpenShare] = React.useState(false);
   const handleOpenShare = () => setOpenShare(true);
@@ -421,6 +443,7 @@ const BuyListing = ({ listing, open, setOpen, userData }) => {
               {sellerData["preferredName"] === ""
                 ? sellerData["firstName"] + " " + sellerData["lastName"]
                 : sellerData["preferredName"] + " " + sellerData["lastName"]}
+              <TextField class="block" id="block" onClick={block} type="submit" value="Block"/>
             </Typography>
           </CardContent>
           {addedToWatchlist ? (

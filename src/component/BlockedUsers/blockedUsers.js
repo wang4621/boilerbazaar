@@ -27,11 +27,17 @@ function displayResult() {
     var blockedList = document.getElementsByClassName("blockedList")[0];
     blockedList.innerHTML = "";
     for (let [blockedUser, state] of blockedUsers) {
-        console.log(user)
+        console.log(blockedUser)
+        console.log(state)
+        if (!state) {
+            continue;
+        }
+        //console.log(user)
         var blockedUserDiv = document.createElement("DIV");
         blockedUserDiv.className = "blockedUser"
         blockedUserDiv.innerHTML += `<span><img src=${blank}></img>${blockedUser}</span>`
         var button = document.createElement("button")
+        button.className = "blockButton"
         button.innerHTML = "Unblock"
         button.id = blockedUser
         button.addEventListener("click", function(e) {
@@ -57,7 +63,7 @@ function unblock(userToUnblock) {
         contentType: 'application/json',
         success: function (result) {
             console.log(JSON.stringify(result))
-            delete blockedUsers[userToUnblock];
+            blockedUsers.set(result['body'], false);
             displayResult()
         },
         error: function (result) {

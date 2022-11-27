@@ -12,3 +12,13 @@
 .blockedList {
     width: 70%;
 }
+
+.blockButton {
+    font: inherit;
+    letter-spacing: inherit;
+    padding: 4px 0 5px;
+    border: 0;
+    box-sizing: content-box;
+    display: box;
+    padding: 16.5px 14px;
+}
