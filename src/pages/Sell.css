@@ -1,9 +1,3 @@
-.sellDisplay input {
-    font-size: 18px;
-    color: var(--text-color);
-    /* background-color: var(--secondary-color); */
-}
-
 .sellDisplay label {
     font-size: 18px;
     color: var(--text-color);
@@ -73,6 +67,7 @@
 }
 
 .sellDisplay .MuiInputBase-input {
+    font-size: 18px;
     color: var(--text-color);
 }
 

@@ -3,3 +3,11 @@
     flex-direction: column;
     height: calc(100vh - var(--header-height));
 }
+
+.homeDisplay .MuiInputBase-root {
+    background-color: var(--secondary-color);
+}
+
+.homeDisplay input {
+    color: var(--text-color);
+}

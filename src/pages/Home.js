@@ -48,7 +48,7 @@ import "./Home.css";
 //   );
 // };
 
-function Home() {
+const Home = ({ userData }) => {
   const [searchResult, setSearchResult] = useState([]);
   const [userInput, setUserInput] = useState("");
   const [isNameSelected, setIsNameSelected] = useState(false);
@@ -57,19 +57,20 @@ function Home() {
   const urlForID = "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/profile";
   const urlForName = "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/getProfileByName";
   return (
-    <div>
-      <div
-        style={{
+    <div className="homeDisplay">
+      <Box
+        sx={{
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          justifyContent: "center",
+          justifyContent: "flex-start",
+          height: "20%",
         }}
       >
         <h1
           style={{
             textAlign: "center",
-            marginTop: "20px",
+            // marginTop: "20px",
           }}
         >
           Welcome to BoilerBazaar
@@ -137,13 +138,29 @@ function Home() {
         >
           {/* Search either id or name */}
           {/* Search field should take an entire */}
-          <input
+          <TextField
+            placeholder="Search for Users"
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton type="submit">
+                    <SearchIcon />
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
+            onInput={(e) => {
+              setUserInput(e.target.value);
+            }}
+            sx={{ mb: 2, width: "100%" }}
+          />
+          {/* <input
             type="text"
             placeholder="Search"
             onInput={(e) => {
               setUserInput(e.target.value);
             }}
-          />
+          /> */}
           {/* Newline */}
           <br />
           <input
@@ -167,18 +184,19 @@ function Home() {
           />
           <label htmlFor="name">Name</label>
           <br />
-          <button type="submit">Search</button>
+          {/* <button type="submit">Search</button> */}
         </form>
         <br />
-      </div>
+      </Box>
       {/* A table to display search result */}
       {searchResult.length > 0 && (
-        <div
+        <Box
           style={{
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
             justifyContent: "center",
+            height: "20%",
           }}
         >
           <table>
@@ -207,10 +225,25 @@ function Home() {
               })}
             </tbody>
           </table>
-        </div>
+        </Box>
       )}
+      <Box sx={{ display: "flex", height: "60%", flexDirection: "row" }}>
+        <Box
+          sx={{
+            display: "flex",
+            width: "50%",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <RatingstoGive userData={userData} />
+        </Box>
+        <Box sx={{ display: "flex", width: "50%" }}>
+          <Typography>Previously Viewed Listings</Typography>
+        </Box>
+      </Box>
     </div>
   );
-}
+};
 
 export default Home;
