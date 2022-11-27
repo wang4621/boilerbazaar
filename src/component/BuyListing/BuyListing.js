@@ -175,9 +175,6 @@ const BuyListing = ({ listing, open, setOpen, userData }) => {
     return <div>This item is unavailable</div>;
   }
 
-
-
-
   return (
     <Dialog fullScreen open={open} onClose={closeBuy}>
       <AppBar

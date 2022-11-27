@@ -1,14 +1,20 @@
 import { TbMap2 } from "react-icons/tb";
 import "./MainPage.css";
 import logo from "./component/Images/logo.png";
-import { Routes, Route, NavLink, useNavigate, Navigate } from "react-router-dom";
+import {
+  Routes,
+  Route,
+  NavLink,
+  useNavigate,
+  Navigate,
+} from "react-router-dom";
 import Settings from "./pages/Settings";
 import Home from "./pages/Home";
 import Sell from "./pages/Sell";
 import Buy from "./pages/Buy";
 import About from "./pages/About";
 import Map from "./pages/Map";
-import Message from "./pages/Message"
+import Message from "./pages/Message";
 import Listings from "./component/ProfileListing/Listings";
 import Watchlist from "./component/Watchlist/Watchlist";
 import Profile from "./pages/Profile";
@@ -28,6 +34,9 @@ import Brightness4Icon from "@mui/icons-material/Brightness4";
 import Brightness7Icon from "@mui/icons-material/Brightness7";
 import SettingsIcon from "@mui/icons-material/Settings";
 import MissingRoute from "./component/MissingRoute";
+import Ratings from "./component/Rating/Ratings";
+// import SellerRatingPrompt from "./component/Rating/SellerRatingPrompt";
+// import RatingstoGive from "./component/Rating/RatingstoGive";
 import { Find } from "./pages/find";
 
 const MainPage = ({ username, setAuth }) => {
@@ -35,19 +44,24 @@ const MainPage = ({ username, setAuth }) => {
   const [userData, setUserData] = React.useState("");
   const initialPriceChangeChecked = useRef(false);
   const open = Boolean(anchorEl);
+  const [theme, setTheme] = useState("bodyLight");
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
+
   const handleClose = () => {
     setAnchorEl(null);
   };
+
   const navigate = useNavigate();
+
   const toSettings = () => {
     navigate("/settings/profile");
   };
+
   let root = document.documentElement;
   //Code for dark mode
-  const [theme, setTheme] = useState("bodyLight");
   const toggleTheme = () => {
     if (theme === "bodyLight") {
       updateDarkModePreference("dark");
@@ -67,6 +81,7 @@ const MainPage = ({ username, setAuth }) => {
       root.style.setProperty("--background-color", "rgb(233, 233, 233)");
     }
   };
+
   //Update dark mode
   useEffect(() => {
     document.body.className = theme;
@@ -176,7 +191,7 @@ const MainPage = ({ username, setAuth }) => {
   const logout = () => {
     initialPriceChangeChecked.current = false;
     setAuth(false);
-    localStorage.clear()
+    localStorage.clear();
     navigate("/boilerbazaar");
   };
 
@@ -294,8 +309,9 @@ const MainPage = ({ username, setAuth }) => {
           </MenuItem>
         </Menu>
       </div>
+      {/* <SellerRatingPrompt/> */}
       <Routes>
-        <Route path="/home" element={<Home />} />
+        <Route path="/home" element={<Home userData={userData}/>} />
         <Route exact path="/buy" element={<Buy userData={userData} />}>
           <Route path=":id" element={<SharedListing />} />
         </Route>
@@ -310,7 +326,12 @@ const MainPage = ({ username, setAuth }) => {
           />
           <Route path="listings" element={<Listings userData={userData} />} />
           <Route path="watchlist" element={<Watchlist userData={userData} />} />
-          <Route path="viewingHistory" element={<ViewingHistory userData={userData} />} />
+          <Route
+            path="viewingHistory"
+            element={<ViewingHistory userData={userData} />}
+          />
+          <Route path="ratings" element={<Ratings userData={userData} />} />
+          {/* <Route path="giveRatings" element={<RatingstoGive userData={userData} />} /> */}
         </Route>
         <Route path="/find/:id" element={<Find />} />
         <Route path="*" element={<Navigate to="/404" replace />} />
