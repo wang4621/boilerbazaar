@@ -335,7 +335,7 @@ const MainPage = ({ username, setAuth }) => {
           {/* <Route path="giveRatings" element={<RatingstoGive userData={userData} />} /> */}
           <Route path="following" element={<Following userData={userData} />} />
         </Route>
-        <Route path="/find/:id" element={<Find />} />
+        <Route path="/find/:id" element={<Find userData={userData} />} />
         <Route path="*" element={<Navigate to="/404" replace />} />
         <Route path="/404" element={<MissingRoute />} />
       </Routes>
