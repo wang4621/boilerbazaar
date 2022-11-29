@@ -29,7 +29,7 @@ import {
   ListItemIcon,
 } from "@mui/material";
 import Logout from "@mui/icons-material/Logout";
-import React, { useEffect, useState, useRef, Component } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import $ from "jquery";
 import Brightness4Icon from "@mui/icons-material/Brightness4";
 import Brightness7Icon from "@mui/icons-material/Brightness7";
