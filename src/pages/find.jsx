@@ -45,6 +45,12 @@ export const Find = () => {
                 <h3>
                     Preferrde Meeting Location: {data.preferredMeeting}
                 </h3>
+                <button onClick={() => {
+                    const puid = data.puid;
+                    // TODO
+                }}>
+                    Follow
+                </button>
             </div>
         ) : <div>Loading...</div>
     )
