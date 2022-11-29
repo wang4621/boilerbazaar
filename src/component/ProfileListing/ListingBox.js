@@ -7,6 +7,8 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import DeleteListing from "./DeleteListing";
 import EditListing from "./EditListing";
 import $ from "jquery";
+import BuyerRatingPrompt from "../Rating/BuyerRatingPrompt";
+import LoadingButton from "@mui/lab/LoadingButton";
 
 const ListingBox = ({ listing, stateChange, setStateChange, userData }) => {
   let listingSold = listing["sold"];
@@ -17,35 +19,25 @@ const ListingBox = ({ listing, stateChange, setStateChange, userData }) => {
   const [sold, setSold] = useState(listingSold);
   const [image, setImage] = useState("");
   const [loading, setLoading] = useState(false);
+  const [ratingOpen, setRatingOpen] = useState(false);
+  const [soldLoading, setSoldLoading] = useState(false);
+  const [title, setTitle] = useState("");
+  const [price, setPrice] = useState("");
 
-  const openDelete = () => {
-    setDeleteOpen(true);
-  };
+  // const openDelete = () => {
+  //   setDeleteOpen(true);
+  // };
 
-  const openEdit = () => {
-    setEditOpen(true);
-  };
+  // const openEdit = () => {
+  //   setEditOpen(true);
+  // };
 
   // on button click for "Mark as Sold" and "Mark as Available"
   const changeTextAndIcon = (event) => {
+    setSoldLoading(true);
     if (event.target.innerText === "Mark as Sold") {
       // send ajax to update, on success - setSold
-      $.ajax({
-        url:
-          "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/userlisting?listingID=" +
-          listingId +
-          "&sold=true&puid=" +
-          userData["puid"],
-        type: "PUT",
-        success: function (result) {
-          console.log(JSON.stringify(result));
-          setSold("true");
-          // setStateChange(!stateChange)
-        },
-        error: function (result) {
-          console.log(JSON.stringify(result));
-        },
-      });
+      setRatingOpen(true);
     } else {
       // send ajax to update, on sucess - setSold
       $.ajax({
@@ -58,6 +50,7 @@ const ListingBox = ({ listing, stateChange, setStateChange, userData }) => {
         success: function (result) {
           console.log(JSON.stringify(result));
           setSold("false");
+          setSoldLoading(false);
           // setStateChange(!stateChange)
         },
         error: function (result) {
@@ -71,6 +64,8 @@ const ListingBox = ({ listing, stateChange, setStateChange, userData }) => {
     // gets the images for the textbook
     // console.log(listing["listingID"])
     setLoading(true);
+    setPrice(listing['price']);
+    setTitle(listing['title'])
     $.ajax({
       url:
         "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/listing/images?listingID=" +
@@ -91,6 +86,7 @@ const ListingBox = ({ listing, stateChange, setStateChange, userData }) => {
   return (
     <Grid
       item
+      key={listingId}
       m={2}
       xs={12}
       sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
@@ -165,9 +161,9 @@ const ListingBox = ({ listing, stateChange, setStateChange, userData }) => {
               }}
             >
               <Typography variant="body1" sx={{ fontWeight: "bold" }}>
-                {listing["title"]}
+                {title}
               </Typography>
-              <Typography variant="body1">${listing["price"]}</Typography>
+              <Typography variant="body1">${price}</Typography>
               <Typography variant="body2">
                 {listing["currentViews"]} clicks on listing
               </Typography>
@@ -184,8 +180,10 @@ const ListingBox = ({ listing, stateChange, setStateChange, userData }) => {
                 justifyContent: "space-between",
               }}
             >
-              <Button
+              <LoadingButton
                 variant="contained"
+                loading={soldLoading}
+                disabled={soldLoading}
                 startIcon={sold === "true" ? <CheckIcon /> : <CloseIcon />}
                 sx={{
                   height: "100% !important",
@@ -195,7 +193,7 @@ const ListingBox = ({ listing, stateChange, setStateChange, userData }) => {
                 onClick={changeTextAndIcon}
               >
                 {sold === "true" ? "Mark as Available" : "Mark as Sold"}
-              </Button>
+              </LoadingButton>
               <Button
                 variant="contained"
                 startIcon={<EditIcon />}
@@ -205,7 +203,8 @@ const ListingBox = ({ listing, stateChange, setStateChange, userData }) => {
                   borderRadius: "5px !important",
                 }}
                 disabled={sold === "true" ? true : false}
-                onClick={openEdit}
+                // onClick={openEdit}
+                onClick={()=>setEditOpen(true)}
               >
                 Edit Listing
               </Button>
@@ -217,7 +216,8 @@ const ListingBox = ({ listing, stateChange, setStateChange, userData }) => {
                   width: "30%",
                   borderRadius: "5px !important",
                 }}
-                onClick={openDelete}
+                // onClick={openDelete}
+                onClick={()=>setDeleteOpen(true)}
               >
                 Delete Listing
               </Button>
@@ -235,9 +235,17 @@ const ListingBox = ({ listing, stateChange, setStateChange, userData }) => {
           listing={listing}
           open={editOpen}
           setOpen={setEditOpen}
-          stateChange={stateChange}
-          setStateChange={setStateChange}
           userData={userData}
+          setListingTitle={setTitle}
+          setListingPrice={setPrice}
+        />
+        <BuyerRatingPrompt
+          listing={listing}
+          puid={userData["puid"]}
+          open={ratingOpen}
+          setOpen={setRatingOpen}
+          setSold={setSold}
+          setSoldLoading={setSoldLoading}
         />
       </Box>
     </Grid>

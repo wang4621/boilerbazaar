@@ -17,7 +17,6 @@ import PreviewImage from "../component/PreviewImage/PreviewImage";
 import PreviewImageSwiper from "../component/PreviewImage/PreviewImageSwiper";
 
 const Profile = ({ userData, setUserData }) => {
-  console.log(userData);
   const [isDisabled, setDisabled] = useState(true);
   const [value, setValue] = useState("Edit");
   const [firstName, setFirstName] = useState("");
@@ -26,13 +25,17 @@ const Profile = ({ userData, setUserData }) => {
   const [preferredMeeting, setPreferredMeeting] = useState("");
   const [preferredName, setPreferredName] = useState("");
   const [major, setMajor] = useState("");
-  const [sales, setSales] = useState("");
+  const [sales, setSales] = useState("0");
+  const [rating, setRating] = useState(0);
+  const [ratingLength, setRatingLength] = useState(0);
+  const [purchases, setPurchases] = useState("0");
   const [imageError, setImageError] = useState(false);
   const [previewImage, setPreviewImage] = useState([]);
 
 
 
   useEffect(() => {
+    console.log(userData);
     setFirstName(userData.firstName);
     setLastName(userData.lastName);
     setPuid(userData.puid);
@@ -40,6 +43,46 @@ const Profile = ({ userData, setUserData }) => {
     setPreferredName(userData.preferredName);
     setMajor(userData.major);
     setSales(userData.sell);
+    setPurchases(userData.purchases);
+    // let sum = 0;
+    // if (userData.rating !== undefined) {
+    //   for (let i = 0; i < userData.rating.length; i++) {
+    //     sum += parseInt(userData.rating[i]);
+    //   }
+    //   if (userData.rating.length !== 0) {
+    //     setRating(sum / userData.rating.length);
+    //     setRatingLength(userData.rating.length);
+    //   }
+    // }
+    $.ajax({
+      url:
+        "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/rating?puid=" +
+        userData["puid"],
+      type: "GET",
+      success: function (result) {
+        console.log(result);
+        let userRating = [];
+        let sum = 0;
+        for (let i = 0; i < result.length; i++) {
+          if (userData.puid === result[i].buyerID) {
+            sum += parseInt(result[i].sellerRatingofBuyer);
+            userRating.push(result[i].sellerRatingofBuyer)
+          } else if (userData.puid === result[i].sellerID) {
+            if (result[i].buyerReviewOfSeller !== '') {
+              sum += parseInt(result[i].buyerRatingofSeller);
+              userRating.push(result[i].buyerRatingofSeller)
+            }
+          }
+        }
+        if (userRating.length !== 0) {
+          setRating(sum / userRating.length);
+          setRatingLength(userRating.length);
+        }
+      },
+      error: function (result) {
+        console.log(JSON.stringify(result));
+      },
+    });
   }, [userData]);
 
   const editOrSaveProfile = (event) => {
@@ -47,12 +90,6 @@ const Profile = ({ userData, setUserData }) => {
     if (value === "Edit") {
       setValue("Save");
     } else if (value === "Save") {
-      var imageJson = { puid: userData.puid };
-      
-      imageJson["image"] = previewImage;
-      imageJson = '"' + JSON.stringify(imageJson).replaceAll('"', '\\"') + '"';
-      //sendImage(imageJson);
-
       // save new values into local storage
       var jsonData = {
         puid: puid,
@@ -61,7 +98,9 @@ const Profile = ({ userData, setUserData }) => {
         preferredMeeting: preferredMeeting,
         firstName: firstName,
         lastName: lastName,
-        sell: sales
+        sell: sales,
+        purchases: purchases,
+        rating: userData.rating,
       };
       // localStorage.setItem('userData', JSON.stringify(jsonData));
       setUserData(jsonData);
@@ -302,11 +341,9 @@ const Profile = ({ userData, setUserData }) => {
               },
             }}
           >
-            <MenuItem value="None">None</MenuItem>
+            <MenuItem value="Anywhere">Anywhere</MenuItem>
             <MenuItem value="Public">Public</MenuItem>
-            <MenuItem value="In front of house/apt">
-              In front of house/apt
-            </MenuItem>
+            <MenuItem value="Home">Home</MenuItem>
           </TextField>
           <TextField type="submit" value={value} />
         </Box>
@@ -337,7 +374,22 @@ const Profile = ({ userData, setUserData }) => {
         {/* <Typography variant="h6" color="var(--text-color)">
           Rating
         </Typography> */}
-        <Rating name="read-only" readOnly size="large" />
+
+        <Typography
+          variant="h6"
+          color="var(--text-color)"
+          sx={{ display: "flex", justifyContent: "center" }}
+        >
+          <Rating
+            name="read-only"
+            readOnly
+            size="large"
+            value={rating}
+            precision={0.5}
+            sx={{ mr: 1 }}
+          />
+          {ratingLength === 0 ? "" : "(" + ratingLength + ")"}
+        </Typography>
         <br />
         <br />
         <Typography component={"span"} variant="h6" color="var(--text-color)">
@@ -350,7 +402,7 @@ const Profile = ({ userData, setUserData }) => {
             display="inline"
             id="purchases"
           >
-            0
+            {purchases}
           </Typography>
         </Typography>
         <Typography component={"span"} variant="h6" color="var(--text-color)">

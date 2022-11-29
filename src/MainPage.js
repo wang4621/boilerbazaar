@@ -1,14 +1,20 @@
 import { TbMap2 } from "react-icons/tb";
 import "./MainPage.css";
 import logo from "./component/Images/logo.png";
-import { Routes, Route, NavLink, useNavigate, Navigate } from "react-router-dom";
+import {
+  Routes,
+  Route,
+  NavLink,
+  useNavigate,
+  Navigate,
+} from "react-router-dom";
 import Settings from "./pages/Settings";
 import Home from "./pages/Home";
 import Sell from "./pages/Sell";
 import Buy from "./pages/Buy";
 import About from "./pages/About";
 import Map from "./pages/Map";
-import Message from "./pages/Message"
+import Message from "./pages/Message";
 import Listings from "./component/ProfileListing/Listings";
 import Watchlist from "./component/Watchlist/Watchlist";
 import Profile from "./pages/Profile";
@@ -22,30 +28,40 @@ import {
   ListItemIcon,
 } from "@mui/material";
 import Logout from "@mui/icons-material/Logout";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import $ from "jquery";
 import Brightness4Icon from "@mui/icons-material/Brightness4";
 import Brightness7Icon from "@mui/icons-material/Brightness7";
 import SettingsIcon from "@mui/icons-material/Settings";
 import MissingRoute from "./component/MissingRoute";
+import Ratings from "./component/Rating/Ratings";
+// import SellerRatingPrompt from "./component/Rating/SellerRatingPrompt";
+// import RatingstoGive from "./component/Rating/RatingstoGive";
+import { Find } from "./pages/find";
 
 const MainPage = ({ username, setAuth }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [userData, setUserData] = React.useState("");
+  const initialPriceChangeChecked = useRef(false);
   const open = Boolean(anchorEl);
+  const [theme, setTheme] = useState("bodyLight");
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
+
   const handleClose = () => {
     setAnchorEl(null);
   };
+
   const navigate = useNavigate();
+
   const toSettings = () => {
     navigate("/settings/profile");
   };
+
   let root = document.documentElement;
   //Code for dark mode
-  const [theme, setTheme] = useState("bodyLight");
   const toggleTheme = () => {
     if (theme === "bodyLight") {
       updateDarkModePreference("dark");
@@ -65,6 +81,7 @@ const MainPage = ({ username, setAuth }) => {
       root.style.setProperty("--background-color", "rgb(233, 233, 233)");
     }
   };
+
   //Update dark mode
   useEffect(() => {
     document.body.className = theme;
@@ -82,7 +99,6 @@ const MainPage = ({ username, setAuth }) => {
         username,
       type: "GET",
       success: function (result) {
-        // localStorage.setItem('userData', JSON.stringify(result))
         console.log(result);
         setUserData(result);
         if (result.darkModePreference === "dark") {
@@ -130,9 +146,52 @@ const MainPage = ({ username, setAuth }) => {
     });
   };
 
+  //Check for price changes and display desktop notification
+  useEffect(() => {
+    if (!initialPriceChangeChecked.current && userData !== "") {
+      $.ajax({
+        url:
+          "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/watchlist?puid=" +
+          userData["puid"] + "&viewed=false",
+        type: "GET",
+        success: function (result) {
+          let notViewedChanges = 0;
+          let priceChangeTitles = [];
+          for (let i = 0; i < result.length; i++) {
+            if (result[i]['viewed'] === false) {
+              if (priceChangeTitles.length < 10) {
+                let title;
+                if (result[i]['title'].length > 40) {
+                  title = result[i]['title'].substring(0, 40) + "...";
+                }
+                else {
+                  title = result[i]['title'];
+                }
+                priceChangeTitles.push(title);
+              }
+              if (priceChangeTitles.length === 10) {
+                priceChangeTitles.push("...and more!")
+              }
+              notViewedChanges++;
+            }
+          }
+          if (notViewedChanges > 0) {
+            let notification = new Notification('You have ' + notViewedChanges + ' new price changes in your Watchlist!', { body: priceChangeTitles.join('\n'), icon: logo, badge: logo });
+            setTimeout(function () { notification.close() }, 10000);
+          }
+        },
+        error: function (result) {
+          console.log(JSON.stringify(result));
+        },
+      });
+      initialPriceChangeChecked.current = true;
+    }
+  }, [userData]);
+
   const logout = () => {
+    initialPriceChangeChecked.current = false;
     setAuth(false);
-    localStorage.clear()
+    localStorage.clear();
     navigate("/boilerbazaar");
   };
 
@@ -250,13 +309,14 @@ const MainPage = ({ username, setAuth }) => {
           </MenuItem>
         </Menu>
       </div>
+      {/* <SellerRatingPrompt/> */}
       <Routes>
-        <Route path="/home" element={<Home />} />
-        <Route exact path="/buy" element={<Buy userData={userData}/>}>
-          <Route path=":id" element={<SharedListing/>}/>
+        <Route path="/home" element={<Home userData={userData}/>} />
+        <Route exact path="/buy" element={<Buy userData={userData} />}>
+          <Route path=":id" element={<SharedListing />} />
         </Route>
         <Route path="/sell" element={<Sell userData={userData} />} />
-        <Route path="/message" element={<Message userData={userData}/>} />
+        <Route path="/message" element={<Message userData={userData} />} />
         <Route path="/about" element={<About />} />
         <Route path="/map" element={<Map />} />
         <Route path="/settings" element={<Settings />}>
@@ -266,10 +326,16 @@ const MainPage = ({ username, setAuth }) => {
           />
           <Route path="listings" element={<Listings userData={userData} />} />
           <Route path="watchlist" element={<Watchlist userData={userData} />} />
-          <Route path="viewingHistory" element={<ViewingHistory userData={userData} />} />
+          <Route
+            path="viewingHistory"
+            element={<ViewingHistory userData={userData} />}
+          />
+          <Route path="ratings" element={<Ratings userData={userData} />} />
+          {/* <Route path="giveRatings" element={<RatingstoGive userData={userData} />} /> */}
         </Route>
-        <Route path="*" element={<Navigate to="/404" replace />}/>
-        <Route path="/404" element={<MissingRoute/>}/>
+        <Route path="/find/:id" element={<Find />} />
+        <Route path="*" element={<Navigate to="/404" replace />} />
+        <Route path="/404" element={<MissingRoute />} />
       </Routes>
     </div>
   );
