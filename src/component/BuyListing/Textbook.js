@@ -96,7 +96,7 @@ const Textbook = ({ textbook, userData }) => {
           sx={{
             height: "90%",
             width: "90%",
-            borderRadius: 5,
+            borderRadius: 2,
             backgroundColor: "var(--secondary-color)",
             boxShadow: 8
           }}
@@ -117,7 +117,7 @@ const Textbook = ({ textbook, userData }) => {
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
-                borderRadius: 5,
+                borderRadius: 2,
                 backgroundColor: "rgb(32,32,32)",
               }}
             >

@@ -15,17 +15,17 @@
   align-items: center;
 }
 
-.sorting {
+/* .sorting {
   flex: 1 1 0px;
   background-color: var(--secondary-color);
   margin-right: 25px;
-}
+} */
 
 .filterCheckboxes {
   display: flex;
   flex-flow: row wrap;
   flex: 1 1 0px;
-  margin-left: 25px;
+  /* margin-left: 25px; */
 }
 
 .filterLabel {
@@ -42,7 +42,8 @@
 .filterDiv {
   display: flex;
   flex-flow: row wrap;
-  margin-right: 25px;
+  /* margin-right: 25px; */
+  width: 350px
 }
 
 .filters .MuiSelect-select {
@@ -52,3 +53,20 @@
 .searchFilter {
   background-color: var(--secondary-color);
 }
+
+.buyDisplay .MuiInputBase-root {
+    background-color: var(--secondary-color);
+}
+
+.buyDisplay label {
+    color: var(--text-color);
+}
+
+.buyDisplay .MuiInputBase-input {
+    color: var(--text-color);
+}
+
+/* .buyDisplay .MuiButton-root {
+    color: var(--text-color) !important;
+    border-color: var(--text-color) !important;
+} */

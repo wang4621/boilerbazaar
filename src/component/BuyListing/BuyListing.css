@@ -13,6 +13,13 @@
     border:1px solid rgb(202, 199, 199);
 }
 
+.MuiDialog-container .rightmostBox {
+    display: flex;
+    flex-direction: column;
+    /* border-radius: 0px 10px 10px 0px; */
+    border:1px solid rgb(202, 199, 199);
+}
+
 .MuiDialog-container .innerBottomBox {
     box-shadow: 0 -1px 0 rgb(202, 199, 199);
     display: flex;
