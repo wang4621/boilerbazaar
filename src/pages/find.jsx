@@ -96,6 +96,9 @@ export const Find = ({ userData }) => {
                                     if (result === "Already following") {
                                         alert("You are already following this user!");
                                     }
+                                    else if (result === "Unable to follow") {
+                                        alert("Unable to follow this user!");
+                                    }
                                     else {
                                         userData["following"].push(accountData.puid);
                                         setIsFollowing(true);
