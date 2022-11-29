@@ -404,27 +404,28 @@ const Buy = ({ userData }) => {
     }
   }
 
-  function sortListings() {
+  const sortListings = (e) => {
     setLoading(true);
-    const sortingMode = document.getElementById("sorting").innerText;
+    // const sortingMode = document.getElementById("sorting").innerText;
+    const sortingMode = e.target.value
     let sorted;
     switch (sortingMode) {
-      case "Title - Ascending":
+      case "titleAscending":
         sorted = [...textbooks].sort(compareByTitleA);
         break;
-      case "Title - Descending":
+      case "titleDescending":
         sorted = [...textbooks].sort(compareByTitleD);
         break;
-      case "Author - Ascending":
+      case "authorAscending":
         sorted = [...textbooks].sort(compareByAuthorA);
         break;
-      case "Author - Descending":
+      case "authorDescending":
         sorted = [...textbooks].sort(compareByAuthorD);
         break;
-      case "Price - Ascending":
+      case "priceAscending":
         sorted = [...textbooks].sort(compareByPriceA);
         break;
-      case "Price - Descending":
+      case "priceDescending":
         sorted = [...textbooks].sort(compareByPriceD);
         break;
       default:
@@ -698,8 +699,8 @@ const Buy = ({ userData }) => {
                 </select>
               </div>
             </Box>
-            <Button variant="outlined" sx={{width: '65%', mb: 2, mt: 2}} onClick={filterListings}>Filter</Button>
-            <TextField id="sorting" name="sorting" className="sorting" select label="Sort By" onChange={{ sortListings }} sx={{width:'65% !important'}}>
+            <Button variant="outlined" sx={{width: '85%', mb: 2, mt: 2}} onClick={filterListings}>Filter</Button>
+            <TextField id="sorting" name="sorting" className="sorting" select label="Sort By" onChange={sortListings}>
               <MenuItem value="titleAscending">Title - Ascending</MenuItem>
               <MenuItem value="titleDescending">Title - Descending</MenuItem>
               <MenuItem value="authorAscending">Author - Ascending</MenuItem>
