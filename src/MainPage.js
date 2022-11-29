@@ -20,6 +20,7 @@ import Watchlist from "./component/Watchlist/Watchlist";
 import Profile from "./pages/Profile";
 import ViewingHistory from "./component/ViewingHistory/ViewingHistory";
 import SharedListing from "./component/BuyListing/SharedListing";
+import Following from "./component/Following/Following";
 import {
   Avatar,
   Menu,
@@ -28,7 +29,7 @@ import {
   ListItemIcon,
 } from "@mui/material";
 import Logout from "@mui/icons-material/Logout";
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, Component } from "react";
 import $ from "jquery";
 import Brightness4Icon from "@mui/icons-material/Brightness4";
 import Brightness7Icon from "@mui/icons-material/Brightness7";
@@ -332,6 +333,7 @@ const MainPage = ({ username, setAuth }) => {
           />
           <Route path="ratings" element={<Ratings userData={userData} />} />
           {/* <Route path="giveRatings" element={<RatingstoGive userData={userData} />} /> */}
+          <Route path="following" element={<Following userData={userData} />} />
         </Route>
         <Route path="/find/:id" element={<Find />} />
         <Route path="*" element={<Navigate to="/404" replace />} />
