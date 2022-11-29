@@ -698,8 +698,8 @@ const Buy = ({ userData }) => {
                 </select>
               </div>
             </Box>
-            <Button variant="outlined" sx={{width: '85%', mb: 2, mt: 2}} onClick={filterListings}>Filter</Button>
-            <TextField id="sorting" name="sorting" className="sorting" select label="Sort By" onChange={{ sortListings }} sx={{width:'85%'}}>
+            <Button variant="outlined" sx={{width: '65%', mb: 2, mt: 2}} onClick={filterListings}>Filter</Button>
+            <TextField id="sorting" name="sorting" className="sorting" select label="Sort By" onChange={{ sortListings }} sx={{width:'65% !important'}}>
               <MenuItem value="titleAscending">Title - Ascending</MenuItem>
               <MenuItem value="titleDescending">Title - Descending</MenuItem>
               <MenuItem value="authorAscending">Author - Ascending</MenuItem>
