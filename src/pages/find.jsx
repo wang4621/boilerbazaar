@@ -50,6 +50,28 @@ export const Find = ({ userData }) => {
                 <h3>
                     Preferrde Meeting Location: {accountData.preferredMeeting}
                 </h3>
+                <button onClick={() => {
+                    if (!window.confirm(`Do you want to unblock ${accountData.puid}?`)) {
+                        return;
+                    }
+                    var jsonData = {"user": userData['puid'], "blockUser": accountData.puid}
+                    var jsonData = "\""+JSON.stringify(jsonData).replaceAll('"', '\\"')+"\""
+                    //console.log(jsonData)
+                    $.ajax({
+                        url: 'https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/block',
+                        type: 'PUT',
+                        data: jsonData,
+                        datatype: 'json',
+                        contentType: 'application/json',
+                        success: function (result) {
+                            console.log(JSON.stringify(result))
+                            window.location.href = '../home'
+                        },
+                        error: function (result) {
+                            //console.log(JSON.stringify(result));
+                        }
+                    });
+                }}> Block </button>
                 {isFollowing  ? (
                     <>
                         <button onClick={() => {
