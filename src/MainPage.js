@@ -20,6 +20,8 @@ import Watchlist from "./component/Watchlist/Watchlist";
 import Profile from "./pages/Profile";
 import ViewingHistory from "./component/ViewingHistory/ViewingHistory";
 import SharedListing from "./component/BuyListing/SharedListing";
+import BlockedUsers from "./component/BlockedUsers/BlockedUsers";
+import Following from "./component/Following/Following";
 import {
   Avatar,
   Menu,
@@ -349,8 +351,10 @@ const MainPage = ({ username, setAuth }) => {
           />
           <Route path="ratings" element={<Ratings userData={userData} />} />
           {/* <Route path="giveRatings" element={<RatingstoGive userData={userData} />} /> */}
+          <Route path="following" element={<Following userData={userData} />} />
+          <Route path="blockedUsers" element={<BlockedUsers userData={userData} />} />
         </Route>
-        <Route path="/find/:id" element={<Find />} />
+        <Route path="/find/:id" element={<Find userData={userData} />} />
         <Route path="*" element={<Navigate to="/404" replace />} />
         <Route path="/404" element={<MissingRoute />} />
       </Routes>
