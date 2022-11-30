@@ -435,23 +435,6 @@ const Buy = ({ userData }) => {
     // repopulateListings();
   }
 
-  //   function repopulateListings() {
-  //     //Repopulate listings display
-  //     const listings = document.getElementById("listings");
-  //     while (listings.hasChildNodes()) {
-  //       listings.removeChild(listings.firstChild);
-  //     }
-  //     for (const item of listingList) {
-  //       let newListing = document.createElement("li");
-  //       let a = document.createElement("a");
-  //       let text = document.createTextNode(item.toString.trim());
-  //       a.appendChild(text);
-  //       a.href = "/buy/listing/" + item.listingID;
-  //       newListing.appendChild(a);
-  //       listings.appendChild(newListing);
-  //     }
-  //   }
-
   function repopulateFilters() {
     //Repopulate filters
     let filters = document.getElementById("editionFilter");
@@ -657,23 +640,11 @@ const Buy = ({ userData }) => {
             }}
             sx={{ mb: 2 }}
           />
-          {/*
-          <div>
-            <form id="searchFrm"></form>
-            <input
-              id="searchBar"
-              type="text"
-              placeholder="Search Book Title"
-            ></input>
-            <input id="searchBtn" type="submit" onClick={search}></input>
-          </div>
-          */}
-
           <Button id="filtersButton" variant="contained" onClick={toggleFilters} sx={{ width: "85%" }}>
             Filters and Sorting
           </Button>
-          <Box className="filters" id="filters" sx={{ display: "flex", flexDirection: "column", width: '100%'}}>
-            <Box className="filterCheckboxes" sx={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
+          <Box className="filters" id="filters" sx={{ flexDirection: "column", width: '100%'}}>
+            <Box className="filterCheckboxes" sx={{flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
               <div className="filterDiv">
                 <label className="filterLabel">Course</label>
                 <select multiple size="4" id="courseFilter" className="filterSelector">
