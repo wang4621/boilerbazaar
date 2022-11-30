@@ -13,8 +13,6 @@ import {
 import React, { useState, useEffect } from "react";
 import "./Profile.css";
 import $ from "jquery";
-import PreviewImage from "../component/PreviewImage/PreviewImage";
-import PreviewImageSwiper from "../component/PreviewImage/PreviewImageSwiper";
 
 const Profile = ({ userData, setUserData }) => {
   const [isDisabled, setDisabled] = useState(true);
@@ -30,7 +28,7 @@ const Profile = ({ userData, setUserData }) => {
   const [ratingLength, setRatingLength] = useState(0);
   const [purchases, setPurchases] = useState("0");
   const [imageError, setImageError] = useState(false);
-  const [previewImage, setPreviewImage] = useState([]);
+  const [profileImage, setprofileImage] = useState([]);
 
 
 
@@ -44,6 +42,25 @@ const Profile = ({ userData, setUserData }) => {
     setMajor(userData.major);
     setSales(userData.sell);
     setPurchases(userData.purchases);
+    // // initialize profile pic
+    $.ajax({
+      url:
+        "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/listing/images?listingID=" +
+        userData["puid"],
+      type: "GET",
+      success: function (result) {
+        let resultImage = result["body"]["0"];
+        
+        setprofileImage(resultImage);
+      },
+      error: function (result) {
+        console.log(JSON.stringify(result));
+      },
+    });
+
+
+
+
     // let sum = 0;
     // if (userData.rating !== undefined) {
     //   for (let i = 0; i < userData.rating.length; i++) {
@@ -90,6 +107,12 @@ const Profile = ({ userData, setUserData }) => {
     if (value === "Edit") {
       setValue("Save");
     } else if (value === "Save") {
+      // send image
+      var imageJson = { puid: puid };
+      imageJson["image"] = profileImage;
+      
+      imageJson = '"' + JSON.stringify(imageJson).replaceAll('"', '\\"') + '"';
+      sendImage(imageJson, profileImage);
       // save new values into local storage
       var jsonData = {
         puid: puid,
@@ -129,7 +152,7 @@ const Profile = ({ userData, setUserData }) => {
     var reader = new FileReader();
     reader.onloadend = function () {
       // console.log('RESULT', reader.result)
-      setPreviewImage((previewImage) => [...previewImage, reader.result]);
+      setprofileImage(reader.result);
     };
     reader.readAsDataURL(file);
   }
@@ -181,15 +204,18 @@ const Profile = ({ userData, setUserData }) => {
       }
   };
 
-  function sendImage(imageJson) {
+  function sendImage(imageJson, Image) {
     $.ajax({
       url: "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/profile/image",
       type: "PUT",
       data: imageJson,
       datatype: "json",
+      async: false,
       contentType: "application/json",
       success: function (result) {
-        console.log(JSON.stringify(result));
+        console.log("Image Sent");
+        //setprofileImage(Image);
+        //console.log("sendImage SET")
       },
       error: function (result) {
         console.log(JSON.stringify(result));
@@ -265,26 +291,7 @@ const Profile = ({ userData, setUserData }) => {
             ) : (
               ""
             )}
-            <Grid
-              container
-              spacing={1}
-              sx={{
-                display: "flex",
-                justifyContent: "flex-start",
-                // alignItems: "flex-start",
-              }}
-            >
-              {previewImage.map((image, index) => {
-                return (
-                  <PreviewImage
-                    image={image}
-                    index={index}
-                    previewImages={previewImage}
-                    setPreviewImages={setPreviewImage}
-                  />
-                );
-              })}
-            </Grid>
+            
           </Box>
           <TextField id="puid" label="Login Username" disabled value={puid} />
           <TextField
@@ -359,7 +366,7 @@ const Profile = ({ userData, setUserData }) => {
         <Avatar alt={preferredName === ""
             ? firstName + " " + lastName
             : preferredName + " " + lastName}
-            src={previewImage}
+            src={profileImage}
             sx={{ width: 128, height: 128 }} />
         <Typography
           variant="h6"
