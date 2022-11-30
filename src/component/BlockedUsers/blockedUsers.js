@@ -1,7 +1,7 @@
-import {useState} from "react";
+import { useState } from "react";
 import * as React from 'react';
 import blank from '../Images/blank.jpg'
-import {Box, dividerClasses, TextField, Typography} from '@mui/material';
+import { Box, dividerClasses, TextField, Typography } from '@mui/material';
 import './BlockedUsers.css';
 import $ from 'jquery';
 
@@ -40,7 +40,7 @@ function displayResult() {
         button.className = "blockButton"
         button.innerHTML = "Unblock"
         button.id = blockedUser
-        button.addEventListener("click", function(e) {
+        button.addEventListener("click", function (e) {
             unblock(this.id)
         });
         blockedUserDiv.appendChild(button);
@@ -52,8 +52,8 @@ function unblock(userToUnblock) {
     if (!window.confirm(`Do you want to unblock ${userToUnblock}?`)) {
         return;
     }
-    var jsonData = {"user": user, "blockUser": userToUnblock}
-    var jsonData = "\""+JSON.stringify(jsonData).replaceAll('"', '\\"')+"\""
+    var jsonData = { "user": user, "blockUser": userToUnblock }
+    var jsonData = "\"" + JSON.stringify(jsonData).replaceAll('"', '\\"') + "\""
     //console.log(jsonData)
     $.ajax({
         url: 'https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/block',
