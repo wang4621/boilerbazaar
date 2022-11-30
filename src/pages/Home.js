@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { TextField, Box, Typography, InputAdornment, IconButton } from "@mui/material";
 import RatingstoGive from "../component/Rating/RatingstoGive";
+import ViewingHistoryHome from "../component/ViewingHistory/ViewingHistoryHome";
 import SearchIcon from "@mui/icons-material/Search";
 import "./Home.css";
 
@@ -56,6 +57,7 @@ const Home = ({ userData }) => {
   // When submit button is clicked, the search result is updated
   const urlForID = "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/profile";
   const urlForName = "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/getProfileByName";
+  
   return (
     <div className="homeDisplay">
       <Box
@@ -242,8 +244,8 @@ const Home = ({ userData }) => {
         >
           <RatingstoGive userData={userData} />
         </Box>
-        <Box sx={{ display: "flex", width: "50%" }}>
-          <Typography>Previously Viewed Listings</Typography>
+        <Box sx={{ display: "flex", width: "50%", alignItems: "center", justifyContent: "center" }}>
+          <ViewingHistoryHome userData={userData} />
         </Box>
       </Box>
     </div>

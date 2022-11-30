@@ -224,7 +224,7 @@ const Buy = ({ userData }) => {
     }
     searchParams += "user=" + userData["puid"];
     const searchUrl =
-      "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/listing?user=doan23" +
+      "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/listing?" +
       searchParams;
     console.log(searchUrl);
     $.ajax({
