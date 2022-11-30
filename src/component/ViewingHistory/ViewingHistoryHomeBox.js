@@ -3,8 +3,7 @@ import { Box, Typography, Button, CircularProgress } from "@mui/material";
 import LaunchIcon from "@mui/icons-material/Launch";
 import $ from "jquery";
 
-const ViewingHistoryHomeBox = ({ rating, stateChange, setStateChange }) => {
-  const [ratingOpen, setRatingOpen] = useState(false);
+const ViewingHistoryHomeBox = ({ textbook }) => {
   const [loading, setLoading] = useState(false);
   const [image, setImage] = useState("");
 
@@ -14,7 +13,7 @@ const ViewingHistoryHomeBox = ({ rating, stateChange, setStateChange }) => {
     $.ajax({
       url:
         "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/listing/images?listingID=" +
-        rating["listingID"],
+        textbook["listingID"],
       type: "GET",
       success: function (result) {
         console.log(result);
@@ -25,7 +24,7 @@ const ViewingHistoryHomeBox = ({ rating, stateChange, setStateChange }) => {
         console.log(JSON.stringify(result));
       },
     });
-  }, [rating]);
+  }, [textbook]);
 
   return (
     <Box
@@ -85,9 +84,8 @@ const ViewingHistoryHomeBox = ({ rating, stateChange, setStateChange }) => {
         >
           <Box>
             <Typography sx={{ fontWeight: "bold", mb: 2 }}>
-              {rating.title}
+              {textbook.title}
             </Typography>
-            <Typography>Seller: {rating.sellerID}</Typography>
           </Box>
           <Button
             variant="contained"
@@ -98,7 +96,7 @@ const ViewingHistoryHomeBox = ({ rating, stateChange, setStateChange }) => {
               width: "80%",
               borderRadius: "5px !important",
             }}
-            onClick={() => window.location.href = `buy/${rating.listingID}`}
+            onClick={() => window.location.href = `buy/${textbook.listingID}`}
           >
             Open
           </Button>

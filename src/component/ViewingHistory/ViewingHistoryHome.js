@@ -14,12 +14,11 @@ import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
 import ViewingHistoryHomeBox from "./ViewingHistoryHomeBox";
 
 const ViewingHistoryHome = ({ userData }) => {
-  const [ratings, setRatings] = useState([]);
+  const [history, setHistory] = useState([]);
   const [loading, setLoading] = useState(false);
   const theme = useTheme();
   const [activeStep, setActiveStep] = useState(0);
   const [maxSteps, setMaxStep] = useState(0);
-  const [stateChange, setStateChange] = useState(false);
 
   useEffect(() => {
     setLoading(true);
@@ -32,14 +31,14 @@ const ViewingHistoryHome = ({ userData }) => {
       success: function (result) {
         console.log(result);
         setMaxStep(result.length);
-        setRatings(result);
+        setHistory(result);
         setLoading(false);
       },
       error: function (result) {
         console.log(JSON.stringify(result));
       },
     });
-  }, [userData, stateChange]);
+  }, [userData]);
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -85,15 +84,13 @@ const ViewingHistoryHome = ({ userData }) => {
       >
         {loading ? (
           <CircularProgress mt={2} />
-        ) : ratings.length === 0 ? (
+        ) : history.length === 0 ? (
           <Typography sx={{ color: "var(--text-color)" }}>
-            No Ratings to Give
+            No Previously Viewed Textbooks
           </Typography>
         ) : (
           <ViewingHistoryHomeBox
-            rating={ratings[activeStep]}
-            stateChange={stateChange}
-            setStateChange={setStateChange}
+            textbook={history[activeStep]}
           />
         )}
       </Box>
