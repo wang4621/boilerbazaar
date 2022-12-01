@@ -20,7 +20,7 @@ import Watchlist from "./component/Watchlist/Watchlist";
 import Profile from "./pages/Profile";
 import ViewingHistory from "./component/ViewingHistory/ViewingHistory";
 import SharedListing from "./component/BuyListing/SharedListing";
-import BlockedUsers from "./component/BlockedUsers/BlockedUsers";
+import BlockedUsers from "./component/BlockedUsers/blockedUsers";
 import Following from "./component/Following/Following";
 import {
   Avatar,

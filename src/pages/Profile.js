@@ -29,6 +29,8 @@ const Profile = ({ userData, setUserData }) => {
   const [purchases, setPurchases] = useState("0");
   const [imageError, setImageError] = useState(false);
   const [profileImage, setprofileImage] = useState([]);
+  const [hasImage, setHasImage] = useState(true);
+
 
 
 
@@ -50,7 +52,7 @@ const Profile = ({ userData, setUserData }) => {
       type: "GET",
       success: function (result) {
         let resultImage = result["body"]["0"];
-        
+        setHasImage(resultImage !== undefined);
         setprofileImage(resultImage);
       },
       error: function (result) {
@@ -204,7 +206,37 @@ const Profile = ({ userData, setUserData }) => {
       }
   };
 
-  function sendImage(imageJson, Image) {
+  function sendImage(imageJson) {
+    $.ajax({
+      url: "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/profile/image",
+      type: "PUT",
+      data: imageJson,
+      datatype: "json",
+      async: false,
+      contentType: "application/json",
+      success: function (result) {
+        console.log("Image Sent");
+        //setprofileImage(Image);
+        //console.log("sendImage SET")
+        console.log(imageJson)
+      },
+      error: function (result) {
+        console.log(JSON.stringify(result));
+      },
+    });
+  }
+
+  const removeImage = (event) => {
+    setprofileImage("");
+    setHasImage(false);
+
+  };
+
+  function deleteImage() {
+    var imageJson = { puid: puid };
+    imageJson["image"] = "";
+      
+    imageJson = '"' + JSON.stringify(imageJson).replaceAll('"', '\\"') + '"';
     $.ajax({
       url: "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/profile/image",
       type: "PUT",
@@ -221,8 +253,8 @@ const Profile = ({ userData, setUserData }) => {
         console.log(JSON.stringify(result));
       },
     });
-  }
 
+  }
   return (
     <Box className="profileDisplay">
       <Box
@@ -291,7 +323,17 @@ const Profile = ({ userData, setUserData }) => {
             ) : (
               ""
             )}
-            
+            <Button
+              variant="contained"
+              component="label"
+              disabled={isDisabled}
+              sx={{ width: "100%" }}
+              hidden = {hasImage}
+              onClick={removeImage}
+            >
+              Remove Pofile Picture
+              
+            </Button>
           </Box>
           <TextField id="puid" label="Login Username" disabled value={puid} />
           <TextField
