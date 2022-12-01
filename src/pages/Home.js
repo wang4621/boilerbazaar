@@ -57,7 +57,7 @@ const Home = ({ userData }) => {
   // When submit button is clicked, the search result is updated
   const urlForID = "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/profile";
   const urlForName = "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/getProfileByName";
-  
+
   return (
     <div className="homeDisplay">
       <Box
