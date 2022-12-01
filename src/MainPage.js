@@ -47,6 +47,23 @@ const MainPage = ({ username, setAuth }) => {
   const initialPriceChangeChecked = useRef(false);
   const open = Boolean(anchorEl);
   const [theme, setTheme] = useState("bodyLight");
+  const [profileImage, setprofileImage] = useState([]);
+
+  //get profile pic
+  $.ajax({
+    url:
+      "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/listing/images?listingID=" +
+      userData["puid"],
+    type: "GET",
+    success: function (result) {
+      let resultImage = result["body"]["0"];
+      
+      setprofileImage(resultImage);
+    },
+    error: function (result) {
+      console.log(JSON.stringify(result));
+    },
+  });
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -241,7 +258,7 @@ const MainPage = ({ username, setAuth }) => {
             aria-haspopup="true"
             aria-expanded={open ? "true" : undefined}
           >
-            <Avatar sx={{ width: 35, height: 35 }} src="" />
+            <Avatar sx={{ width: 35, height: 35 }} src={ profileImage } />
           </IconButton>
         </div>
         <Menu
