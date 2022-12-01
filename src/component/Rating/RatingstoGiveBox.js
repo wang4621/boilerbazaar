@@ -9,13 +9,15 @@ const RatingstoGiveBox = ({ rating, stateChange, setStateChange }) => {
   const [loading, setLoading] = useState(false);
   const [image, setImage] = useState("");
 
+  console.log(rating)
+
   useEffect(() => {
     setLoading(true);
     // get images of listing
     $.ajax({
       url:
         "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/listing/images?listingID=" +
-        rating["listingID"],
+        rating["id"],
       type: "GET",
       success: function (result) {
         console.log(result);

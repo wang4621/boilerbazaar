@@ -70,23 +70,23 @@ function copyLink() {
 
 function block() {
   if (!window.confirm(`Do you want to unblock ${user1}?`)) {
-      return;
+    return;
   }
-  var jsonData = {"user": user0, "blockUser": user1}
-  var jsonData = "\""+JSON.stringify(jsonData).replaceAll('"', '\\"')+"\""
+  var jsonData = { "user": user0, "blockUser": user1 }
+  var jsonData = "\"" + JSON.stringify(jsonData).replaceAll('"', '\\"') + "\""
   //console.log(jsonData)
   $.ajax({
-      url: 'https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/block',
-      type: 'PUT',
-      data: jsonData,
-      datatype: 'json',
-      contentType: 'application/json',
-      success: function (result) {
-          console.log(JSON.stringify(result));
-      },
-      error: function (result) {
-          //console.log(JSON.stringify(result));
-      }
+    url: 'https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/block',
+    type: 'PUT',
+    data: jsonData,
+    datatype: 'json',
+    contentType: 'application/json',
+    success: function (result) {
+      console.log(JSON.stringify(result));
+    },
+    error: function (result) {
+      //console.log(JSON.stringify(result));
+    }
   });
 }
 
@@ -484,7 +484,7 @@ const BuyListing = ({ listing, open, setOpen, userData }) => {
               {sellerData["preferredName"] === ""
                 ? sellerData["firstName"] + " " + sellerData["lastName"]
                 : sellerData["preferredName"] + " " + sellerData["lastName"]}
-              <TextField class="block" id="block" onClick={block} type="submit" value="Block"/>
+              <TextField class="block" id="block" onClick={block} type="submit" value="Block" />
             </Typography>
           </CardContent>
           {addedToWatchlist ? (
@@ -547,28 +547,28 @@ const BuyListing = ({ listing, open, setOpen, userData }) => {
             className="scrollBar"
           >
             <Typography
-                variant="h6"
-                color="var(--text-color)"
-                textAlign= "center"
-                sx={{ fontWeight: "bold" }}
-              >
-                Related Textbooks
-              </Typography>
-              {relatedTextbooks.length > 0? (
-                <>
-                  {relatedTextbooks.map((listing) => {
-                    return <RelatedTextbook listing={listing} />;
-                  })}
-                </>
-              ) : (
-                <></>
-              )}
-            </CardContent>
-            <Divider
-              variant="middle"
-              sx={{ borderBottomColor: "var(--text-color)" }}
-            />
-            <CardContent
+              variant="h6"
+              color="var(--text-color)"
+              textAlign="center"
+              sx={{ fontWeight: "bold" }}
+            >
+              Related Textbooks
+            </Typography>
+            {relatedTextbooks.length > 0 ? (
+              <>
+                {relatedTextbooks.map((listing) => {
+                  return <RelatedTextbook listing={listing} />;
+                })}
+              </>
+            ) : (
+              <></>
+            )}
+          </CardContent>
+          <Divider
+            variant="middle"
+            sx={{ borderBottomColor: "var(--text-color)" }}
+          />
+          <CardContent
             sx={{
               wordBreak: "break-word",
               overflowY: "auto",
@@ -577,15 +577,15 @@ const BuyListing = ({ listing, open, setOpen, userData }) => {
               flexDirection: "column",
             }}
             className="scrollBar"
-            >
+          >
             <Typography
-                variant="h6"
-                color="var(--text-color)"
-                textAlign= "center"
-                sx={{ fontWeight: "bold" }}
-              >
-                Other Websites
-              </Typography>
+              variant="h6"
+              color="var(--text-color)"
+              textAlign="center"
+              sx={{ fontWeight: "bold" }}
+            >
+              Other Websites
+            </Typography>
             <Typography
               variant="body1"
               color="var(--text-color)"
@@ -600,8 +600,11 @@ const BuyListing = ({ listing, open, setOpen, userData }) => {
               <a href={googleUrl} target="blank">{`Price in google play:`}</a>
               <br />
               <a href={googleUrl} target="blank">{`${googlePrice}`}</a>
+              <div>
+                minimum price: {isNaN(parseFloat(googlePrice)) ? ebayPrice : Math.min(parseFloat(googlePrice), parseFloat(ebayPrice))}
+              </div>
             </Typography>
-            </CardContent>
+          </CardContent>
         </Box>
       </Box>
     </Dialog>

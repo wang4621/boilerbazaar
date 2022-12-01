@@ -330,7 +330,7 @@ const MainPage = ({ username, setAuth }) => {
       </div>
       {/* <SellerRatingPrompt/> */}
       <Routes>
-        <Route path="/home" element={<Home userData={userData}/>} />
+        <Route path="/home" element={<Home userData={userData} />} />
         <Route exact path="/buy" element={<Buy userData={userData} />}>
           <Route path=":id" element={<SharedListing />} />
         </Route>

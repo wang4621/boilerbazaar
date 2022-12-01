@@ -16,7 +16,7 @@ function Settings() {
                         <Button activeClassName="active" component={NavLink} to="profile">Profile</Button>
                         <Button activeClassName="active" component={NavLink} to="listings">Listings</Button>
                         <Button activeClassName="active" component={NavLink} to="watchlist">Watchlist</Button>
-                        <Button activeClassName="active" component={NavLink} to="viewingHistory">Viewing History</Button>
+                        {/* <Button activeClassName="active" component={NavLink} to="viewingHistory">Viewing History</Button> */}
                         <Button activeClassName="active" component={NavLink} to="blockedUsers">Blocked Users</Button>
                         <Button activeClassName="active" component={NavLink} to="ratings">Ratings</Button>
                         <Button activeClassName="active" component={NavLink} to="following">Following</Button>

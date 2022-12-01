@@ -94,6 +94,7 @@ const Home = ({ userData }) => {
                 fetch(urlForID, {
                   method: "POST",
                   body: JSON.stringify({
+                    yourPuid: userData['puid'],
                     puid: userInput,
                   }),
                 })
@@ -118,6 +119,7 @@ const Home = ({ userData }) => {
                 fetch(urlForName, {
                   method: "POST",
                   body: JSON.stringify({
+                    yourPuid: userData['puid'],
                     name: userInput,
                   }),
                 })
