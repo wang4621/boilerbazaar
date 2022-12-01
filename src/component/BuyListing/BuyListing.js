@@ -40,55 +40,16 @@ const style = {
   p: 4,
 };
 
-var user0
-var user1
 
-function newConversation() {
-  var message = document.getElementById("message").value
-  var jsonDict = { "user0": user0, "user1": user1, "message": message }
-  var jsonData = "\"" + JSON.stringify(jsonDict).replaceAll('"', '\\"') + "\""
-  console.log(jsonData)
-  $.ajax({
-    url: 'https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/conversation/new',
-    type: 'PUT',
-    data: jsonData,
-    datatype: 'json',
-    contentType: 'application/json',
-    success: function (result) {
-      console.log(JSON.stringify(result))
-    },
-    error: function (result) {
-      console.log(JSON.stringify(result));
-    }
-  });
-}
+
+
 
 function copyLink() {
   navigator.clipboard.writeText(window.location.href);
   alert("Copied to Clipboard");
 }
 
-function block() {
-  if (!window.confirm(`Do you want to unblock ${user1}?`)) {
-    return;
-  }
-  var jsonData = { "user": user0, "blockUser": user1 }
-  var jsonData = "\"" + JSON.stringify(jsonData).replaceAll('"', '\\"') + "\""
-  //console.log(jsonData)
-  $.ajax({
-    url: 'https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/block',
-    type: 'PUT',
-    data: jsonData,
-    datatype: 'json',
-    contentType: 'application/json',
-    success: function (result) {
-      console.log(JSON.stringify(result));
-    },
-    error: function (result) {
-      //console.log(JSON.stringify(result));
-    }
-  });
-}
+
 
 const BuyListing = ({ listing, open, setOpen, userData }) => {
   const [openShare, setOpenShare] = React.useState(false);
@@ -107,6 +68,52 @@ const BuyListing = ({ listing, open, setOpen, userData }) => {
   const navigate = useNavigate();
   const urlEbay = `http://localhost:8080/ebay?isbn=${listing.isbn}`
   const urlGoogle = `http://localhost:8080/google?isbn=${listing.isbn}`
+  const user0 = userData["puid"]
+  const user1 = listing.sellerID
+  const currentListingID = listing.listingID
+
+  function newConversation() {
+    var message = document.getElementById("message").value
+    var jsonDict = { "user0": user0, "user1": user1, "message": message, "listingID": currentListingID }
+    var jsonData = "\"" + JSON.stringify(jsonDict).replaceAll('"', '\\"') + "\""
+    console.log(jsonData)
+    $.ajax({
+      url: 'https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/conversation/new',
+      type: 'PUT',
+      data: jsonData,
+      datatype: 'json',
+      contentType: 'application/json',
+      success: function (result) {
+        console.log(JSON.stringify(result))
+      },
+      error: function (result) {
+        console.log(JSON.stringify(result));
+      }
+    });
+  }
+  function block() {
+    if (!window.confirm(`Do you want to block ${user1}?`)) {
+      return;
+    }
+    var jsonData = { "user": user0, "blockUser": user1 }
+    var jsonData = "\"" + JSON.stringify(jsonData).replaceAll('"', '\\"') + "\""
+    //console.log(jsonData)
+    $.ajax({
+      url: 'https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/block',
+      type: 'PUT',
+      data: jsonData,
+      datatype: 'json',
+      contentType: 'application/json',
+      success: function (result) {
+        console.log(JSON.stringify(result));
+      },
+      error: function (result) {
+        //console.log(JSON.stringify(result));
+      }
+    });
+  }
+
+
   fetch(urlEbay).then((response) => {
     return response.json()
   }).then((data) => {
@@ -131,8 +138,7 @@ const BuyListing = ({ listing, open, setOpen, userData }) => {
   }).catch((err) => {
     setGooglePrice("Not Found In Google Play")
   })
-  user0 = userData["puid"]
-  user1 = sellerData["puid"]
+  
 
   const closeBuy = () => {
     setOpen(false);
