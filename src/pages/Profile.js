@@ -31,9 +31,6 @@ const Profile = ({ userData, setUserData }) => {
   const [profileImage, setprofileImage] = useState([]);
   const [hasImage, setHasImage] = useState(true);
 
-
-
-
   useEffect(() => {
     console.log(userData);
     setFirstName(userData.firstName);
