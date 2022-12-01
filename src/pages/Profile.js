@@ -52,7 +52,8 @@ const Profile = ({ userData, setUserData }) => {
       type: "GET",
       success: function (result) {
         let resultImage = result["body"]["0"];
-        setHasImage(resultImage !== undefined);
+        console.log(resultImage + "initialize")
+        setHasImage(resultImage !== "");
         setprofileImage(resultImage);
       },
       error: function (result) {
@@ -155,6 +156,8 @@ const Profile = ({ userData, setUserData }) => {
     reader.onloadend = function () {
       // console.log('RESULT', reader.result)
       setprofileImage(reader.result);
+      setHasImage(true);
+      document.getElementById('myInput').value = ''
     };
     reader.readAsDataURL(file);
   }
@@ -229,7 +232,7 @@ const Profile = ({ userData, setUserData }) => {
   const removeImage = (event) => {
     setprofileImage("");
     setHasImage(false);
-
+    document.getElementById('images').value = ''
   };
 
   function deleteImage() {
@@ -312,7 +315,6 @@ const Profile = ({ userData, setUserData }) => {
                 single
                 onChange={imageUpload}
                 accept="image/*"
-                
               />
             </Button>
             {/* <FormHelperText>Please upload at least one image</FormHelperText> */}
@@ -326,9 +328,9 @@ const Profile = ({ userData, setUserData }) => {
             <Button
               variant="contained"
               component="label"
-              disabled={isDisabled}
+              disabled={isDisabled || !hasImage}
               sx={{ width: "100%" }}
-              hidden = {hasImage}
+              hidden = {true}
               onClick={removeImage}
             >
               Remove Pofile Picture
