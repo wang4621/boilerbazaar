@@ -26,6 +26,8 @@ const ViewingHistoryHomeBox = ({ textbook }) => {
     });
   }, [textbook]);
 
+  console.log(textbook)
+
   return (
     <Box
       sx={{
@@ -57,11 +59,7 @@ const ViewingHistoryHomeBox = ({ textbook }) => {
             backgroundColor: "rgb(32,32,32)",
           }}
         >
-          {loading ? (
-            <CircularProgress />
-          ) : (
-            <img src={image} width={"75%"} height={"100%"} alt="textbook" />
-          )}
+          {loading ? <CircularProgress /> : <img src={image} width={"75%"} height={"100%"} alt="textbook" />}
         </Box>
       </Box>
       <Box
@@ -83,9 +81,10 @@ const ViewingHistoryHomeBox = ({ textbook }) => {
           }}
         >
           <Box>
-            <Typography sx={{ fontWeight: "bold", mb: 2 }}>
-              {textbook.title}
-            </Typography>
+            <Typography sx={{ fontWeight: "bold", mb: 2 }}>{textbook.title}</Typography>
+            <Typography sx={{ mb: 2 }}>Price: ${textbook.price}</Typography>
+            <Typography sx={{ mb: 2 }}>Seller: {textbook.sellerID}</Typography>
+            <Typography>Course: {textbook.course}</Typography>
           </Box>
           <Button
             variant="contained"
@@ -96,7 +95,7 @@ const ViewingHistoryHomeBox = ({ textbook }) => {
               width: "80%",
               borderRadius: "5px !important",
             }}
-            onClick={() => window.location.href = `buy/${textbook.listingID}`}
+            onClick={() => (window.location.href = `buy/${textbook.listingID}`)}
           >
             Open
           </Button>

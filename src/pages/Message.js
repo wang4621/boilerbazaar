@@ -11,13 +11,6 @@ var index = 0
 var rawData = {}
 var user
 
-
-
-
-
-
-
-
 // function displayMessages() {
 //     var messageDisplay = document.getElementsByClassName("chatDisplay")[0];
 //     console.log('debug')
@@ -154,9 +147,6 @@ const Message = ({ userData }) => {
             },
           });
         
-    
-    
-    
         for (const x of rawData['body'][index]['conversation']) {
             var date = new Date(x[0]);
             var sender
@@ -214,6 +204,7 @@ const Message = ({ userData }) => {
         }
         changeContacts(index)
     }
+
     function getContacts() {
         var url = "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/conversation?puid=" + user
         $.ajax({
@@ -275,35 +266,33 @@ const Message = ({ userData }) => {
         console.log(userData);
         getContacts();
     }, [userData]);
+
     return (
-        <div class="page">
-            <Box class="contactList"></Box>
-            <Box class="chat">
-            <Box class="listing">
-                    Interested Listing:
-                    <img src={image} width={"10%"} height={"10%"} alt="textbook" />
-                </Box>
-                <Box class="listing">
-                    {listing.title}
-                    <br></br>
-                    {listing.timeListed}
-                    <br></br>
-                    ${listing.price}
-                
-                </Box>
-                <Box class="options">
-                    <TextField class="refresh" id="refresh" onClick={getContacts} type="submit" value="Refresh"/>
-                    <TextField class="block" id="block" onClick={block} type="button" value="Blocked"/>
-                    
-                </Box>
-                <Box class="chatDisplay"></Box>
-                <Box class="chatInput">
-                    <TextField type="text" class="input" id="messageInput"></TextField>
-                    <TextField class="send" id="send" onClick={sendMessage} type="submit" value="Send"/>
-                </Box>
-            </Box>
-        </div>
-    )
+      <div class="page">
+        <Box class="contactList"></Box>
+        <Box class="chat">
+          <Box class="listing">
+            Interested Listing:
+            <img src={image} width={"10%"} height={"10%"} alt="textbook" />
+          </Box>
+          <Box class="listing">
+            {listing.title}
+            <br></br>
+            {listing.timeListed}
+            <br></br>${listing.price}
+          </Box>
+          <Box class="options">
+            <TextField class="refresh" id="refresh" onClick={getContacts} type="submit" value="Refresh"/>
+            <TextField class="block" id="block" onClick={block} type="button" value="Blocked"/>
+          </Box>
+          <Box class="chatDisplay"></Box>
+          <Box class="chatInput">
+            <TextField type="text" class="input" id="messageInput"></TextField>
+            <TextField class="send" id="send" onClick={sendMessage} type="submit" value="Send" />
+          </Box>
+        </Box>
+      </div>
+    );
 }
 
 export default Message;

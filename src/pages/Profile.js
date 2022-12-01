@@ -61,19 +61,6 @@ const Profile = ({ userData, setUserData }) => {
       },
     });
 
-
-
-
-    // let sum = 0;
-    // if (userData.rating !== undefined) {
-    //   for (let i = 0; i < userData.rating.length; i++) {
-    //     sum += parseInt(userData.rating[i]);
-    //   }
-    //   if (userData.rating.length !== 0) {
-    //     setRating(sum / userData.rating.length);
-    //     setRatingLength(userData.rating.length);
-    //   }
-    // }
     $.ajax({
       url:
         "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/rating?puid=" +
@@ -150,7 +137,6 @@ const Profile = ({ userData, setUserData }) => {
     event.preventDefault();
   };
 
-
   function encodeImageFileAsURL(file) {
     var reader = new FileReader();
     reader.onloadend = function () {
@@ -162,32 +148,6 @@ const Profile = ({ userData, setUserData }) => {
     reader.readAsDataURL(file);
   }
 
-  // const imageUpload = (event) => {
-  //   console.log(event);
-  //   let imageLength = event.target.files.length;
-  //   if (imageLength + imageCount <= 5) {
-  //     let isImage = true;
-  //     for (let i = 0; i < imageLength; i++) {
-  //       // console.log(event.target.files[i].type.split('/')[1])
-  //       let extension = event.target.files[i].type.split("/")[1];
-  //       if (extension === "jpeg" || extension === "png") {
-  //         isImage = true;
-  //         setImageError(false);
-  //       } else {
-  //         isImage = false;
-  //         setImageError(true);
-  //         break;
-  //       }
-  //     }
-  //     if (isImage) {
-  //       for (let j = 0; j < imageLength; j++) {
-  //         // console.log(event.target.files[j])
-  //         encodeImageFileAsURL(event.target.files[j]);
-  //       }
-  //       // setImageCount(imageCount + imageLength);
-  //     }
-  //   }
-  // };
   const imageUpload = (event) => {
     console.log(event);
     let isImage = true;
@@ -256,8 +216,8 @@ const Profile = ({ userData, setUserData }) => {
         console.log(JSON.stringify(result));
       },
     });
-
   }
+
   return (
     <Box className="profileDisplay">
       <Box
@@ -305,7 +265,7 @@ const Profile = ({ userData, setUserData }) => {
               variant="contained"
               component="label"
               disabled={isDisabled}
-              sx={{ width: "100%" }}
+              sx={{ width: "100%", mb:2 }}
             >
               Change Profile Picture
               <input
