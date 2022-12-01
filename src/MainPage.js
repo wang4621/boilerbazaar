@@ -328,10 +328,10 @@ const MainPage = ({ username, setAuth }) => {
           />
           <Route path="listings" element={<Listings userData={userData} />} />
           <Route path="watchlist" element={<Watchlist userData={userData} />} />
-          <Route
+          {/* <Route
             path="viewingHistory"
             element={<ViewingHistory userData={userData} />}
-          />
+          /> */}
           <Route path="ratings" element={<Ratings userData={userData} />} />
           {/* <Route path="giveRatings" element={<RatingstoGive userData={userData} />} /> */}
           <Route path="following" element={<Following userData={userData} />} />
