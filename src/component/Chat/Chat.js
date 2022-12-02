@@ -56,6 +56,14 @@ const Chat = ({ contactData, blocked, stateChange }) => {
           </CardContent>
         );
       })}
+      {blocked ? (
+        <Typography sx={{ textAlign: "center", color: "red" }}>
+          Displaying past messages. You have blocked (or was blocked by) this
+          user.
+        </Typography>
+      ) : (
+        ""
+      )}
     </Box>
   );
 };

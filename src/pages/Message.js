@@ -271,6 +271,7 @@ const Message = ({ userData }) => {
     var data = rawData["body"][index];
     //console.log(data['user1'])
     var sender = data["user1"] == userData["puid"];
+    console.log(sender)
     var jsonDict = { id: data["id"], sender: sender, message: message };
     var jsonData = '"' + JSON.stringify(jsonDict).replaceAll('"', '\\"') + '"';
     //console.log(jsonData)
@@ -310,9 +311,6 @@ const Message = ({ userData }) => {
               name: x["user0"],
               listingID: x["listingID"],
               blocked: x["blocked"],
-              conversation: x["conversation"],
-              user1: x["user1"],
-              user0: x["user0"],
               id: x["id"],
             });
           } else {
@@ -320,9 +318,6 @@ const Message = ({ userData }) => {
               name: x["user1"],
               listingID: x["listingID"],
               blocked: x["blocked"],
-              conversation: x["conversation"],
-              user1: x["user1"],
-              user0: x["user0"],
               id: x["id"],
             });
           }
@@ -443,14 +438,14 @@ const Message = ({ userData }) => {
           ) : (
             ""
           )}
-          {blocked ? (
+          {/* {blocked ? (
             <Typography sx={{ textAlign: "center", color: "red" }}>
               Displaying past messages. You have blocked (or was blocked by)
               this user.
             </Typography>
           ) : (
             ""
-          )}
+          )} */}
         </Box>
         <Box
           sx={{
