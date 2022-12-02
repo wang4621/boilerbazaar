@@ -375,7 +375,7 @@ const BuyListing = ({ listing, open, setOpen, userData }) => {
           <CardContent sx={{ height: "20%", display: "flex", flexDirection: "column" }}>
             <Typography variant="body1" color="var(--text-color)" sx={{ fontWeight: "bold", fontSize: 18 }}>
               {/* href to profile.html?sellid=result.sellid*/}
-              <a href={"https://cs307-host.herokuapp.com/profile.html?sellid=" + sellerData["puid"]} target="_blank">
+              <a href={"http://localhost:3000/find/" + sellerData["puid"]} target="_blank">
                 Seller Information
               </a>
             </Typography>
