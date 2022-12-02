@@ -7,14 +7,13 @@ import {
   TextField,
   MenuItem,
   FormHelperText,
-  Button,
-  Grid,
+  Button
 } from "@mui/material";
 import React, { useState, useEffect } from "react";
 import "./Profile.css";
 import $ from "jquery";
 
-const Profile = ({ userData, setUserData }) => {
+const Profile = ({ username, setUserData }) => {
   const [isDisabled, setDisabled] = useState(true);
   const [value, setValue] = useState("Edit");
   const [firstName, setFirstName] = useState("");
@@ -30,26 +29,39 @@ const Profile = ({ userData, setUserData }) => {
   const [imageError, setImageError] = useState(false);
   const [profileImage, setprofileImage] = useState([]);
   const [hasImage, setHasImage] = useState(true);
+  const [stateChange, setStateChange] = useState(false);
 
   useEffect(() => {
-    console.log(userData);
-    setFirstName(userData.firstName);
-    setLastName(userData.lastName);
-    setPuid(userData.puid);
-    setPreferredMeeting(userData.preferredMeeting);
-    setPreferredName(userData.preferredName);
-    setMajor(userData.major);
-    setSales(userData.sell);
-    setPurchases(userData.purchases);
-    // // initialize profile pic
+    // get user data
+    $.ajax({
+      url: "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/profile?puid=" + username,
+      type: "GET",
+      success: function (result) {
+        console.log(result);
+        setUserData(result);
+        setFirstName(result.firstName);
+        setLastName(result.lastName);
+        setPuid(result.puid);
+        setPreferredMeeting(result.preferredMeeting);
+        setPreferredName(result.preferredName);
+        setMajor(result.major);
+        setSales(result.sell);
+        setPurchases(result.purchases);
+      },
+      error: function (result) {
+        console.log(JSON.stringify(result));
+      },
+    });
+
+    // initialize profile pic
     $.ajax({
       url:
         "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/listing/images?listingID=" +
-        userData["puid"],
+        username,
       type: "GET",
       success: function (result) {
         let resultImage = result["body"]["0"];
-        console.log(resultImage + "initialize")
+        // console.log(resultImage + "initialize")
         setHasImage(resultImage !== "");
         setprofileImage(resultImage);
       },
@@ -61,20 +73,20 @@ const Profile = ({ userData, setUserData }) => {
     $.ajax({
       url:
         "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/rating?puid=" +
-        userData["puid"],
+        username,
       type: "GET",
       success: function (result) {
         console.log(result);
         let userRating = [];
         let sum = 0;
         for (let i = 0; i < result.length; i++) {
-          if (userData.puid === result[i].buyerID) {
+          if (username === result[i].buyerID) {
             sum += parseInt(result[i].sellerRatingofBuyer);
             userRating.push(result[i].sellerRatingofBuyer)
-          } else if (userData.puid === result[i].sellerID) {
-            if (result[i].buyerReviewOfSeller !== '') {
+          } else if (username === result[i].sellerID) {
+            if (result[i].buyerReviewOfSeller !== undefined) {
               sum += parseInt(result[i].buyerRatingofSeller);
-              userRating.push(result[i].buyerRatingofSeller)
+              userRating.push(result[i].buyerRatingofSeller);
             }
           }
         }
@@ -87,7 +99,7 @@ const Profile = ({ userData, setUserData }) => {
         console.log(JSON.stringify(result));
       },
     });
-  }, [userData]);
+  }, [username, stateChange]);
 
   const editOrSaveProfile = (event) => {
     setDisabled(!isDisabled);
@@ -107,13 +119,8 @@ const Profile = ({ userData, setUserData }) => {
         major: major,
         preferredMeeting: preferredMeeting,
         firstName: firstName,
-        lastName: lastName,
-        sell: sales,
-        purchases: purchases,
-        rating: userData.rating,
+        lastName: lastName
       };
-      // localStorage.setItem('userData', JSON.stringify(jsonData));
-      setUserData(jsonData);
       jsonData = '"' + JSON.stringify(jsonData).replaceAll('"', '\\"') + '"';
       // console.log(profileData)
       $.ajax({
@@ -124,6 +131,7 @@ const Profile = ({ userData, setUserData }) => {
         contentType: "application/json",
         success: function (result) {
           console.log(JSON.stringify(result));
+          setStateChange(!stateChange)
         },
         error: function (result) {
           console.log(JSON.stringify(result));
@@ -178,7 +186,7 @@ const Profile = ({ userData, setUserData }) => {
         console.log("Image Sent");
         //setprofileImage(Image);
         //console.log("sendImage SET")
-        console.log(imageJson)
+        // console.log(imageJson)
       },
       error: function (result) {
         console.log(JSON.stringify(result));
