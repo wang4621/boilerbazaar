@@ -5,7 +5,7 @@ const InterestedListing = ({listingData, image}) => {
   return (
     <Box
       sx={{
-        height: 380,
+        minHeight: 380,
         width: "30%",
         display: "flex",
         justifyContent: "center",

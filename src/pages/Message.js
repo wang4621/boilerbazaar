@@ -1,5 +1,15 @@
 import blank from "../component/Images/blank.jpg";
-import { Box, Divider, TextField, Typography, Button, Avatar, InputAdornment, IconButton, CardContent } from "@mui/material";
+import {
+  Box,
+  Divider,
+  TextField,
+  Typography,
+  Button,
+  Avatar,
+  InputAdornment,
+  IconButton,
+  CardContent,
+} from "@mui/material";
 import "./Message.css";
 import $ from "jquery";
 import React, { useState, useEffect } from "react";
@@ -9,6 +19,7 @@ import SendIcon from "@mui/icons-material/Send";
 import BlockIcon from "@mui/icons-material/Block";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import InterestedListing from "../component/BuyListing/InterestedListing";
+import Chat from "../component/Chat/Chat";
 
 var contactNames = [];
 var index = 0;
@@ -80,9 +91,10 @@ const Message = ({ userData }) => {
   const [image, setImage] = useState("");
   const [listingData, setListingData] = useState("");
   const [contacts, setContacts] = useState([]);
-  const [contactName, setContactName] = useState("");
+  const [contactData, setContactData] = useState("");
   const [blocked, setBlocked] = useState(false);
-  const [conversation, setConversation] = useState("");
+  // const [conversation, setConversation] = useState("");
+  const [stateChange, setStateChange] = useState(false);
 
   const block = () => {
     // var block = document.getElementById("block");
@@ -107,7 +119,7 @@ const Message = ({ userData }) => {
     setBlocked(!blocked);
     // rawData["body"][index]["blocked"] = !rawData["body"][index]["blocked"];
     // var jsonData = { user: userData["puid"], blockUser: contactNames[index] };
-    var jsonData = { user: userData["puid"], blockUser: contactName };
+    var jsonData = { user: userData["puid"], blockUser: contactData.name };
     var jsonData = '"' + JSON.stringify(jsonData).replaceAll('"', '\\"') + '"';
     //console.log(jsonData)
     $.ajax({
@@ -127,7 +139,6 @@ const Message = ({ userData }) => {
 
   const displayMessages = (contact) => {
     console.log(contact);
-    setContactName(contact.name);
     // var messageDisplay = document.getElementsByClassName("chatDisplay")[0];
     // console.log("debug");
     // messageDisplay.innerHTML = "";
@@ -136,13 +147,31 @@ const Message = ({ userData }) => {
     // // gets the images for the textbook
     // // console.log(listing["listingID"])
     $.ajax({
-      url: "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/listing/images?listingID=" + listingID,
+      url:
+        "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/listing/images?listingID=" +
+        listingID,
       type: "GET",
       async: true,
       success: function (result) {
         // console.log(result);
         setImage(result["body"][0]);
         setBlocked(contact.blocked);
+        $.ajax({
+          url:
+            "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/listing/formessages?" +
+            "listingID=" +
+            listingID,
+          type: "GET",
+          async: true,
+          success: function (result) {
+            console.log(result);
+            setListingData(result[0]);
+            setContactData(contact);
+          },
+          error: function (result) {
+            console.log(JSON.stringify(result));
+          },
+        });
       },
       error: function (result) {
         console.log(JSON.stringify(result));
@@ -163,20 +192,22 @@ const Message = ({ userData }) => {
     //   message.innerHTML = `<Typography>${s}</Typography>`;
     //   messageDisplay.appendChild(message);
     // }
-    let chatText = []
-    for (const x of contact.conversation) {
-      var date = new Date(x[0]);
-      let sender = ''
-      if (x[1]) {
-        sender = contact["user1"];
-      } else {
-        sender = contact["user0"];
-      }
-      var s = `${sender} (${date.toDateString()} ${date.toTimeString().substring(0, 5)}): ${x[2]}\n`;
-      chatText.push(s)
-    }
+    // let chatText = [];
+    // for (const x of contact.conversation) {
+    //   var date = new Date(x[0]);
+    //   let sender = "";
+    //   if (x[1]) {
+    //     sender = contact["user1"];
+    //   } else {
+    //     sender = contact["user0"];
+    //   }
+    //   var s = `${sender} (${date.toDateString()} ${date
+    //     .toTimeString()
+    //     .substring(0, 5)}): ${x[2]}\n`;
+    //   chatText.push(s);
+    // }
 
-    setConversation(chatText);
+    // setConversation(chatText);
 
     // var block = document.getElementById("block");
     // if (rawData["body"][index]["blocked"]) {
@@ -228,7 +259,9 @@ const Message = ({ userData }) => {
     //   return;
     // }
     if (blocked) {
-      alert("Cannot send message. You have blocked (or was blocked by) this user.");
+      alert(
+        "Cannot send message. You have blocked (or was blocked by) this user."
+      );
       return;
     }
     var message = document.getElementById("message").value;
@@ -249,6 +282,7 @@ const Message = ({ userData }) => {
       contentType: "application/json",
       success: function (result) {
         console.log(JSON.stringify(result));
+        setStateChange(!stateChange)
         // getContacts();
       },
       error: function (result) {
@@ -260,7 +294,9 @@ const Message = ({ userData }) => {
 
   useEffect(() => {
     console.log(userData);
-    var url = "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/conversation?puid=" + userData["puid"];
+    var url =
+      "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/conversation?puid=" +
+      userData["puid"];
     $.ajax({
       url: url,
       type: "GET",
@@ -277,7 +313,7 @@ const Message = ({ userData }) => {
               conversation: x["conversation"],
               user1: x["user1"],
               user0: x["user0"],
-              id: x['id']
+              id: x["id"],
             });
           } else {
             contactNames.push({
@@ -313,17 +349,22 @@ const Message = ({ userData }) => {
         }}
         className="scrollBar"
       >
-        <Typography variant="h5" sx={{ fontWeight: "bold", textAlign: "center", padding: "10px" }}>
+        <Typography
+          variant="h5"
+          sx={{ fontWeight: "bold", textAlign: "center", padding: "10px" }}
+        >
           Contacts
         </Typography>
-        <Divider variant="middle" sx={{ borderBottomColor: "var(--text-color)", mb: 2 }} />
+        <Divider
+          variant="middle"
+          sx={{ borderBottomColor: "var(--text-color)"}}
+        />
         {contacts.map((contact) => {
           return (
             <Button
               startIcon={<Avatar />}
               sx={{
-                height: "5%",
-                mb: 2,
+                height: "10%",
               }}
               onClick={() => displayMessages(contact)}
             >
@@ -352,17 +393,42 @@ const Message = ({ userData }) => {
               }}
               id="avatarName"
             >
-              <Avatar sx={{ width: 40, height: 40, mr: 2, ml: 2 }} alt="" src="" id="avatarPic" />
-              {contactName}
+              <Avatar
+                sx={{ width: 40, height: 40, mr: 2, ml: 2 }}
+                alt=""
+                src=""
+                id="avatarPic"
+              />
+              {contactData.name}
             </Typography>
           </Box>
-          <IconButton sx={{ mr: 2, color: "inherit" }} disabled={contactName === "" ? true : false} onClick={block}>
-            {blocked ? <CheckCircleIcon sx={{ height: 32, width: 32 }} /> : <BlockIcon sx={{ height: 32, width: 32 }} />}
+          <IconButton
+            sx={{ mr: 2, color: "inherit" }}
+            disabled={contactData === "" ? true : false}
+            onClick={block}
+          >
+            {blocked ? (
+              <CheckCircleIcon sx={{ height: 32, width: 32 }} />
+            ) : (
+              <BlockIcon sx={{ height: 32, width: 32 }} />
+            )}
           </IconButton>
         </Box>
-        <Box sx={{ height: "82%", display: "flex", flexDirection: "column", overflowY: "auto" }} className="scrollBar">
-          {listingData !== "" ? <InterestedListing listingData={listingData} image={image} /> : ""}
-          {conversation !== ""
+        <Box
+          sx={{
+            height: "82%",
+            display: "flex",
+            flexDirection: "column",
+            overflowY: "auto",
+          }}
+          className="scrollBar"
+        >
+          {listingData !== "" ? (
+            <InterestedListing listingData={listingData} image={image} />
+          ) : (
+            ""
+          )}
+          {/* {conversation !== ""
             ? conversation.map((text) => {
                 console.log(text);
                 return (
@@ -371,19 +437,43 @@ const Message = ({ userData }) => {
                   </CardContent>
                 );
               })
-            : ""}
-          {blocked ? <Typography sx={{textAlign:'center', color:'red'}}>Displaying past messages. You have blocked (or was blocked by) this user.</Typography> : ""}
+            : ""} */}
+          {contactData !== "" ? (
+            <Chat contactData={contactData} blocked={blocked} stateChange={stateChange}/>
+          ) : (
+            ""
+          )}
+          {blocked ? (
+            <Typography sx={{ textAlign: "center", color: "red" }}>
+              Displaying past messages. You have blocked (or was blocked by)
+              this user.
+            </Typography>
+          ) : (
+            ""
+          )}
         </Box>
-        <Box sx={{ height: "10%", display: "flex", justifyContent: "center", alignItems: "center", borderTop: "1px solid rgb(202, 199, 199)" }}>
+        <Box
+          sx={{
+            height: "10%",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            borderTop: "1px solid rgb(202, 199, 199)",
+          }}
+        >
           <TextField
             id="message"
             label="Message"
             sx={{ width: "90%" }}
-            disabled={contactName === "" ? true : false}
+            disabled={contactData === "" ? true : false}
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
-                  <IconButton sx={{ color: "var(--text-color)" }} onClick={sendMessage} disabled={contactName === "" ? true : false}>
+                  <IconButton
+                    sx={{ color: "var(--text-color)" }}
+                    onClick={sendMessage}
+                    disabled={contactData === "" ? true : false}
+                  >
                     <SendIcon />
                   </IconButton>
                 </InputAdornment>
