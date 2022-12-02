@@ -84,7 +84,7 @@ const Profile = ({ username, setUserData }) => {
             sum += parseInt(result[i].sellerRatingofBuyer);
             userRating.push(result[i].sellerRatingofBuyer)
           } else if (username === result[i].sellerID) {
-            if (result[i].buyerReviewOfSeller !== undefined) {
+            if (result[i].buyerReviewofSeller !== "") {
               sum += parseInt(result[i].buyerRatingofSeller);
               userRating.push(result[i].buyerRatingofSeller);
             }
