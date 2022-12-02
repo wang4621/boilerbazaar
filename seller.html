@@ -1,0 +1,95 @@
+<!-- Profile of a seller -->
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>List of sellers</h1>
+    <div>
+        <!-- A table listing all sellers -->
+
+        <!-- Table entry Last name, first name, preferred name, email, delivery preference -->
+        <table class="sellerList">
+            <tr>
+                <th>Last Name</th>
+                <th>First Name</th>
+                <th>Preferred Name</th>
+                <th>Delivery Preference</th>
+                <th>Link</th>
+            </tr>
+        </table>
+    </div>
+    <script>
+        // Get info of the seller
+        const url = "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/user"
+        fetch(url)
+            .then(response => response.json())
+            .then((data) => {
+                data = data.body
+                // convert data to JSON
+                data = JSON.parse(data)
+                console.log(data)
+                for (let i = 0; i < data.length; i++) {
+                    // data[i] contains first name, last name, preferred name, email, delivery prefernce
+                    // Add those info to sellerList table 
+                    let table = document.querySelector(".sellerList");
+
+                    // Create a new row
+                    let row = table.insertRow(-1);
+
+                    // Create a cell for each attribute of the seller
+                    let lastName = row.insertCell(0);
+                    let firstName = row.insertCell(1);
+                    let preferredName = row.insertCell(2);
+                    let deliveryPreference = row.insertCell(3);
+                    // Display a button to go to the profile of the seller
+                    let link = row.insertCell(4);
+                    const button = document.createElement("button");
+                    // Background color of the button
+                    button.style.backgroundColor = "white";
+
+                    button.innerHTML = "Profile";
+                    button.addEventListener("click", () => {
+                        // Go to the profile of the seller
+                        window.location.href = `https://localhost:3000/boilerbazaar/profile.html?sellid=${data[i].puid}`
+                    })
+                    link.appendChild(button);
+
+                    lastName.innerHTML = data[i].lastName;
+                    firstName.innerHTML = data[i].firstName;
+                    preferredName.innerHTML = data[i].preferredName;
+                    deliveryPreference.innerHTML = data[i].preferredMeeting;
+                }
+            })
+    </script>
+    <script>
+        // Make the distance between column of table larger
+        let table = document.querySelector(".sellerList");
+        for (let i = 0; i < table.rows.length; i++) {
+            table.rows[i].cells[0].style.padding = "20px";
+            table.rows[i].cells[1].style.padding = "20px";
+            table.rows[i].cells[2].style.padding = "20px";
+            table.rows[i].cells[3].style.padding = "20px";
+            table.rows[i].cells[4].style.padding = "20px";
+        }
+        // // Make content of table center
+        table.style.textAlign = "center";
+
+        // // All row and column of table have border
+        table.style.border = "1px solid black";
+        table.style.borderCollapse = "collapse";
+
+
+
+
+
+    </script>
+</body>
+
+</html>

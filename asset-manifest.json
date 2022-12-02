@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/boilerbazaar/static/css/main.213b848e.css",
-    "main.js": "/boilerbazaar/static/js/main.59193588.js",
+    "main.css": "/boilerbazaar/static/css/main.8ca7cec2.css",
+    "main.js": "/boilerbazaar/static/js/main.8ded7909.js",
     "static/media/FollettsBookstoreImage.jpg": "/boilerbazaar/static/media/FollettsBookstoreImage.efdb4fb5d437dc353228.jpg",
     "static/media/StadiumBookstoreImage.jpg": "/boilerbazaar/static/media/StadiumBookstoreImage.76aaceca8b7dffceb02d.jpg",
     "static/media/UniversityBookstoreImage.jpg": "/boilerbazaar/static/media/UniversityBookstoreImage.947d8a05ab5e11882bb0.jpg",
     "static/media/logo.png": "/boilerbazaar/static/media/logo.ba7d7fad80f878a0df34.png",
     "index.html": "/boilerbazaar/index.html",
-    "main.213b848e.css.map": "/boilerbazaar/static/css/main.213b848e.css.map",
-    "main.59193588.js.map": "/boilerbazaar/static/js/main.59193588.js.map"
+    "main.8ca7cec2.css.map": "/boilerbazaar/static/css/main.8ca7cec2.css.map",
+    "main.8ded7909.js.map": "/boilerbazaar/static/js/main.8ded7909.js.map"
   },
   "entrypoints": [
-    "static/css/main.213b848e.css",
-    "static/js/main.59193588.js"
+    "static/css/main.8ca7cec2.css",
+    "static/js/main.8ded7909.js"
   ]
 }

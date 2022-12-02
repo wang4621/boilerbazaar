@@ -1,0 +1,65 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+
+        // Get parameter from the url
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+
+        // Get sellid of  seller from url parameter
+        const sellid = urlParams.get('sellid')
+        // Get info of the seller
+        const url = "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/profile"
+        fetch(url, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                "puid": sellid
+            })
+        })
+            .then(response => response.json())
+            .then((data) => {
+                data = data.body
+                // convert data to JSON
+                data = JSON.parse(data)
+                const major = data.major
+                const lastName = data.lastName
+                const firstName = data.firstName
+                const preferredName = data.preferredName
+                const preferredMeeting = data.preferredMeeting
+                const numberOfSells = data.sell
+                // Display the info of the seller as a profile page
+                document.body.innerHTML = `
+                <h1>Profile of ${preferredName}</h1>
+                <div>
+                    <p>Major: ${major}</p>
+                    <p>Last Name: ${lastName}</p>
+                    <p>First Name: ${firstName}</p>
+                    <p>Preferred Name: ${preferredName}</p>
+                    <p>Preferred Meeting: ${preferredMeeting}</p>
+                    <p>Number of sells: ${numberOfSells}</p>
+                </div>
+                `
+            })
+
+        // Add a button to go back to previous page
+        const button = document.createElement("button");
+        button.innerHTML = "Back";
+        button.addEventListener("click", () => {
+            window.history.back();
+        });
+        document.body.appendChild(button);
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,96 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listing</title>
+</head>
+
+<body>
+    <table>
+        <!-- Tabel entry name -->
+        <tr>
+            <th>No.</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Price($)</th>
+            <th>Author</th>
+            <th>Course</th>
+            <th>Condition</th>
+            <th>ISBN</th>
+            <th>TimeListed</th>
+        </tr>
+    </table>
+    <script>
+        // Get all listings
+        const url = "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/getlisting"
+        fetch(url).then((rep) => {
+            return rep.json()
+        }).then((data) => {
+            let index = -1
+            data.forEach((element) => {
+                if (element.sold === "true") {
+                    return
+                }
+                index++
+                const title = element.title === undefined ? "N/A" : element.title
+                const description = element.description === undefined ? "N/A" : element.description
+                const price = element.price === undefined ? "N/A" : element.price
+                const author = element.author === undefined ? "N/A" : element.author
+                const course = element.course === undefined ? "N/A" : element.course
+                const condition = element.condition === undefined ? "N/A" : element.condition
+                const isbn = element.isbn === undefined ? "N/A" : element.isbn
+                const timeListed = element.timeListed === undefined ? "N/A" : element.timeListed
+                // Display all listings
+                let table = document.querySelector("table");
+                // Create a new row
+                let row = table.insertRow(-1);
+                // Create a cell for each attribute of the listing
+                let no = row.insertCell(0);
+                let titleCell = row.insertCell(1);
+                let descriptionCell = row.insertCell(2);
+                let priceCell = row.insertCell(3);
+                let authorCell = row.insertCell(4);
+                let courseCell = row.insertCell(5);
+                let conditionCell = row.insertCell(6);
+                let isbnCell = row.insertCell(7);
+                let timeListedCell = row.insertCell(8);
+                // Display the info of the listing
+                titleCell.innerHTML = title
+                descriptionCell.innerHTML = description
+                priceCell.innerHTML = price
+                authorCell.innerHTML = author
+                courseCell.innerHTML = course
+                conditionCell.innerHTML = condition
+                isbnCell.innerHTML = isbn
+                timeListedCell.innerHTML = timeListed
+                no.innerHTML = index + 1
+            });
+
+            // Make each column have same width
+            let table = document.querySelector("table");
+            let rows = table.rows;
+            let max = 0;
+            for (let i = 0; i < rows.length; i++) {
+                let cells = rows[i].cells;
+                for (let j = 0; j < cells.length; j++) {
+                    let cell = cells[j];
+                    if (cell.innerHTML.length > max) {
+                        max = cell.innerHTML.length;
+                    }
+                }
+            }
+            for (let i = 0; i < rows.length; i++) {
+                let cells = rows[i].cells;
+                for (let j = 0; j < cells.length; j++) {
+                    let cell = cells[j];
+                    cell.style.width = max + "ch";
+                }
+            }
+
+        })
+    </script>
+</body>
+
+</html>
