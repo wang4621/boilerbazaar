@@ -411,7 +411,7 @@ const SharedListing = ({ open, setOpen }) => {
               {/* href to profile.html?sellid=result.sellid*/}
               <a
                 href={
-                  "https://cs307-host.herokuapp.com/profile.html?sellid=" +
+                  "http://localhost:3000/find/" +
                   sellerData["puid"]
                 }
                 target="_blank"
