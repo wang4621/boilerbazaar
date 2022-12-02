@@ -1,14 +1,21 @@
-.page {
+.messageDisplay {
     display: flex;
     flex-direction: row;
     height: calc(100vh - var(--header-height));
 }
 
-.page * {
-    margin: 20px;
+.messageDisplay input {
+    color: var(--text-color);
 }
 
-.contactList {
+.messageDisplay .MuiInputBase-root {
+    background-color: var(--secondary-color);
+}
+/* .page * {
+    margin: 20px;
+} */
+
+/* .contactList {
     background-color: white;
 }
 
@@ -81,21 +88,11 @@
 .chatDisplay {
     overflow: auto;
     height: 70%;
-    /* display: flex; */
+    display: flex;
     flex-direction: column;
-    /* justify-content: flex-end; */
+    justify-content: flex-end;
 }
 
 .blockedMessage {
     color: red;
-}
-
-.listingImage {
-
-
-
-}
-
-.listingData {
-
-}
+} */
