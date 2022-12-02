@@ -268,11 +268,11 @@ const Message = ({ userData }) => {
     if (message.length == 0) {
       return;
     }
-    var data = rawData["body"][index];
+    // var data = rawData["body"][index];
     //console.log(data['user1'])
-    var sender = data["user1"] == userData["puid"];
-    console.log(sender)
-    var jsonDict = { id: data["id"], sender: sender, message: message };
+    // var sender = data["user1"] == userData["puid"];
+    var sender = contactData.user1 == userData.puid
+    var jsonDict = { id: contactData.id, sender: sender, message: message };
     var jsonData = '"' + JSON.stringify(jsonDict).replaceAll('"', '\\"') + '"';
     //console.log(jsonData)
     $.ajax({
@@ -312,6 +312,8 @@ const Message = ({ userData }) => {
               listingID: x["listingID"],
               blocked: x["blocked"],
               id: x["id"],
+              user1: x['user1'],
+              user0: x['user0']
             });
           } else {
             contactNames.push({
@@ -319,6 +321,8 @@ const Message = ({ userData }) => {
               listingID: x["listingID"],
               blocked: x["blocked"],
               id: x["id"],
+              user1: x['user1'],
+              user0: x['user0']
             });
           }
         }
@@ -458,7 +462,7 @@ const Message = ({ userData }) => {
         >
           <TextField
             id="message"
-            label="Message"
+            placeholder="Message"
             sx={{ width: "90%" }}
             disabled={contactData === "" ? true : false}
             InputProps={{
