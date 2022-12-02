@@ -71,6 +71,28 @@ const Sell = ({ userData }) => {
   const [submittedListing, setSubmittedListing] = useState(false);
   const [imageCount, setImageCount] = useState(0);
   const [previewImages, setPreviewImages] = useState([]);
+  const [profileImage, setProfileImage] = useState([]);
+
+
+  //get profile pic
+  $.ajax({
+    url:
+      "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/listing/images?listingID=" +
+      userData['puid'],
+    type: "GET",
+    success: function (result) {
+      let resultImage = result["body"]["0"];
+      
+      setProfileImage(resultImage);
+    },
+    error: function (result) {
+      console.log(JSON.stringify(result));
+    },
+  });
+
+
+
+
 
   const conditionChange = (event) => {
     setCondition(event.target.value);
@@ -742,7 +764,7 @@ const Sell = ({ userData }) => {
                     <Avatar
                       sx={{ width: 40, height: 40, marginRight: 2 }}
                       alt=""
-                      src=""
+                      src={profileImage}
                       id="avatarPic"
                     />
                     {userData["preferredName"] === ""
