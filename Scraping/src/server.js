@@ -30,7 +30,7 @@ const server = http.createServer((req, res) => {
         res.end(result)
     } else {
         // Send 404
-        res.writeHead(404, { 'Content-Type': 'text/plain' });
+        res.writeHead(404, { 'Content-Type': 'text/plain' , 'Access-Control-Allow-Origin': '*'});
         res.end('404 Not Found');
     }
 })

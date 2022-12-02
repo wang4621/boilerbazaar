@@ -441,7 +441,7 @@ const BuyListing = ({ listing, open, setOpen, userData }) => {
                     </IconButton>
                     <ListItemText primary="Email" />
                   </ListItem>
-                  <ListItem>
+                  {/* <ListItem>
                     <div id="fb-root"></div>
                     <script
                       async
@@ -459,7 +459,7 @@ const BuyListing = ({ listing, open, setOpen, userData }) => {
                       <FacebookIcon />
                     </IconButton>
                     <ListItemText primary="Facebook" />
-                  </ListItem>
+                  </ListItem> */}
                 </List>
               </Box>
             </Modal>
@@ -508,7 +508,7 @@ const BuyListing = ({ listing, open, setOpen, userData }) => {
               {sellerData["preferredName"] === ""
                 ? sellerData["firstName"] + " " + sellerData["lastName"]
                 : sellerData["preferredName"] + " " + sellerData["lastName"]}
-              <TextField class="block" id="block" onClick={block} type="submit" value="Block" />
+              <TextField class="block" id="block" onClick={block} type="submit" value="Block" sx={{ml:2}} />
             </Typography>
           </CardContent>
           {addedToWatchlist ? (

@@ -34,7 +34,7 @@ const Ratings = ({ userData }) => {
             ratingData['review'] = result[i].sellerReviewofBuyer;
             userRating.push(ratingData)
           } else if (userData.puid === result[i].sellerID) {
-            if (result[i].buyerReviewOfSeller !== '') {
+            if (result[i].buyerReviewOfSeller !== undefined) {
               ratingData['id'] = result[i].id;
               ratingData['reviewer'] = result[i].buyerID
               ratingData['rating'] = result[i].buyerRatingofSeller;

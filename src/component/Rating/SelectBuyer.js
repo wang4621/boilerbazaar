@@ -37,9 +37,13 @@ const SelectBuyer = ({ setOpen, setSoldLoading, setActiveStep, setBuyer, puid })
         let contactNames = [];
         for (const x of result["body"]) {
           if (x["user0"] !== puid) {
-            contactNames.push(x["user0"]);
+            if (!contactNames.includes(x["user0"])) {
+              contactNames.push(x["user0"]);
+            }
           } else {
-            contactNames.push(x["user1"]);
+            if (!contactNames.includes(x["user1"])) {
+              contactNames.push(x["user1"]);
+            }
           }
         }
         setContacts(contactNames);
