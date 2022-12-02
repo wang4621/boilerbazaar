@@ -117,6 +117,7 @@ function block() {
 const Message = ({ userData }) => {
     const [image, setImage] = useState("");
     const [listing, setListing] = useState("");
+    const [profileImage, setprofileImage] = useState([]);
 
     function displayMessages() {
         var messageDisplay = document.getElementsByClassName("chatDisplay")[0];
@@ -203,10 +204,29 @@ const Message = ({ userData }) => {
         //console.log(contactList)
         contactList.innerHTML = "";
         for (var i = 0; i < contactNames.length; i++) {
+            //get profile pic
+            $.ajax({
+                url:
+                "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/listing/images?listingID=" +
+                contactNames[i],
+                type: "GET",
+                async: true,
+                success: function (result) {
+                let resultImage = result["body"]["0"];
+                console.log(resultImage)
+                setprofileImage(profileImage => [...profileImage, resultImage]);
+                },
+                error: function (result) {
+                console.log(JSON.stringify(result));
+                },
+            });
+            console.log(profileImage)
+
+
             var contact = document.createElement("DIV");
             contact.id = `contact${i}`
             contact.className = "contact"
-            contact.innerHTML += `<img src=${blank}></img><Typography label="placeholder">${contactNames[i]}</Typography>`
+            contact.innerHTML += `<img src=${profileImage}></img><Typography label="placeholder">${contactNames[i]}</Typography>`
             contact.addEventListener("click", function(e) {
                 changeContacts(this.id[7])
             });
@@ -279,18 +299,8 @@ const Message = ({ userData }) => {
         <div class="page">
             <Box class="contactList"></Box>
             <Box class="chat">
-            <Box class="listing">
-                    Interested Listing:
-                    <img src={image} width={"10%"} height={"10%"} alt="textbook" />
-                </Box>
-                <Box class="listing">
-                    {listing.title}
-                    <br></br>
-                    {listing.timeListed}
-                    <br></br>
-                    ${listing.price}
+            
                 
-                </Box>
                 <Box class="options">
                     <TextField class="refresh" id="refresh" onClick={getContacts} type="submit" value="Refresh"/>
                     <TextField class="block" id="block" onClick={block} type="button" value="Blocked"/>
@@ -302,6 +312,21 @@ const Message = ({ userData }) => {
                     <TextField class="send" id="send" onClick={sendMessage} type="submit" value="Send"/>
                 </Box>
             </Box>
+            <Box class="listing">
+                <Box class="listingImage">
+                        Interested Listing:
+                        <img src={image} width={"100%"} height={"100%"} alt="textbook" />
+                        
+                </Box>
+                <Box class="listingData">
+                        {listing.title}
+                        <br></br>
+                        {listing.timeListed}
+                        <br></br>
+                        ${listing.price}
+                </Box>
+            </Box>
+            
         </div>
     )
 }

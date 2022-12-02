@@ -15,6 +15,7 @@ import Buy from "./pages/Buy";
 import About from "./pages/About";
 import Map from "./pages/Map";
 import Message from "./pages/Message";
+import ClassLinks from "./pages/ClassLinks";
 import Listings from "./component/ProfileListing/Listings";
 import Watchlist from "./component/Watchlist/Watchlist";
 import Profile from "./pages/Profile";
@@ -231,6 +232,9 @@ const MainPage = ({ username, setAuth }) => {
           <NavLink activeclassname="active" to="/message">
             Message
           </NavLink>
+          <NavLink activeclassname="active" to="/ClassLinks">
+            Class Links
+          </NavLink>
           <NavLink activeclassname="active" to="/about">
             About
           </NavLink>
@@ -336,6 +340,7 @@ const MainPage = ({ username, setAuth }) => {
         </Route>
         <Route path="/sell" element={<Sell userData={userData} />} />
         <Route path="/message" element={<Message userData={userData} />} />
+        <Route path="/ClassLinks" element={<ClassLinks userData={userData} />} />
         <Route path="/about" element={<About />} />
         <Route path="/map" element={<Map />} />
         <Route path="/settings" element={<Settings />}>

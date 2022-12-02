@@ -3,171 +3,94 @@ import "./About.css";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import IconButton from "@mui/material/IconButton";
 import { Avatar, Box, CardHeader, CircularProgress, Grid, Typography } from "@mui/material";
+import $ from 'jquery';
+import React, { useEffect, useState, useRef } from "react";
 
-// function About() {
-//   return (
-//     <div>
-//       <div class="header">
-//         <h1>About BoilerBazaar</h1>
-//       </div>
-//       <div class="horizontal">
-//         <div class="vertical">
-//           <div class="member">
-//             <div class="container">
-//               <h2>Project Repository</h2>
-//               <p>
-//                 <IconButton
-//                   color="inherit"
-//                   sx={{ ml: 1, transform: "scale(2)" }}
-//                   target="_blank"
-//                   href="https://github.com/wang4621/boilerbazaar"
-//                   rel="noopener noreferrer"
-//                 >
-//                   <GitHubIcon />
-//                 </IconButton>
-//               </p>
-//             </div>
-//           </div>
-//         </div>
-//         <div class="vertical">
-//           <div class="member">
-//             <img
-//               src={blank}
-//               alt="name"
-//               style={{
-//                 width: 100,
-//               }}
-//             />
-//             <div class="container">
-//               <h2>Jeffrey Wang</h2>
-//               <p>Contact Info: wang4621@purdue.edu</p>
-//               <p>
-//                 <IconButton
-//                   color="inherit"
-//                   target="_blank"
-//                   href="https://github.com/wang4621"
-//                   rel="noopener noreferrer"
-//                 >
-//                   <GitHubIcon />
-//                 </IconButton>
-//               </p>
-//             </div>
-//           </div>
-//         </div>
 
-//         <div class="vertical">
-//           <div class="member">
-//             <img
-//               src={blank}
-//               alt="name"
-//               style={{
-//                 width: 100,
-//               }}
-//             />
-//             <div class="container">
-//               <h2>Michio L Sekiguchi</h2>
-//               <p>Contact Info: msekiguc@purdue.edu</p>
-//               <p>
-//                 <IconButton
-//                   color="inherit"
-//                   target="_blank"
-//                   href="https://github.com/msekiguc"
-//                   rel="noopener noreferrer"
-//                 >
-//                   <GitHubIcon />
-//                 </IconButton>
-//               </p>
-//             </div>
-//           </div>
-//         </div>
 
-//         <div class="vertical">
-//           <div class="member">
-//             <img
-//               src={blank}
-//               alt="name"
-//               style={{
-//                 width: 100,
-//               }}
-//             />
-//             <div class="container">
-//               <h2>Ryan Doan</h2>
-//               <p>Contact Info: doan23@purdue.edu</p>
-//               <p>
-//                 <IconButton
-//                   color="inherit"
-//                   target="_blank"
-//                   href="https://github.com/ryan-doan"
-//                   rel="noopener noreferrer"
-//                 >
-//                   <GitHubIcon />
-//                 </IconButton>
-//               </p>
-//             </div>
-//           </div>
-//         </div>
 
-//         <div class="vertical">
-//           <div class="member">
-//             <img
-//               src={blank}
-//               alt="name"
-//               style={{
-//                 width: 100,
-//               }}
-//             />
-//             <div class="container">
-//               <h2>Xavier Huu Pham</h2>
-//               <p>Contact Info: xpham@purdue.edu</p>
-//               <p>
-//                 <IconButton
-//                   color="inherit"
-//                   target="_blank"
-//                   href="https://github.com/x-pham"
-//                   rel="noopener noreferrer"
-//                 >
-//                   <GitHubIcon />
-//                 </IconButton>
-//               </p>
-//             </div>
-//           </div>
-//         </div>
-
-//         <div class="vertical">
-//           <div class="member">
-//             <img
-//               src={blank}
-//               alt="name"
-//               style={{
-//                 width: 100,
-//               }}
-//             />
-//             <div class="container">
-//               <h2>Shicheng Fang</h2>
-//               <p>Contact Info: fang282@purdue.edu</p>
-//               <p>
-//                 <IconButton
-//                   color="inherit"
-//                   target="_blank"
-//                   href="https://github.com/fsc1118"
-//                   rel="noopener noreferrer"
-//                 >
-//                   <GitHubIcon />
-//                 </IconButton>
-//               </p>
-//             </div>
-//           </div>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
-
-// export default About;
-
-import React from "react";
 
 const About = () => {
+  const [profileImage1, setprofileImage1] = useState([]);
+  const [profileImage2, setprofileImage2] = useState([]);
+  const [profileImage3, setprofileImage3] = useState([]);
+  const [profileImage4, setprofileImage4] = useState([]);
+  const [profileImage5, setprofileImage5] = useState([]);
+  
+  
+
+  //get profile pic
+  $.ajax({
+    url:
+      "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/listing/images?listingID=" +
+      "wang4621",
+    type: "GET",
+    success: function (result) {
+      let resultImage = result["body"]["0"];
+      
+      setprofileImage1(resultImage);
+    },
+    error: function (result) {
+      console.log(JSON.stringify(result));
+    },
+  });
+  $.ajax({
+    url:
+      "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/listing/images?listingID=" +
+      "msekiguc",
+    type: "GET",
+    success: function (result) {
+      let resultImage = result["body"]["0"];
+      
+      setprofileImage2(resultImage);
+    },
+    error: function (result) {
+      console.log(JSON.stringify(result));
+    },
+  });
+  $.ajax({
+    url:
+      "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/listing/images?listingID=" +
+      "doan23",
+    type: "GET",
+    success: function (result) {
+      let resultImage = result["body"]["0"];
+      
+      setprofileImage3(resultImage);
+    },
+    error: function (result) {
+      console.log(JSON.stringify(result));
+    },
+  });
+  $.ajax({
+    url:
+      "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/listing/images?listingID=" +
+      "xpham",
+    type: "GET",
+    success: function (result) {
+      let resultImage = result["body"]["0"];
+      
+      setprofileImage4(resultImage);
+    },
+    error: function (result) {
+      console.log(JSON.stringify(result));
+    },
+  });
+  $.ajax({
+    url:
+      "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/listing/images?listingID=" +
+      "fang282",
+    type: "GET",
+    success: function (result) {
+      let resultImage = result["body"]["0"];
+      
+      setprofileImage5(resultImage);
+    },
+    error: function (result) {
+      console.log(JSON.stringify(result));
+    },
+  });
+
   return (
     <div className="aboutDisplay">
       <Grid
@@ -235,7 +158,7 @@ const About = () => {
               flexDirection: "column",
             }}
           >
-            <Avatar sx={{ width: 64, height: 64 }} />
+            <Avatar src={profileImage1} sx={{ width: 64, height: 64 }} />
             <Box sx={{textAlign:'center'}}>
               <Typography>Jeffrey Wang</Typography>
               <Typography>Contact Info: wang4621@purdue.edu</Typography>
@@ -272,7 +195,7 @@ const About = () => {
               flexDirection: "column",
             }}
           >
-            <Avatar sx={{width:64, height:64}}/>
+            <Avatar src={profileImage2} sx={{width:64, height:64}}/>
             <Box sx={{textAlign:'center'}}>
             <Typography>Michio L Sekiguchi</Typography>
             <Typography>Contact Info: msekiguc@purdue.edu</Typography>
@@ -311,7 +234,7 @@ const About = () => {
               flexDirection: "column",
             }}
           >
-            <Avatar sx={{ width: 64, height: 64 }} />
+            <Avatar src={profileImage3} sx={{ width: 64, height: 64 }} />
             <Box sx={{textAlign:'center'}}>
             <Typography>Ryan Doan</Typography>
             <Typography>Contact Info: doan23@purdue.edu</Typography>
@@ -349,7 +272,7 @@ const About = () => {
               flexDirection: "column",
             }}
           >
-            <Avatar sx={{ width: 64, height: 64 }} />
+            <Avatar src={profileImage4} sx={{ width: 64, height: 64 }} />
             <Box sx={{textAlign:'center'}}>
             <Typography>Xavier Huu Pham</Typography>
             <Typography>Contact Info: xpham@purdue.edu</Typography>
@@ -388,7 +311,7 @@ const About = () => {
               flexDirection: "column",
             }}
           >
-            <Avatar sx={{ width: 64, height: 64 }} />
+            <Avatar src={profileImage5} sx={{ width: 64, height: 64 }} />
             <Box sx={{textAlign:'center'}}>
             <Typography>Shicheng Fang</Typography>
             <Typography>Contact Info: fang282@purdue.edu</Typography>
