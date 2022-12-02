@@ -53,7 +53,7 @@ const MainPage = ({ username, setAuth }) => {
   $.ajax({
     url:
       "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/listing/images?listingID=" +
-      userData["puid"],
+      username,
     type: "GET",
     success: function (result) {
       let resultImage = result["body"]["0"];
@@ -341,7 +341,7 @@ const MainPage = ({ username, setAuth }) => {
         <Route path="/settings" element={<Settings />}>
           <Route
             path="profile"
-            element={<Profile userData={userData} setUserData={setUserData} />}
+            element={<Profile username={username} setUserData={setUserData} />}
           />
           <Route path="listings" element={<Listings userData={userData} />} />
           <Route path="watchlist" element={<Watchlist userData={userData} />} />
