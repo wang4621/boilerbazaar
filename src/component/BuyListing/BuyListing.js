@@ -65,6 +65,8 @@ const BuyListing = ({ listing, open, setOpen, userData }) => {
   const user0 = userData["puid"]
   const user1 = listing.sellerID
   const currentListingID = listing.listingID
+  const [profileImage, setprofileImage] = useState([]);
+
 
   function newConversation() {
     var message = document.getElementById("message").value
@@ -107,6 +109,22 @@ const BuyListing = ({ listing, open, setOpen, userData }) => {
     });
   }
 
+
+  //get profile pic
+  $.ajax({
+    url:
+      "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/listing/images?listingID=" +
+      user1,
+    type: "GET",
+    success: function (result) {
+      let resultImage = result["body"]["0"];
+      
+      setprofileImage(resultImage);
+    },
+    error: function (result) {
+      console.log(JSON.stringify(result));
+    },
+  });
 
   fetch(urlEbay).then((response) => {
     return response.json()
@@ -374,7 +392,12 @@ const BuyListing = ({ listing, open, setOpen, userData }) => {
               }}
               id="avatarName"
             >
-              <Avatar sx={{ width: 40, height: 40, mr: 2 }} alt="" src="" id="avatarPic" />
+              <Avatar
+                sx={{ width: 40, height: 40, marginRight: 2 }}
+                alt=""
+                src={profileImage}
+                id="avatarPic"
+              />
               {sellerData["preferredName"] === ""
                 ? sellerData["firstName"] + " " + sellerData["lastName"]
                 : sellerData["preferredName"] + " " + sellerData["lastName"]}
