@@ -51,7 +51,7 @@ const Chat = ({ contactData, blocked, stateChange }) => {
       {conversation.map((text) => {
         console.log(text);
         return (
-          <CardContent>
+          <CardContent key={text}>
             <Typography>{text}</Typography>
           </CardContent>
         );

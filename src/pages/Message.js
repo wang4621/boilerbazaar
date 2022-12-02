@@ -21,9 +21,9 @@ import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import InterestedListing from "../component/BuyListing/InterestedListing";
 import Chat from "../component/Chat/Chat";
 
-var contactNames = [];
-var index = 0;
-var rawData = {};
+// var contactNames = [];
+// var index = 0;
+// var rawData = {};
 
 // function displayMessages() {
 //     var messageDisplay = document.getElementsByClassName("chatDisplay")[0];
@@ -95,6 +95,8 @@ const Message = ({ userData }) => {
   const [blocked, setBlocked] = useState(false);
   // const [conversation, setConversation] = useState("");
   const [stateChange, setStateChange] = useState(false);
+  const [profileImage, setprofileImage] = useState([]);
+  const [imageIndex, setImageIndex] = useState("")
 
   const block = () => {
     // var block = document.getElementById("block");
@@ -108,11 +110,13 @@ const Message = ({ userData }) => {
     //   }
     // }
     if (blocked) {
-      if (!window.confirm(`Do you want to unblock ${contactNames[index]}?`)) {
+      // if (!window.confirm(`Do you want to unblock ${contactNames[index]}?`)) {
+      if (!window.confirm(`Do you want to unblock ${contactData.name}?`)) {
         return;
       }
     } else {
-      if (!window.confirm(`Do you want to block ${contactNames[index]}?`)) {
+      // if (!window.confirm(`Do you want to block ${contactNames[index]}?`)) {
+      if (!window.confirm(`Do you want to block ${contactData.name}?`)) {
         return;
       }
     }
@@ -137,7 +141,7 @@ const Message = ({ userData }) => {
     });
   };
 
-  const displayMessages = (contact) => {
+  const displayMessages = (contact, index) => {
     console.log(contact);
     // var messageDisplay = document.getElementsByClassName("chatDisplay")[0];
     // console.log("debug");
@@ -167,6 +171,7 @@ const Message = ({ userData }) => {
             console.log(result);
             setListingData(result[0]);
             setContactData(contact);
+            setImageIndex(index)
           },
           error: function (result) {
             console.log(JSON.stringify(result));
@@ -271,7 +276,7 @@ const Message = ({ userData }) => {
     // var data = rawData["body"][index];
     //console.log(data['user1'])
     // var sender = data["user1"] == userData["puid"];
-    var sender = contactData.user1 == userData.puid
+    var sender = contactData.user1 == userData.puid;
     var jsonDict = { id: contactData.id, sender: sender, message: message };
     var jsonData = '"' + JSON.stringify(jsonDict).replaceAll('"', '\\"') + '"';
     //console.log(jsonData)
@@ -283,7 +288,7 @@ const Message = ({ userData }) => {
       contentType: "application/json",
       success: function (result) {
         console.log(JSON.stringify(result));
-        setStateChange(!stateChange)
+        setStateChange(!stateChange);
         // getContacts();
       },
       error: function (result) {
@@ -302,8 +307,8 @@ const Message = ({ userData }) => {
       url: url,
       type: "GET",
       success: function (result) {
-        rawData = result;
-        contactNames = [];
+        // rawData = result;
+        let contactNames = [];
         console.log(result);
         for (const x of result["body"]) {
           if (x["user0"] != userData["puid"]) {
@@ -312,8 +317,8 @@ const Message = ({ userData }) => {
               listingID: x["listingID"],
               blocked: x["blocked"],
               id: x["id"],
-              user1: x['user1'],
-              user0: x['user0']
+              user1: x["user1"],
+              user0: x["user0"],
             });
           } else {
             contactNames.push({
@@ -321,12 +326,29 @@ const Message = ({ userData }) => {
               listingID: x["listingID"],
               blocked: x["blocked"],
               id: x["id"],
-              user1: x['user1'],
-              user0: x['user0']
+              user1: x["user1"],
+              user0: x["user0"],
             });
           }
         }
-        setContacts(contactNames);
+        for (let i = 0; i < contactNames.length; i++) {
+          $.ajax({
+            url:
+              "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/listing/images?listingID=" +
+              contactNames[i].name,
+            type: "GET",
+            async: true,
+            success: function (result) {
+              let resultImage = result["body"]["0"];
+              console.log(resultImage);
+              setprofileImage((profileImage) => [...profileImage, resultImage]);
+              setContacts(contactNames);
+            },
+            error: function (result) {
+              console.log(JSON.stringify(result));
+            },
+          });
+        }
         // populateContacts();
       },
       error: function (result) {
@@ -356,16 +378,17 @@ const Message = ({ userData }) => {
         </Typography>
         <Divider
           variant="middle"
-          sx={{ borderBottomColor: "var(--text-color)"}}
+          sx={{ borderBottomColor: "var(--text-color)" }}
         />
-        {contacts.map((contact) => {
+        {contacts.map((contact, index) => {
           return (
             <Button
-              startIcon={<Avatar />}
+              key={index}
+              startIcon={<Avatar alt="" src={profileImage[index]} />}
               sx={{
                 height: "10%",
               }}
-              onClick={() => displayMessages(contact)}
+              onClick={() => displayMessages(contact, index)}
             >
               {contact.name}
             </Button>
@@ -394,9 +417,8 @@ const Message = ({ userData }) => {
             >
               <Avatar
                 sx={{ width: 40, height: 40, mr: 2, ml: 2 }}
-                alt=""
-                src=""
-                id="avatarPic"
+                alt="Profile Image"
+                src={imageIndex === '' ? '' : profileImage[imageIndex]}
               />
               {contactData.name}
             </Typography>
@@ -438,7 +460,11 @@ const Message = ({ userData }) => {
               })
             : ""} */}
           {contactData !== "" ? (
-            <Chat contactData={contactData} blocked={blocked} stateChange={stateChange}/>
+            <Chat
+              contactData={contactData}
+              blocked={blocked}
+              stateChange={stateChange}
+            />
           ) : (
             ""
           )}

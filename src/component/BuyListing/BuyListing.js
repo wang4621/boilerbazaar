@@ -109,7 +109,6 @@ const BuyListing = ({ listing, open, setOpen, userData }) => {
     });
   }
 
-
   //get profile pic
   $.ajax({
     url:
@@ -118,7 +117,6 @@ const BuyListing = ({ listing, open, setOpen, userData }) => {
     type: "GET",
     success: function (result) {
       let resultImage = result["body"]["0"];
-      
       setprofileImage(resultImage);
     },
     error: function (result) {
