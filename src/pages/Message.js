@@ -8,6 +8,7 @@ import { display } from "@mui/system";
 import SendIcon from "@mui/icons-material/Send";
 import BlockIcon from "@mui/icons-material/Block";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import InterestedListing from "../component/BuyListing/InterestedListing";
 
 var contactNames = [];
 var index = 0;
@@ -103,7 +104,7 @@ const Message = ({ userData }) => {
         return;
       }
     }
-    setBlocked(!blocked)
+    setBlocked(!blocked);
     // rawData["body"][index]["blocked"] = !rawData["body"][index]["blocked"];
     // var jsonData = { user: userData["puid"], blockUser: contactNames[index] };
     var jsonData = { user: userData["puid"], blockUser: contactName };
@@ -126,7 +127,7 @@ const Message = ({ userData }) => {
 
   const displayMessages = (contact) => {
     console.log(contact);
-    setContactName(contact.name)
+    setContactName(contact.name);
     // var messageDisplay = document.getElementsByClassName("chatDisplay")[0];
     // console.log("debug");
     // messageDisplay.innerHTML = "";
@@ -141,32 +142,12 @@ const Message = ({ userData }) => {
       success: function (result) {
         // console.log(result);
         setImage(result["body"][0]);
-            $.ajax({
-              url:
-                "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/listing/formessages?" +
-                "user=" +
-                userData["puid"] +
-                "&" +
-                "listingID=" +
-                listingID,
-              type: "GET",
-              async: true,
-              success: function (result) {
-                console.log(result);
-                setListingData(result.Items[0]);
-              },
-              error: function (result) {
-                console.log(JSON.stringify(result));
-              },
-            });
+        setBlocked(contact.blocked);
       },
       error: function (result) {
         console.log(JSON.stringify(result));
       },
     });
-
-    setBlocked(contact.blocked)
-    setConversation(contact.conversation)
 
     // for (const x of rawData["body"][index]["conversation"]) {
     //   var date = new Date(x[0]);
@@ -182,16 +163,20 @@ const Message = ({ userData }) => {
     //   message.innerHTML = `<Typography>${s}</Typography>`;
     //   messageDisplay.appendChild(message);
     // }
+    let chatText = []
+    for (const x of contact.conversation) {
+      var date = new Date(x[0]);
+      let sender = ''
+      if (x[1]) {
+        sender = contact["user1"];
+      } else {
+        sender = contact["user0"];
+      }
+      var s = `${sender} (${date.toDateString()} ${date.toTimeString().substring(0, 5)}): ${x[2]}\n`;
+      chatText.push(s)
+    }
 
-    // for (const x of contact.conversation) {
-    //   var date = new Date(x[0]);
-    //   if (x[1]) {
-    //     sender = rawData["body"][index]["user1"];
-    //   } else {
-    //     sender = rawData["body"][index]["user0"];
-    //   }
-    //   var s = `${sender} (${date.toDateString()} ${date.toTimeString().substring(0, 5)}): ${x[2]}\n`;
-    // }
+    setConversation(chatText);
 
     // var block = document.getElementById("block");
     // if (rawData["body"][index]["blocked"]) {
@@ -238,11 +223,15 @@ const Message = ({ userData }) => {
   //   }
 
   const sendMessage = () => {
-    if (rawData["body"][index]["blocked"]) {
+    // if (rawData["body"][index]["blocked"]) {
+    //   alert("Cannot send message. You have blocked (or was blocked by) this user.");
+    //   return;
+    // }
+    if (blocked) {
       alert("Cannot send message. You have blocked (or was blocked by) this user.");
       return;
     }
-    var message = document.getElementById("messageInput").value;
+    var message = document.getElementById("message").value;
     if (message.length == 0) {
       return;
     }
@@ -269,7 +258,7 @@ const Message = ({ userData }) => {
     //event.preventDefault();
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     console.log(userData);
     var url = "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/conversation?puid=" + userData["puid"];
     $.ajax({
@@ -281,9 +270,25 @@ const Message = ({ userData }) => {
         console.log(result);
         for (const x of result["body"]) {
           if (x["user0"] != userData["puid"]) {
-            contactNames.push({ name: x["user0"], listingID: x["listingID"], blocked: x["blocked"], conversation: x['conversation'] });
+            contactNames.push({
+              name: x["user0"],
+              listingID: x["listingID"],
+              blocked: x["blocked"],
+              conversation: x["conversation"],
+              user1: x["user1"],
+              user0: x["user0"],
+              id: x['id']
+            });
           } else {
-            contactNames.push({ name: x["user1"], listingID: x["listingID"], blocked: x["blocked"], conversation: x["conversation"] });
+            contactNames.push({
+              name: x["user1"],
+              listingID: x["listingID"],
+              blocked: x["blocked"],
+              conversation: x["conversation"],
+              user1: x["user1"],
+              user0: x["user0"],
+              id: x["id"],
+            });
           }
         }
         setContacts(contactNames);
@@ -355,26 +360,19 @@ const Message = ({ userData }) => {
             {blocked ? <CheckCircleIcon sx={{ height: 32, width: 32 }} /> : <BlockIcon sx={{ height: 32, width: 32 }} />}
           </IconButton>
         </Box>
-        <Box sx={{ height: "82%", display: "flex", flexDirection: "column-reverse" }}>
+        <Box sx={{ height: "82%", display: "flex", flexDirection: "column", overflowY: "auto" }} className="scrollBar">
+          {listingData !== "" ? <InterestedListing listingData={listingData} image={image} /> : ""}
           {conversation !== ""
             ? conversation.map((text) => {
                 console.log(text);
                 return (
                   <CardContent>
-                    <Typography>Hello</Typography>
+                    <Typography>{text}</Typography>
                   </CardContent>
                 );
               })
             : ""}
-          {listingData !== "" ? (
-            <CardContent>
-              <Box>
-                <img src={image} width={"10%"} height={"10%"} alt="textbook" />
-              </Box>
-            </CardContent>
-          ) : (
-            ""
-          )}
+          {blocked ? <Typography sx={{textAlign:'center', color:'red'}}>Displaying past messages. You have blocked (or was blocked by) this user.</Typography> : ""}
         </Box>
         <Box sx={{ height: "10%", display: "flex", justifyContent: "center", alignItems: "center", borderTop: "1px solid rgb(202, 199, 199)" }}>
           <TextField

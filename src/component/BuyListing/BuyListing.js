@@ -40,16 +40,10 @@ const style = {
   p: 4,
 };
 
-
-
-
-
 function copyLink() {
   navigator.clipboard.writeText(window.location.href);
   alert("Copied to Clipboard");
 }
-
-
 
 const BuyListing = ({ listing, open, setOpen, userData }) => {
   const [openShare, setOpenShare] = React.useState(false);
@@ -214,19 +208,10 @@ const BuyListing = ({ listing, open, setOpen, userData }) => {
         }}
       >
         <Toolbar>
-          <IconButton
-            edge="start"
-            color="inherit"
-            onClick={closeBuy}
-            aria-label="close"
-          >
+          <IconButton edge="start" color="inherit" onClick={closeBuy} aria-label="close">
             <CloseIcon />
           </IconButton>
-          <Typography
-            sx={{ ml: 2, flex: 1, textAlign: "center" }}
-            variant="h6"
-            component="div"
-          >
+          <Typography sx={{ ml: 2, flex: 1, textAlign: "center" }} variant="h6" component="div">
             Buy Listing
           </Typography>
         </Toolbar>
@@ -267,126 +252,57 @@ const BuyListing = ({ listing, open, setOpen, userData }) => {
             }}
             className="scrollBar"
           >
-            <Typography
-              variant="h5"
-              color="var(--text-color)"
-              sx={{ fontWeight: "bold" }}
-              id="previewTitle"
-            >
+            <Typography variant="h5" color="var(--text-color)" sx={{ fontWeight: "bold" }} id="previewTitle">
               {listing["title"]}
             </Typography>
-            <Typography
-              variant="h6"
-              color="var(--text-color)"
-              sx={{ fontWeight: "bold" }}
-              id="previewPrice"
-            >
+            <Typography variant="h6" color="var(--text-color)" sx={{ fontWeight: "bold" }} id="previewPrice">
               ${listing["price"]}
             </Typography>
             <br />
-            <Typography
-              variant="h6"
-              color="var(--text-color)"
-              sx={{ fontWeight: "bold" }}
-            >
+            <Typography variant="h6" color="var(--text-color)" sx={{ fontWeight: "bold" }}>
               Details
             </Typography>
             <br />
-            <Typography
-              variant="h6"
-              color="var(--text-color)"
-              sx={{ fontWeight: "bold" }}
-            >
+            <Typography variant="h6" color="var(--text-color)" sx={{ fontWeight: "bold" }}>
               Author
-              <Typography
-                variant="body1"
-                color="var(--text-color)"
-                id="previewAuthor"
-              >
+              <Typography variant="body1" color="var(--text-color)" id="previewAuthor">
                 {listing["author"]}
               </Typography>
             </Typography>
-            <Typography
-              variant="h6"
-              color="var(--text-color)"
-              sx={{ fontWeight: "bold" }}
-            >
+            <Typography variant="h6" color="var(--text-color)" sx={{ fontWeight: "bold" }}>
               ISBN
-              <Typography
-                variant="body1"
-                color="var(--text-color)"
-                id="previewISBN"
-              >
+              <Typography variant="body1" color="var(--text-color)" id="previewISBN">
                 {listing["isbn"]}
               </Typography>
             </Typography>
-            <Typography
-              variant="h6"
-              color="var(--text-color)"
-              sx={{ fontWeight: "bold" }}
-            >
+            <Typography variant="h6" color="var(--text-color)" sx={{ fontWeight: "bold" }}>
               Edition
-              <Typography
-                variant="body1"
-                color="var(--text-color)"
-                id="previewEdition"
-              >
+              <Typography variant="body1" color="var(--text-color)" id="previewEdition">
                 {listing["edition"]}
               </Typography>
             </Typography>
-            <Typography
-              variant="h6"
-              color="var(--text-color)"
-              sx={{ fontWeight: "bold" }}
-            >
+            <Typography variant="h6" color="var(--text-color)" sx={{ fontWeight: "bold" }}>
               Course
-              <Typography
-                variant="body1"
-                color="var(--text-color)"
-              >
+              <Typography variant="body1" color="var(--text-color)">
                 {listing["course"]}
               </Typography>
             </Typography>
-            <Typography
-              variant="h6"
-              color="var(--text-color)"
-              sx={{ fontWeight: "bold" }}
-            >
+            <Typography variant="h6" color="var(--text-color)" sx={{ fontWeight: "bold" }}>
               Condition
-              <Typography
-                variant="body1"
-                color="var(--text-color)"
-                id="previewCondition"
-              >
+              <Typography variant="body1" color="var(--text-color)" id="previewCondition">
                 {listing["condition"]}
               </Typography>
             </Typography>
             <br />
-            <Typography
-              variant="h6"
-              color="var(--text-color)"
-              sx={{ fontWeight: "bold" }}
-            >
+            <Typography variant="h6" color="var(--text-color)" sx={{ fontWeight: "bold" }}>
               Description
-              <Typography
-                variant="body1"
-                color="var(--text-color)"
-                id="previewDescription"
-              >
+              <Typography variant="body1" color="var(--text-color)" id="previewDescription">
                 {listing["description"]}
               </Typography>
             </Typography>
             <br />
-            <Typography
-              variant="h6"
-              color="var(--text-color)"
-              sx={{ fontWeight: "light" }}
-            >
-              <Typography
-                variant="body1"
-                color="var(--text-color)"
-                id="views"
-              >
+            <Typography variant="h6" color="var(--text-color)" sx={{ fontWeight: "light" }}>
+              <Typography variant="body1" color="var(--text-color)" id="views">
                 {listing["currentViews"]} views
               </Typography>
             </Typography>
@@ -399,12 +315,7 @@ const BuyListing = ({ listing, open, setOpen, userData }) => {
                 </Typography>
                 <List>
                   <ListItem>
-                    <IconButton
-                      color="inherit"
-                      target="_blank"
-                      onClick={copyLink}
-                      rel="noopener noreferrer"
-                    >
+                    <IconButton color="inherit" target="_blank" onClick={copyLink} rel="noopener noreferrer">
                       <InsertLinkIcon />
                     </IconButton>
                     <ListItemText primary="Copy Link" />
@@ -413,10 +324,7 @@ const BuyListing = ({ listing, open, setOpen, userData }) => {
                     <IconButton
                       color="inherit"
                       target="_blank"
-                      href={
-                        "mailto:?subject=Check out this textbook listing&body=Link to textbook: " +
-                        address
-                      }
+                      href={"mailto:?subject=Check out this textbook listing&body=Link to textbook: " + address}
                       rel="noopener noreferrer"
                     >
                       <EmailIcon />
@@ -447,26 +355,11 @@ const BuyListing = ({ listing, open, setOpen, userData }) => {
             </Modal>
             <br />
           </CardContent>
-          <Divider
-            variant="middle"
-            sx={{ borderBottomColor: "var(--text-color)" }}
-          />
-          <CardContent
-            sx={{ height: "20%", display: "flex", flexDirection: "column" }}
-          >
-            <Typography
-              variant="body1"
-              color="var(--text-color)"
-              sx={{ fontWeight: "bold", fontSize: 18 }}
-            >
+          <Divider variant="middle" sx={{ borderBottomColor: "var(--text-color)" }} />
+          <CardContent sx={{ height: "20%", display: "flex", flexDirection: "column" }}>
+            <Typography variant="body1" color="var(--text-color)" sx={{ fontWeight: "bold", fontSize: 18 }}>
               {/* href to profile.html?sellid=result.sellid*/}
-              <a
-                href={
-                  "https://cs307-host.herokuapp.com/profile.html?sellid=" +
-                  sellerData["puid"]
-                }
-                target="_blank"
-              >
+              <a href={"https://cs307-host.herokuapp.com/profile.html?sellid=" + sellerData["puid"]} target="_blank">
                 Seller Information
               </a>
             </Typography>
@@ -481,33 +374,23 @@ const BuyListing = ({ listing, open, setOpen, userData }) => {
               }}
               id="avatarName"
             >
-              <Avatar
-                sx={{ width: 40, height: 40, marginRight: 2 }}
-                alt=""
-                src=""
-                id="avatarPic"
-              />
+              <Avatar sx={{ width: 40, height: 40, mr: 2 }} alt="" src="" id="avatarPic" />
               {sellerData["preferredName"] === ""
                 ? sellerData["firstName"] + " " + sellerData["lastName"]
                 : sellerData["preferredName"] + " " + sellerData["lastName"]}
-              <TextField class="block" id="block" onClick={block} type="submit" value="Block" sx={{ml:2}} />
             </Typography>
           </CardContent>
+          <Button onClick={block}>Block</Button>
           {addedToWatchlist ? (
             alreadyInWatchlist ? (
               <></>
             ) : (
-              <Typography sx={{ textAlign: "center" }}>
-                Successfully Added to Watchlist
-              </Typography>
+              <Typography sx={{ textAlign: "center" }}>Successfully Added to Watchlist</Typography>
             )
           ) : (
             <Button onClick={addToWatchlist}>Add to Watchlist</Button>
           )}
-          <Box
-            sx={{ height: "15%", backgroundColor: "var(--secondary-color)" }}
-            className="innerBottomBox"
-          >
+          <Box sx={{ height: "15%", backgroundColor: "var(--secondary-color)" }} className="innerBottomBox">
             <Typography variant="body1">Send Message to the Seller</Typography>
             <Box
               sx={{
@@ -518,7 +401,7 @@ const BuyListing = ({ listing, open, setOpen, userData }) => {
               }}
             >
               <TextField
-                id='message'
+                id="message"
                 label="Message"
                 sx={{ width: "90%" }}
                 InputProps={{
@@ -552,12 +435,7 @@ const BuyListing = ({ listing, open, setOpen, userData }) => {
             }}
             className="scrollBar"
           >
-            <Typography
-              variant="h6"
-              color="var(--text-color)"
-              textAlign="center"
-              sx={{ fontWeight: "bold" }}
-            >
+            <Typography variant="h6" color="var(--text-color)" textAlign="center" sx={{ fontWeight: "bold" }}>
               Related Textbooks
             </Typography>
             {relatedTextbooks.length > 0 ? (
@@ -570,10 +448,7 @@ const BuyListing = ({ listing, open, setOpen, userData }) => {
               <></>
             )}
           </CardContent>
-          <Divider
-            variant="middle"
-            sx={{ borderBottomColor: "var(--text-color)" }}
-          />
+          <Divider variant="middle" sx={{ borderBottomColor: "var(--text-color)" }} />
           <CardContent
             sx={{
               wordBreak: "break-word",
@@ -584,20 +459,10 @@ const BuyListing = ({ listing, open, setOpen, userData }) => {
             }}
             className="scrollBar"
           >
-            <Typography
-              variant="h6"
-              color="var(--text-color)"
-              textAlign="center"
-              sx={{ fontWeight: "bold" }}
-            >
+            <Typography variant="h6" color="var(--text-color)" textAlign="center" sx={{ fontWeight: "bold" }}>
               Other Websites
             </Typography>
-            <Typography
-              variant="body1"
-              color="var(--text-color)"
-              m={2}
-              sx={{ fontWeight: "bold" }}
-            >
+            <Typography variant="body1" color="var(--text-color)" m={2} sx={{ fontWeight: "bold" }}>
               <a href={ebayUrl} target="blank">{`Price in ebay:`}</a>
               <br />
               <a href={ebayUrl} target="blank">{`${ebayPrice}`}</a>
@@ -606,9 +471,7 @@ const BuyListing = ({ listing, open, setOpen, userData }) => {
               <a href={googleUrl} target="blank">{`Price in google play:`}</a>
               <br />
               <a href={googleUrl} target="blank">{`${googlePrice}`}</a>
-              <div>
-                minimum price: {isNaN(parseFloat(googlePrice)) ? ebayPrice : Math.min(parseFloat(googlePrice), parseFloat(ebayPrice))}
-              </div>
+              <div>minimum price: {isNaN(parseFloat(googlePrice)) ? ebayPrice : Math.min(parseFloat(googlePrice), parseFloat(ebayPrice))}</div>
             </Typography>
           </CardContent>
         </Box>
