@@ -136,7 +136,7 @@ const Message = ({ userData }) => {
         
         
           $.ajax({
-            url: "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/listing?"+"user="+user+"&"+"listingID="+listingID,
+            url: "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/listing/formessages?"+"user="+user+"&"+"listingID="+listingID,
             type: "GET",
             async: true,
             success: function (result) {
@@ -283,7 +283,7 @@ const Message = ({ userData }) => {
           </Box>
           <Box class="options">
             <TextField class="refresh" id="refresh" onClick={getContacts} type="submit" value="Refresh"/>
-            <TextField class="block" id="block" onClick={block} type="button" value="Blocked"/>
+            <TextField class="block" id="block" onClick={block} type="button" value="Block/Unblock"/>
           </Box>
           <Box class="chatDisplay"></Box>
           <Box class="chatInput">
