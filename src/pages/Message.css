@@ -1,14 +1,13 @@
-.page {
+.messageDisplay {
     display: flex;
     flex-direction: row;
     height: calc(100vh - var(--header-height));
 }
-
-.page * {
+/* .page * {
     margin: 20px;
-}
+} */
 
-.contactList {
+/* .contactList {
     background-color: white;
 }
 
@@ -81,11 +80,11 @@
 .chatDisplay {
     overflow: auto;
     height: 70%;
-    /* display: flex; */
+    display: flex;
     flex-direction: column;
-    /* justify-content: flex-end; */
+    justify-content: flex-end;
 }
 
 .blockedMessage {
     color: red;
-}
+} */
