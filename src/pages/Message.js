@@ -139,9 +139,8 @@ const Message = ({ userData }) => {
           $.ajax({
             url: "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/listing/formessages?"+"user="+user+"&"+"listingID="+listingID,
             type: "GET",
-            async: true,
             success: function (result) {
-              setListing(result.Items[0])
+              setListing(result[0])
             },
             error: function (result) {
               console.log(JSON.stringify(result));
