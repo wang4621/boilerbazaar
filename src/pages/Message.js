@@ -337,10 +337,10 @@ const Message = ({ userData }) => {
               "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/listing/images?listingID=" +
               contactNames[i].name,
             type: "GET",
-            async: true,
+            // async: true,
             success: function (result) {
               let resultImage = result["body"]["0"];
-              console.log(resultImage);
+              // console.log(resultImage);
               setprofileImage((profileImage) => [...profileImage, resultImage]);
               setContacts(contactNames);
             },
