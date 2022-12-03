@@ -1,4 +1,3 @@
-import blank from "../component/Images/blank.jpg";
 import {
   Box,
   Divider,
@@ -8,84 +7,15 @@ import {
   Avatar,
   InputAdornment,
   IconButton,
-  CardContent,
 } from "@mui/material";
 import "./Message.css";
 import $ from "jquery";
 import React, { useState, useEffect } from "react";
-import { ConstructionOutlined } from "@mui/icons-material";
-import { display } from "@mui/system";
 import SendIcon from "@mui/icons-material/Send";
 import BlockIcon from "@mui/icons-material/Block";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import InterestedListing from "../component/BuyListing/InterestedListing";
 import Chat from "../component/Chat/Chat";
-
-// var contactNames = [];
-// var index = 0;
-// var rawData = {};
-
-// function displayMessages() {
-//     var messageDisplay = document.getElementsByClassName("chatDisplay")[0];
-//     console.log('debug')
-//     messageDisplay.innerHTML = "";
-//     var listingID = rawData['body'][index]['listingID']
-// // gets the images for the textbook
-//     // console.log(listing["listingID"])
-//     $.ajax({
-//     url:
-//         "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/listing/images?listingID=" +
-//         listingID,
-//     type: "GET",
-//     async: true,
-
-//     success: function (result) {
-//         // console.log(result);
-//         image = result["body"][0];
-//     },
-//     error: function (result) {
-//         console.log(JSON.stringify(result));
-//     },
-//     });
-
-//       $.ajax({
-//         url: "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/listing?"+"user="+user+"&"+"listingID="+listingID,
-//         type: "GET",
-//         async: true,
-//         success: function (result) {
-//           listing = result[0].Items[0]
-//         },
-//         error: function (result) {
-//           console.log(JSON.stringify(result));
-//         },
-//       });
-
-//     for (const x of rawData['body'][index]['conversation']) {
-//         var date = new Date(x[0]);
-//         var sender
-//         if (x[1]) {
-//             sender = rawData['body'][index]['user1']
-//         } else {
-//             sender = rawData['body'][index]['user0']
-//         }
-//         var s = `${sender} (${date.toDateString()} ${date.toTimeString().substring(0, 5)}): ${x[2]}\n`
-//         var message = document.createElement("DIV");
-//         message.className = "message"
-//         message.innerHTML = `<Typography>${s}</Typography>`
-//         messageDisplay.appendChild(message);
-//     }
-//     var block = document.getElementById("block");
-//     if (rawData['body'][index]['blocked']) {
-//         var message = document.createElement("DIV");
-//         message.className = "blockedMessage"
-//         message.innerHTML = `<Typography>Displaying past messages. You have blocked (or was blocked by) this user.</Typography>`
-//         messageDisplay.appendChild(message);
-//         block.value = "Unblock";
-//     } else {
-//         block.value = "Block";
-//     }
-//     //console.log(messageDisplay)
-// }
 
 const Message = ({ userData }) => {
   const [image, setImage] = useState("");
@@ -95,20 +25,10 @@ const Message = ({ userData }) => {
   const [blocked, setBlocked] = useState(false);
   // const [conversation, setConversation] = useState("");
   const [stateChange, setStateChange] = useState(false);
-  const [profileImage, setprofileImage] = useState([]);
-  const [imageIndex, setImageIndex] = useState("")
+  // const [profileImage, setprofileImage] = useState([]);
+  const [imageIndex, setImageIndex] = useState("");
 
   const block = () => {
-    // var block = document.getElementById("block");
-    // if (rawData["body"][index]["blocked"]) {
-    //   if (!window.confirm(`Do you want to unblock ${contactNames[index]}?`)) {
-    //     return;
-    //   }
-    // } else {
-    //   if (!window.confirm(`Do you want to block ${contactNames[index]}?`)) {
-    //     return;
-    //   }
-    // }
     if (blocked) {
       // if (!window.confirm(`Do you want to unblock ${contactNames[index]}?`)) {
       if (!window.confirm(`Do you want to unblock ${contactData.name}?`)) {
@@ -121,8 +41,6 @@ const Message = ({ userData }) => {
       }
     }
     setBlocked(!blocked);
-    // rawData["body"][index]["blocked"] = !rawData["body"][index]["blocked"];
-    // var jsonData = { user: userData["puid"], blockUser: contactNames[index] };
     var jsonData = { user: userData["puid"], blockUser: contactData.name };
     var jsonData = '"' + JSON.stringify(jsonData).replaceAll('"', '\\"') + '"';
     //console.log(jsonData)
@@ -143,13 +61,7 @@ const Message = ({ userData }) => {
 
   const displayMessages = (contact, index) => {
     console.log(contact);
-    // var messageDisplay = document.getElementsByClassName("chatDisplay")[0];
-    // console.log("debug");
-    // messageDisplay.innerHTML = "";
-    // let listingID = rawData["body"][index]["listingID"];
     let listingID = contact.listingID;
-    // // gets the images for the textbook
-    // // console.log(listing["listingID"])
     $.ajax({
       url:
         "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/listing/images?listingID=" +
@@ -171,7 +83,7 @@ const Message = ({ userData }) => {
             console.log(result);
             setListingData(result[0]);
             setContactData(contact);
-            setImageIndex(index)
+            setImageIndex(index);
           },
           error: function (result) {
             console.log(JSON.stringify(result));
@@ -182,87 +94,9 @@ const Message = ({ userData }) => {
         console.log(JSON.stringify(result));
       },
     });
-
-    // for (const x of rawData["body"][index]["conversation"]) {
-    //   var date = new Date(x[0]);
-    //   var sender;
-    //   if (x[1]) {
-    //     sender = rawData["body"][index]["user1"];
-    //   } else {
-    //     sender = rawData["body"][index]["user0"];
-    //   }
-    //   var s = `${sender} (${date.toDateString()} ${date.toTimeString().substring(0, 5)}): ${x[2]}\n`;
-    //   var message = document.createElement("DIV");
-    //   message.className = "message";
-    //   message.innerHTML = `<Typography>${s}</Typography>`;
-    //   messageDisplay.appendChild(message);
-    // }
-    // let chatText = [];
-    // for (const x of contact.conversation) {
-    //   var date = new Date(x[0]);
-    //   let sender = "";
-    //   if (x[1]) {
-    //     sender = contact["user1"];
-    //   } else {
-    //     sender = contact["user0"];
-    //   }
-    //   var s = `${sender} (${date.toDateString()} ${date
-    //     .toTimeString()
-    //     .substring(0, 5)}): ${x[2]}\n`;
-    //   chatText.push(s);
-    // }
-
-    // setConversation(chatText);
-
-    // var block = document.getElementById("block");
-    // if (rawData["body"][index]["blocked"]) {
-    //   var message = document.createElement("DIV");
-    //   message.className = "blockedMessage";
-    //   message.innerHTML = `<Typography>Displaying past messages. You have blocked (or was blocked by) this user.</Typography>`;
-    //   messageDisplay.appendChild(message);
-    //   block.value = "Unblock";
-    // } else {
-    //   block.value = "Block";
-    // }
-    //console.log(messageDisplay)
   };
 
-  //   function changeContacts(id) {
-  //     index = parseInt(id);
-  //     var contactList = document.getElementsByClassName("contactList")[0];
-  //     var children = contactList.children;
-  //     displayMessages();
-  //     for (var i = 0; i < children.length; i++) {
-  //       if (index == i) {
-  //         children[i].setAttribute("background-color", "lightgray");
-  //       } else {
-  //         children[i].setAttribute("background-color", "white");
-  //       }
-  //     }
-  //   }
-
-  //   function populateContacts() {
-  //     var contactList = document.getElementsByClassName("contactList")[0];
-  //     //console.log(contactList)
-  //     contactList.innerHTML = "";
-  //     for (var i = 0; i < contactNames.length; i++) {
-  //       var contact = document.createElement("DIV");
-  //       contact.id = `contact${i}`;
-  //       contact.className = "contact";
-  //       contact.innerHTML += `<img src=${blank}></img><Typography label="placeholder">${contactNames[i]}</Typography>`;
-  //       contact.addEventListener("click", function (e) {
-  //         changeContacts(this.id[7]);
-  //       });
-  //       contactList.appendChild(contact);
-  //     }
-  //     changeContacts(index);
-  //   }
-
   const sendMessage = () => {
-    // if (rawData["body"][index]["blocked"]) {
-    //   alert("Cannot send message. You have blocked (or was blocked by) this user.");
-    //   return;
-    // }
     if (blocked) {
       alert(
         "Cannot send message. You have blocked (or was blocked by) this user."
@@ -273,9 +107,6 @@ const Message = ({ userData }) => {
     if (message.length == 0) {
       return;
     }
-    // var data = rawData["body"][index];
-    //console.log(data['user1'])
-    // var sender = data["user1"] == userData["puid"];
     var sender = contactData.user1 == userData.puid;
     var jsonDict = { id: contactData.id, sender: sender, message: message };
     var jsonData = '"' + JSON.stringify(jsonDict).replaceAll('"', '\\"') + '"';
@@ -307,49 +138,10 @@ const Message = ({ userData }) => {
       url: url,
       type: "GET",
       success: function (result) {
-        // rawData = result;
-        let contactNames = [];
         console.log(result);
-        for (const x of result["body"]) {
-          if (x["user0"] != userData["puid"]) {
-            contactNames.push({
-              name: x["user0"],
-              listingID: x["listingID"],
-              blocked: x["blocked"],
-              id: x["id"],
-              user1: x["user1"],
-              user0: x["user0"],
-            });
-          } else {
-            contactNames.push({
-              name: x["user1"],
-              listingID: x["listingID"],
-              blocked: x["blocked"],
-              id: x["id"],
-              user1: x["user1"],
-              user0: x["user0"],
-            });
-          }
+        if (result.body != undefined) {
+          setContacts(result.body);
         }
-        for (let i = 0; i < contactNames.length; i++) {
-          $.ajax({
-            url:
-              "https://66gta0su26.execute-api.us-east-1.amazonaws.com/Prod/listing/images?listingID=" +
-              contactNames[i].name,
-            type: "GET",
-            // async: true,
-            success: function (result) {
-              let resultImage = result["body"]["0"];
-              // console.log(resultImage);
-              setprofileImage((profileImage) => [...profileImage, resultImage]);
-              setContacts(contactNames);
-            },
-            error: function (result) {
-              console.log(JSON.stringify(result));
-            },
-          });
-        }
-        // populateContacts();
       },
       error: function (result) {
         //console.log(JSON.stringify(result));
@@ -358,7 +150,7 @@ const Message = ({ userData }) => {
   }, [userData]);
 
   return (
-    <div class="messageDisplay">
+    <div className="messageDisplay">
       <Box
         sx={{
           width: "28%",
@@ -380,20 +172,22 @@ const Message = ({ userData }) => {
           variant="middle"
           sx={{ borderBottomColor: "var(--text-color)" }}
         />
-        {contacts.map((contact, index) => {
-          return (
-            <Button
-              key={index}
-              startIcon={<Avatar alt="" src={profileImage[index]} />}
-              sx={{
-                height: "10%",
-              }}
-              onClick={() => displayMessages(contact, index)}
-            >
-              {contact.name}
-            </Button>
-          );
-        })}
+        {contacts.length > 0
+          ? contacts.map((contact, index) => {
+              return (
+                <Button
+                  key={index}
+                  startIcon={<Avatar alt="" src={contact.profileImage[0]} />}
+                  sx={{
+                    height: "10%",
+                  }}
+                  onClick={() => displayMessages(contact, index)}
+                >
+                  {contact.name}
+                </Button>
+              );
+            })
+          : ""}
       </Box>
       <Box sx={{ width: "72%", backgroundColor: "var(--primary-color)" }}>
         <Box
@@ -418,7 +212,7 @@ const Message = ({ userData }) => {
               <Avatar
                 sx={{ width: 40, height: 40, mr: 2, ml: 2 }}
                 alt="Profile Image"
-                src={imageIndex === '' ? '' : profileImage[imageIndex]}
+                src={imageIndex === "" ? "" : contactData.profileImage[0]}
               />
               {contactData.name}
             </Typography>
