@@ -9,6 +9,7 @@ import $ from "jquery";
 const WatchlistBox = ({ listing, stateChange, setStateChange, userData }) => {
   let listingSold = listing["sold"];
   let listingId = listing["listingID"];
+  let listingLink = "http://localhost:3000/buy/" + listing["listingID"];
 
   const [deleteOpen, setDeleteOpen] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -117,7 +118,7 @@ const WatchlistBox = ({ listing, stateChange, setStateChange, userData }) => {
               variant="body1"
               sx={{ display: "inline-block", fontWeight: "bold" }}
             >
-              {listing["title"]}
+              <a href={listingLink} target="_blank" rel="noreferrer">{listing["title"]}</a>
             </Typography>
             <Typography sx={{ display: "inline-block", color: "red" }}>
               {listingSold === "true" && <>&nbsp;(Sold)</>}
